@@ -1,0 +1,5 @@
+.DS_Store
+templates_c
+templates_c/*
+.idea
+.idea/*

@@ -1,0 +1,19 @@
+
+#关于唯佰
+rewrite ^/about$ / last;
+
+#联系我们
+rewrite ^/contact$ / last;
+
+location ~* /(vendor|config|test)/ {
+    return 404;
+}
+
+location ~* /(.gitignore|composer.json|composer.lock|README.md|phpunit.xml)$ {
+    return 404;
+}
+
+if (!-e $request_filename){
+    rewrite ^/(.+?)$ /index.php last;
+    break;
+}
