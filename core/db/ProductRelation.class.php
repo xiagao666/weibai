@@ -5,9 +5,9 @@
  * Date: 2017/3/25
  * Time: 19:41
  */
-class core_db_News extends core_db_DbBase {
+class core_db_ProductRelation extends core_db_DbBase {
 
-    private $table = "vb_news";
+    private $table = "vb_product_relation";
 
     /**
      * core_db_news constructor.
@@ -17,7 +17,7 @@ class core_db_News extends core_db_DbBase {
         parent::__construct($this->table);
     }
 
-    public function addNews($data) {
+    public function addProductRelation($data) {
         try{
             if(empty($data)) {
                 throw new Exception("缺少必要参数");
@@ -32,7 +32,7 @@ class core_db_News extends core_db_DbBase {
         }
     }
 
-    public function queryNews($param, $page, $limit){
+    public function queryProductRelationList($param, $page, $limit){
         try{
             $this->useConfig("common","query");
             $this->setPage((int)$page);
@@ -43,7 +43,7 @@ class core_db_News extends core_db_DbBase {
         }
     }
 
-    public function updateOneNews($condition, $item){
+    public function updateOneProductRelation($condition, $item){
         try{
             if(empty($condition) || empty($item)) {
                 throw new Exception("缺少必要参数");
@@ -57,6 +57,25 @@ class core_db_News extends core_db_DbBase {
             $rs = $this->update($this->table, $condition, $item);
             if($rs === false) {
                 throw new Exception("更新失败");
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    public function deleteOneProductRelation($condition) {
+        try{
+            if(empty($condition)) {
+                throw new Exception("缺少必要参数");
+            }
+            $this->useConfig("common","main");
+            $id = $condition['id'];
+            $itemRes = $this->getOne(array("id"=>$id));
+            if(empty($itemRes)) {
+                throw new Exception("记录不存在");
+            }
+            $rs = $this->delete($this->table, $condition);
+            if($rs === false) {
+                throw new Exception("删除失败");
             }
         } catch (Exception $e) {
             return false;

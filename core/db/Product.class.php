@@ -5,9 +5,9 @@
  * Date: 2017/3/25
  * Time: 19:41
  */
-class core_db_News extends core_db_DbBase {
+class core_db_Product extends core_db_DbBase {
 
-    private $table = "vb_news";
+    private $table = "vb_product";
 
     /**
      * core_db_news constructor.
@@ -17,7 +17,7 @@ class core_db_News extends core_db_DbBase {
         parent::__construct($this->table);
     }
 
-    public function addNews($data) {
+    public function addProduct($data) {
         try{
             if(empty($data)) {
                 throw new Exception("缺少必要参数");
@@ -32,7 +32,7 @@ class core_db_News extends core_db_DbBase {
         }
     }
 
-    public function queryNews($param, $page, $limit){
+    public function queryProductList($param, $page, $limit){
         try{
             $this->useConfig("common","query");
             $this->setPage((int)$page);
@@ -43,7 +43,7 @@ class core_db_News extends core_db_DbBase {
         }
     }
 
-    public function updateOneNews($condition, $item){
+    public function updateOneProduct($condition, $item){
         try{
             if(empty($condition) || empty($item)) {
                 throw new Exception("缺少必要参数");

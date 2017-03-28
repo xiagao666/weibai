@@ -11,6 +11,6 @@ class core_service_category extends SAbstract
     public function getList()
     {
         $mdlCategory = new core_model_wb_category();
-        $mdlCategory->selectOne($mdlCategory->tableName(),);
+        $mdlCategory->selectOne($mdlCategory->tableName());
     }
 }

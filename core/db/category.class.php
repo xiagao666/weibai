@@ -3,7 +3,7 @@
 /**
  * db_category
  **/
-class core_db_category extends core_db_DbBase
+class core_db_Category extends core_db_DbBase
 {
     private $table = "vb_category";
 
