@@ -23,8 +23,7 @@ require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . "thumbnail/class.WMThumbn
 class SThumbnail extends SlightPHP\WMThumbnail
 {
     /**
-     * �����ļ�
-     *
+     * 生成缩略图
      * @param $fileName
      */
     var $image_type = 3;
