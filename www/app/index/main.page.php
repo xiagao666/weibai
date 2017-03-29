@@ -15,6 +15,7 @@ class index_main extends STpl
      */
     public function pageIndex($inPath)
     {
+        $
         // echo "首页";exit;
         /*echo "11";
         $data['id'] = 1;
@@ -27,6 +28,9 @@ class index_main extends STpl
         echo $this->render("head.tpl");
         echo $this->render("index/index.tpl");
         echo $this->render("footer.tpl");*/
+        if ($_POST) {//$_POST $_GET $_FILE['name'] $_REQUEST
+
+        }
         $params["hello"] = "xxxxxxxx";
         $params["keywords"] = "hahfhahfha";
         return $this->render("index/index.html", $params);
