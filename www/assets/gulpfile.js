@@ -33,7 +33,7 @@ var path = {
     // 字体源地址
     fontSrc: "./src/**/font/*",
     // 模板源地址
-    htmlSrc: ["./src/**/html/*.html","!./src/**/html/_*.html"],
+    htmlSrc: "./src/**/*.html",
     // 目标地址
     dist: "./dist",
     // 入口文件
