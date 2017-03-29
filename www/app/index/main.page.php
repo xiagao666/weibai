@@ -15,7 +15,7 @@ class index_main extends STpl
      */
     public function pageIndex($inPath)
     {
-        echo "首页";exit;
+        // echo "首页";exit;
         /*echo "11";
         $data['id'] = 1;
         $data['name'] = "test";
@@ -27,6 +27,9 @@ class index_main extends STpl
         echo $this->render("head.tpl");
         echo $this->render("index/index.tpl");
         echo $this->render("footer.tpl");*/
+        $params["hello"] = "xxxxxxxx";
+        $params["keywords"] = "hahfhahfha";
+        return $this->render("index/index.html", $params);
     }
     function pageNews($inPath){
         $dbNews = new core_db_news();
