@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+        <title>{$title}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no"/>
+        <meta name="format-detection" content="telephone=no, address=no,email=no"/>
+        <meta name="keywords" content="{$keywords}"/>
+        <meta name="description" content="{$description}"/>
+        {%block meta%}{%endblock%}
+		<link rel="stylesheet" type="text/css" href="./css/base.css"/>
+        {%block css%}{%endblock%}
+    </head>
+    <body>
+        {%block header%}
+            {% include "src/common/header.html" %}
+        {%endblock%}
+        {%block content%}{%endblock%}
+        {%block footer%}
+            {% include "src/common/footer.html" %}
+        {%endblock%}
+        {%block js%}{%endblock%}
+    </body>
+</html>

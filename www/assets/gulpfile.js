@@ -11,6 +11,8 @@ var gulp = require('gulp'),
     js = require('gulp-uglify'),
     // html压缩
     html = require('gulp-htmlmin'),
+    // nunjucks模板解析
+    nunjucks  = require('gulp-nunjucks-render'),
     // 多个文件合并
     concat = require('gulp-concat'),
     // 重命名
@@ -81,6 +83,7 @@ gulp.task("cleanJS", function(cb) {
 // 编译并复制html
 gulp.task("compileHtml",function(){
     gulp.src(path.htmlSrc)
+        .pipe(nunjucks({}))
         .pipe(html(options))
         .pipe(gulp.dest(path.dist));
 });
