@@ -36,6 +36,8 @@ var path = {
     fontSrc: "./src/**/font/*",
     // 模板源地址
     htmlSrc: "./src/**/*.html",
+    // 依赖库文件地址
+    libSrc: "./src/lib/**/*",
     // 目标地址
     dist: "./dist",
     // 入口文件
@@ -100,8 +102,14 @@ gulp.task("copyFont",function(){
 		.pipe(gulp.dest(path.dist));
 });
 
+// 复制依赖库文件
+gulp.task("copyLib",function(){
+    gulp.src(path.libSrc)
+        .pipe(gulp.dest(path.dist+"/lib"));
+});
+
 // 复制静态资源
-gulp.task("copy",["copyImg","copyFont"]);
+gulp.task("copy",["copyImg","copyFont","copyLib"]);
 
 // 启动服务
 gulp.task("server",function(){
