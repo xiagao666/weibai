@@ -32,12 +32,12 @@ class core_db_Product extends core_db_DbBase {
         }
     }
 
-    public function queryProductList($param, $page, $limit){
+    public function queryProductList($param, $page, $limit,$orderBy){
         try{
             $this->useConfig("common","query");
             $this->setPage((int)$page);
             $this->setLimit((int)$limit);
-            return $this->select($this->table,$param,'*');
+            return $this->select($this->table,$param,'*',$groupby="",$orderBy);
         } catch (Exception $e) {
             return false;
         }

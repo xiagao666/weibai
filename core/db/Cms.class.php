@@ -5,9 +5,9 @@
  * Date: 2017/3/25
  * Time: 19:41
  */
-class core_db_News extends core_db_DbBase {
+class core_db_Cms extends core_db_DbBase {
 
-    private $table = "vb_news";
+    private $table = "vb_cms";
 
     /**
      * core_db_news constructor.
@@ -32,12 +32,12 @@ class core_db_News extends core_db_DbBase {
         }
     }
 
-    public function queryNews($param, $page, $limit){
+    public function queryNews($param, $page, $limit, $orderBy){
         try{
             $this->useConfig("common","query");
             $this->setPage((int)$page);
             $this->setLimit((int)$limit);
-            return $this->select($this->table,$param,'*');
+            return $this->select($this->table,$param,'*',"",$orderBy);
         } catch (Exception $e) {
             return false;
         }

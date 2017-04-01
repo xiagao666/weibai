@@ -81,5 +81,14 @@ class core_db_ProductDes extends core_db_DbBase {
             return false;
         }
     }
+    public function getOneProductDesByProductId($productId) {
+        try{
+            $this->useConfig("common","query");
+            $param["product_id"] = $productId;
+            return $this->select($this->table,$param,'*');
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 
 }
