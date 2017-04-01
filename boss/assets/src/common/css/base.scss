@@ -1,0 +1,75 @@
+body {
+  font-family: 'microsoft yahei', 'Helvetica Neue', Helvetica, STHeiTi, Arial, sans-serif;
+  line-height: 1.15;
+  font-size: 12px;
+  min-width: 1180px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+ul,li{
+  list-style: none;
+}
+// Variables
+@import "variable.scss";
+
+.#{$space}content{
+	width: 1180px;
+	margin: 0 auto;
+}
+// header
+.#{$space}header{
+	border-bottom: 2px solid #{$c2};
+	.#{$space}content{
+		height: 128px;
+		position: #{$pr};
+	}
+	.header-logo{
+		position: #{$pa};
+		left: 0;
+		bottom: 0;
+		display: block;
+		width: 240px;
+		height: 120px;
+		img{
+			width: 100%;
+		}
+	}
+	.header-nav{
+		position: #{$pa};
+		bottom: 6px;
+		right: 30px;
+		overflow: #{$oh};
+	}
+	.nav-item{
+		float: #{$fl};
+		height: 42px;
+		line-height: 42px;
+		a{
+			padding: 0 30px;
+			border-right: 1px solid #ccc;
+			font-size: #{$f14};
+			color: #{$c1};
+			&:hover{
+				color: #{$c2};
+			}
+		}
+	}
+}
+// footer
+.#{$space}footer{
+	border-top: 2px solid #{$c2};
+	padding: 20px 0;
+	ul{
+		float: #{$fr};
+		li{
+			float: #{$fl};
+		}
+	}
+}
