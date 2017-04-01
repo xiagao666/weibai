@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.oschina.net/sgteam/weibai.git"
+    "url": "git@github.com:xiagao666/weibai.git"
   },
   "keywords": [
     "weibai"
@@ -18,20 +18,15 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
+    "gulp-changed": "^2.0.0",
     "gulp-clean-css": "^3.0.4",
     "gulp-concat": "^2.6.1",
-    "gulp-data": "^1.2.1",
-    "gulp-ejs": "^3.0.0",
     "gulp-htmlmin": "^3.0.0",
     "gulp-nunjucks-render": "^2.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-rev": "^7.1.2",
-    "gulp-rev-all": "^0.9.7",
     "gulp-rev-collector": "^1.1.1",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^2.0.0",
-    "gulp-usemin": "^0.3.28",
-    "gulp-useref": "^3.1.2",
     "yargs": "^7.0.2"
   },
   "author": "huangchaowei",

@@ -5,31 +5,43 @@ var gulp = require('gulp'),
     css = require("gulp-clean-css"),
     // sass编译
     sass = require('gulp-sass'),
+    // 自动添加浏览器前缀
+    autoprefixer = require('gulp-autoprefixer'),
     // js压缩
     js = require('gulp-uglify'),
-    // nunjucks模板解析
-    // nunjucks  = require('gulp-nunjucks-render'),
     // html压缩
     html = require('gulp-htmlmin'),
+    // nunjucks模板解析
+    nunjucks  = require('gulp-nunjucks-render'),
     // 多个文件合并
     concat = require('gulp-concat'),
     // 重命名
     rename = require('gulp-rename'),
     // 删除文件
     del = require('del'),
+    // 只传递修改过的文件
+    change = require("gulp-changed"),
     // 浏览器同步刷新
     sync = require('browser-sync');
 
 // 路径配置
 var path = {
     // js原文件路径
-    jsSrc: "./src/**/js",
-    // js编译后路径
-    jsDist: "./dist/**/js",
+    jsSrc: "./src/**/js/*.js",
     // sass源文件
-    sassDist: "./src/**/scss",
-    // css编译后路径
-    cssDist: "./dist/**/css"
+    sassSrc: "./src/**/css/*.scss",
+    // 图片源地址
+    imgSrc: "./src/**/img/*",
+    // 字体源地址
+    fontSrc: "./src/**/font/*",
+    // 模板源地址
+    htmlSrc: "./src/**/*.html",
+    // 依赖库文件地址
+    libSrc: "./src/lib/**/*",
+    // 目标地址
+    dist: "./dist",
+    // 入口文件
+    entry: "./gulpfile.js"
 },
 // html压缩选项
 options = {
@@ -44,57 +56,60 @@ options = {
 };
 
 // 编译Sass后合并压缩css文件
-gulp.task('compileCSS', ["cleanCSS"], function() {
-    gulp.src("./src/sass/mui.scss")
+gulp.task('compileCSS', function() {
+    gulp.src(path.sassSrc)
+        .pipe(change(path.sassSrc))
         .pipe(sass())
-        .pipe(gulp.dest(path.cssDist))
-        .pipe(rename('mui.min.css'))
+        .pipe(autoprefixer())
         .pipe(css())
-        .pipe(gulp.dest(path.cssDist));
+        .pipe(gulp.dest(path.dist));
 });
 
 // 删除css文件
 gulp.task("cleanCSS", function(cb) {
-    return del(["./dist/css/mui.css","./dist/css/mui.min.css"], cb);
+    return del(["./dist/css/*.css","./dist/css/*.min.css"], cb);
 });
 
 // 合并压缩js文件
-gulp.task('compileJS', ["cleanJS"], function() {
+gulp.task('compileJS', function() {
     gulp.src(path.jsSrc)
-        .pipe(concat('mui.js'))
-        .pipe(gulp.dest(path.jsDist))
-        .pipe(rename('mui.min.js'))
         .pipe(js())
-        .pipe(gulp.dest(path.jsDist));
+        .pipe(gulp.dest(path.dist));
 });
 
 // 删除js文件
 gulp.task("cleanJS", function(cb) {
-    return del(["./dist/js/mui.js","./dist/js/mui.min.js"], cb);
+    return del(["./dist/js/*.js","./dist/js/*.min.js"], cb);
 });
 
 // 编译并复制html
 gulp.task("compileHtml",function(){
-    gulp.src("./src/html/*.html","!./src/html/_*.html"])
+    gulp.src(path.htmlSrc)
         .pipe(nunjucks({}))
         .pipe(html(options))
-        .pipe(gulp.dest("./dist/html/"));
+        .pipe(gulp.dest(path.dist));
 });
 
 // 复制图片
 gulp.task("copyImg",function(){
-	gulp.src("./src/img/*")
-		.pipe(gulp.dest("./dist/img/"));
+	gulp.src(path.imgSrc)
+		.pipe(gulp.dest(path.dist));
 });
 
 // 复制字体文件
 gulp.task("copyFont",function(){
-	gulp.src("./src/font/*")
-		.pipe(gulp.dest("./dist/font/"));
+	gulp.src(path.fontSrc)
+		.pipe(gulp.dest(path.dist));
+});
+
+// 复制依赖库文件
+gulp.task("copyLib",function(){
+    gulp.src(path.libSrc)
+        .pipe(gulp.dest(path.dist+"/lib"));
 });
 
 // 复制静态资源
-gulp.task("copy",["","copyImg","copyFont"]);
+gulp.task("copy",["copyImg","copyFont","copyLib"]);
 
 // 启动服务
 gulp.task("server",function(){
@@ -116,18 +131,18 @@ gulp.task("server",function(){
 
 // 监听任务
 gulp.task("monitor",function(){
-    gulp.watch(['./src/js/*.js'], ["compileJS"]);
-    gulp.watch(['./src/sass/*.scss',], ["compileCSS"]);
-    gulp.watch(["./src/*.html"], ["compileHtml"]);
-    gulp.watch(["./src/img/*"], ["copyImg"]);
-    gulp.watch(["./src/font/*"], ["copyFont"]);
-    gulp.watch(["./gulpfile.js"], ["default"]);
-}); 
+    gulp.watch(path.jsSrc, ["compileJS"]);
+    gulp.watch(path.sassSrc, ["compileCSS"]);
+    gulp.watch(path.htmlSrc, ["compileHtml"]);
+    gulp.watch(path.imgSrc, ["copyImg"]);
+    gulp.watch(path.fontSrc, ["copyFont"]);
+    gulp.watch(path.entry, ["default"]);
+});
 
 // 默认任务
 gulp.task('default',["compileCSS", "compileJS", "compileHtml", "copy"], function() {
     if (yargs.s){
-        gulp.start("server");
+        // gulp.start("server");
         gulp.start("monitor");
     }
     if (yargs.w){

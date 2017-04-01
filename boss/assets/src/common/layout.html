@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+        <title>{$title}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no"/>
+        <meta name="format-detection" content="telephone=no, address=no,email=no"/>
+        <meta name="keywords" content="{$keywords}"/>
+        <meta name="description" content="{$description}"/>
+        {%block meta%}{%endblock%}
+        {%block css%}
+        <link rel="stylesheet" type="text/css" href="/lib/bootstrap/css/bootstrap.min.css"/>
+        {%endblock%}
+    </head>
+    <body>
+        {%block header%}
+        {%endblock%}
+        {%block content%}{%endblock%}
+        {%block footer%}
+        {%endblock%}
+        {%block js%}
+        <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
+        {%endblock%}
+    </body>
+</html>
