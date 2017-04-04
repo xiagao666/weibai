@@ -127,8 +127,9 @@ class SimpleCaptcha
     }
 
 
-    public function CreateImage()
+    public function CreateImage($key = '')
     {
+
         $ini = microtime(true);
 
         /** Initialization */
@@ -139,16 +140,13 @@ class SimpleCaptcha
         $fontcfg = $this->fonts[array_rand($this->fonts)];
         $this->WriteText($text, $fontcfg);
 
-        $_SESSION[$this->session_var . $text] = $text;
-
+        $_SESSION[$this->session_var . "_" . $text . "_" . $key] = $text;
         /** Transformations */
         $this->WaveImage();
         if ($this->blur) {
             imagefilter($this->im, IMG_FILTER_GAUSSIAN_BLUR);
         }
         $this->ReduceImage();
-
-
         if ($this->debug) {
             imagestring($this->im, 1, 1, $this->height - 8,
                 "$text {$fontcfg['font']} " . round((microtime(true) - $ini) * 1000) . "ms",
@@ -156,10 +154,10 @@ class SimpleCaptcha
             );
         }
 
-
         /** Output */
         $this->WriteImage();
         $this->Cleanup();
+
         return $text;
     }
 

@@ -19,11 +19,11 @@ class index_sign extends STpl
         if ( empty($_POST) ) {
             $managerName = trim($_POST['managerName']);
             $password = $_POST['password'];
-            $captcha = trim($_POST['captcha']);
+            $captchaCode = trim($_POST['captchaCode']);
             $captchaKey = trim($_POST['captchaKey']);
             $referer = $_POST['referer'] ? $_POST['referer'] : '/';
 
-            if (empty($captcha)){
+            if (empty($captchaCode)){
                 return $this->alert(array('status'=>'error','msg'=>'请输入验证码'));
             }
             if (empty($managerName)){
@@ -32,7 +32,7 @@ class index_sign extends STpl
             if (empty($password)){
                 return $this->alert(array('status'=>'error','msg'=>'请输入密码'));
             }
-            if (SCaptcha::check($captcha, $captchaKey) === false){
+            if (SCaptcha::check($captchaCode, $captchaKey) === false){
                 return $this->alert(array('status'=>'error','msg'=>'验证码错误，请重试'));
             }
 
@@ -74,16 +74,17 @@ class index_sign extends STpl
         return $this->alert(array('status'=>'success', 'msg'=>'已退出', 'backurl'=>"/sign/in", 'second'=>0));
     }
 
+    /**
+     * 生成验证码
+     */
     public function pageCaptcha(){
-        $captchaKey = $_GET['captchaKey'];
-        /**
-         * 初始化类
-         */
-        $cap = new SCaptcha();
+        $captchaKey = (string)$_GET['captchaKey'];//验证码key
 
-        /**
-         * 生成图片，返回验证码
-         */
-        $cap->CreateImage($captchaKey);
+        if (!$captchaKey) {
+            return $this->alert(array('status'=>'error', 'msg'=>'缺少生成验证码key'));
+        }
+
+        $cap = new SCaptcha();//初始化类
+        $cap->CreateImage($captchaKey);//生成图片，返回验证码
     }
 }

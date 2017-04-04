@@ -43,23 +43,36 @@ class SCaptcha extends SlightPHP\SimpleCaptcha
         $this->transprent = false;
     }
 
-    static function check($captcha_code)
+    /**
+     * 验证验证码
+     * @param $captcha_code 验证码
+     * @param string $key 验证码key
+     * @param int $isDel 是否删除
+     * @return bool
+     */
+    static function check($captcha_code, $key = "", $isDel = 0)
     {
-        if (empty($_SESSION[SCaptcha::$session_prefix . $captcha_code]) ||
-            $_SESSION[SCaptcha::$session_prefix . $captcha_code] != $captcha_code
+        if (empty($_SESSION[SCaptcha::$session_prefix. "_" . $captcha_code. "_" . $key]) ||
+            $_SESSION[SCaptcha::$session_prefix. "_" . $captcha_code. "_" . $key] != $captcha_code
         ) {
             return false;
         } else {
+            if ($isDel) {
+                self::del($captcha_code, $key);
+            }
             return true;
         }
     }
 
-    static function del($captcha_code)
+    /**
+     * 删除验证码
+     * @param $captcha_code 验证码
+     * @param string $key
+     */
+    static function del($captcha_code, $key = "")
     {
-        if (!empty($_SESSION[SCaptcha::$session_prefix . $captcha_code])) {
-            unset ($_SESSION[SCaptcha::$session_prefix . $captcha_code]);
+        if (!empty($_SESSION[SCaptcha::$session_prefix. "_" . $captcha_code. "_" . $key])) {
+            unset ($_SESSION[SCaptcha::$session_prefix. "_" . $captcha_code. "_" . $key]);
         }
     }
-
-
 }
