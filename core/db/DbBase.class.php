@@ -39,6 +39,18 @@ class core_db_DbBase extends SDb
     }
 
     /**
+     * 异常日志记录
+     */
+    public function log($e)
+    {
+        $errorMsg['message'] = $e->getMessage();
+        $errorMsg['file'] = $e->getFile();
+        $errorMsg['code'] = $e->getCode();
+        $errorMsg['line'] = $e->getLine();
+        error_log(json_encode($errorMsg));
+    }
+
+    /**
      * select one from select result
      *
      */
@@ -57,7 +69,7 @@ class core_db_DbBase extends SDb
     /**
      * 插入数据
      */
-    public function insert($item = "", $isreplace = false, $isdelayed = false, $update = array())
+    public function insertData($item = "", $isreplace = false, $isdelayed = false, $update = array())
     {
         return parent::insert($this->_tableName, $item, $isreplace, $isdelayed, $update);
     }
@@ -65,7 +77,7 @@ class core_db_DbBase extends SDb
     /**
      * 更改数据
      */
-    public function update($condition, $item)
+    public function updateData($condition, $item)
     {
         return parent::update($this->_tableName, $condition, $item);
     }

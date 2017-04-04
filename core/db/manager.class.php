@@ -36,14 +36,14 @@ class core_db_manager extends core_db_DbBase
 
             $data['register_time'] = $this->_time;
             $data['register_ymd'] = $this->_ymd;
-
             $this->useConfig("common", "main");
-            $rs = $this->insert($data);
+            $rs = $this->insertData($data);
             if ($rs === false) {
                 throw new Exception("数据写入失败");
             }
             return $rs;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }
@@ -51,7 +51,7 @@ class core_db_manager extends core_db_DbBase
     /**
      * 编辑管理员
      */
-    public function edit($data)
+    public function edit($data, $isUpadteTime = 0)
     {
         try {
             //判断数据必选项
@@ -73,8 +73,10 @@ class core_db_manager extends core_db_DbBase
                 throw new Exception("管理员名称重复");
             }
 
-            $data['update_time'] = $this->_time;
-            $data['update_ymd'] = $this->_ymd;
+            if ($isUpadteTime) {
+                $data['update_time'] = $this->_time;
+                $data['update_ymd'] = $this->_ymd;
+            }
 
             $this->useConfig("common", "main");
             $rs = $this->update(array("manager_id"=>$manager_id), $data);
@@ -83,7 +85,7 @@ class core_db_manager extends core_db_DbBase
             }
             return $rs;
         } catch (Exception $e) {
-            error_log("");
+            $this->log($e);
             return false;
         }
     }
@@ -106,6 +108,7 @@ class core_db_manager extends core_db_DbBase
             }
             return $rs;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }
@@ -128,6 +131,7 @@ class core_db_manager extends core_db_DbBase
             }
             return $rs;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }
@@ -135,24 +139,74 @@ class core_db_manager extends core_db_DbBase
     /**
      * 获取管理员列表
      */
-    public function getMnagersList()
+    public function getManagersList($query, $size = 10, $offset = 0)
     {
+        try {
+            //判断数据必选项
+            if (!$managerName) {
+                throw new Exception("缺少必要参数");
+            }
 
-    }
-
-    /**
-     * 重置密码
-     */
-    public function resetPasswd()
-    {
-
+            $this->useConfig("common", "query");
+            $rs = $this->getOne(array("manager_name"=>$managerName), "*");
+            if ($rs === false) {
+                throw new Exception("获取数据为空或者失败");
+            }
+            return $rs;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
     }
 
     /**
      * 修改密码
      */
-    public function modifyPasswd()
+    public function modifyPassword($managerId, $newPassword)
     {
+        try {
+            //判断数据必选项
+            if (!$managerId || !$newPassword) {
+                throw new Exception("缺少必要参数");
+            }
 
+            $this->useConfig("common", "main");
+            $rs = $this->getOne(array("manager_id"=>$managerId), "*");
+            if ($rs === false) {
+                throw new Exception("获取数据为空或者失败");
+            }
+
+            return $rs;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
+    }
+
+    /**
+     * 登录
+     */
+    public function sign($managerName, $password)
+    {
+        try {
+            //判断数据必选项
+            if (!$managerName || !$password) {
+                throw new Exception("缺少必要参数");
+            }
+
+            $manager = $this->getMangerByManagerName($managerName);
+            if ($manager === false) {
+                throw new Exception("获取数据为空或者失败");
+            }
+            //密码
+            $password = md5($password.MANAGER_REG_KEY);
+            if ($password !== $manager['password']) {
+                throw new Exception("登录失败");
+            }
+            return true;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
     }
 }
