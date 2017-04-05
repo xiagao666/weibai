@@ -1,6 +1,6 @@
 <?php
 
-class index_main extends index_sign
+class index_main extends index_base
 {
     function __construct()
     {
@@ -15,17 +15,15 @@ class index_main extends index_sign
      */
     public function pageIndex($inPath)
     {
-        phpinfo();exit;
-        $data['id'] = 1;
-        $data['name'] = "test";
-        $data['pid'] = 1;
-        $data['des'] = "des";
-        $data['show_sort'] = 1;
-        $dbCategory = new core_db_category();
-        $dbCategory->add($data);
-        echo $this->render("head.tpl");
-        echo $this->render("index/index.tpl");
-        echo $this->render("footer.tpl");
+        // phpinfo();exit;
+        // $data['id'] = 1;
+        // $data['name'] = "test";
+        // $data['pid'] = 1;
+        // $data['des'] = "des";
+        // $data['show_sort'] = 1;
+        // $dbCategory = new core_db_category();
+        // $dbCategory->add($data);
+        return $this->render("index/index.html");
     }
 
     public function pageTest()

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "www": "gulp --build www --w",
-    "boss": "gulp --build www --w"
+    "boss": "gulp --build boss --w"
   },
   "repository": {
     "type": "git",
