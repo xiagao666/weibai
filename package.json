@@ -4,7 +4,9 @@
   "description": "vipbio",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "www": "gulp --build www --w",
+    "boss": "gulp --build www --w"
   },
   "repository": {
     "type": "git",
