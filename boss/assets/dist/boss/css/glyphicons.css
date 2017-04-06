@@ -11,8 +11,8 @@ html .halflings {
 }
 @font-face {
   font-family: 'Glyphicons';
-  src: url('../image/glyphicons-regular.eot');
-  src: url('../image/glyphicons-regular.eot') format('embedded-opentype'), url('../image/glyphicons-regular.woff') format('woff'), url('../image/glyphicons-regular.ttf') format('truetype'), url('../image/glyphicons-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('/boss/img/glyphicons-regular.eot');
+  src: url('/boss/img/glyphicons-regular.eot') format('embedded-opentype'), url('/boss/img/glyphicons-regular.woff') format('woff'), url('/boss/img/glyphicons-regular.ttf') format('truetype'), url('/boss/img/glyphicons-regular.svg#glyphicons_halflingsregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -1302,7 +1302,7 @@ html .halflings {
   height: 48px;
   line-height: 48px;
   vertical-align: text-top;
-  background-image: url(../image/glyphicons.png);
+  background-image: url(/boss/img/glyphicons.png);
   background-position: 0 0;
   background-repeat: no-repeat;
   vertical-align: top;
@@ -1311,13 +1311,13 @@ html .halflings {
   *margin-right: .3em;
 }
 .no-inlinesvg .glyphicons-icon {
-  background-image: url(../image/glyphicons.png);
+  background-image: url(/boss/img/glyphicons.png);
 }
 .glyphicons-icon.white {
-  background-image: url(../image/glyphicons-white.svg);
+  background-image: url(/boss/img/glyphicons-white.svg);
 }
 .no-inlinesvg .glyphicons-icon.white {
-  background-image: url(../image/glyphicons-white.png);
+  background-image: url(/boss/img/glyphicons-white.png);
 }
 .glyphicons-icon.glass {
   background-position: 4px 11px;

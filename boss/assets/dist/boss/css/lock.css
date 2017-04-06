@@ -22,7 +22,7 @@ body {
 .page-lock .page-body {	
    width: 500px;
    padding: 10px;
-   background: url(../image/bg-white-lock.png) repeat;
+   background: url(/boss/img/bg-white-lock.png) repeat;
 }
 
 .page-lock .page-body:after,

@@ -55,7 +55,7 @@ Inbox Page
   height: 35px;
   position: absolute;
   display: inline-block;
-  background: url(../image/inbox-nav-arrow-blue.png) no-repeat;
+  background: url(/boss/img/inbox-nav-arrow-blue.png) no-repeat;
 }
 
 .inbox .inbox-nav li:hover a {

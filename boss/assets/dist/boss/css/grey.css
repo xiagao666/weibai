@@ -114,13 +114,13 @@ ul.page-sidebar-menu > li.active > a .arrow.open:before {
   border-bottom: 1px solid #a6a6a6 !important;
 }
 .page-sidebar .sidebar-search .submit {
-  background-image: url(../../img/search-icon.png);
+  background-image: url(/boss/img/search-icon.png);
 }
 /***
 Sidebar toggler
 ***/
 .sidebar-toggler {
-  background-image: url(../../img/sidebar-toggler.jpg);
+  background-image: url(/boss/img/sidebar-toggler.jpg);
   background-color: #4d4d4d;
 }
 /* search box bg color on expanded */
@@ -128,7 +128,7 @@ Sidebar toggler
   background-color: #666666 !important;
 }
 .page-sidebar-closed .page-sidebar .sidebar-search.open .remove {
-  background-image: url("../../img/sidebar-search-close.png");
+  background-image: url("/boss/img/sidebar-search-close.png");
 }
 /* sub menu bg color on hover menu item */
 .page-sidebar-closed ul.page-sidebar-menu > li:hover .sub-menu {
@@ -139,14 +139,14 @@ Horizontal Menu(new in v1.2)
 ***/
 /*search*/
 .header .hor-menu .hor-menu-search-form-toggler.hide {
-  background: #000000 url(../../img/hor-menu-search-close.png) no-repeat center;
+  background: #000000 url(/boss/img/hor-menu-search-close.png) no-repeat center;
 }
 .header .hor-menu .search-form {
   background: #000000;
 }
 .header .hor-menu .search-form .btn {
   color: #ffffff;
-  background: #1a1a1a url(../../img/search-icon.png) no-repeat center;
+  background: #1a1a1a url(/boss/img/search-icon.png) no-repeat center;
 }
 .header .hor-menu .search-form form input {
   color: #ffffff;
@@ -208,17 +208,17 @@ Footer Layouts (new in v1.3)
 Gritter Notifications 
 ***/
 .gritter-top {
-  background: url(../../plugins/gritter/images/gritter.png) no-repeat left -30px !important;
+  background: url(/boss/img/gritter.png) no-repeat left -30px !important;
 }
 .gritter-bottom {
-  background: url(../../plugins/gritter/images/gritter.png) no-repeat left bottom !important;
+  background: url(/boss/img/gritter.png) no-repeat left bottom !important;
 }
 .gritter-item {
   display: block;
-  background: url(../../plugins/gritter/images/gritter.png) no-repeat left -40px !important;
+  background: url(/boss/img/gritter.png) no-repeat left -40px !important;
 }
 .gritter-close {
-  background: url(../../plugins/gritter/images/gritter.png) no-repeat left top !important;
+  background: url(/boss/img/gritter.png) no-repeat left top !important;
 }
 .gritter-title {
   text-shadow: none !important;
@@ -230,7 +230,7 @@ Gritter Notifications
 .gritter-light .gritter-bottom,
 .gritter-light .gritter-top,
 .gritter-light .gritter-close {
-  background-image: url(../../plugins/gritter/images/gritter-light.png) !important;
+  background-image: url(/boss/img/gritter-light.png) !important;
 }
 .gritter-item-wrapper a {
   color: #18a5ed;

@@ -189,10 +189,10 @@ var Login = function () {
 	        });
 
 	        $.backstretch([
-		        "media/image/bg/1.jpg",
-		        "media/image/bg/2.jpg",
-		        "media/image/bg/3.jpg",
-		        "media/image/bg/4.jpg"
+		        "/boss/img/bg/1.jpg",
+		        "/boss/img/bg/2.jpg",
+		        "/boss/img/bg/3.jpg",
+		        "/boss/img/bg/4.jpg"
 		        ], {
 		          fade: 1000,
 		          duration: 8000
