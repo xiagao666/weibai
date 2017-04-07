@@ -11,7 +11,7 @@ class index_sign extends STpl
      */
     public function pageIn($inPath)
     {
-        $referer = (string)$_SERVER['HTTP_REFERER'];
+        /*$referer = (string)$_SERVER['HTTP_REFERER'];
         if (preg_match('/'.preg_quote(BOSS_URL.'/sign','/').'/', $referer) || !preg_match('/'.preg_quote(BOSS_URL,'/').'/',$referer)){
             $referer = '/';
         }
@@ -55,13 +55,13 @@ class index_sign extends STpl
             $data['curr_in_time'] = $this->_time;
             $dbManager->edit($data);
             return $this->alert(array('status'=>'success','msg'=>'登录成功','backurl'=>$referer,'second'=>0));
-        }
+        }*/
 
         $params = array(
             'referer' => $referer,
             'captchaKey' => uniqid()
         );
-        return $this->render('sign/in.html', $params);
+        return $this->render('boss/login.html', $params);
     }
 
     /**
