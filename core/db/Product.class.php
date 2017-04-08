@@ -63,4 +63,16 @@ class core_db_Product extends core_db_DbBase {
         }
     }
 
+    public function getOneProductById($id) {
+        try{
+            if(empty($id)) {
+                throw new Exception("缺少必要参数");
+            }
+            $this->useConfig("common","main");
+            return $this->getOne(array("id"=>$id));
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 }
