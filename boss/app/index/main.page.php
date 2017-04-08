@@ -23,7 +23,7 @@ class index_main extends index_base
         // $data['show_sort'] = 1;
         // $dbCategory = new core_db_category();
         // $dbCategory->add($data);
-        return $this->render("boss/index.html");
+        return $this->render("boss/productList.html");
     }
 
     public function pageTest()
