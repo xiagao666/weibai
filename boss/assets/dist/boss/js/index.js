@@ -894,15 +894,3 @@ var Index = function () {
     };
 
 }();
-
-jQuery(document).ready(function() {
-   App.init();
-   Index.init();
-   Index.initJQVMAP();
-   Index.initCalendar();
-   Index.initCharts();
-   Index.initChat();
-   Index.initMiniCharts();
-   Index.initDashboardDaterange();
-   Index.initIntro();
-});
