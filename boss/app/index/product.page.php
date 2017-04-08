@@ -47,6 +47,7 @@ class index_product extends index_base
         $productRs = $dbProduct->queryProductList($query,$page,$size,"id desc");
         echo json_encode($productRs);
     }
+
     //产品明细信息
     public function pageDetail($inPath) {
         $productId = $_GET["id"];
@@ -62,8 +63,4 @@ class index_product extends index_base
         echo json_encode($param);
     }
 
-    public function pageTest()
-    {
-        echo "test";exit;
-    }
 }

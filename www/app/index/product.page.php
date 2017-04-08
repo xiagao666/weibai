@@ -39,6 +39,20 @@ class index_product extends STpl
         return $this->render("index/product.html", $param);
     }
 
+    //产品列表
+    public function pageList($inPath) {
+        $categoryIdList = $_GET["categoryIds"];//,各个子类目ID用，号隔开
+        $categoryIds = explode(",", $categoryIdList);
+        $categoryIds = array_filter($categoryIds);//去掉空元素
+        $category =  implode(",", $categoryIds);
+        $page = $_GET["page"];
+        $size = $_GET["size"];
+        $query = array("category_id in ({$category})");
+        $dbProduct = new core_db_Product();
+        $productRs = $dbProduct->queryProductList($query,$page,$size,"id desc");
+        echo json_encode($productRs);
+    }
+
     /**
      * 产品详情
      */
