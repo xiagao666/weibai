@@ -51,8 +51,7 @@ class core_db_DbBase extends SDb
     }
 
     /**
-     * select one from select result
-     *
+     * 查询单个数据
      */
     public function getOne($condition = "", $item = "", $groupby = "", $orderby = "", $leftjoin = "")
     {
@@ -61,6 +60,22 @@ class core_db_DbBase extends SDb
         $data = $this->select($this->_tableName, $condition, $item, $groupby, $orderby, $leftjoin);
         if (isset($data->items[0])) {
             return $data->items[0];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 查询多个数据
+     */
+    public function getAllData($condition = "", $item = "", $groupby = "", $orderby = "", $leftjoin = "", $limit = 10, $page = 0)
+    {
+        $this->setLimit($limit);
+        $this->setPage($page);
+        $this->setCount(true);
+        $data = $this->select($this->_tableName, $condition, $item, $groupby, $orderby, $leftjoin);
+        if ($data->totalSize > 0) {
+            return $data;
         } else {
             return false;
         }

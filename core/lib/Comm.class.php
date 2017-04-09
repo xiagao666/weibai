@@ -6,7 +6,8 @@ class core_lib_Comm
      * 打印数据 上线删除方法
      * @param $a
      */
-    public function p($a) {
+    public function p($a)
+    {
         echo "<pre>";
         var_dump($a);
         echo "</pre>";
@@ -137,9 +138,9 @@ class core_lib_Comm
     /**
      * 安全过滤数据
      *
-     * @param string|array $str     需要处理的字符或数组
-     * @param string       $type    返回的字符类型，支持，string,int,float,html
-     * @param mixed        $default 当出现错误或无数据时默认返回值
+     * @param string|array $str 需要处理的字符或数组
+     * @param string $type 返回的字符类型，支持，string,int,float,html
+     * @param mixed $default 当出现错误或无数据时默认返回值
      *
      * @return string|array|mixed 当出现错误或无数据时默认返回值
      */
@@ -348,5 +349,40 @@ class core_lib_Comm
         }
 
         return $val;
+    }
+
+    /**
+     * 驼峰命名法转下划线风格
+     */
+    public static function toUnderScore($str)
+    {
+        $array = array();
+        for ($i = 0; $i < strlen($str); $i++) {
+            if ($str[$i] == strtolower($str[$i])) {
+                $array[] = $str[$i];
+            } else {
+                if ($i > 0) {
+                    $array[] = '_';
+                }
+                $array[] = strtolower($str[$i]);
+            }
+        }
+
+        $result = implode('', $array);
+        return $result;
+    }
+
+    /**
+     * 下划线风格转驼峰命名法
+     */
+    public static function toCamelCase($str){
+        $array = explode('_', $str);
+        $result = '';
+        if (empty($array)) {
+            foreach($array as $value){
+                $result.= ucfirst($value);
+            }
+        }
+        return $result;
     }
 }

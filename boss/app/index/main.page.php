@@ -4,7 +4,7 @@ class index_main extends index_base
 {
     public function __construct()
     {
-        parent::__construct();
+//        parent::__construct();
     }
 
     function __destruct()

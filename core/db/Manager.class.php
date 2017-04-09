@@ -138,20 +138,44 @@ class core_db_Manager extends core_db_DbBase
     /**
      * 获取管理员列表
      */
-    public function getManagersList($query, $size = 10, $offset = 0)
+    public function getManagerList($query, $limit = 10, $page = 0)
     {
         try {
-            //判断数据必选项
-            if (!$managerName) {
-                throw new Exception("缺少必要参数");
+            $sort = $query['sort'];
+            $sort = $sort ? $sort : 1;
+            unset($query['sort']);
+            $isDesc = $query['isDesc'];
+            $isDesc = $isDesc ? $isDesc : 2;
+            unset($query['isDesc']);
+            $orderby = '';
+            switch ($sort) {
+                case 1://管理员ID
+                    $orderby .= "manager_id";
+                    break;
+                case 2://创建时间
+                    $orderby .= "create_time";
+                    break;
+                case 3://上次登录时间
+                    $orderby .= "last_in_time";
+                    break;
+            }
+            switch ($isDesc) {
+                case 1://正序
+                    $orderby .= " ASC";
+                    break;
+                case 2://倒序
+                    $orderby .= " DESC";
+                    break;
             }
 
             $this->useConfig("common", "query");
-            $rs = $this->getOne(array("manager_name"=>$managerName), "*");
+            $rs = $this->getAllData($query, "*", "", $orderby, "", $limit, $page);
             if ($rs === false) {
                 throw new Exception("获取数据为空或者失败");
             }
-            return $rs;
+            $list['total'] = $rs->totalSize;
+            $list['data'] = $rs->items;
+            return $list;
         } catch (Exception $e) {
             $this->log($e);
             return false;
@@ -170,12 +194,22 @@ class core_db_Manager extends core_db_DbBase
             }
 
             $this->useConfig("common", "main");
-            $rs = $this->getOne(array("manager_id"=>$managerId), "*");
-            if ($rs === false) {
+            $manager = $this->getManagerById($managerId);
+            core_lib_Comm::p($manager);
+            if ($manager === false) {
                 throw new Exception("获取数据为空或者失败");
             }
 
-            return $rs;
+            //密码
+            $password = md5($newPassword . MANAGER_REG_KEY);
+            $data['password'] = $password;
+
+            $this->useConfig("common", "main");
+            $managerRS = $this->updateData(array("manager_id" => $managerId), $data);
+            if ($managerRS === false) {
+                throw new Exception("密码更改失败");
+            }
+            return true;
         } catch (Exception $e) {
             $this->log($e);
             return false;

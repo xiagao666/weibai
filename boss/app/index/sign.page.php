@@ -19,11 +19,11 @@ class index_sign extends STpl
             }
         }
         if ( !empty($_POST) ) {
-            $managerName = core_lib_comm::getStr(trim($_POST['managerName']));
-            $password = core_lib_comm::getStr(trim($_POST['password']));
-//            $captchaCode = core_lib_comm::getStr(trim($_POST['captchaCode']));
-//            $captchaKey = core_lib_comm::getStr(trim($_POST['captchaKey']));
-            $referer = $_POST['referer'] ? core_lib_comm::getStr(trim($_POST['referer'])) : '/';
+            $managerName = core_lib_Comm::getStr(trim($_POST['managerName']));
+            $password = core_lib_Comm::getStr(trim($_POST['password']));
+//            $captchaCode = core_lib_Comm::getStr(trim($_POST['captchaCode']));
+//            $captchaKey = core_lib_Comm::getStr(trim($_POST['captchaKey']));
+            $referer = $_POST['referer'] ? core_lib_Comm::getStr(trim($_POST['referer'])) : '/';
 
             /*if (empty($captchaCode)){
                 return $this->alert(array('status'=>'error','msg'=>'请输入验证码'));
