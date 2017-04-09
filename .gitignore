@@ -4,3 +4,4 @@ templates_c/*
 .idea
 .idea/*
 file/*
+node_modules/*

@@ -2,8 +2,9 @@
 
 class index_main extends index_base
 {
-    function __construct()
+    public function __construct()
     {
+        parent::__construct();
     }
 
     function __destruct()
@@ -15,19 +16,6 @@ class index_main extends index_base
      */
     public function pageIndex($inPath)
     {
-        // phpinfo();exit;
-        // $data['id'] = 1;
-        // $data['name'] = "test";
-        // $data['pid'] = 1;
-        // $data['des'] = "des";
-        // $data['show_sort'] = 1;
-        // $dbCategory = new core_db_category();
-        // $dbCategory->add($data);
         return $this->render("boss/productList.html");
-    }
-
-    public function pageTest()
-    {
-        echo "test";exit;
     }
 }

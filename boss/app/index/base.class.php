@@ -20,7 +20,6 @@ class index_base extends STpl
         } else {
             $this->_managerId = $_SESSION['manager']['managerId'];
             $this->_managerName = $_SESSION['manager']['managerName'];
-
             $dbManager = new core_db_manager();
             $manager = $dbManager->getManagerById($this->_managerId);
             $this->_manager = $manager;

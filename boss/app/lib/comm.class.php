@@ -8,8 +8,8 @@ class lib_comm
      */
     static public function isSignIn()
     {
-        if ($_SESSION['manager']['mangerId']) {
-            if ($_SESSION['manager']['managerKey'] !== md5($_SESSION['manager']['mangerId'] . $_SESSION['manager']['managerName'] . SECURITY_KEY)) {
+        if ($_SESSION['manager']['managerId']) {
+            if ($_SESSION['manager']['managerKey'] !== md5($_SESSION['manager']['managerId'] . $_SESSION['manager']['managerName'] . SECURITY_KEY)) {
                 session_unset();
                 session_destroy();
             } else {

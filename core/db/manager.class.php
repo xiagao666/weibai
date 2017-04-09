@@ -69,17 +69,16 @@ class core_db_manager extends core_db_DbBase
 
             //判断是否添加过管理员
             $manager = $this->getManagerById($manager_id);
-            if ( $manager !== false ) {
-                throw new Exception("管理员名称重复");
+            if ( $manager === false ) {
+                throw new Exception("管理员不存在");
             }
 
             if ($isUpadteTime) {
                 $data['update_time'] = $this->_time;
                 $data['update_ymd'] = $this->_ymd;
             }
-
             $this->useConfig("common", "main");
-            $rs = $this->update(array("manager_id"=>$manager_id), $data);
+            $rs = $this->updateData(array("manager_id"=>$manager_id), $data);
             if ($rs === false) {
                 throw new Exception("数据更改失败");
             }
