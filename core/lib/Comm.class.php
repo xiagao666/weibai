@@ -1,6 +1,6 @@
 <?php
 
-class core_lib_comm
+class core_lib_Comm
 {
     /**
      * 打印数据 上线删除方法
