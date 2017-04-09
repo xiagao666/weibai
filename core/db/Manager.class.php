@@ -4,7 +4,7 @@
  * 管理员相关
  * core_db_manager
  */
-class core_db_manager extends core_db_DbBase
+class core_db_Manager extends core_db_DbBase
 {
     private $table = "vb_manager";
 

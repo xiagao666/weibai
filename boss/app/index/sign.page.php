@@ -39,7 +39,7 @@ class index_sign extends STpl
                 return $this->alert(array('status'=>'error','msg'=>'验证码错误，请重试'));
             }*/
 
-            $dbManager = new core_db_manager();
+            $dbManager = new core_db_Manager();
             $manager = $dbManager->getMangerByManagerName($managerName);
             if ($manager === false){
                 return $this->alert(array('status'=>'error','msg'=>"登录失败，请输入正确的用户名和密码重新登录"));
