@@ -1,6 +1,6 @@
 <?php
 
-class index_main extends index_base
+class index_cms extends index_base
 {
     function __construct()
     {
@@ -18,7 +18,7 @@ class index_main extends index_base
         $dbCms = new core_db_Cms();
         $condition["type"] = 1;
         $rs = $dbCms->queryNews($condition,1,20);
-        $param["rs"] = $rs;
+        $param["news"] = $rs->items;
         return $this->render("boss/news.html",$param);
     }
     /**
