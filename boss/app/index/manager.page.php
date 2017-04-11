@@ -41,6 +41,7 @@ class index_manager extends index_base
         }
         $query['sort'] = $sort;
         $query['isDesc'] = $isDesc;
+        define("DEBUG", true);
         $dbManager = new core_db_Manager();
         $managers = $dbManager->getManagerList($query, $limit, $page);
         $params['managers'] = $managers;

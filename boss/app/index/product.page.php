@@ -16,7 +16,7 @@ class index_product extends index_base
     public function pageList($inPath)
     {
         //查询类目信息
-        $dbCategory = new core_db_Category();
+        /*$dbCategory = new core_db_Category();
         $condition["pid"] = 0;
         $rs = $dbCategory->queryAllCategory($condition);
         $condition["pid"] != 0;
@@ -27,12 +27,12 @@ class index_product extends index_base
                     $rs[$k]['son'][$key] = $rv;
                 }
             }
-        }
+        }*/
         $dbProduct = new core_db_Product();
         $productRs = $dbProduct->queryProductList("",1,20,"");
-        $param["categorys"] = $rs;
-        $param["products"] = $productRs;
-        return $this->render("boss/product.html", $param);
+        // $param["categorys"] = $rs;
+        $param["products"] = $productRs->items;
+        return $this->render("boss/productList.html", $param);
     }
     //产品列表
     public function pageGetList($inPath) {
