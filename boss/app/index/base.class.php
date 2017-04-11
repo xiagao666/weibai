@@ -15,7 +15,7 @@ class index_base extends STpl
     public function __construct()
     {
         //判读登录
-        if (lib_comm::isSignIn() === false) {//未登录，请先登录
+        if (lib_Comm::isSignIn() === false) {//未登录，请先登录
             $this->redirect("/sign/in");
         } else {
             $this->_managerId = $_SESSION['manager']['managerId'];
