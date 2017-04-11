@@ -1,6 +1,6 @@
 <?php
 
-class lib_comm
+class lib_Comm
 {
     /**
      * 判断是否登录
