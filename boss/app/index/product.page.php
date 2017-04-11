@@ -32,6 +32,8 @@ class index_product extends index_base
         $productRs = $dbProduct->queryProductList("",1,20,"");
         // $param["categorys"] = $rs;
         $param["products"] = $productRs->items;
+        $param["columns"] = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
+        var_dump($param);exit;
         return $this->render("boss/productList.html", $param);
     }
     //产品列表

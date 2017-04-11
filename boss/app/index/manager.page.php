@@ -84,7 +84,6 @@ class index_manager extends index_base
 
             if ($isEdit) {
                 $msg = "编辑";
-                core_lib_Comm::p($data);
                 $managerRS = $dbManager->edit($data, 1);
             } else {
                 $msg = "添加";

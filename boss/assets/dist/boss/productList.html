@@ -1190,18 +1190,9 @@
 										</a>
 
 										<div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-
-											<label><input type="checkbox" checked data-column="0">Rendering engine</label>
-
-											<label><input type="checkbox" checked data-column="1">Browser</label>
-
-											<label><input type="checkbox" checked data-column="2">Platform(s)</label>
-
-											<label><input type="checkbox" checked data-column="3">Engine version</label>
-
-											<label><input type="checkbox" checked data-column="4">CSS grade</label>
-											<label><input type="checkbox" checked data-column="5">CS啊嘎嘎S grade</label>
-
+											{foreach $columns as $key => $item}
+											<label><input type="checkbox" checked data-column='{$key}'>{$item}</label>
+											{/foreach}
 										</div>
 
 									</div>
@@ -1215,30 +1206,19 @@
 									<thead>
 
 										<tr>
-
-											<th>生生世世</th>
-
-											<th>Browser</th>
-
-											<th class="hidden-480">Platform(s)</th>
-
-											<th class="hidden-480">Engine version</th>
-
-											<th class="hidden-480">CSS grade</th>
-											<th class="hidden-480">CSSgaga grade</th>
+											{foreach $columns as $key => $item}
+											<th>{$item}</th>
+											{/foreach}
 										</tr>
 
 									</thead>
-
 									<tbody>
 									{foreach $products as $item}
 										<tr>
 
 											<td>{$item[id]}</td>
 
-											<td>{$item[brand]}
-
-											</td>
+											<td>{$item[brand]}</td>
 
 											<td class="hidden-480">{$item[product]}</td>
 
