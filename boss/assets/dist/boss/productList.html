@@ -466,12 +466,12 @@
 
 						<!-- BEGIN EXAMPLE TABLE PORTLET-->
 
-						<div class="portlet box blue">
+						<div id="JdataPanel" class="portlet box blue">
 							<div class="portlet-title v-product">
 
 								<span>一级类目</span>
 								<div class="product-type">
-									<select name="" id="Jtype" class="m-wrap small">
+									<select name="">
 										<option value="">oaghag1</option>
 										<option value="">oaghag2</option>
 										<option value="">oaghag3</option>
@@ -491,7 +491,7 @@
 
 										</a>
 
-										<div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+										<div class="Jfilter dropdown-menu hold-on-click dropdown-checkboxes pull-right">
 											{foreach $columns as $key => $item}
 											<label><input type="checkbox" checked data-column='{$key}'>{$item}</label>
 											{/foreach}
@@ -501,7 +501,7 @@
 
 							</div>
 							<div class="portlet-body">
-								<table class="table table-striped table-bordered table-hover table-full-width" id="sample_2">
+								<table class="table table-striped table-bordered table-hover table-full-width">
 
 									<thead>
 
@@ -627,18 +627,32 @@
 
 	<script src="/boss/js/app.js"></script>
 
-	<script src="/boss/js/table-advanced.js"></script>     
+	<script src="/boss/js/tableList.js"></script>     
 
 	<script>
+	$(function(){
+		App.init();
 
-		jQuery(document).ready(function() {       
-
-		   App.init();
-
-		   TableAdvanced.init();
-
+		// table初始化
+		TableList.init({
+			// 操作对象
+			"object":"#JdataPanel",
+			// 数据表配置，参考jquery.datatable配置
+			"tableConfig":{
+		    "aoColumnDefs": [
+		        { "aTargets": [ 0 ] }
+		    ],
+		    "aaSorting": [],
+		     "aLengthMenu": [
+		        [5, 15, 20, -1],
+		        [5, 15, 20, "All"]
+		    ],
+		    "iDisplayLength": 10,
+		},
+		// 字段过滤
+		"filter":".Jfilter"
 		});
-
+	});
 	</script>
 
 </body>
