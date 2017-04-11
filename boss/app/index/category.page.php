@@ -18,17 +18,10 @@ class index_category extends index_base
         //查询类目信息
         $dbCategory = new core_db_Category();
         $condition["pid"] = 0;
-        $rs = $dbCategory->queryAllCategory($condition);
-        $condition["pid"] != 0;
-        $rsItems = $dbCategory->queryAllCategory($condition);
-        foreach ($rs as $k => $item) {
-            foreach ($rsItems as $key => $rv) {
-                if ( $item['id'] == $rv['pid'] ) {
-                    $rs[$k]['son'][$key] = $rv;
-                }
-            }
-        }
-        return $this->render("boss/category.html");
+        $rs = $dbCategory->queryAllCategory($condition," show_sort desc");
+        $param["categorys"] = $rs->items;
+        $param["columns"] = core_lib_Comm::getTableColumns(CATEGORY_COLUMNS);
+        return $this->render("boss/categoryList.html", $param);
     }
 
     public function pageTest()

@@ -45,10 +45,10 @@ class core_db_Category extends core_db_DbBase
             return false;
         }
     }
-    public function queryAllCategory($condition) {
+    public function queryAllCategory($condition,$orderBy) {
         try {
             $this->useConfig("common", "query");
-            return $this->select($this->table, $condition);
+            return $this->select($this->table, $condition,"","",$orderBy);
         } catch (Exception $e) {
             return false;
         }

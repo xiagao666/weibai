@@ -449,7 +449,7 @@
 
 						<h3 class="page-title">
 
-							唯佰科技管理后台 <small>产品管理</small>
+							唯佰科技管理后台 <small>产品分类管理</small>
 
 						</h3>
 
@@ -473,11 +473,9 @@
 								<div class="product-type">
 									<select name="" id="Jtype" class="m-wrap small">
 										<option value="">请选择一级类目</option>
-										<option value="">oaghag2</option>
-										<option value="">oaghag3</option>
-										<option value="">oaghag4</option>
-										<option value="">oaghag5</option>
-										<option value="">oaghag6</option>
+										{foreach $categorys as $item}
+										<option value='{$item[id]}'>{$item[name]}</option>
+										{/foreach}
 									</select>
 								</div>
 								<div class="actions">
@@ -503,7 +501,6 @@
 								<table class="table table-striped table-bordered table-hover table-full-width" id="sample_2">
 
 									<thead>
-
 										<tr>
 											{foreach $columns as $key => $item}
 											<th>{$item}</th>
@@ -512,31 +509,14 @@
 
 									</thead>
 									<tbody>
-									{foreach $products as $item}
+									{foreach $categorys as $item}
 										<tr>
 
 											<td>{$item[id]}</td>
 
-											<td>{$item[brand]}</td>
-											<td class="hidden-480">{$item[catalog_number]}</td>
-											<td class="hidden-480">{$item[product]}</td>
-											<td class="hidden-480">{$item[package]}</td>
-											<td class="hidden-480">{$item[price]}</td>
-											<td class="hidden-480">{$item[abbreviation]}</td>
-											<td class="hidden-480">{$item[chinese_name]}</td>
-											<td class="hidden-480">{$item[origin]}</td>
-											<td class="hidden-480">{$item[application_process]}</td>
-											<td class="hidden-480">{$item[other_name]}</td>
-											<td class="hidden-480">{$item[storage_temperature]}</td>
-											<td class="hidden-480">{$item[type]}</td>
-											<td class="hidden-480">{$item[raise_from]}</td>
-											<td class="hidden-480">{$item[reacts_with]}</td>
-											<td class="hidden-480">{$item[application]}</td>
-											<td class="hidden-480">{$item[label]}</td>
-											<td class="hidden-480">{$item[cas_no]}</td>
-											<td class="hidden-480">{$item[molecular_formula]}</td>
-											<td class="hidden-480">{$item[molecular_weight]}</td>
-											<td class="hidden-480">{$item[grade]}</td>
+											<td>{$item[name]}</td>
+											<td class="hidden-480">{$item[des]}</td>
+											<td class="hidden-480">{$item[show_sort]}</td>
 										</tr>
 									{/foreach}
 
