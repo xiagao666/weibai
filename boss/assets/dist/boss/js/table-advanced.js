@@ -98,6 +98,7 @@ var TableAdvanced = function () {
         });
     }
 
+
     return {
 
         //main function to initiate the module
@@ -109,6 +110,8 @@ var TableAdvanced = function () {
 
             initTable1();
             initTable2();
+
+            $("#Jtype").select2();
         }
 
     };

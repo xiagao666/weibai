@@ -385,4 +385,14 @@ class core_lib_Comm
         }
         return $result;
     }
+
+    /**
+     * 从常量文件中组装表头array,参数以，隔开的字符串
+     */
+
+    public static function getTableColumns($str){
+        $columns = explode(",", $str);
+        $columnsNew = array_filter($columns);//去掉空元素
+        return $columnsNew;
+    }
 }

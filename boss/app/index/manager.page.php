@@ -41,6 +41,7 @@ class index_manager extends index_base
         }
         $query['sort'] = $sort;
         $query['isDesc'] = $isDesc;
+        define("DEBUG", true);
         $dbManager = new core_db_Manager();
         $managers = $dbManager->getManagerList($query, $limit, $page);
         $params['managers'] = $managers;
@@ -83,7 +84,6 @@ class index_manager extends index_base
 
             if ($isEdit) {
                 $msg = "编辑";
-                core_lib_Comm::p($data);
                 $managerRS = $dbManager->edit($data, 1);
             } else {
                 $msg = "添加";
