@@ -24,6 +24,11 @@ class core_db_Category extends core_db_DbBase
             if (empty($data)) {
                 throw new Exception("缺少必要参数");
             }
+
+            $category = $this->getCategoryByName($data['name']);
+            if ($category !== false) {
+                throw new Exception("不能添加重复的分类");
+            }
             //判断数据必选项
             $this->useConfig("common", "main");
             $rs = $this->insertData($data);
@@ -38,28 +43,74 @@ class core_db_Category extends core_db_DbBase
     }
 
     /**
+     * 通过ID获取单个分类
+     */
+    public function getCategoryById($categoryId)
+    {
+        try {
+            if (!$categoryId) {
+                throw new Exception("缺少必要参数");
+            }
+            //判断数据必选项
+            $this->useConfig("common", "query");
+            $category = $this->getOne(array('id'=>$categoryId), '*');
+            if ($category === false) {
+                throw new Exception("读取失败");
+            }
+            return $category;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
+    }
+
+    /**
+     * 通过分类名称获取单个分类
+     */
+    public function getCategoryByName($categoryName)
+    {
+        try {
+            if (!$categoryName) {
+                throw new Exception("缺少必要参数");
+            }
+            //判断数据必选项
+            $this->useConfig("common", "query");
+            $category = $this->getOne(array('name'=>$categoryName), '*');
+            if ($category === false) {
+                throw new Exception("读取失败");
+            }
+            return $category;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
+    }
+
+    /**
      * 更新分类
      * @param $data 查询条件
      * @param $item 字段
      * @return $rs
      */
-    public function updateOneCategory($condition, $item)
+    public function updateCategoryById($data)
     {
         try {
-            if (empty($condition) || empty($item)) {
+            $categoryId = $data['id'];
+            unset($data['id']);
+            if (!$categoryId || empty($data)) {
                 throw new Exception("缺少必要参数");
             }
-            $this->useConfig("common", "main");
-            $id = $condition['id'];
-            $itemRes = $this->getOne(array("id" => $id));
-            if (empty($itemRes)) {
-                throw new Exception("记录不存在");
+            $category = $this->getCategoryById($categoryId);
+            if ($category === false) {
+                throw new Exception("编辑的分类不存在");
             }
-            $rs = $this->updateData($condition, $item);
+
+            $this->useConfig("common", "main");
+            $rs = $this->updateData(array("id"=>$categoryId), $data);
             if ($rs === false) {
                 throw new Exception("更新失败");
             }
-            return $rs;
+            return true;
         } catch (Exception $e) {
             $this->log($e);
             return false;
@@ -71,12 +122,17 @@ class core_db_Category extends core_db_DbBase
      * @param $condition 查询条件
      * @return bool
      */
-    public function queryAllCategory($condition)
+    public function queryAllCategory($condition = array())
     {
         try {
             $this->useConfig("common", "query");
-            $categorys = $this->getAllData($condition);
-            return $categorys;
+            $categorys = $this->getAllData($condition, "", "", array("show_sort"=>"desc", "id"=>"desc"));
+            if ($categorys === false) {
+                throw new Exception("查询分类失败");
+            }
+            $categoryList['total'] = $categorys->totalSize;
+            $categoryList['items'] = $categorys->items;
+            return $categoryList;
         } catch (Exception $e) {
             $this->log($e);
             return false;
