@@ -197,11 +197,11 @@
 
 					<a href="javascript:;">
 
-					<i class="icon-cogs"></i> 
+						<i class="icon-cogs"></i>
 
-					<span class="title">产品管理</span>
+						<span class="title">产品管理</span>
 
-					<span class="arrow "></span>
+						<span class="arrow "></span>
 
 					</a>
 
@@ -209,25 +209,25 @@
 
 						<li >
 
-							<a href="layout_horizontal_sidebar_menu.html">
+							<a href="/product/list">
 
-							所有产品</a>
-
-						</li>
-
-						<li >
-
-							<a href="layout_horizontal_menu1.html">
-
-							促销产品配置</a>
+								所有产品</a>
 
 						</li>
 
 						<li >
 
-							<a href="layout_horizontal_menu2.html">
+							<a href="/product/list">
 
-							产品分类配置</a>
+								促销产品配置</a>
+
+						</li>
+
+						<li >
+
+							<a href="/category/list">
+
+								产品分类配置</a>
 
 						</li>
 
@@ -239,11 +239,11 @@
 
 					<a href="javascript:;">
 
-					<i class="icon-bookmark-empty"></i> 
+						<i class="icon-bookmark-empty"></i>
 
-					<span class="title">内容管理</span>
+						<span class="title">内容管理</span>
 
-					<span class="arrow "></span>
+						<span class="arrow "></span>
 
 					</a>
 
@@ -251,33 +251,33 @@
 
 						<li >
 
-							<a href="ui_general.html">
+							<a href="/cms/news">
 
-							公司新闻</a>
-
-						</li>
-
-						<li >
-
-							<a href="ui_buttons.html">
-
-							代理品牌</a>
+								公司新闻</a>
 
 						</li>
 
 						<li >
 
-							<a href="ui_modals.html">
+							<a href="/cms/brand">
 
-							技术服务</a>
+								代理品牌</a>
 
 						</li>
 
 						<li >
 
-							<a href="ui_tabs_accordions.html">
+							<a href="/cms/tech">
 
-							关于唯佰</a>
+								技术服务</a>
+
+						</li>
+
+						<li >
+
+							<a href="/cms/about">
+
+								关于唯佰</a>
 
 						</li>
 
@@ -469,16 +469,23 @@
 						<div id="JdataPanel" class="portlet box blue">
 							<div class="portlet-title v-product">
 
-								<span>一级类目</span>
+								<span>类目</span>
 								<div class="product-type">
 
 									<select name="">
-										<option value="">oaghag1</option>
-										<option value="">oaghag2</option>
-										<option value="">oaghag3</option>
-										<option value="">oaghag4</option>
-										<option value="">oaghag5</option>
-										<option value="">oaghag6</option>
+										<option value="">请选择</option>
+										{foreach $pCategory as $key => $item}
+										<option value='{$item[id]}'>{$item[name]}</option>
+										{/foreach}
+									</select>
+								</div>
+								<div class="product-type">
+
+									<select name="">
+										<option value="">请选择</option>
+										{foreach $pCategory as $key => $item}
+										<option value='{$item[id]}'>{$item[name]}</option>
+										{/foreach}
 									</select>
 								</div>
 								<div class="actions">
@@ -497,6 +504,12 @@
 											{/foreach}
 										</div>
 									</div>
+								</div>
+
+								<div class="product-type">
+									<p>
+										<input type="submit" class="btn red" value="查询"/>
+									</p>
 								</div>
 
 							</div>

@@ -29,7 +29,7 @@ class index_cms extends index_base
         $dbCms = new core_db_Cms();
         $condition["type"] = 2;
         $rs = $dbCms->queryNews($condition,1,20);
-        $param["rs"] = $rs;
+        $param["brands"] = $rs->items;
         return $this->render("boss/brand.html",$param);
     }
     /**
@@ -40,7 +40,7 @@ class index_cms extends index_base
         $dbCms = new core_db_Cms();
         $condition["type"] = 3;
         $rs = $dbCms->queryNews($condition,1,20);
-        $param["rs"] = $rs;
+        $param["techs"] = $rs->items;
         return $this->render("boss/tech.html",$param);
     }
     /**
@@ -51,7 +51,7 @@ class index_cms extends index_base
         $dbCms = new core_db_Cms();
         $condition["type"] = 4;
         $rs = $dbCms->queryNews($condition,1,20);
-        $param["rs"] = $rs;
+        $param["about"] = $rs->items;
         return $this->render("boss/about.html",$param);
     }
 
