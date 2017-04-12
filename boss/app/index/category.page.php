@@ -109,4 +109,26 @@ class index_category extends index_base
         $params['pCategorys'] = $pCategorys['items'];
         return $this->render('', $params);
     }
+
+    /**
+     * 删除分类
+     */
+    public function delCategory()
+    {
+        if ($_POST) {
+            $categoryId = isset($_GET['categoryId']) ? core_lib_Comm::getStr($_GET['categoryId'], 'int') : 0;//分类ID
+            if (!$categoryId) {
+//                return $this->alert(array('status'=>'error','msg'=>"缺少分类ID"));
+                core_lib_Comm::p("缺少分类ID");exit;
+            }
+            $dbCategory = new core_db_Category();
+            $delRS = $dbCategory->delCategoryById($categoryId);
+            if ($delRS === true) {
+//                return $this->alert(array('status'=>'success','msg'=>"删除成功"));
+                core_lib_Comm::p("删除成功");exit;
+            }
+//            return $this->alert(array('status'=>'error','msg'=>"删除失败，".$dbCategory->getError("msg")));
+            core_lib_Comm::p("删除失败，".$dbCategory->getError("msg"));exit;
+        }
+    }
 }

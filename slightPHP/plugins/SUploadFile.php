@@ -107,16 +107,15 @@ class SUploadFile
             die("uploadfile:参数不足");
         }
 
-        $upfiletype = $upfile['type'];
-        $upfilesize = $upfile['size'];
-        $upfiletmpname = $upfile['tmp_name'];
-        $upfilename = $upfile['name'];
-        $upfileerror = $upfile['error'];
-        if ($upfilesize > $this->filesize) {
+        $upfileType = $upfile['type'];
+        $upfileSize = $upfile['size'];
+        $upfileTmpName = $upfile['tmp_name'];
+        $upfileError = $upfile['error'];
+        if ($upfileSize > $this->filesize) {
             return false; //文件过大
         }
 
-        switch ($upfiletype) { //文件类型
+        switch ($upfileType) { //文件类型
             case 'image/jpeg' :
                 $type = 'jpg';
                 break;
@@ -133,28 +132,29 @@ class SUploadFile
         if (!isset ($type)) {
             return false; //不支持此类型
         }
-        if (!is_uploaded_file($upfiletmpname) or !is_file($upfiletmpname)) {
+        if (!is_uploaded_file($upfileTmpName) or !is_file($upfileTmpName)) {
             return false;; //文件不是经过正规上传的;
         }
-        if ($upfileerror != 0) {
+        if ($upfileError != 0) {
             return false; //其他错误
         }
 
-        if ((int)$upfileerror === 0) {
-            if (!file_exists($upfiletmpname)) {
+        if ((int)$upfileError === 0) {
+            if (!file_exists($upfileTmpName)) {
                 return false; //临时文件不存在
             } else {
-                $filename = date("ymdhis", time())."_s";//s 代表原图
+                $fileName = date("ymdhis", time())."_s";//s 代表原图
                 $this->filepath .= date("Y-m-d")."/";
+                core_lib_Comm::p($this->filepath);
                 if (!file_exists($this->filepath)) {
                     mkdir($this->filepath);
                 }
-                $filename = $this->filepath . $filename . "." . $type;
-                if (!move_uploaded_file($upfiletmpname, $filename)) {
+                $newFileName = $this->filepath . $fileName . "." . $type;
+                if (!move_uploaded_file($upfileTmpName, $newFileName)) {
                     return false; //文件在移动中丢失
                 } else {
-                    return $filename; //上传成功!
-                    unlink($upfiletmpname);
+                    return $fileName; //上传成功!
+                    unlink($upfileTmpName);
                 }
 
             }

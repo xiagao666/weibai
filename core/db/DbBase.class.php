@@ -47,6 +47,7 @@ class core_db_DbBase extends SDb
         $errorMsg['file'] = $e->getFile();
         $errorMsg['code'] = $e->getCode();
         $errorMsg['line'] = $e->getLine();
+        $this->setError($e->getMessage(), $e->getCode());
         error_log(json_encode($errorMsg));
     }
 
@@ -95,5 +96,13 @@ class core_db_DbBase extends SDb
     public function updateData($condition, $item)
     {
         return parent::update($this->_tableName, $condition, $item);
+    }
+
+    /**
+     * 删除
+     */
+    public function deleteData($condition)
+    {
+        return parent::delete($this->_tableName, $condition);
     }
 }
