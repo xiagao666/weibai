@@ -472,7 +472,7 @@
 								<span>类目</span>
 								<div class="product-type">
 
-									<select name="">
+									<select id="category_parent" name="" onchange="selectChild(this.value);">
 										<option value="">请选择</option>
 										{foreach $pCategory as $key => $item}
 										<option value='{$item[id]}'>{$item[name]}</option>
@@ -481,7 +481,7 @@
 								</div>
 								<div class="product-type">
 
-									<select name="">
+									<select id="category_child" name="">
 										<option value="">请选择</option>
 										{foreach $pCategory as $key => $item}
 										<option value='{$item[id]}'>{$item[name]}</option>
@@ -508,7 +508,7 @@
 
 								<div class="product-type">
 									<p>
-										<input type="submit" class="btn red" value="查询"/>
+										<input type="submit" onclick="selectChild(12)" class="btn red" value="查询"/>
 									</p>
 								</div>
 
@@ -653,6 +653,7 @@
 	<script src="/boss/js/app.js"></script>
 
 	<script src="/boss/js/tableList.js"></script>     
+	<script src="/boss/js/product.js"></script>
 
 	<script>
 	$(function(){
