@@ -16,24 +16,15 @@ class index_product extends index_base
     public function pageList($inPath)
     {
         //查询类目信息
-        /*$dbCategory = new core_db_Category();
+        $dbCategory = new core_db_Category();
         $condition["pid"] = 0;
         $rs = $dbCategory->queryAllCategory($condition);
-        $condition["pid"] != 0;
-        $rsItems = $dbCategory->queryAllCategory($condition);
-        foreach ($rs as $k => $item) {
-            foreach ($rsItems as $key => $rv) {
-                if ( $item['id'] == $rv['pid'] ) {
-                    $rs[$k]['son'][$key] = $rv;
-                }
-            }
-        }*/
+        $param["pCategory"] = $rs['items'];
+
         $dbProduct = new core_db_Product();
         $productRs = $dbProduct->queryProductList("",1,20,"");
-        // $param["categorys"] = $rs;
         $param["products"] = $productRs->items;
         $param["columns"] = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
-        //var_dump($productRs->items);exit;
         return $this->render("boss/productList.html", $param);
     }
     //产品列表
