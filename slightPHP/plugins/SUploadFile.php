@@ -5,7 +5,7 @@
  */
 class SUploadFile
 {
-    public $filepath = ''; //上传文件存放路径
+    public $filepath = '../../file/pdimage/'; //上传文件存放路径
 
     public $filesize = 2048000; //允许上传的大小
 
@@ -16,6 +16,8 @@ class SUploadFile
     public $position = 3;//水印位置 1 = left-top, 2 = right-top, 3 = right-bottom, 4 = left-bottom, 5 = center
 
     public $margin = 1;//缩略图的边界 margin to the border of the thumbnail
+
+    public $uri;//uri地址
 
     /**
      * 设置图片存放路径
@@ -32,6 +34,22 @@ class SUploadFile
     public function getFilePath()
     {
         return $this->filepath;
+    }
+
+    /**
+     * 设置uri
+     */
+    public function setUri($uri)
+    {
+        $this->uri = $uri;
+    }
+
+    /**
+     * 获取uri
+     */
+    public function getUri()
+    {
+        return $this->uri;
     }
 
     /**
@@ -133,7 +151,7 @@ class SUploadFile
             return false; //不支持此类型
         }
         if (!is_uploaded_file($upfileTmpName) or !is_file($upfileTmpName)) {
-            return false;; //文件不是经过正规上传的;
+            return false; //文件不是经过正规上传的;
         }
         if ($upfileError != 0) {
             return false; //其他错误
@@ -144,16 +162,27 @@ class SUploadFile
                 return false; //临时文件不存在
             } else {
                 $fileName = date("ymdhis", time())."_s";//s 代表原图
-                $this->filepath .= date("Y-m-d")."/";
-                core_lib_Comm::p($this->filepath);
+                $url = "/".$this->getUri()."/";
+                $dfile = date("Y-m-d")."/";
+                $this->filepath .= $dfile;
+                $url .= $dfile;
                 if (!file_exists($this->filepath)) {
                     mkdir($this->filepath);
                 }
                 $newFileName = $this->filepath . $fileName . "." . $type;
+                $url .= $fileName . "." . $type;
                 if (!move_uploaded_file($upfileTmpName, $newFileName)) {
                     return false; //文件在移动中丢失
                 } else {
-                    return $fileName; //上传成功!
+                    $fileInfo = array(
+                        "originalName" => $upfile['name'],
+                        "name" => $fileName,
+                        "url" => $url,
+                        "size" => $upfileSize,
+                        "type" => $type,
+                        "state" => "success"
+                    );
+                    return $fileInfo; //上传成功!
                     unlink($upfileTmpName);
                 }
 
