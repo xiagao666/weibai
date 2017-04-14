@@ -17,7 +17,7 @@ class index_cms extends index_base
     {
         $dbCms = new core_db_Cms();
         $condition["type"] = 1;
-        $rs = $dbCms->queryNews($condition,1,20);
+        $rs = $dbCms->queryNews($condition,1,20,"");
         $param["cmsData"] = $rs->items;
         return $this->render("boss/news.html",$param);
     }
@@ -28,7 +28,7 @@ class index_cms extends index_base
     {
         $dbCms = new core_db_Cms();
         $condition["type"] = 2;
-        $rs = $dbCms->queryNews($condition,1,20);
+        $rs = $dbCms->queryNews($condition,1,20,"");
         $param["cmsData"] = $rs->items;
         return $this->render("boss/brand.html",$param);
     }
@@ -39,7 +39,7 @@ class index_cms extends index_base
     {
         $dbCms = new core_db_Cms();
         $condition["type"] = 3;
-        $rs = $dbCms->queryNews($condition,1,20);
+        $rs = $dbCms->queryNews($condition,1,20,"");
         $param["cmsData"] = $rs->items;
         return $this->render("boss/tech.html",$param);
     }
@@ -50,7 +50,7 @@ class index_cms extends index_base
     {
         $dbCms = new core_db_Cms();
         $condition["type"] = 4;
-        $rs = $dbCms->queryNews($condition,1,20);
+        $rs = $dbCms->queryNews($condition,1,20,"");
         $param["cmsData"] = $rs->items;
         return $this->render("boss/about.html",$param);
     }
@@ -63,7 +63,7 @@ class index_cms extends index_base
         $condition["type"] = $_GET["type"];
         $page = $_GET["page"];
         $size = $_GET["size"];
-        $rs = $dbCms->queryNews($condition,$page,$size);
+        $rs = $dbCms->queryNews($condition,$page,$size,"");
         echo json_encode($rs);
     }
 
@@ -89,6 +89,7 @@ class index_cms extends index_base
         //$item["content"] = $_GET["content"];
         $item["hyperlink"] = $_GET["hyperlink"];
         $item["last_update_date"] = date("y-m-d H:i:s",time());
+        $item["content"] = $_GET["content"];
         $rs = $dbCms->updateOneNews($condition, $item);
         if($rs){
             $params["success"] = true;

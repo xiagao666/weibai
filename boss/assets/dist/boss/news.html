@@ -537,16 +537,16 @@
 									{foreach $cmsData as $item}
 									<tr class="">
 
-										<td>{$item[id]}</td>
-										<td>{$item[title]}</td>
-										<td>{$item[des]}</td>
-										<td>{$item[hyperlink]}</td>
-										<td>{$item[create_date]}</td>
-										<td>{$item[last_update_date]}</td>
+										<td>{$item['id']}</td>
+										<td>{$item['title']}</td>
+										<td>{$item['des']}</td>
+										<td>{$item['hyperlink']}</td>
+										<td>{$item['create_date']}</td>
+										<td>{$item['last_update_date']}</td>
 
-										<td><a id="editCms" data-id="{$item[id]}" href="javascript:;">编辑</a></td>
+										<td><a id="editCms" data-id="{$item['id']}" href="javascript:;">编辑</a></td>
 
-										<td><a id="deleteCms" data-id="{$item[id]}" href="javascript:;">删除</a></td>
+										<td><a id="deleteCms" data-id="{$item['id']}" href="javascript:;">删除</a></td>
 
 									</tr>
 									{/foreach}
@@ -565,7 +565,7 @@
 
 				</div>
 
-				<div id="categoryForm" class="row-fluid" style="display: none">
+				<div id="categoryForm" class="row-fluid">
 
 					<div class="span12">
 
@@ -594,7 +594,7 @@
 
 								<!-- BEGIN FORM-->
 								<form id="Jform" action="#" class="form-horizontal">
-									<input name="cmsType" value="1" style="display: none"/>
+
 									<div class="control-group">
 
 										<label class="control-label">序号</label>
@@ -786,12 +786,8 @@
 	<script>
 		jQuery(document).ready(function() {
             <!--这里引用jquery和wangEditor.js-->
-            var editor = new wangEditor('editor-trigger');
-            // 上传图片
-            editor.config.uploadImgUrl = '/upload/index?action=edimage';
-            editor.config.uploadImgFileName = 'upfile';
-            editor.create();
-            
+
+
 		   App.init();
 		   TableEditable.init();
         });

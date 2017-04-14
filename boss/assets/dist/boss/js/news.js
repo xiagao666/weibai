@@ -3,14 +3,22 @@
  */
 
 var News = {
-    data:{},
+    wangEditor:null,
     init:function(){
         App.init();
 
         this.bind();
-
+        this.intWangEditor();
         $("#categoryForm").hide();
 
+    },
+    intWangEditor:function () {
+        var t = this;
+        t.wangEditor = new wangEditor('editor-trigger');
+        // 上传图片
+        t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
+        t.wangEditor.config.uploadImgFileName = 'upfile';
+        t.wangEditor.create();
     },
     bind:function(){
         var t = this;
@@ -59,6 +67,7 @@ var News = {
         this.postData(config);
     },
     setEditFormData:function (rs) {
+        var t = News;
         if(rs == null) {
             return;
         }
@@ -66,14 +75,17 @@ var News = {
         $("#cmsTitle").val(rs["title"]);
         $("#cmsDes").val(rs["des"]);
         $("#cmsUrl").val(rs["hyperlink"]);
+        t.wangEditor.$txt.append('<p>'+rs["content"]+'</p>');
         $("#categoryForm").show();
     },
     saveEditFormData:function () {
         var id = $("#cmsId").val();
         var urlData = '/cms/add';
+        var wEditorText = News.wangEditor.$txt.html();
         if(id > 0){
-            urlData = '/cms/update';
+            urlData = '/cms/update?content=' + wEditorText;
         }
+        console.log(wEditorText);
         var config = {url:urlData,data:$("#Jform").serializeArray(),callback:this.refreshTable};
         this.postData(config);
     },
@@ -100,6 +112,7 @@ var News = {
             .val('')
             .removeAttr('checked')
             .removeAttr('selected');
+        this.wangEditor.$txt.html('<p><br></p>');
     }
 };
 
