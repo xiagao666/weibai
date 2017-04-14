@@ -1,29 +1,6 @@
 /**
  * Created by ycp on 2017/4/13.
  */
-var selectChild = function (parent) {
-    $("#category_child").empty();
-    var parent_category_id = $("#category_parent").val();
-    if(parent_category_id == "" || parent_category_id == 0){
-        return false;
-    }
-    $.getJSON("/product/getList","{'categoryIds':"+parent_category_id+"}",
-        function (data) {
-        alert(data);
-        var o = new Option("请选择", 0);
-        $("#category_child").append(o);
-        if(data == ""){
-            return;
-        }
-        for(var i=0; i<data.length;i++) {
-            var categoryChild = data[i];
-            var o = new Option(categoryChild["name"],categoryChild["id"]);
-            $("#category_child").append(o);
-        }
-    }
-    );
-}
-
 
 var Product = {
     data:{},
@@ -71,8 +48,8 @@ var Product = {
         var t = this;
         $(document).on("click","#Jpost",function(){
             t.search();
-        }).on("change","#Jtype", function(){
-            var val =$(this).val();
+        }).on("change","#categoryParent", function(){
+            t.updateChildCategory();
         });
     },
     postData:function(config){
@@ -85,7 +62,7 @@ var Product = {
                 beforeSend:function(){
                 },
                 success:function(res){
-                    config.calllback(res);
+                    config.callback(res);
                 },
                 error:function(res){
 
@@ -101,7 +78,33 @@ var Product = {
     search:function(){
         window.location.href = ""
     },
-    afs:function(){
+    updateChildOption:function(res){
+        if(res == null) {
+            return;
+        }
+        var data = res['categorys'];
+        if(data){
+            for(var i=0; i<data.length;i++) {
+                var categoryChild = data[i];
+                var o = new Option(categoryChild["name"],categoryChild["id"]);
+                $("#categoryChild").append(o);
+            }
+        }
+    },
+    updateChildCategory:function(){
+        //更新二级类目
+        $("#categoryChild").empty();
+        var parentCategoryId = $("#categoryParent").val();
+        if(parentCategoryId == 0){
+            return;
+        }
+        var o = new Option("请选择", 0);
+        $("#categoryChild").append(o);
+        var param = {
+            categoryId:parentCategoryId
+        };
+        var config = {url:'/category/GetChildsByParentId',data:param,callback:this.updateChildOption};
+        this.postData(config);
     }
 };
 

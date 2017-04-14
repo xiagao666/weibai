@@ -43,6 +43,15 @@ class core_db_Cms extends core_db_DbBase {
         }
     }
 
+
+    public function getOneCms($param){
+        try{
+            $this->useConfig("common","query");
+            return $this->getOne($param);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
     public function updateOneNews($condition, $item){
         try{
             if(empty($condition) || empty($item)) {
@@ -51,6 +60,7 @@ class core_db_Cms extends core_db_DbBase {
             $this->useConfig("common","main");
             $id = $condition['id'];
             $itemRes = $this->getOne(array("id"=>$id));
+            var_dump($itemRes);
             if(empty($itemRes)) {
                 throw new Exception("记录不存在");
             }
@@ -63,4 +73,18 @@ class core_db_Cms extends core_db_DbBase {
         }
     }
 
+    public function deleteOneCms($condition){
+        try{
+            if(empty($condition)) {
+                throw new Exception("缺少必要参数");
+            }
+            $this->useConfig("common","main");
+            $rs = $this->deleteData($condition);
+            if($rs === false) {
+                throw new Exception("删除失败");
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

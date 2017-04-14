@@ -502,7 +502,6 @@
 
 									<a href="javascript:;" class="reload"></a>
 
-									<a href="javascript:;" class="remove"></a>
 
 								</div>
 
@@ -514,7 +513,7 @@
 
 									<div class="btn-group">
 
-										<button id="sample_editable_1_new" class="btn green">
+										<button id="addNews" class="btn green">
 
 										Add New <i class="icon-plus"></i>
 
@@ -552,7 +551,7 @@
 									</thead>
 
 									<tbody>
-									{foreach $news as $item}
+									{foreach $cmsData as $item}
 									<tr class="">
 
 										<td>{$item[id]}</td>
@@ -562,9 +561,9 @@
 										<td>{$item[create_date]}</td>
 										<td>{$item[last_update_date]}</td>
 
-										<td><a href="javascript:;">编辑</a></td>
+										<td><a id="editCms" data-id="{$item[id]}" href="javascript:;">编辑</a></td>
 
-										<td><a class="delete" href="javascript:;">删除</a></td>
+										<td><a id="deleteCms" data-id="{$item[id]}" href="javascript:;">删除</a></td>
 
 									</tr>
 									{/foreach}
@@ -583,7 +582,7 @@
 
 				</div>
 
-				<div class="row-fluid">
+				<div id="categoryForm" class="row-fluid" style="display: none">
 
 					<div class="span12">
 
@@ -603,7 +602,6 @@
 
 									<a href="javascript:;" class="reload"></a>
 
-									<a href="javascript:;" class="remove"></a>
 
 								</div>
 
@@ -612,15 +610,15 @@
 							<div class="portlet-body form">
 
 								<!-- BEGIN FORM-->
-								<form action="#" class="form-horizontal">
-
+								<form id="Jform" action="#" class="form-horizontal">
+									<input name="cmsType" value="1" style="display: none"/>
 									<div class="control-group">
 
 										<label class="control-label">序号</label>
 
 										<div class="controls">
 
-											<input class="span6 m-wrap" type="text" placeholder="Disabled input here..." disabled />
+											<input id="cmsId" name="cmsId" class="span6 m-wrap" type="text" placeholder="" readonly />
 
 
 										</div>
@@ -632,7 +630,7 @@
 
 										<div class="controls">
 
-											<input type="text" class="span6 m-wrap" />
+											<input id="cmsTitle" name="title" type="text" class="span6 m-wrap" />
 
 
 										</div>
@@ -644,7 +642,7 @@
 
 										<div class="controls">
 
-											<textarea class="span6 m-wrap" rows="3"></textarea>
+											<textarea id="cmsDes" name="des" class="span6 m-wrap" rows="3"></textarea>
 
 										</div>
 
@@ -655,28 +653,28 @@
 
 										<div class="controls">
 
-											<input type="text" class="span6 m-wrap" />
+											<input id="cmsUrl" name="hyperlink" type="text" class="span6 m-wrap" />
 
 
 										</div>
 
 									</div>
 
-									<div class="control-group">
-										<label class="control-label">内容</label>
-										<div class="controls">
-											<script id="container" name="content" type="text/plain">
-        										这里写你的初始化内容
-    									</script>
-										</div>
-									</div>
+									<!--<div class="control-group">-->
+										<!--<label class="control-label">内容</label>-->
+										<!--<div class="controls">-->
+											<!--<script id="container" name="content" type="text/plain">-->
+        										<!--这里写你的初始化内容-->
+    									<!--</script>-->
+										<!--</div>-->
+									<!--</div>-->
 
 
 									<div class="form-actions">
 
-										<button type="submit" class="btn blue">保存</button>
+										<button id="saveEdit" type="submit" class="btn blue">保存</button>
 
-										<button type="button" class="btn">取消</button>
+										<button id="cancelEdit" type="button" class="btn">取消</button>
 
 									</div>
 
@@ -695,6 +693,34 @@
 				</div>
 
 				<!-- END PAGE CONTENT -->
+				<div class="container">
+					<div id="delete_mod" class="modal hide fade in" style="display: none; ">
+						<div class="modal-header" style="background: cornflowerblue;">
+							<h3 style="COLOR: floralwhite;">提示</h3>
+						</div>
+						<div class="modal-body">
+							<h4>你确定要删除吗？</h4>
+						</div>
+						<div class="modal-footer">
+							<a href="#" class="btn btn-success delete">确定</a>
+							<a href="#" class="btn" data-dismiss="modal">取消</a>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div id="save_mod" class="modal hide fade in" style="display: none; ">
+						<div class="modal-header" style="background: cornflowerblue;">
+							<h3 style="COLOR: floralwhite;">提示</h3>
+						</div>
+						<div class="modal-body">
+							<h4>你确定要保存吗？</h4>
+						</div>
+						<div class="modal-footer">
+							<a href="#" class="btn btn-success save">确定</a>
+							<a href="#" class="btn" data-dismiss="modal">取消</a>
+						</div>
+					</div>
+				</div>
 
 			</div>
 
@@ -781,8 +807,7 @@
 	<script src="/boss/js/table-editable.js"></script>
 	<script src="/boss/js/ueditor/ueditor.config.js"></script>
 	<script src="/boss/js/ueditor/ueditor.all.js"></script>
-	<script type="text/javascript">
-	</script>
+	<script src="/boss/js/news.js"></script>
 	<script>
 
         //var ue = UE.getEditor('container');
