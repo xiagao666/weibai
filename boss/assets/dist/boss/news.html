@@ -789,18 +789,10 @@
             var editor = new wangEditor('editor-trigger');
             // 上传图片
             editor.config.uploadImgUrl = '/upload/index?action=edimage';
-            editor.config.uploadParams = {
-                // token1: 'abcde',
-                // token2: '12345'
-            };
-            editor.config.uploadHeaders = {
-                // 'Accept' : 'text/x-json'
-            }
             editor.config.uploadImgFileName = 'upfile';
             editor.create();
-
+            
 		   App.init();
-
 		   TableEditable.init();
         });
     </script>
