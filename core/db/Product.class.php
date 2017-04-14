@@ -32,13 +32,23 @@ class core_db_Product extends core_db_DbBase {
         }
     }
 
-    public function queryProductList($param, $page, $limit,$orderBy){
+    /**
+     * 查询产品列表
+     * @param $query
+     * @param $page
+     * @param $limit
+     * @param $orderBy
+     * @return bool
+     */
+    public function queryProductList($query, $page, $limit, $orderBy){
         try{
             $this->useConfig("common","query");
-            $this->setPage((int)$page);
-            $this->setLimit((int)$limit);
-            return $this->select($this->table,$param,'*',$groupby="",$orderBy);
+            $products = $this->getAllData($query, "*", "", $orderBy, "", $limit, $page);
+            $productList['total'] = $products->totalSize;
+            $productList['items'] = $products->items;
+            return $productList;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }

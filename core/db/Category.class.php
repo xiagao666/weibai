@@ -126,7 +126,7 @@ class core_db_Category extends core_db_DbBase
     {
         try {
             $this->useConfig("common", "query");
-            $categorys = $this->getAllData($condition, "", "", array("show_sort"=>"desc", "id"=>"desc"));
+            $categorys = $this->getAllData($condition, "", "", array("show_sort"=>"desc", "id"=>"desc"), '', 1000, 0);
             if ($categorys === false) {
                 throw new Exception("查询分类失败");
             }
@@ -159,7 +159,7 @@ class core_db_Category extends core_db_DbBase
             if ($categorys['total']) {
                 throw new Exception("删除的分类存在子分类，需要把", 10001);
             }
-            $delRS = $this->delete(array('id'=>$categoryId));
+            $delRS = $this->deleteData(array('id'=>$categoryId));
             if ($delRS === false) {
                 throw new Exception("删除的分类失败,".$delRS);
             }
