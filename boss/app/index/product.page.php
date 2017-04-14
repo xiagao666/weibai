@@ -57,7 +57,7 @@ class index_product extends index_base
         $param['limit'] = $limit;
         $param['page'] = $page;
         $param['categoryParentId'] = $categoryParentId;
-        $param['$categoryChildId'] = $categoryChildId;
+        $param['categoryChildId'] = $categoryChildId;
         echo json_encode($productRs);
     }
 
