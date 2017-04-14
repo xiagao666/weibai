@@ -16,15 +16,36 @@ class index_product extends index_base
     public function pageList($inPath)
     {
         //查询类目信息
-        $dbCategory = new core_db_Category();
-        $condition["pid"] = 0;
-        $rs = $dbCategory->queryAllCategory($condition);
-        $param["pCategory"] = $rs['items'];
-
+        $categoryParentId = $_GET["categoryParentId"];//父ID
+        $categoryChildId = $_GET["categoryChildId"];//子ID
+        if($categoryChildId == 0 && $categoryParentId > 0) {
+            $dbCategory = new core_db_Category();
+            $condition['pid'] = $categoryParentId;
+            $rs = $dbCategory->queryAllCategory($condition);
+            if($rs['items']){
+                foreach ($rs['items'] as $v) {
+                    $ids[] = $v['id'];
+                }
+            }
+        }
+        if($categoryChildId > 0){
+            $ids[] = $categoryChildId;
+        }
+        $category = explode(",", $ids);
+        $page = $_GET["page"];
+        $limit = $_GET["limit"];
+        if(!empty($ids)) {
+            $query = array("category_id in ({$category})");
+        }
         $dbProduct = new core_db_Product();
-        $productRs = $dbProduct->queryProductList("",1,20,"");
-        $param["products"] = $productRs->items;
-        $param["columns"] = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
+        $productRs = $dbProduct->queryProductList($query,$page,$limit,"id desc");
+        $param['items'] = $productRs->items;
+        $page['total'] = $productRs->totalSize;
+        $param['limit'] = $limit;
+        $param['page'] = $page;
+        $param['categoryParentId'] = $categoryParentId;
+        $param['categoryChildId'] = $categoryChildId;
+        $param['cCategory'] = $rs['items'];
         return $this->render("boss/productList.html", $param);
     }
     //产品列表
