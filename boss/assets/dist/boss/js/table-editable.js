@@ -57,11 +57,18 @@ var TableEditable = function () {
                 "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
                 "sPaginationType": "bootstrap",
                 "oLanguage": {
-                    "sLengthMenu": "_MENU_ records per page",
+                    "sLengthMenu": "_MENU_ 条记录每页",
                     "oPaginate": {
-                        "sPrevious": "Prev",
-                        "sNext": "Next"
-                    }
+                        "sPrevious": "上一页",
+                        "sNext": "下一页"
+                    },
+                    "sEmptyTable": "无记录",
+                    "sInfo": "当前第<span style='color:#35aa47'>_START_</span>页 / 共计<span style='color:#35aa47'>_END_</span>页 / 共计<span style='color:#35aa47'>_TOTAL_</span>条记录",
+                    "sInfoEmpty": "当前第<span style='color:#35aa47'>0</span>页 / 共计<span style='color:#35aa47'>0</span>页 / 共计<span style='color:#35aa47'>0</span>条记录",
+                    "loadingRecords": "加载中...",
+                    "processing": "处理中...",
+                    "sSearch": "搜索:",
+                    "sZeroRecords": "未查询到记录",
                 },
                 "aoColumnDefs": [{
                         'bSortable': false,

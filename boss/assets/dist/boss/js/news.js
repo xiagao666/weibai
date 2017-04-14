@@ -3,8 +3,8 @@
  */
 
 var News = {
-    wangEditor:null,
-    init:function(){
+    wangEditor: null,
+    init: function() {
         App.init();
 
         this.bind();
@@ -12,7 +12,7 @@ var News = {
         $("#categoryForm").hide();
 
     },
-    intWangEditor:function () {
+    intWangEditor: function() {
         var t = this;
         t.wangEditor = new wangEditor('editor-trigger');
         // 上传图片
@@ -20,94 +20,107 @@ var News = {
         t.wangEditor.config.uploadImgFileName = 'upfile';
         t.wangEditor.create();
     },
-    bind:function(){
+    bind: function() {
         var t = this;
-        $(document).on("click","#editCms",function(){
+        $(document).on("click", "#editCms", function() {
             t.showEditForm($(this).data("id"));
-        }).on("click","#cancelEdit",function(){
+        }).on("click", "#cancelEdit", function() {
             $("#categoryForm").hide();
-        }).on("click","#saveEdit",function(){
+        }).on("click", "#saveEdit", function() {
             t.saveEditFormData();
-        }).on("click","#deleteCms",function () {
-            t.deleteOne($(this).data("id"));
-        }).on("click","#addNews",function () {
+        }).on("click", "#deleteCms", function() {
+            $("#Jdelete").data("id",$(this).data("id"));
+        }).on("click", "#addNews", function() {
             t.showAddForm();
+        }).on("click","#Jdelete",function(){
+            t.deleteOne($(this).data("id"));
         });
     },
-    postData:function(config){
+    postData: function(config) {
         var t = this;
-        try{
+        try {
             $.ajax({
-                url:config.url || "",
-                data:config.data,
-                dataType:"json",
-                beforeSend:function(){
-                },
-                success:function(res){
-                    if(config.callback != null){
+                url: config.url || "",
+                data: config.data,
+                type: config.type || "get",
+                dataType: "json",
+                beforeSend: function() {},
+                success: function(res) {
+                    if (config.callback != null) {
                         config.callback(res);
                     }
                 },
-                error:function(res){
+                error: function(res) {
 
                 },
-                complete:function(res){
+                complete: function(res) {
 
                 }
             });
-        }catch(e){
+        } catch (e) {
             console.error(e);
         }
     },
-    showEditForm:function (id) {
+    showEditForm: function(id) {
+        var t = this
         var param = {
-          cmsId:id
+            cmsId: id
         };
-        var config = {url:'/cms/GetOneById',data:param,callback:this.setEditFormData};
-        this.postData(config);
+        var config = {
+            url: '/cms/GetOneById',
+            data: param,
+            callback: t.setEditFormData
+        };
+        t.postData(config);
     },
-    setEditFormData:function (rs) {
+    setEditFormData: function(rs) {
         var t = News;
-        if(rs == null) {
+        if (rs == null) {
             return;
         }
         $("#cmsId").val(rs["id"]);
         $("#cmsTitle").val(rs["title"]);
         $("#cmsDes").val(rs["des"]);
         $("#cmsUrl").val(rs["hyperlink"]);
-        t.wangEditor.$txt.append('<p>'+rs["content"]+'</p>');
+        t.wangEditor.$txt.html(rs["content"]);
         $("#categoryForm").show();
     },
-    saveEditFormData:function () {
-        var id = $("#cmsId").val();
-        var urlData = '/cms/add';
-        var wEditorText = News.wangEditor.$txt.html();
-        if(id > 0){
+    saveEditFormData: function() {
+        var  t = this,
+            id = $("#cmsId").val(),
+            wEditorText = News.wangEditor.$txt.html(),
+            urlData = '/cms/add?content=' + wEditorText;
+
+        if (id > 0) {
             urlData = '/cms/update?content=' + wEditorText;
         }
-        console.log(wEditorText);
-        var config = {url:urlData,data:$("#Jform").serializeArray(),callback:this.refreshTable};
-        this.postData(config);
+
+        t.postData({
+            url: urlData,
+            data: $("#Jform").serialize(),
+            callback: t.refreshTable
+        });
     },
-    refreshTable:function (rs) {
-        if(rs == null) {
+    refreshTable: function(rs) {
+        if (rs == null) {
             alert("操作失败");
         }
-        //$("#delete_mod").modal('show');
-        $("#categoryForm").hide();
         window.location.reload();
     },
-    deleteOne:function (id) {
+    deleteOne: function(id) {
         var param = {
-            cmsId:id
+            cmsId: id
         };
-        var config = {url:'/cms/delete',data:param};
+        var config = {
+            url: '/cms/delete',
+            data: param
+        };
         this.postData(config);
         window.location.reload();
     },
-    showAddForm:function () {
+    showAddForm: function() {
         $("#categoryForm").show();
-        $(':input','#categoryForm')
+        $(':input', '#categoryForm')
             .not(':button, :submit, :reset, :hidden')
             .val('')
             .removeAttr('checked')
@@ -116,6 +129,6 @@ var News = {
     }
 };
 
-$(function(){
+$(function() {
     News.init();
 })

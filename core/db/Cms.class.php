@@ -60,7 +60,6 @@ class core_db_Cms extends core_db_DbBase {
             $this->useConfig("common","main");
             $id = $condition['id'];
             $itemRes = $this->getOne(array("id"=>$id));
-            var_dump($itemRes);
             if(empty($itemRes)) {
                 throw new Exception("记录不存在");
             }

@@ -13,7 +13,7 @@ var TableList = function(){
 			oTable = $object.find("table").dataTable(config.tableConfig || {});
 
 		// 统一修改样式
-		$object.find("input,select").addClass("m-wrap small");
+		$object.find("input[type='text'],select").addClass("m-wrap small");
 		// 初始化select2
 		$object.find("select").select2();
 		// 表头字段筛选

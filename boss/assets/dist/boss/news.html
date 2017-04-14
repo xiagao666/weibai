@@ -498,7 +498,7 @@
 
 										<button id="addNews" class="btn green">
 
-										Add New <i class="icon-plus"></i>
+										新增 <i class="icon-plus"></i>
 
 										</button>
 
@@ -525,10 +525,8 @@
 
 											<th>最后更新时间</th>
 
-											<th>编辑</th>
-
-											<th>删除</th>
-
+											<th>操作</th>
+											<th>操作</th>
 										</tr>
 
 									</thead>
@@ -546,7 +544,7 @@
 
 										<td><a id="editCms" data-id="{$item['id']}" href="javascript:;">编辑</a></td>
 
-										<td><a id="deleteCms" data-id="{$item['id']}" href="javascript:;">删除</a></td>
+										<td><a href="#myModal1" data-toggle="modal" role="button" id="deleteCms" data-id="{$item['id']}" href="javascript:;">删除</a></td>
 
 									</tr>
 									{/foreach}
@@ -594,19 +592,8 @@
 
 								<!-- BEGIN FORM-->
 								<form id="Jform" action="#" class="form-horizontal">
-
-									<div class="control-group">
-
-										<label class="control-label">序号</label>
-
-										<div class="controls">
-
-											<input id="cmsId" name="cmsId" class="span6 m-wrap" type="text" placeholder="" readonly />
-
-
-										</div>
-
-									</div>
+									<input type="hidden" name="cmsType" value="1" />
+									<input id="cmsId" name="cmsId" type="hidden" value=""/>
 									<div class="control-group">
 
 										<label class="control-label">标题</label>
@@ -653,7 +640,7 @@
 
 									<div class="form-actions">
 
-										<button id="saveEdit" type="submit" class="btn blue">保存</button>
+										<button id="saveEdit" type="button" class="btn blue">保存</button>
 
 										<button id="cancelEdit" type="button" class="btn">取消</button>
 
@@ -674,34 +661,6 @@
 				</div>
 
 				<!-- END PAGE CONTENT -->
-				<div class="container">
-					<div id="delete_mod" class="modal hide fade in" style="display: none; ">
-						<div class="modal-header" style="background: cornflowerblue;">
-							<h3 style="COLOR: floralwhite;">提示</h3>
-						</div>
-						<div class="modal-body">
-							<h4>你确定要删除吗？</h4>
-						</div>
-						<div class="modal-footer">
-							<a href="#" class="btn btn-success delete">确定</a>
-							<a href="#" class="btn" data-dismiss="modal">取消</a>
-						</div>
-					</div>
-				</div>
-				<div class="container">
-					<div id="save_mod" class="modal hide fade in" style="display: none; ">
-						<div class="modal-header" style="background: cornflowerblue;">
-							<h3 style="COLOR: floralwhite;">提示</h3>
-						</div>
-						<div class="modal-body">
-							<h4>你确定要保存吗？</h4>
-						</div>
-						<div class="modal-footer">
-							<a href="#" class="btn btn-success save">确定</a>
-							<a href="#" class="btn" data-dismiss="modal">取消</a>
-						</div>
-					</div>
-				</div>
 
 			</div>
 
@@ -710,6 +669,32 @@
 		</div>
 
 		<!-- END PAGE -->
+
+	</div>
+
+	<div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+
+		<div class="modal-header">
+
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+
+			<h3 id="myModalLabel1">系统提示</h3>
+
+		</div>
+
+		<div class="modal-body">
+
+			<p>您确定要删除该条记录？</p>
+
+		</div>
+
+		<div class="modal-footer">
+
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+
+			<button id="Jdelete" class="btn yellow">确定</button>
+
+		</div>
 
 	</div>
 
@@ -768,6 +753,8 @@
 	<!-- END CORE PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script type="text/javascript" src="/boss/js/jquery.gritter.js"></script>
+	<script type="text/javascript" src="/boss/js/jquery.pulsate.min.js"></script>
 	<script type="text/javascript" src="/boss/js/select2.min.js"></script>
 	<script type="text/javascript" src="/boss/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="/boss/js/DT_bootstrap.js"></script>
@@ -782,6 +769,8 @@
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
     <script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
     <!--END 引入jquery和wangEditor.js-->
+    <script type="text/javascript" src="/boss/js/jquery.bootpag.min.js"></script>
+    <script src="/boss/js/ui-general.js"></script>
 
 	<script>
 		jQuery(document).ready(function() {
@@ -790,6 +779,7 @@
 
 		   App.init();
 		   TableEditable.init();
+		   UIGeneral.init();
         });
     </script>
 
