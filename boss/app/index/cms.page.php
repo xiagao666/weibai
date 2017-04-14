@@ -127,6 +127,7 @@ class index_cms extends index_base
         $data["type"] = $_GET["cmsType"];
         $data["create_date"] = date("y-m-d H:i:s", time());
         $data["last_update_date"] = date("y-m-d H:i:s", time());
+        $data['content'] = $_GET['content'];
         $rs = $dbCms->addNews($data);
         if ($rs) {
             $params["success"] = true;
