@@ -41,6 +41,18 @@ class index_category extends index_base
     }
 
     /**
+     * 根据父ID查询子类目信息
+     */
+    public function pageGetChildsByParentId($inPath) {
+        $categoryId = $_GET['categoryId'];
+        $dbCategory = new core_db_Category();
+        $condition['pid'] = $categoryId;
+        $rs = $dbCategory->queryAllCategory($condition);
+        $params['categorys'] = $rs['items'];
+        echo json_encode($params);
+    }
+
+    /**
      * 添加/编辑类别
      */
     public function pageActionCategory()
