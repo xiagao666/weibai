@@ -6,7 +6,7 @@ class core_lib_Comm
      * 打印数据 上线删除方法
      * @param $a
      */
-    public function p($a)
+    public static function p($a)
     {
         echo "<pre>";
         var_dump($a);
