@@ -472,7 +472,7 @@
 								<span>类目</span>
 								<div class="product-type">
 
-									<select id="category_parent" name="" onchange="selectChild(this.value);">
+									<select id="categoryParent" name="">
 										<option value="">请选择</option>
 										{foreach $pCategory as $key => $item}
 										<option value='{$item[id]}'>{$item[name]}</option>
@@ -481,7 +481,7 @@
 								</div>
 								<div class="product-type">
 
-									<select id="category_child" name="">
+									<select id="categoryChild" name="">
 										<option value="">请选择</option>
 										{foreach $pCategory as $key => $item}
 										<option value='{$item[id]}'>{$item[name]}</option>
