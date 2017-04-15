@@ -155,13 +155,14 @@ class index_product extends index_base
 
         //产品描述文档
         $dbProductDes = new core_db_ProductDes();
-        $des = $dbProductDes->getOneProductDesByProductId($productId);
-        core_lib_Comm::p($des);exit;
+        $des = $dbProductDes->getProductDesByProductId($productId);
+
         $dbProductRel = new core_db_ProductRelation();
-        $rel = $dbProductRel->getOneProductRelByProductId($productId);//产品关联内容
-        $param["info"] = $info;
+//        $rel = $dbProductRel->getOneProductRelByProductId($productId);//产品关联内容
+//
+        $param["product"] = $product;
         $param["des"] = $des;
-        $param["rel"] = $rel;
+//        $param["rel"] = $rel;
         echo json_encode($param);
     }
 

@@ -21,13 +21,10 @@ class core_db_Product extends core_db_DbBase
     public function addProduct($data)
     {
         try {
-            core_lib_Comm::p($data);
             if (empty($data)) {
                 throw new Exception("缺少必要参数");
             }
             //重要字段判断 产品和包装
-            var_dump($data['catalog_number']);
-            var_dump($data['package']);
             if (!$data['catalog_number'] || !$data['package']) {
                 throw new Exception("缺少导入的重要参数");
             }
