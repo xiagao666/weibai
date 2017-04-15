@@ -25,7 +25,8 @@ class index_product extends index_base
         $categoryConditon = array("pid"=>0);
         $parentCategorys = $dbCategory->queryAllCategory($categoryConditon);
 //        core_lib_Comm::p($parentCategorys['items']);exit;
-
+        $searchCategoryIds = null;
+        $childCategorys = null;
         if ($childCategoryId > 0) {//二级类目
             $searchCategoryIds[] = $childCategoryId;
         } elseif ($parentCategoryId > 0) {//一级类目
@@ -37,22 +38,27 @@ class index_product extends index_base
                 }
             }
         }
-        $searchCategoryStr = is_array($searchCategoryIds) ? implode(",", $searchCategoryIds) : '';
+
+        $params['cCategorys'] = $childCategorys['items'];
+        $searchCategoryStr = is_array($searchCategoryIds)  ? implode(",", $searchCategoryIds) : '';
+        $query = "";
         if (is_array($searchCategoryIds)) {
             $query = "category_id in ({$searchCategoryStr})";
         }
 
         $dbProduct = new core_db_Product();
         $products = $dbProduct->queryProductList($query, $page, $limit, array("id"=>"desc"));
-        core_lib_Comm::p($products);
+        //core_lib_Comm::p($products);
 
         $params['total'] = $products['total'];
-        $params['productList'] = $products['list'];
+        $params['productList'] = $products['items'];
         $params['limit'] = $limit;
         $params['page'] = $page;
-        $params['parentCategorys'] = $parentCategorys['items'];
+        $params['pCategorys'] = $parentCategorys['items'];
         $params['parentCategoryId'] = $parentCategoryId;//一级类目ID
         $params['childCategoryId'] = $childCategoryId;//二级类目ID
+        $params["columns"] = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
+        //core_lib_Comm::p($params);
         return $this->render("boss/productList.html", $params);
     }
 
