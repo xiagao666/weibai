@@ -474,7 +474,7 @@
 									<select id="categoryParent" name="categoryParentId">
 										<option value="0">请选择</option>
 										{foreach $pCategory as $key => $item}
-										<option value='{$item[id]}' {if $categoryParent eq $item[id]}selected{/if}>{$item[name]}</option>
+										<option value='{$item[id]}' {if $categoryParent == $item[id]}selected{/if}>{$item[name]}</option>
 										{/foreach}
 									</select>
 								</div>
@@ -483,7 +483,7 @@
 									<select id="categoryChild" name="categoryChildId">
 										<option value="0">请选择</option>
 										{foreach $cCategory as $key => $item}
-										<option value='{$item[id]}' {if $categoryChild eq $item[id]}selected{/if}>{$item[name]}</option>
+										<option value='{$item[id]}' {if $categoryChild == $item[id]}selected{/if}>{$item[name]}</option>
 										{/foreach}
 									</select>
 								</div>
@@ -520,33 +520,37 @@
 
 									</thead>
 									<tbody>
-									{foreach $products as $item}
-										<tr>
-
-											<td>{$item[id]}</td>
-
-											<td>{$item[brand]}</td>
-											<td class="hidden-480">{$item[catalog_number]}</td>
-											<td class="hidden-480">{$item[product]}</td>
-											<td class="hidden-480">{$item[package]}</td>
-											<td class="hidden-480">{$item[price]}</td>
-											<td class="hidden-480">{$item[abbreviation]}</td>
-											<td class="hidden-480">{$item[chinese_name]}</td>
-											<td class="hidden-480">{$item[origin]}</td>
-											<td class="hidden-480">{$item[application_process]}</td>
-											<td class="hidden-480">{$item[other_name]}</td>
-											<td class="hidden-480">{$item[storage_temperature]}</td>
-											<td class="hidden-480">{$item[type]}</td>
-											<td class="hidden-480">{$item[raise_from]}</td>
-											<td class="hidden-480">{$item[reacts_with]}</td>
-											<td class="hidden-480">{$item[application]}</td>
-											<td class="hidden-480">{$item[label]}</td>
-											<td class="hidden-480">{$item[cas_no]}</td>
-											<td class="hidden-480">{$item[molecular_formula]}</td>
-											<td class="hidden-480">{$item[molecular_weight]}</td>
-											<td class="hidden-480">{$item[grade]}</td>
-										</tr>
-									{/foreach}
+									{if $products}
+										{foreach $products as $item}
+											<tr>
+												<td>{$item['id']}</td>
+												<td>{$item['brand']}</td>
+												<td class="hidden-480">{$item['catalog_number']}</td>
+												<td class="hidden-480">{$item['product']}</td>
+												<td class="hidden-480">{$item['package']}</td>
+												<td class="hidden-480">{$item['price']}</td>
+												<td class="hidden-480">{$item['abbreviation']}</td>
+												<td class="hidden-480">{$item['chinese_name']}</td>
+												<td class="hidden-480">{$item['origin']}</td>
+												<td class="hidden-480">{$item['application_process']}</td>
+												<td class="hidden-480">{$item['other_name']}</td>
+												<td class="hidden-480">{$item['storage_temperature']}</td>
+												<td class="hidden-480">{$item['type']}</td>
+												<td class="hidden-480">{$item['raise_from']}</td>
+												<td class="hidden-480">{$item['reacts_with']}</td>
+												<td class="hidden-480">{$item['application']}</td>
+												<td class="hidden-480">{$item['label']}</td>
+												<td class="hidden-480">{$item['cas_no']}</td>
+												<td class="hidden-480">{$item['molecular_formula']}</td>
+												<td class="hidden-480">{$item['molecular_weight']}</td>
+												<td class="hidden-480">{$item['grade']}</td>
+											</tr>
+										{/foreach}
+									{else}
+									<tr>
+										<td>暂无数据</td>
+									</tr>
+									{/if}
 
 									</tbody>
 

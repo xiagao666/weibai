@@ -98,7 +98,7 @@ class STpl extends SlightPHP\Tpl
      */
     public function json($data)
     {
-        $jsonpcallback = $_REQUEST['callback'];
+        $jsonpcallback = isset($_REQUEST['callback']) ? core_lib_Comm::getStr($_REQUEST['callback']) : '';
         if (empty($jsonpcallback)) {
             return json_encode($data);
         } else {

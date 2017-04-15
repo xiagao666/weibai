@@ -122,11 +122,11 @@ class core_db_Category extends core_db_DbBase
      * @param $condition 查询条件
      * @return bool
      */
-    public function queryAllCategory($condition = array())
+    public function queryAllCategory($condition = array(), $limit = 10, $page = 0)
     {
         try {
             $this->useConfig("common", "query");
-            $categorys = $this->getAllData($condition, "", "", array("show_sort"=>"desc", "id"=>"desc"), '', 1000, 0);
+            $categorys = $this->getAllData($condition, "", "", array("show_sort"=>"desc", "id"=>"desc"), '', $limit, $page);
             if ($categorys === false) {
                 throw new Exception("查询分类失败");
             }
@@ -154,7 +154,7 @@ class core_db_Category extends core_db_DbBase
             if ($category === false) {
                 throw new Exception("删除的分类不存在无需删除", 10001);
             }
-            $categorys = $this->queryAllCategory(array("pid"=>$categoryId));
+            $categorys = $this->queryAllCategory(array("pid"=>$categoryId), CATEGORY_SEL_NUM, 0);
             core_lib_Comm::p($categorys);
             if ($categorys['total']) {
                 throw new Exception("删除的分类存在子分类，需要把", 10001);

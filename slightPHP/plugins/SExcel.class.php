@@ -145,15 +145,16 @@ class SExcel
     public function importExcel($path = '', $rowRange = array(), $columnRange = array())
     {
         include_once 'Excel/PHPExcel/IOFactory.php';
-        $pathinfo = pathinfo($path);
-        if ($pathinfo['extension'] == 'xlsx') {
+//        $pathinfo = pathinfo($path);
+//        if ($pathinfo['extension'] == 'xlsx') {
             $reader = PHPExcel_IOFactory::createReader('Excel2007');
-        } else {
-            $reader = PHPExcel_IOFactory::createReader('Excel5');
-        };
+//        } else {
+//            $reader = PHPExcel_IOFactory::createReader('Excel5');
+//        };
         $PHPExcel = $reader->load($path);
         $sheet = $PHPExcel->getSheet(0);
         $rowCount = $sheet->getHighestRow(); // 取得总行数
+
         $columnCount = $sheet->getHighestColumn(); // 取得总列数
         $colNumber = $this->_getColumnNumber(); //获得列
         $max_column_index = array_search($columnCount, $colNumber); //获得最大列的索引

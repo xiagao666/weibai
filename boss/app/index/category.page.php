@@ -15,10 +15,10 @@ class index_category extends index_base
         //查询类目信息
         $dbCategory = new core_db_Category();
         $pCondition['pid'] = 0;
-        $pCategorys = $dbCategory->queryAllCategory($pCondition);
+        $pCategorys = $dbCategory->queryAllCategory($pCondition, CATEGORY_SEL_NUM, 0);
 
         $condition[] = 'pid > 0';
-        $categorys = $dbCategory->queryAllCategory($condition);
+        $categorys = $dbCategory->queryAllCategory($condition, CATEGORY_SEL_NUM, 0);
 
         if ($pCategorys['items']) {
             foreach ($pCategorys['items'] as $k=>$v) {
@@ -75,7 +75,7 @@ class index_category extends index_base
             $params['category'] = $category;
         }
         $categoryCondition['pid'] = 0;
-        $pCategorys = $dbCategory->queryAllCategory($categoryCondition);
+        $pCategorys = $dbCategory->queryAllCategory($categoryCondition, CATEGORY_SEL_NUM, 0);
         core_lib_Comm::p($pCategorys);
 
         if ($_POST) {
