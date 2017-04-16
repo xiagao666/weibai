@@ -50,8 +50,8 @@ class index_cms extends index_base
     {
         $dbCms = new core_db_Cms();
         $condition["type"] = 4;
-        $rs = $dbCms->queryNews($condition, 1, 20, "");
-        $param["cmsData"] = $rs->items;
+        $rs = $dbCms->getOneCms($condition);
+        $param["cmsData"] = $rs;
         return $this->render("boss/about.html", $param);
     }
 
@@ -86,13 +86,13 @@ class index_cms extends index_base
     {
         $dbCms = new core_db_Cms();
         $condition["id"] = $_GET["cmsId"];
-        $item["title"] = $_GET["title"];
-        $item["des"] = $_GET["des"];
+        $item["title"] = isset($_GET['title']) ? core_lib_Comm::getStr($_GET['title']) : '';//ID;
+        $item["des"] = isset($_GET['des']) ? core_lib_Comm::getStr($_GET['des']) : '';
         //$item["img_url"] = $_GET["imgUrl"];
         //$item["content"] = $_GET["content"];
-        $item["hyperlink"] = $_GET["hyperlink"];
+        $item["hyperlink"] = isset($_GET['hyperlink']) ? core_lib_Comm::getStr($_GET['hyperlink']) : '';
         $item["last_update_date"] = date("y-m-d H:i:s", time());
-        $item["content"] = $_GET["content"];
+        $item["content"] = $_GET['content'];
         $rs = $dbCms->updateOneNews($condition, $item);
         if ($rs) {
             $params["success"] = true;

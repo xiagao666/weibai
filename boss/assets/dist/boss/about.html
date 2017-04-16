@@ -41,6 +41,9 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
+	<!--引入wangEditor wangEditor.css-->
+	<link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
+	<!--引入wangEditor wangEditor.css-->
 
 	<link rel="stylesheet" type="text/css" href="/boss/css/select2_metro.css" />
 
@@ -444,7 +447,7 @@
 
 					<h3 class="page-title">
 
-						内容管理 <small>新闻管理</small>
+						内容管理 <small>关于我们</small>
 
 					</h3>
 
@@ -468,7 +471,7 @@
 
 						</li>
 
-						<li><a href="／boss/cms/news">公司新闻</a></li>
+						<li><a href="／boss/cms/news">关于我们</a></li>
 
 					</ul>
 
@@ -482,7 +485,7 @@
 
 			<!-- BEGIN PAGE CONTENT-->
 
-			<div id="categoryForm1" class="row-fluid">
+			<div id="aboutForm" class="row-fluid">
 
 				<div class="span12">
 
@@ -512,52 +515,13 @@
 							<!-- BEGIN FORM-->
 							<form id="Jform" action="#" class="form-horizontal">
 								<input name="cmsType" value="4" style="display: none"/>
-								<div class="control-group">
+								<input id="cmsId" name="cmsId" type="hidden" value="{$cmsData['id']}"/>
 
-									<label class="control-label">序号</label>
-
-									<div class="controls">
-
-										<input id="cmsId" name="cmsId" class="span6 m-wrap" type="text" placeholder="" readonly />
-
-
+								<div class="control-group" >
+									<label class="control-label">关于我们内容</label>
+									<div class="controls" >
+										<div id="editor-trigger-about" style="height:400px;max-height:500px;"><p>{$cmsData['content']}</p></div>
 									</div>
-
-								</div>
-								<div class="control-group">
-
-									<label class="control-label">标题</label>
-
-									<div class="controls">
-
-										<input id="cmsTitle" name="title" type="text" class="span6 m-wrap" />
-
-
-									</div>
-
-								</div>
-								<div class="control-group">
-
-									<label class="control-label">简述</label>
-
-									<div class="controls">
-
-										<textarea id="cmsDes" name="des" class="span6 m-wrap" rows="3"></textarea>
-
-									</div>
-
-								</div>
-								<div class="control-group">
-
-									<label class="control-label">链接地址</label>
-
-									<div class="controls">
-
-										<input id="cmsUrl" name="hyperlink" type="text" class="span6 m-wrap" />
-
-
-									</div>
-
 								</div>
 
 								<!--<div class="control-group">-->
@@ -705,7 +669,13 @@
 <script src="/boss/js/app.js"></script>
 
 <script src="/boss/js/table-editable.js"></script>
-<script src="/boss/js/news.js"></script>
+<script src="/boss/js/about.js"></script>
+
+<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
+<!--END 引入jquery和wangEditor.js-->
+<script type="text/javascript" src="/boss/js/jquery.bootpag.min.js"></script>
+<script src="/boss/js/ui-general.js"></script>
 <script>
 
     //var ue = UE.getEditor('container');
