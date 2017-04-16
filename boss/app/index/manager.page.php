@@ -8,13 +8,14 @@ class index_manager extends index_base
 {
     public function __construct()
     {
-//        parent::__construct();
+        parent::__construct();
+        $this->_params['pageTitle'] = "管理员管理";
     }
 
     /**
      * 管理员列表
      */
-    public function pageList($inPath)
+    public function pageList()
     {
         $managerId = isset($_GET['managerId']) ? core_lib_Comm::getStr($_GET['managerId'], 'int') : 0;//管理员ID
         $managerName = isset($_GET['managerName']) ? core_lib_Comm::getStr($_GET['managerName']) : '';//管理名称
@@ -41,18 +42,23 @@ class index_manager extends index_base
         }
         $query['sort'] = $sort;
         $query['isDesc'] = $isDesc;
-        define("DEBUG", true);
+
         $dbManager = new core_db_Manager();
         $managers = $dbManager->getManagerList($query, $limit, $page);
-        $params['managers'] = $managers;
-        $params['page'] = $page;
-        $params['limit'] = $limit;
-        $params['managerId'] = $managerId;
-        $params['managerName'] = $managerName;
-        $params['trueName'] = $trueName;
-        $params['isLock'] = $isLock;
-        core_lib_Comm::p($params);
-        return $this->render("boss/manager/list.html", $params);
+
+        $this->pageBar($managers['total'], $limit, $page, '/manager/list');
+
+        $this->_params['managers'] = $managers['data'];
+        $this->_params['total'] = $managers['total'];
+        $this->_params['page'] = $page;
+        $this->_params['limit'] = $limit;
+        $this->_params['managerId'] = $managerId;
+        $this->_params['managerName'] = $managerName;
+        $this->_params['trueName'] = $trueName;
+        $this->_params['isLock'] = $isLock;
+        $this->_params['actTitle'] = "管理员列表";
+        $this->_params['act'] = "mangerList";
+        return $this->render("boss/manager/list.html", $this->_params);
     }
 
     /**
@@ -68,7 +74,7 @@ class index_manager extends index_base
                 return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
             }
             $manager = $dbManager->getManagerById($managerId);
-            $params['manager'] = $manager;
+            $this->_params['manager'] = $manager;
         }
         if ($_POST) {
             $managerName = isset($_POST['managerName']) ? core_lib_Comm::getStr($_POST['managerName']) : '';//管理名称
@@ -94,8 +100,8 @@ class index_manager extends index_base
             }
 //            return $this->alert(array('status'=>'error','msg'=>$msg."成功"));
         }
-        $params['isEdit'] = $isEdit;
-        return $this->render("boss/manager/action.html", $params);
+        $this->_params['isEdit'] = $isEdit;
+        return $this->render("boss/manager/action.html", $this->_params);
     }
 
     /**
@@ -139,7 +145,7 @@ class index_manager extends index_base
             }
             return $this->alert(array('status'=>'error','msg'=>"修改密码成功"));
         }
-        return $this->render("", $params);
+        return $this->render("", $this->_params);
     }
 
     /**
@@ -159,6 +165,6 @@ class index_manager extends index_base
             }
             return $this->alert(array('status'=>'error','msg'=>"重置密码成功"));
         }
-        return $this->render("", $params);
+        return $this->render("", $this->_params);
     }
 }
