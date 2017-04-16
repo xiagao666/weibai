@@ -52,7 +52,7 @@ class index_manager extends index_base
         $params['trueName'] = $trueName;
         $params['isLock'] = $isLock;
         core_lib_Comm::p($params);
-//        return $this->render("boss/", $params);
+        return $this->render("boss/manager/list.html", $params);
     }
 
     /**
@@ -95,7 +95,7 @@ class index_manager extends index_base
 //            return $this->alert(array('status'=>'error','msg'=>$msg."成功"));
         }
         $params['isEdit'] = $isEdit;
-//        return $this->render("", $params);
+        return $this->render("boss/manager/action.html", $params);
     }
 
     /**
