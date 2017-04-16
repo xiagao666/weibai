@@ -30,11 +30,11 @@ class core_db_Product extends core_db_DbBase
             }
 
             $this->useConfig("common", "main");
-            $rs = $this->insertData($data);
-            if ($rs === false) {
+            $productRS = $this->insertData($data);
+            if ($productRS === false) {
                 throw new Exception("添加记录失败");
             }
-            return true;
+            return $productRS;
         } catch (Exception $e) {
             $this->log($e);
             return false;

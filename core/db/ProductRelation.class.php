@@ -1,58 +1,88 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/3/25
- * Time: 19:41
+ * 产品文件相关
  */
 class core_db_ProductRelation extends core_db_DbBase {
 
     private $table = "vb_product_relation";
 
-    /**
-     * core_db_news constructor.
-     */
     public function __construct()
     {
         parent::__construct($this->table);
     }
 
+    /**
+     * 添加产品关联文件
+     * @param $data
+     * @return bool
+     */
     public function addProductRelation($data) {
         try{
-            if(empty($data)) {
+            $productId = $data['product_id'];
+            if(empty($data) || !$productId) {
                 throw new Exception("缺少必要参数");
             }
+
             $this->useConfig("common","main");
-            $rs = $this->insert($this->table,$data);
+            $rs = $this->insertData($data);
             if($rs === false) {
                 throw new Exception("添加记录失败");
             }
+            return true;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }
 
-    public function queryProductRelationList($param, $page, $limit){
+    /**
+     * 条件查询产品文件列表
+     */
+    public function queryProductRelationList($param, $limit = 10, $page = 0){
         try{
             $this->useConfig("common","query");
-            $this->setPage((int)$page);
-            $this->setLimit((int)$limit);
-            return $this->select($this->table,$param,'*');
+            $productRelations = $this->getAllData($param,'*', "", "", "", $limit, $page);
+            if ($productRelations === false) {
+                throw new Exception("查询失败或无相关文件");
+            }
+            $productRelationList['total'] = $productRelations->total;
+            $productRelationList['list'] = $productRelations->items;
+            return $productRelationList;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }
 
-    public function getOneProductRelByProductId($productId) {
+    /**
+     * 文件ID查文件
+     * @param $productId
+     */
+    public function getProductRelationsById($id) {
         try{
+            if (!$id) {
+                throw new Exception("缺少必要参数");
+            }
+
             $this->useConfig("common","query");
-            $param["product_id"] = $productId;
-            return $this->select($this->table,$param,'*');
+            $condition["id"] = $id;
+            $productRelation = $this->getOne($condition, '*');
+            if ($productRelation === false) {
+                throw new Exception("查询失败或无相关文件");
+            }
+            return $productRelation;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }
-    public function updateOneProductRelation($condition, $item){
+
+    /**
+     * @todo 无需更新操作
+     * @param $condition
+     * @return bool
+     */
+    /*public function updateOneProductRelation($condition, $item){
         try{
             if(empty($condition) || empty($item)) {
                 throw new Exception("缺少必要参数");
@@ -70,25 +100,62 @@ class core_db_ProductRelation extends core_db_DbBase {
         } catch (Exception $e) {
             return false;
         }
-    }
-    public function deleteOneProductRelation($condition) {
+    }*/
+
+    /**
+     * 文件ID删除关联产品ID
+     * @param $condition
+     * @return bool
+     */
+    public function deleteProductRelationById($id) {
         try{
-            if(empty($condition)) {
+            if(!$id) {
                 throw new Exception("缺少必要参数");
             }
-            $this->useConfig("common","main");
-            $id = $condition['id'];
-            $itemRes = $this->getOne(array("id"=>$id));
-            if(empty($itemRes)) {
-                throw new Exception("记录不存在");
+
+            $productRelation = $this->getProductRelationsById($id);
+            if ($productRelation === false) {
+                throw new Exception("查询失败或无相关文件");
             }
-            $rs = $this->delete($this->table, $condition);
-            if($rs === false) {
+
+            $this->useConfig("common","main");
+            $productRS = $this->deleteData(array('id'=>$id));
+            if($productRS === false) {
                 throw new Exception("删除失败");
             }
+            return true;
         } catch (Exception $e) {
+            $this->log($e);
             return false;
         }
     }
 
+
+    /**
+     * 产品ID删除关联产品ID
+     * @param $condition
+     * @return bool
+     */
+    public function deleteProductRelationByProductId($productId) {
+        try{
+            if(!$productId) {
+                throw new Exception("缺少必要参数");
+            }
+
+            $productRelations = $this->queryProductRelationList(array('proudct_id'=>$productId), CATEGORY_SEL_NUM, 0);
+            if ($productRelations === false || $productRelations['total'] <= 0) {
+                throw new Exception("查询失败或无相关文件");
+            }
+
+            $this->useConfig("common","main");
+            $productRS = $this->deleteData(array('product_id'=>$productId));
+            if($productRS === false) {
+                throw new Exception("删除失败");
+            }
+            return true;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
+    }
 }

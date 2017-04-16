@@ -134,7 +134,137 @@ class index_product extends index_base
      */
     public function pageAction()
     {
+        $isEdit = isset($_GET['isEdit']) ? core_lib_Comm::getStr($_GET['isEdit'], 'int') : 0;//是否编辑 1 编辑 0 添加
+        $dbProduct = new core_db_Product();
+        $dbProductDes = new core_db_ProductDes();
+        $dbProductRelation = new core_db_ProductRelation();
+        if ($isEdit) {
+            $productId = isset($_GET['productId']) ? core_lib_Comm::getStr($_GET['productId'], 'int') : 0;// 产品ID
+            if (!$productId) {
+                return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
+            }
+            $product = $dbProduct->getProductById($productId);//产品基础数据
+            $productDes = $dbProductDes->getProductDesByProductId($productId);//产品描述
+            $productRelations = $dbProductRelation->queryProductRelationList(array('proudct_id'=>$productId), CATEGORY_SEL_NUM, 0);
 
+            $params['product'] = $product;
+            $params['productDes'] = $productDes;
+            $params['productRelationList'] = $productRelations['list'];
+        }
+        if ($_POST) {
+            $brand = isset($_POST['brand']) ? core_lib_Comm::getStr($_POST['brand']) : '';//品牌
+            $catalogNumber = isset($_POST['catalogNumber']) ? core_lib_Comm::getStr($_POST['catalogNumber']) : '';//货号
+            $product = isset($_POST['product']) ? core_lib_Comm::getStr($_POST['product']) : '';//产品
+            $package = isset($_POST['package']) ? core_lib_Comm::getStr($_POST['package']) : '';//包装
+            $price = isset($_POST['price']) ? core_lib_Comm::getStr($_POST['price']) : '';//价格
+            $abbreviation  = isset($_POST['abbreviation ']) ? core_lib_Comm::getStr($_POST['abbreviation ']) : '';//简写
+            $chineseName = isset($_POST['chineseName']) ? core_lib_Comm::getStr($_POST['chineseName']) : '';//中文名
+            $origin = isset($_POST['origin']) ? core_lib_Comm::getStr($_POST['origin']) : '';//产地
+            $applicationProcess = isset($_POST['applicationProcess']) ? core_lib_Comm::getStr($_POST['applicationProcess']) : '';//应用/处理
+            $otherName = isset($_POST[' otherName ']) ? core_lib_Comm::getStr($_POST['otherName']) : '';//别名
+            $storageTemperature = isset($_POST['storageTemperature']) ? core_lib_Comm::getStr($_POST['storageTemperature']) : '';//储存温度
+            $type = isset($_POST['type']) ? core_lib_Comm::getStr($_POST['type']) : '';//类别
+            $raiseFrom = isset($_POST['raiseFrom']) ? core_lib_Comm::getStr($_POST['raiseFrom']) : '';//来源种属
+            $reactsWith = isset($_POST['reactsWith']) ? core_lib_Comm::getStr($_POST['reactsWith']) : '';//反应种属
+            $application = isset($_POST['application']) ? core_lib_Comm::getStr($_POST['application']) : '';//应用类别
+            $label = isset($_POST['label']) ? core_lib_Comm::getStr($_POST['label']) : '';//标记物
+            $casNo = isset($_POST['casNo']) ? core_lib_Comm::getStr($_POST['casNo']) : '';//CAS号
+            $molecularFormula = isset($_POST['molecularFormula']) ? core_lib_Comm::getStr($_POST['molecularFormula']) : '';//分子式
+            $molecularWeight = isset($_POST['molecularWeight']) ? core_lib_Comm::getStr($_POST['molecularWeight']) : '';//分子量
+            $grade = isset($_POST['grade']) ? core_lib_Comm::getStr($_POST['grade']) : '';//级别
+            $imgUrl = isset($_POST['imgUrl']) ? core_lib_Comm::getStr($_POST['imgUrl']) : '';//产品代表图片url
+            $isSale = isset($_POST['isSale']) ? core_lib_Comm::getStr($_POST['isSale']) : '';//是否促销产品
+            $categoryId = isset($_POST['categoryId']) ? core_lib_Comm::getStr($_POST['categoryId']) : '';//类目ID
+            $productDes = isset($_POST['productDes']) ? core_lib_Comm::getStr($_POST['productDes']) : '';//产品描述
+            $productRelations = isset($_POST['productRelations']) ? core_lib_Comm::getStr($_POST['productRelations']) : '';//产品关联文件
+            $productRelationsType = isset($_POST['productRelationsType']) ? core_lib_Comm::getStr($_POST['productRelationsType']) : '';//产品关联文件类型
+            $productRelationsTitle = isset($_POST['productRelationsTitle']) ? core_lib_Comm::getStr($_POST['productRelationsTitle']) : '';//产品关联文件标题
+            $productRelationsPath = isset($_POST['productRelationsPath']) ? core_lib_Comm::getStr($_POST['productRelationsPath']) : '';//产品关联文件路径
+
+            $data['brand'] = $brand;
+            $data['catalog_number'] = $catalogNumber;
+            $data['product'] = $product;
+            $data['package'] = $package;
+            $data['price'] = $price;
+            $data['abbreviation'] = $abbreviation;
+            $data['chinese_name'] = $chineseName;
+            $data['origin'] = $origin;
+            $data['application_process'] = $applicationProcess;
+            $data['other_name'] = $otherName;
+            $data['storage_temperature'] = $storageTemperature;
+            $data['type'] = $type;
+            $data['raise_from'] = $raiseFrom;
+            $data['reacts_with'] = $reactsWith;
+            $data['application'] = $application;
+            $data['label'] = $label;
+            $data['case_no'] = $casNo;
+            $data['molecular_formula'] = $molecularFormula;
+            $data['molecular_weight'] = $molecularWeight;
+            $data['grade'] = $grade;
+            $data['img_url'] = $imgUrl;
+            $data['is_sale'] = $isSale;
+            $data['category_id'] = $categoryId;
+
+            if ($isEdit) {
+                $data['product_id'] = $productId;
+                //编辑基础产品信息
+                $productRS = $dbProduct->updateProductById($data);
+                if ($productRS === false) {
+                    return $this->alert(array('status'=>'error','msg'=>"产品编辑失败"));
+                }
+
+                //编辑产品描述
+                $productDesData['product_id'] = $productId;
+                $productDesData['description'] = $productDes;
+                $productDesRS = $dbProductDes->updateProductDesByProductId($productDesData);
+                if ($productDesRS === false) {
+                    return $this->alert(array('status'=>'error','msg'=>"产品描述编辑失败"));
+                }
+
+                //添加编辑管理关联文件
+                if ($productRelations) {
+                    //先删除
+                    $dbProductRelation->deleteProductRelationByProductId($productId);
+                    foreach ($productRelations as $prk => $prv) {
+                        $productRelationData['product_id'] = $productId;
+                        $productRelationData['type'] = $productRelationsType[$prk];
+                        $productRelationData['title'] = $productRelationsTitle[$prk];
+                        $productRelationData['download_url'] = $productRelationsPath[$prk];
+                        $dbProductRelation->addProductRelation($productRelationData);
+                    }
+                }
+                $msg = "编辑";
+            } else {
+                //添加基础产品信息
+                $productId = $dbProduct->addProduct($data);
+                if ($productId === false) {
+                    return $this->alert(array('status'=>'error','msg'=>"产品添加失败"));
+                }
+
+                //添加产品描述
+                $productDesData['product_id'] = $productId;
+                $productDesData['description'] = $productDes;
+                $productDesRS = $dbProductDes->addProductDes($productDesData);
+                if ($productDesRS === false) {
+                    return $this->alert(array('status'=>'error','msg'=>"产品描述添加失败"));
+                }
+
+                //添加产品管理关联文件
+                if ($productRelations) {
+                    foreach ($productRelations as $prk => $prv) {
+                        $productRelationData['product_id'] = $productId;
+                        $productRelationData['type'] = $productRelationsType[$prk];
+                        $productRelationData['title'] = $productRelationsTitle[$prk];
+                        $productRelationData['download_url'] = $productRelationsPath[$prk];
+                        $dbProductRelation->addProductRelation($productRelationData);
+                    }
+                }
+                $msg = "添加";
+            }
+            return $this->alert(array('status'=>'error','msg'=>$msg."成功"));
+        }
+        $params['isEdit'] = $isEdit;
+        return $this->render("", $params);
     }
 
     /**

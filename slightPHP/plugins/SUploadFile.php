@@ -117,7 +117,7 @@ class SUploadFile
     }
 
     /**
-     * 开始上传处理
+     * 上传图片
      */
     public function uploadfile($upfile)
     {
@@ -180,12 +180,11 @@ class SUploadFile
                         "url" => $url,
                         "size" => $upfileSize,
                         "type" => $type,
-                        "state" => "success"
+                        "status" => "success"
                     );
                     return $fileInfo; //上传成功!
                     unlink($upfileTmpName);
                 }
-
             }
         }
     }
@@ -255,6 +254,81 @@ class SUploadFile
             $thumbnail->setMaxSize($nWidth, $nHeight);//设置缩略图新宽 高
             $thumbnail->setQualityOutput(true);
             $thumbnail->genFile($thumbPath . "/" .$thumbFileName.$v['tMaxWidth']."_".$v['tMaxHeight'].".".$thumbSuffix);//生成缩略图
+        }
+    }
+
+    /**
+     * 文档上传
+     */
+    public function uploadDoc($upfile)
+    {
+        if ($upfile == "") {
+            die("uploadfile:参数不足");
+        }
+
+        $upfileType = $upfile['type'];
+        $upfileSize = $upfile['size'];
+        $upfileTmpName = $upfile['tmp_name'];
+        $upfileError = $upfile['error'];
+        if ($upfileSize > $this->filesize) {
+            return false; //文件过大
+        }
+
+        switch ($upfileType) {//文件类型
+            case 'application/msword':
+                $type = "doc";
+                break;
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                $type = "docx";
+                break;
+            case 'application/vnd.ms-excel':
+                $type = "xls";
+                break;
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                $type = "xlsx";
+                break;
+            case 'application/pdf':
+                $type = "pdf";
+                break;
+        }
+        if (!isset ($type)) {
+            return false; //不支持此类型
+        }
+        if (!is_uploaded_file($upfileTmpName) or !is_file($upfileTmpName)) {
+            return false; //文件不是经过正规上传的;
+        }
+        if ($upfileError != 0) {
+            return false; //其他错误
+        }
+
+        if ((int)$upfileError === 0) {
+            if (!file_exists($upfileTmpName)) {
+                return false; //临时文件不存在
+            } else {
+                if (!file_exists($this->filepath)) {
+                    mkdir($this->filepath);
+                }
+                $dfile = date("Y-m-d")."/";
+                $this->filepath .= $dfile;
+                $name = explode(".", $upfile['name']);
+                $newFileName = $name[0] . "." . $type;
+                $newPath = $this->filepath . $newFileName;
+                $newAction = "/".$this->getUri()."/".$dfile.$newFileName;
+                if (!move_uploaded_file($upfileTmpName, $newPath)) {
+                    return false; //文件在移动中丢失
+                } else {
+                    $fileInfo = array(
+                        "originalName" => $upfile['name'],
+                        "name" => $newFileName,
+                        "size" => $upfileSize,
+                        "type" => $type,
+                        "path"=>$newAction,
+                        "status" => "success"
+                    );
+                    return $fileInfo; //上传成功!
+                    unlink($upfileTmpName);
+                }
+            }
         }
     }
 }

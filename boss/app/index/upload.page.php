@@ -23,10 +23,15 @@ class index_upload extends index_base
         }
         $supload = new SUploadFile();
         $supload->setFilePath("../../file/".$action."/");
-        $supload->setUri('edimage');
-        $fileInfo = $supload->uploadfile($upfile);
-        if ($action == "edimage") {
-            exit(WWW_URL.$fileInfo['url']);
+        $supload->setUri($action);
+        if ($action == 'pdoc') {
+            $fileInfo = $supload->uploadDoc($upfile);
+            return $this->alert(array('status'=>$fileInfo['status'],'msg'=>$fileInfo['path']));
+        } else {
+            $fileInfo = $supload->uploadfile($upfile);
+            if ($action == "edimage") {
+                exit(WWW_URL.$fileInfo['url']);
+            }
         }
     }
 }
