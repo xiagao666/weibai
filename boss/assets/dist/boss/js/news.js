@@ -9,7 +9,7 @@ var News = {
 
         this.bind();
         this.intWangEditor();
-        $("#categoryForm").hide();
+        $("#newsForm").hide();
 
     },
     intWangEditor: function() {
@@ -25,7 +25,7 @@ var News = {
         $(document).on("click", "#editCms", function() {
             t.showEditForm($(this).data("id"));
         }).on("click", "#cancelEdit", function() {
-            $("#categoryForm").hide();
+            $("#newsForm").hide();
         }).on("click", "#saveEdit", function() {
             t.saveEditFormData();
         }).on("click", "#deleteCms", function() {
@@ -62,7 +62,7 @@ var News = {
         }
     },
     showEditForm: function(id) {
-        var t = this
+        var t = News;
         var param = {
             cmsId: id
         };
@@ -83,7 +83,7 @@ var News = {
         $("#cmsDes").val(rs["des"]);
         $("#cmsUrl").val(rs["hyperlink"]);
         t.wangEditor.$txt.html(rs["content"]);
-        $("#categoryForm").show();
+        $("#newsForm").show();
     },
     saveEditFormData: function() {
         var  t = this,
@@ -119,8 +119,8 @@ var News = {
         window.location.reload();
     },
     showAddForm: function() {
-        $("#categoryForm").show();
-        $(':input', '#categoryForm')
+        $("#newsForm").show();
+        $(':input', '#newsForm')
             .not(':button, :submit, :reset, :hidden')
             .val('')
             .removeAttr('checked')

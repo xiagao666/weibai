@@ -496,7 +496,7 @@
 
 									<div class="btn-group">
 
-										<button id="addNews" class="btn green">
+										<button id="addNews" class="btn green" >
 
 										新增 <i class="icon-plus"></i>
 
@@ -563,7 +563,7 @@
 
 				</div>
 
-				<div id="brandForm" class="row-fluid">
+				<div id="newsForm" class="row-fluid" style="display: none">
 
 					<div class="span12">
 
@@ -764,19 +764,17 @@
 	<script src="/boss/js/app.js"></script>
 	<script src="/boss/js/table-editable.js"></script>
 
-	<script src="/boss/js/news.js"></script>
-
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
     <script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
     <!--END 引入jquery和wangEditor.js-->
     <script type="text/javascript" src="/boss/js/jquery.bootpag.min.js"></script>
+
+	<script src="/boss/js/news.js"></script>
     <script src="/boss/js/ui-general.js"></script>
 
 	<script>
 		jQuery(document).ready(function() {
             <!--这里引用jquery和wangEditor.js-->
-
-
 		   App.init();
 		   TableEditable.init();
 		   UIGeneral.init();
