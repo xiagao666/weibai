@@ -26,7 +26,7 @@ class index_product extends index_base
         $dbCategory = new core_db_Category();
         $categoryConditon = array("pid" => 0);
         $parentCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
-
+        $cCategory = null;
         if ($childCategoryId > 0) {//二级类目
             $searchCategoryIds[] = $childCategoryId;
         } elseif ($parentCategoryId > 0) {//一级类目
@@ -36,6 +36,7 @@ class index_product extends index_base
                 foreach ($childCategorys['items'] as $ck => $cv) {
                     $searchCategoryIds[] = $cv['id'];
                 }
+                $cCategory = $childCategorys['item'];
             }
         }
         $searchCategoryStr = is_array($searchCategoryIds) ? implode(",", $searchCategoryIds) : '';
@@ -48,15 +49,16 @@ class index_product extends index_base
 
         //处理字段
         $columns = explode(",", PRODUCT_COLUMNS);
-
+        $params['cCategory'] = $cCategory;
         $params['total'] = $products['total'];
         $params['products'] = $products['list'];
         $params['limit'] = $limit;
         $params['page'] = $page;
-        $params['parentCategorys'] = $parentCategorys['items'];
+        $params['pCategory'] = $parentCategorys['items'];
         $params['parentCategoryId'] = $parentCategoryId;//一级类目ID
         $params['childCategoryId'] = $childCategoryId;//二级类目ID
         $params['columns'] = $columns;
+
         return $this->render("boss/productList.html", $params);
     }
 
