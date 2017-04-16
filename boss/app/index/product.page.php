@@ -296,19 +296,18 @@ class index_product extends index_base
         //产品详细信息
         $dbProduct = new core_db_Product();
         $product = $dbProduct->getProductById($productId);
-        core_lib_Comm::p($product);
 
         //产品描述文档
         $dbProductDes = new core_db_ProductDes();
         $des = $dbProductDes->getProductDesByProductId($productId);
 
-        $dbProductRel = new core_db_ProductRelation();
-//        $rel = $dbProductRel->getOneProductRelByProductId($productId);//产品关联内容
-//
+ //       $dbProductRel = new core_db_ProductRelation();
+        //$rel = $dbProductRel->getOneProductRelByProductId($productId);//产品关联内容
+
         $param["product"] = $product;
         $param["des"] = $des;
-//        $param["rel"] = $rel;
-        echo json_encode($param);
+///        $param["rel"] = $rel;
+        return $this->render("boss/productdetail.html", $param);
     }
 
 
