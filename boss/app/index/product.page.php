@@ -7,7 +7,8 @@ class index_product extends index_base
 {
     public function __construct()
     {
-//        parent::__construct();
+        parent::__construct();
+        $this->_params['pageTitle'] = "产品管理";
     }
 
     /**
@@ -27,16 +28,16 @@ class index_product extends index_base
         $categoryConditon = array("pid" => 0);
         $parentCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
         $cCategory = null;
+        $childCategoryConditon = array("pid" => $parentCategoryId);
+        $childCategorys = $dbCategory->queryAllCategory($childCategoryConditon, CATEGORY_SEL_NUM, 0);
+        $cCategory = $childCategorys['items'];
         if ($childCategoryId > 0) {//二级类目
             $searchCategoryIds[] = $childCategoryId;
         } elseif ($parentCategoryId > 0) {//一级类目
-            $childCategoryConditon = array("pid" => $parentCategoryId);
-            $childCategorys = $dbCategory->queryAllCategory($childCategoryConditon, CATEGORY_SEL_NUM, 0);
             if ($childCategorys['items']) {
                 foreach ($childCategorys['items'] as $ck => $cv) {
                     $searchCategoryIds[] = $cv['id'];
                 }
-                $cCategory = $childCategorys['item'];
             }
         }
         $searchCategoryStr = is_array($searchCategoryIds) ? implode(",", $searchCategoryIds) : '';
@@ -47,19 +48,20 @@ class index_product extends index_base
         $dbProduct = new core_db_Product();
         $products = $dbProduct->queryProductList($query, $page, $limit, array("id" => "desc"));
 
+        $this->pageBar($products['total'], $limit, $page, '/manager/list');
+
         //处理字段
         $columns = explode(",", PRODUCT_COLUMNS);
-        $params['cCategory'] = $cCategory;
-        $params['total'] = $products['total'];
-        $params['products'] = $products['list'];
-        $params['limit'] = $limit;
-        $params['page'] = $page;
-        $params['pCategory'] = $parentCategorys['items'];
-        $params['parentCategoryId'] = $parentCategoryId;//一级类目ID
-        $params['childCategoryId'] = $childCategoryId;//二级类目ID
-        $params['columns'] = $columns;
-
-        return $this->render("boss/productList.html", $params);
+        $this->_params['cCategorys'] = $cCategory;
+        $this->_params['products'] = $products['list'];
+        $this->_params['pCategorys'] = $parentCategorys['items'];
+        $this->_params['parentCategoryId'] = $parentCategoryId;//一级类目ID
+        $this->_params['childCategoryId'] = $childCategoryId;//二级类目ID
+        $this->_params['columns'] = $columns;
+        $this->_params['actTitle'] = "产品列表";
+        $this->_params['act'] = "productList";
+//        return $this->render("boss/productList.html", $this->_params);
+        return $this->render("boss/product/list.html", $this->_params);
     }
 
     /**
@@ -140,6 +142,13 @@ class index_product extends index_base
         $dbProduct = new core_db_Product();
         $dbProductDes = new core_db_ProductDes();
         $dbProductRelation = new core_db_ProductRelation();
+        $msg = "添加";
+
+        //查询一级类目
+        $dbCategory = new core_db_Category();
+        $categoryConditon = array("pid" => 0);
+        $parentCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
+
         if ($isEdit) {
             $productId = isset($_GET['productId']) ? core_lib_Comm::getStr($_GET['productId'], 'int') : 0;// 产品ID
             if (!$productId) {
@@ -149,9 +158,10 @@ class index_product extends index_base
             $productDes = $dbProductDes->getProductDesByProductId($productId);//产品描述
             $productRelations = $dbProductRelation->queryProductRelationList(array('proudct_id'=>$productId), CATEGORY_SEL_NUM, 0);
 
-            $params['product'] = $product;
-            $params['productDes'] = $productDes;
-            $params['productRelationList'] = $productRelations['list'];
+            $this->_params['product'] = $product;
+            $this->_params['productDes'] = $productDes;
+            $this->_params['productRelationList'] = $productRelations['list'];
+            $msg = "编辑";
         }
         if ($_POST) {
             $brand = isset($_POST['brand']) ? core_lib_Comm::getStr($_POST['brand']) : '';//品牌
@@ -235,7 +245,7 @@ class index_product extends index_base
                         $dbProductRelation->addProductRelation($productRelationData);
                     }
                 }
-                $msg = "编辑";
+
             } else {
                 //添加基础产品信息
                 $productId = $dbProduct->addProduct($data);
@@ -261,12 +271,15 @@ class index_product extends index_base
                         $dbProductRelation->addProductRelation($productRelationData);
                     }
                 }
-                $msg = "添加";
+
             }
             return $this->alert(array('status'=>'error','msg'=>$msg."成功"));
         }
-        $params['isEdit'] = $isEdit;
-        return $this->render("", $params);
+        $this->_params['isEdit'] = $isEdit;
+        $this->_params['parentCategorys'] = $parentCategorys['items'];
+        $this->_params['actTitle'] = $msg."产品";
+        $this->_params['act'] = "productList";
+        return $this->render("boss/product/action.html", $this->_params);
     }
 
     /**

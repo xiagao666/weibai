@@ -56,8 +56,8 @@ class index_manager extends index_base
         $this->_params['managerName'] = $managerName;
         $this->_params['trueName'] = $trueName;
         $this->_params['isLock'] = $isLock;
-        $this->_params['actTitle'] = "管理员列表";
         $this->_params['act'] = "mangerList";
+        $this->_params['actTitle'] = "管理员列表";
         return $this->render("boss/manager/list.html", $this->_params);
     }
 
