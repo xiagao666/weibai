@@ -1,7 +1,7 @@
 var Login = {
-    init: function () {
-    	App.init();
-       $('.login-form').validate({
+    init: function() {
+        App.init();
+        $('.login-form').validate({
             errorElement: 'label', //default input error message container
             errorClass: 'help-inline', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
@@ -26,30 +26,30 @@ var Login = {
                 }
             },
 
-            invalidHandler: function (event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit   
                 $('.alert-error', $('.login-form')).show();
             },
 
-            highlight: function (element) { // hightlight error inputs
+            highlight: function(element) { // hightlight error inputs
                 $(element)
                     .closest('.control-group').addClass('error'); // set error class to the control group
             },
 
-            success: function (label) {
+            success: function(label) {
                 label.closest('.control-group').removeClass('error');
                 label.remove();
             },
 
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 error.addClass('help-small no-left-padding').insertAfter(element.closest('.input-icon'));
             },
 
-            submitHandler: function (form) {
+            submitHandler: function(form) {
                 window.location.href = "index.html";
             }
         });
 
-        $('.login-form input').keypress(function (e) {
+        $('.login-form input').keypress(function(e) {
             if (e.which == 13) {
                 if ($('.login-form').validate().form()) {
                     window.location.href = "index.html";
@@ -76,30 +76,30 @@ var Login = {
                 }
             },
 
-            invalidHandler: function (event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit   
 
             },
 
-            highlight: function (element) { // hightlight error inputs
+            highlight: function(element) { // hightlight error inputs
                 $(element)
                     .closest('.control-group').addClass('error'); // set error class to the control group
             },
 
-            success: function (label) {
+            success: function(label) {
                 label.closest('.control-group').removeClass('error');
                 label.remove();
             },
 
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 error.addClass('help-small no-left-padding').insertAfter(element.closest('.input-icon'));
             },
 
-            submitHandler: function (form) {
+            submitHandler: function(form) {
                 window.location.href = "index.html";
             }
         });
 
-        $('.forget-form input').keypress(function (e) {
+        $('.forget-form input').keypress(function(e) {
             if (e.which == 13) {
                 if ($('.forget-form').validate().form()) {
                     window.location.href = "index.html";
@@ -108,12 +108,12 @@ var Login = {
             }
         });
 
-        jQuery('#forget-password').click(function () {
+        jQuery('#forget-password').click(function() {
             jQuery('.login-form').hide();
             jQuery('.forget-form').show();
         });
 
-        jQuery('#back-btn').click(function () {
+        jQuery('#back-btn').click(function() {
             jQuery('.login-form').show();
             jQuery('.forget-form').hide();
         });
@@ -148,21 +148,21 @@ var Login = {
                 }
             },
 
-            invalidHandler: function (event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit   
 
             },
 
-            highlight: function (element) { // hightlight error inputs
+            highlight: function(element) { // hightlight error inputs
                 $(element)
                     .closest('.control-group').addClass('error'); // set error class to the control group
             },
 
-            success: function (label) {
+            success: function(label) {
                 label.closest('.control-group').removeClass('error');
                 label.remove();
             },
 
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
                     error.addClass('help-small no-left-padding').insertAfter($('#register_tnc_error'));
                 } else {
@@ -170,38 +170,38 @@ var Login = {
                 }
             },
 
-            submitHandler: function (form) {
+            submitHandler: function(form) {
                 window.location.href = "index.html";
             }
         });
 
-        jQuery('#register-btn').click(function () {
+        jQuery('#register-btn').click(function() {
             jQuery('.login-form').hide();
             jQuery('.register-form').show();
         });
 
-        jQuery('#register-back-btn').click(function () {
+        jQuery('#register-back-btn').click(function() {
             jQuery('.login-form').show();
             jQuery('.register-form').hide();
         });
-        $(document).on("click", "#Jsumbit", function(){
-        	$.ajax({
-        		url:"/sign/in",
-        		type: "post",
-        		data: $("#Jform").serialize(),
-        		success: function(res){
-        			try{
-        				if (res.status === "success"){
-        					window.location.href = res.backUrl;
-        				}
-        			} catch(e){
-        				console.error(e);
-        			}
-        		},
-        		complete:function(){
+        $(document).on("click", "#Jsumbit", function() {
+            $.ajax({
+                url: "/sign/in",
+                type: "post",
+                data: $("#Jform").serialize(),
+                success: function(res) {
+                    try {
+                        if (res.status === "success") {
+                            window.location.href = res.backUrl;
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                },
+                complete: function() {
 
-        		}
-        	});
+                }
+            });
         });
     }
 };

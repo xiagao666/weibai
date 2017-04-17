@@ -11,15 +11,16 @@ class index_sign extends STpl
      */
     public function pageIn($inPath)
     {
-        /*$referer = '';
+        $referer = '';
         if(isset($_SERVER['HTTP_REFERER'])) {
             $referer = (string)$_SERVER['HTTP_REFERER'];
             if (preg_match('/'.preg_quote(BOSS_URL.'/sign','/').'/', $referer) || !preg_match('/'.preg_quote(BOSS_URL,'/').'/',$referer)){
                 $referer = '/';
             }
         }
+
         if ( !empty($_POST) ) {
-            $managerName = core_lib_Comm::getStr(trim($_POST['managerName']));
+            $managerName = core_lib_Comm::getStr(trim($_POST['username']));
             $password = core_lib_Comm::getStr(trim($_POST['password']));
 //            $captchaCode = core_lib_Comm::getStr(trim($_POST['captchaCode']));
 //            $captchaKey = core_lib_Comm::getStr(trim($_POST['captchaKey']));
@@ -59,13 +60,13 @@ class index_sign extends STpl
             $data['curr_in_ip'] = SUtil::getIP(true);
             $data['curr_in_time'] = time();
             $dbManager->edit($data);
-//            return $this->alert(array('status'=>'success','msg'=>'登录成功','backurl'=>$referer,'second'=>0));
+            return $this->alert(array('status'=>'success','msg'=>'登录成功','backurl'=>$referer,'second'=>0));
         }
 
         $params = array(
             'referer' => $referer,
 //            'captchaKey' => uniqid()
-        );*/
+        );
         return $this->render('/sign/in.html', $params);
     }
 
