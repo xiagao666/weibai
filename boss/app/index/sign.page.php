@@ -11,7 +11,7 @@ class index_sign extends STpl
      */
     public function pageIn($inPath)
     {
-        $referer = '';
+        /*$referer = '';
         if(isset($_SERVER['HTTP_REFERER'])) {
             $referer = (string)$_SERVER['HTTP_REFERER'];
             if (preg_match('/'.preg_quote(BOSS_URL.'/sign','/').'/', $referer) || !preg_match('/'.preg_quote(BOSS_URL,'/').'/',$referer)){
@@ -25,9 +25,9 @@ class index_sign extends STpl
 //            $captchaKey = core_lib_Comm::getStr(trim($_POST['captchaKey']));
             $referer = $_POST['referer'] ? core_lib_Comm::getStr(trim($_POST['referer'])) : '/';
 
-            /*if (empty($captchaCode)){
-                return $this->alert(array('status'=>'error','msg'=>'请输入验证码'));
-            }*/
+//            if (empty($captchaCode)){
+//                return $this->alert(array('status'=>'error','msg'=>'请输入验证码'));
+//            }
             if (empty($managerName)){
                 return $this->alert(array('status'=>'error','msg'=>'请输入用户名'));
             }
@@ -35,9 +35,9 @@ class index_sign extends STpl
                 return $this->alert(array('status'=>'error','msg'=>'请输入密码'));
             }
 
-            /*if (SCaptcha::check($captchaCode, $captchaKey) === false){
-                return $this->alert(array('status'=>'error','msg'=>'验证码错误，请重试'));
-            }*/
+//            if (SCaptcha::check($captchaCode, $captchaKey) === false){
+//                return $this->alert(array('status'=>'error','msg'=>'验证码错误，请重试'));
+//            }
 
             $dbManager = new core_db_Manager();
             $manager = $dbManager->getMangerByManagerName($managerName);
@@ -65,8 +65,8 @@ class index_sign extends STpl
         $params = array(
             'referer' => $referer,
 //            'captchaKey' => uniqid()
-        );
-        return $this->render('boss/login.html', $params);
+        );*/
+        return $this->render('/sign/in.html', $params);
     }
 
     /**
