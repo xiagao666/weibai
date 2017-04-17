@@ -1,0 +1,74 @@
+<div class="page-sidebar nav-collapse collapse">
+	<!-- BEGIN SIDEBAR MENU -->
+	<ul class="page-sidebar-menu">
+		<li>
+			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+			<div class="sidebar-toggler hidden-phone"></div>
+			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+		</li>
+		<li>
+			<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+			<!-- END RESPONSIVE QUICK SEARCH FORM -->
+		</li>
+		<li{% if page.firstCur == "product" %} class="active"{% endif %}>
+			<a href="javascript:;">
+				<i class="icon-barcode"></i>
+				<span class="title">产品管理</span>
+				<span class="arrow "></span>
+			</a>
+			<ul class="sub-menu">
+				<li{% if page.secondCur == "list" %} class="active"{% endif %}>
+					<a href="/product/list">
+					所有产品</a>
+				</li>
+				<li{% if page.secondCur == "config" %} class="active"{% endif %}>
+					<a href="/product/list">
+					促销产品配置</a>
+				</li>
+				<li{% if page.secondCur == "type" %} class="active"{% endif %}>
+					<a href="/category/list">
+					产品分类配置</a>
+				</li>
+			</ul>
+		</li>
+		<li{% if page.firstCur == "cms" %} class="active"{% endif %}>
+			<a href="javascript:;">
+				<i class="icon-bookmark-empty"></i>
+				<span class="title">内容管理</span>
+				<span class="arrow "></span>
+			</a>
+			<ul class="sub-menu">
+				<li{% if page.secondCur == "news" %} class="active"{% endif %}>
+					<a href="/cms/news">
+					公司新闻</a>
+				</li>
+				<li{% if page.secondCur == "brand" %} class="active"{% endif %}>
+					<a href="/cms/brand">
+					代理品牌</a>
+				</li>
+				<li{% if page.secondCur == "tech" %} class="active"{% endif %}>
+					<a href="/cms/tech">
+					技术服务</a>
+				</li>
+				<li{% if page.secondCur == "about" %} class="active"{% endif %}>
+					<a href="/cms/about">
+					关于唯佰</a>
+				</li>
+			</ul>
+		</li>
+		<li{% if page.firstCur == "user" %} class="active"{% endif %}>
+			<a href="javascript:;">
+				<i class="icon-table"></i>
+				<span class="title">用户管理</span>
+				<span class="arrow "></span>
+			</a>
+			<ul class="sub-menu">
+				<li{% if page.secondCur == "all" %} class="active"{% endif %}>
+					<a href="/user/list">
+					所有用户</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<!-- END SIDEBAR MENU -->
+</div>

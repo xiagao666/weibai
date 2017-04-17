@@ -16,7 +16,7 @@ class index_cms extends index_base
         $condition["type"] = 1;
         $rs = $dbCms->queryNews($condition, 1, 20, "");
         $param["cmsData"] = $rs->items;
-        return $this->render("boss/news.html", $param);
+        return $this->render("/news/list.html", $param);
     }
 
     /**

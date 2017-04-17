@@ -60,8 +60,8 @@ class index_product extends index_base
         $this->_params['columns'] = $columns;
         $this->_params['actTitle'] = "产品列表";
         $this->_params['act'] = "productList";
-//        return $this->render("boss/productList.html", $this->_params);
-        return $this->render("boss/product/list.html", $this->_params);
+        // var_dump($this->_params);exit;
+        return $this->render("/product/list.html", $this->_params);
     }
 
     /**

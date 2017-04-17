@@ -1,0 +1,143 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+    title : "唯佰科技管理后台-产品列表",
+    keywords : "唯佰科技管理后台-产品列表",
+    description : "唯佰科技管理后台-产品列表",
+    barTitle: "产品列表",
+    firstCur: "product",
+    secondCur: "list"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
+<link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
+<link rel="stylesheet" href="/product/css/productList.css" />
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3 class="page-title">
+				唯佰科技管理后台 <small>{{ page.barTitle }}</small>
+			</h3>
+		</div>
+	</div>
+	<div id="JdataPanel" class="portlet box blue">
+		<div class="portlet-title v-product">
+			<div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
+		</div>
+		<div class="portlet-body">
+			<form class="v-product" id="Jform" method="get" action="/product/list">
+				<span>类目</span>
+				<div class="product-item">
+					<select id="JcategoryParent" name="parentCategoryId">
+						<option value="0">请选择一级类目</option>
+						{foreach $pCategorys as $item}
+							{if $item[id] == $parentCategoryId}
+							<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+							{else}
+							<option value='{$item[id]}'>{$item[name]}</option>
+							{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="product-item">
+					<select id="JcategoryChild" name="childCategoryId">
+						<option value="0">请选择二级类目</option>
+						{foreach $cCategorys as $item}
+						{if $item[id] == $childCategoryId}
+						<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+						{else}
+						<option value='{$item[id]}'>{$item[name]}</option>
+						{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="product-item">
+					<select name="searchKey">
+						<option value="0">请选择查询条件</option>
+						{foreach $columns as $item}
+						{if $item[id] == $searchKey}
+						<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+						{else}
+						<option value='{$item[id]}'>{$item[name]}</option>
+						{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="product-item">
+					<input placeholder="请输入查询内容" class="m-wrap" type="text" name="searchVal" value="{$searchVal}"/>
+		            <button type="submit" class="btn green product-btn"><i class="icon-search"></i> 搜索
+		            </button>
+		        </div>
+		        <div class="product-item">
+		        	<button class="btn blue"><i class="icon-plus"></i>添加产品</button>
+		        </div>
+		        <div class="product-item">
+		        	<button class="btn blue"><i class="icon-upload"></i>导入产品</button>
+		        </div>
+		        <div class="actions product-item">
+					<div class="btn-group">
+						<a class="btn blue" href="#" data-toggle="dropdown">
+						显示字段
+						<i class="icon-angle-down"></i>
+						</a>
+
+						<div class="Jfilter dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+							{foreach $columns as $key => $item}
+							<label><input type="checkbox" checked data-column='{$key}'>{$item}</label>
+							{/foreach}
+						</div>
+					</div>
+				</div>
+			</form>
+			<table class="table table-striped table-bordered table-hover table-full-width">
+				<thead>
+					<tr>
+						{foreach $columns as $key => $item}
+						<th>{$item}</th>
+						{/foreach}
+					</tr>
+				</thead>
+				<tbody>
+				{if $products}
+					{foreach $products as $item}
+						<tr>
+							<td>{$item['id']}</td>
+							<td>{$item['brand']}</td>
+							<td class="hidden-480">{$item['catalog_number']}</td>
+							<td class="hidden-480">{$item['product']}</td>
+							<td class="hidden-480">{$item['package']}</td>
+							<td class="hidden-480">{$item['price']}</td>
+							<td class="hidden-480">{$item['abbreviation']}</td>
+							<td class="hidden-480">{$item['chinese_name']}</td>
+							<td class="hidden-480">{$item['origin']}</td>
+							<td class="hidden-480">{$item['application_process']}</td>
+							<td class="hidden-480">{$item['other_name']}</td>
+							<td class="hidden-480">{$item['storage_temperature']}</td>
+							<td class="hidden-480">{$item['type']}</td>
+							<td class="hidden-480">{$item['raise_from']}</td>
+							<td class="hidden-480">{$item['reacts_with']}</td>
+							<td class="hidden-480">{$item['application']}</td>
+							<td class="hidden-480">{$item['label']}</td>
+							<td class="hidden-480">{$item['cas_no']}</td>
+							<td class="hidden-480">{$item['molecular_formula']}</td>
+							<td class="hidden-480">{$item['molecular_weight']}</td>
+							<td class="hidden-480">{$item['grade']}</td>
+						</tr>
+					{/foreach}
+				{/if}
+				</tbody>
+			</table>
+			{% include "boss/assets/src/common/pagebar.html" %}
+		</div>
+
+	</div>
+</div>
+{%endblock%}
+{%block js%}
+<script type="text/javascript" src="/lib/js/select2.min.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
+<script type="text/javascript" src="/lib/js/tableList.js"></script>
+<script type="text/javascript" src="/product/js/product.js"></script>
+{%endblock%}
