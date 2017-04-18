@@ -10,7 +10,8 @@
 {%block css%}
 <link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
 <link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
-<link rel="stylesheet" href="/products/css/productList.css" />
+<link rel="stylesheet" href="/common/css/table.css" />
+<link rel="stylesheet" href="/products/css/list.css" />
 {%endblock%}
 {%block content%}
 <div class="container-fluid">
@@ -104,25 +105,25 @@
 						<tr>
 							<td>{$item['id']}</td>
 							<td>{$item['brand']}</td>
-							<td class="hidden-480">{$item['catalog_number']}</td>
-							<td class="hidden-480">{$item['product']}</td>
-							<td class="hidden-480">{$item['package']}</td>
-							<td class="hidden-480">{$item['price']}</td>
-							<td class="hidden-480">{$item['abbreviation']}</td>
-							<td class="hidden-480">{$item['chinese_name']}</td>
-							<td class="hidden-480">{$item['origin']}</td>
-							<td class="hidden-480">{$item['application_process']}</td>
-							<td class="hidden-480">{$item['other_name']}</td>
-							<td class="hidden-480">{$item['storage_temperature']}</td>
-							<td class="hidden-480">{$item['type']}</td>
-							<td class="hidden-480">{$item['raise_from']}</td>
-							<td class="hidden-480">{$item['reacts_with']}</td>
-							<td class="hidden-480">{$item['application']}</td>
-							<td class="hidden-480">{$item['label']}</td>
-							<td class="hidden-480">{$item['cas_no']}</td>
-							<td class="hidden-480">{$item['molecular_formula']}</td>
-							<td class="hidden-480">{$item['molecular_weight']}</td>
-							<td class="hidden-480">{$item['grade']}</td>
+							<td>{$item['catalog_number']}</td>
+							<td>{$item['product']}</td>
+							<td>{$item['package']}</td>
+							<td>{$item['price']}</td>
+							<td>{$item['abbreviation']}</td>
+							<td>{$item['chinese_name']}</td>
+							<td>{$item['origin']}</td>
+							<td>{$item['application_process']}</td>
+							<td>{$item['other_name']}</td>
+							<td>{$item['storage_temperature']}</td>
+							<td>{$item['type']}</td>
+							<td>{$item['raise_from']}</td>
+							<td>{$item['reacts_with']}</td>
+							<td>{$item['application']}</td>
+							<td>{$item['label']}</td>
+							<td>{$item['cas_no']}</td>
+							<td>{$item['molecular_formula']}</td>
+							<td>{$item['molecular_weight']}</td>
+							<td>{$item['grade']}</td>
 						</tr>
 					{/foreach}
 				{/if}
@@ -139,5 +140,6 @@
 <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
 <script type="text/javascript" src="/lib/js/tableList.js"></script>
-<script type="text/javascript" src="/products/js/product.js"></script>
+<script type="text/javascript" src="/common/js/table.js"></script>
+<script type="text/javascript" src="/products/js/list.js"></script>
 {%endblock%}

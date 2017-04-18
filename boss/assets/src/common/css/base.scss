@@ -4,3 +4,24 @@
 .#{$space}pagebar{
 	margin-top: #{$p16};
 }
+button.btn i{
+	margin-right: 6px;
+}
+.modal-body{
+	overflow: hidden;
+	i{
+		margin-right: 8px;
+		font-size: 30px;
+    	vertical-align: -5px;
+	}
+	p{
+		margin-bottom: 0;
+	}
+	&.alert{
+		margin-bottom: 0;
+	}
+	input.m-wrap{
+		height: inherit !important;
+    	width: 231px !important;
+	}
+}

@@ -27,6 +27,8 @@ class core_db_Cms extends core_db_DbBase {
             if($rs === false) {
                 throw new Exception("添加记录失败");
             }
+
+            return $rs;
         } catch (Exception $e) {
             return false;
         }
@@ -82,6 +84,7 @@ class core_db_Cms extends core_db_DbBase {
             if($rs === false) {
                 throw new Exception("删除失败");
             }
+            return true;
         } catch (Exception $e) {
             return false;
         }

@@ -9,7 +9,6 @@ class index_manager extends index_base
     public function __construct()
     {
         parent::__construct();
-        $this->_params['pageTitle'] = "管理员管理";
     }
 
     /**
@@ -17,10 +16,10 @@ class index_manager extends index_base
      */
     public function pageList()
     {
-        $managerId = isset($_GET['managerId']) ? core_lib_Comm::getStr($_GET['managerId'], 'int') : 0;//管理员ID
+        $managerId = isset($_GET['managerId']) ? core_lib_Comm::getStr($_GET['managerId'], 'int') : "";//管理员ID
         $managerName = isset($_GET['managerName']) ? core_lib_Comm::getStr($_GET['managerName']) : '';//管理名称
         $trueName = isset($_GET['trueName']) ? core_lib_Comm::getStr($_GET['trueName']) : '';//真实名称
-        $isLock = isset($_GET['isLock']) ? core_lib_Comm::getStr($_GET['isLock'], 'int') : 0;//是否锁定 1 未锁定 2 锁定
+        $isLock = isset($_GET['isLock']) ? core_lib_Comm::getStr($_GET['isLock'], 'int') : 0;//是否锁定 0 全部 1 未锁定 2 锁定
         $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET['page'], 'int') : 0;//页码
         $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET['limit'], 'int') : 0;//间隔值
         $sort = isset($_GET['sort']) ? core_lib_Comm::getStr($_GET['sort'], 'int') : 0;//排序字段 1 管理员ID 2 创建时间 3 上次登录时间
@@ -58,7 +57,7 @@ class index_manager extends index_base
         $this->_params['isLock'] = $isLock;
         $this->_params['act'] = "mangerList";
         $this->_params['actTitle'] = "管理员列表";
-        return $this->render("/users/list.html", $this->_params);
+        return $this->render("/managers/list.html", $this->_params);
     }
 
     /**
@@ -66,10 +65,10 @@ class index_manager extends index_base
      */
     public function pageAction()
     {
-        $isEdit = isset($_GET['isEdit']) ? core_lib_Comm::getStr($_GET['isEdit'], 'int') : 0;//是否编辑 1 编辑 0 添加
+        $isEdit = isset($_POST['isEdit']) ? core_lib_Comm::getStr($_POST['isEdit'], 'int') : 0;//是否编辑 1 编辑 0 添加
         $dbManager = new core_db_Manager();
         if ($isEdit) {
-            $managerId = isset($_GET['managerId']) ? core_lib_Comm::getStr($_GET['managerId'], 'int') : 0;//管理员ID
+            $managerId = isset($_POST['managerId']) ? core_lib_Comm::getStr($_POST['managerId'], 'int') : 0;//管理员ID
             if (!$managerId) {
                 return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
             }
@@ -80,14 +79,13 @@ class index_manager extends index_base
             $managerName = isset($_POST['managerName']) ? core_lib_Comm::getStr($_POST['managerName']) : '';//管理名称
             $trueName = isset($_POST['trueName']) ? core_lib_Comm::getStr($_POST['trueName']) : '';//真实名字
             if (!$isEdit) {
-                $password = isset($_GET['password']) ? core_lib_Comm::getStr($_GET['password']) : '';//密码
+                $password = isset($_POST['password']) ? core_lib_Comm::getStr($_POST['password']) : '';//密码
                 $data['password'] = $password;
             } else {
                 $data['manager_id'] = $managerId;
             }
             $data['manager_name'] = $managerName;
             $data['true_name'] = $trueName;
-
             if ($isEdit) {
                 $msg = "编辑";
                 $managerRS = $dbManager->edit($data, 1);
@@ -96,12 +94,12 @@ class index_manager extends index_base
                 $managerRS = $dbManager->add($data);
             }
             if ($managerRS === false) {
-//                return $this->alert(array('status'=>'error','msg'=>$msg."失败"));
+               return $this->alert(array('status'=>'error','msg'=>$msg."用户失败！"));
             }
-//            return $this->alert(array('status'=>'error','msg'=>$msg."成功"));
+           return $this->alert(array('status'=>'success','msg'=>$msg."用户成功！"));
         }
-        $this->_params['isEdit'] = $isEdit;
-        return $this->render("boss/manager/action.html", $this->_params);
+        // $this->_params['isEdit'] = $isEdit;
+        // return $this->render("boss/manager/action.html", $this->_params);
     }
 
     /**
@@ -153,18 +151,31 @@ class index_manager extends index_base
      */
     public function pageResetPassword()
     {
-        $managerId = isset($_GET['managerId']) ? core_lib_Comm::getStr($_GET['managerId'], 'int') : 0;//管理员ID
+        $managerId = isset($_REQUEST['managerId']) ? core_lib_Comm::getStr($_REQUEST['managerId'], 'int') : 0;//管理员ID
         if (!$managerId) {
             return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
         }
-        if ($_POST) {
-            $dbManager = new core_db_Manager();
-            $managerRS = $dbManager->modifyPassword($this->_managerId, MANAGER_PASSWD);
-            if ($managerRS === false) {
-                return $this->alert(array('status'=>'error','msg'=>"重置密码失败"));
-            }
-            return $this->alert(array('status'=>'error','msg'=>"重置密码成功"));
+        $dbManager = new core_db_Manager();
+        $managerRS = $dbManager->modifyPassword($managerId, MANAGER_PASSWD);
+        if ($managerRS === false) {
+            return $this->alert(array('status'=>'error','msg'=>"重置密码失败！"));
         }
-        return $this->render("", $this->_params);
+        return $this->alert(array('status'=>'success','msg'=>"重置密码成功！新密码为".MANAGER_PASSWD."，请妥善保管！"));
+    }
+
+    // 删除用户
+    public function pageDelete(){
+        $managerId = isset($_REQUEST['managerId']) ? core_lib_Comm::getStr($_REQUEST['managerId'], 'int') : 0;
+
+        if (!$managerId) {
+            return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
+        }
+
+        $dbManager = new core_db_Manager();
+        $managerRS = $dbManager->delete($managerId);
+        if ($managerRS === false) {
+            return $this->alert(array('status'=>'error','msg'=>"删除用户失败，请稍后重试！"));
+        }
+        return $this->alert(array('status'=>'success','msg'=>"删除用户成功！"));
     }
 }

@@ -3,27 +3,7 @@
  */
 
 var Product = {
-    data: {},
     init: function() {
-        App.init();
-
-        // table初始化
-        TableList.init({
-            // 操作对象
-            "object": "#JdataPanel",
-            // 数据表配置，参考jquery.datatable配置
-            "tableConfig": {
-                "bSort": false,
-                "bPaginate": false,
-                "searching": false,
-                "bFilter":false,
-                "bInfo":false
-            },
-            // 字段过滤
-            "filter": ".Jfilter"
-        });
-        $(".dataTables_wrapper").find(".row-fluid").remove();
-
         this.bind();
     },
     // 事件统一绑定
@@ -98,4 +78,4 @@ var Product = {
 
 $(function() {
     Product.init();
-})
+});

@@ -41,7 +41,7 @@ class core_db_Manager extends core_db_DbBase
             if ($rs === false) {
                 throw new Exception("数据写入失败");
             }
-            return $rs;
+            return true;
         } catch (Exception $e) {
             $this->log($e);
             return false;
@@ -195,7 +195,6 @@ class core_db_Manager extends core_db_DbBase
 
             $this->useConfig("common", "main");
             $manager = $this->getManagerById($managerId);
-            core_lib_Comm::p($manager);
             if ($manager === false) {
                 throw new Exception("获取数据为空或者失败");
             }
@@ -238,6 +237,26 @@ class core_db_Manager extends core_db_DbBase
             }
             return true;
         } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
+    }
+
+
+    // 删除用户
+    public function delete($managerId){
+        try{
+            if (!$managerId){
+                throw new Exception("缺少必要参数");
+            }
+            $this->useConfig("common", "main");
+            $condition["manager_id"] = $managerId;
+            $rs = $this->deleteData($condition);
+            if($rs === false) {
+                throw new Exception("删除用户失败");
+            }
+            return true;
+        } catch(Exception $e){
             $this->log($e);
             return false;
         }

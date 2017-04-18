@@ -32,10 +32,6 @@
 .select2-search input {
 	padding: 4px 20px 4px 5px !important;
 }
-table.table th, table.table td {
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
 .v-product {
 	padding-top: 8px !important;
 	padding-bottom: 8px !important;
@@ -46,9 +42,14 @@ table.table th, table.table td {
 	.product-item {
 		display: inline-block;
 		margin-left: 10px;
+		margin-top: 5px;
+    	margin-bottom: 5px;
 		input{
 			margin-bottom: 0;
 			background-color: #fff;
+		}
+		.btn i{
+			margin-right: 6px;
 		}
 	}
 	.product-btn {
@@ -65,4 +66,8 @@ form.v-product{
 }
 .m-wrap.small{
 	width: 140px !important;
+}
+.common-btn{
+	padding: 4px 12px !important;
+	margin-right: 8px;
 }

@@ -111,29 +111,29 @@ class index_cms extends index_base
         $condition["id"] = $_GET["cmsId"];
         $rs = $dbCms->deleteOneCms($condition);
         if ($rs) {
-            $params["success"] = true;
+            $params = array("status"=>"success","msg"=>"删除新闻成功！");
         } else {
-            $params["success"] = false;
+            $params = array("status"=>"error","msg"=>"删除新闻失败！");
         }
-        echo json_encode($params);
+        return $this->alert($params);
     }
 
     public function pageAdd($inPath)
     {
         $dbCms = new core_db_Cms();
-        $data["title"] = $_GET["title"];
-        $data["des"] = $_GET["des"];
-        $data["hyperlink"] = $_GET["hyperlink"];
-        $data["type"] = $_GET["cmsType"];
+        $data["title"] = $_REQUEST["title"];
+        $data["des"] = $_REQUEST["des"];
+        $data["hyperlink"] = $_REQUEST["hyperlink"];
+        $data["type"] = $_REQUEST["cmsType"];
         $data["create_date"] = date("y-m-d H:i:s", time());
         $data["last_update_date"] = date("y-m-d H:i:s", time());
-        $data['content'] = $_GET['content'];
+        $data['content'] = $_REQUEST['content'];
         $rs = $dbCms->addNews($data);
         if ($rs) {
-            $params["success"] = true;
+            $params = array("status"=>"success","msg"=>"添加新闻成功！");
         } else {
-            $params["success"] = true;
+            $params = array("status"=>"error","msg"=>"添加新闻失败！");
         }
-        return json_encode($params);
+        return $this->alert($params);
     }
 }

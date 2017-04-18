@@ -10,7 +10,7 @@
 {%block css%}
 <link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
 <link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
-<link rel="stylesheet" href="/products/css/productList.css" />
+<link rel="stylesheet" href="/common/css/table.css" />
 <link rel="stylesheet" href="/managers/css/list.css" />
 {%endblock%}
 {%block content%}
@@ -41,11 +41,31 @@
 					<input placeholder="管理员真实姓名" class="m-wrap small" type="text" name="trueName" value="{$trueName}">
 				</div>
 				<div class="product-item">
+					<span>状态：</span>
+					<select name="isLock">
+						{if $isLock == 0}
+						<option value="0" selected="selected">请选择</option>
+						{else}
+						<option value="0">请选择</option>
+						{/if}
+						{if $isLock == 1}
+						<option value="1" selected="selected">未锁定</option>
+						{else}
+						<option value="1">未锁定</option>
+						{/if}
+						{if $isLock == 2}
+						<option value="2" selected="selected">锁定</option>
+						{else}
+						<option value="2">锁定</option>
+						{/if}
+					</select>
+				</div>
+				<div class="product-item">
 		            <button type="submit" class="btn blue product-btn"><i class="icon-search"></i> 搜索
 		            </button>
 		        </div>
 		        <div class="product-item">
-		        	<a class="btn blue" href="/manager/action"><i class="icon-plus"></i>添加管理员</a>
+		        	<button id="Jadd" class="btn blue" type="button"><i class="icon-plus"></i>添加管理员</button>
 		        </div>
 			</form>
 			<table class="table table-striped table-bordered table-hover table-full-width">
@@ -75,15 +95,15 @@
                             </td>
                             <td>{date("Y-m-d H:i:s", $mv['last_in_time'])} / {long2ip($mv['last_in_ip'])}</td>
                             <td>
-                                <a href="/manager/action?managerId={$mv['manager_id']}" class="btn purple user-btn">
+                                <button data-id="{$mv['manager_id']}" data-name="{$mv['manager_name']}" data-truename="{$mv['true_name']}" class="Jedit btn purple common-btn" type="button">
                                 	<i class="icon-edit"></i>&nbsp;编辑
-                                </a>
-                                <a href="#" data-id="{$mv['manager_id']}" class="btn yellow user-btn">
+                                </button>
+                                <button data-id="{$mv['manager_id']}" class="Jreset btn yellow common-btn" type="button">
                                 	<i class="icon-undo"></i>&nbsp;重置密码
-                                </a>
-                                <a href="#" data-id="{$mv['manager_id']}" class="btn red user-btn">
+                                </button>
+                                <button data-id="{$mv['manager_id']}" class="Jdelete btn red common-btn" type="button">
                                 	<i class="icon-trash"></i>&nbsp;删除
-                                </a>
+                                </button>
                             </td>
 						</tr>
 					{/foreach}
@@ -92,7 +112,6 @@
 			</table>
 			{% include "boss/assets/src/common/pagebar.html" %}
 		</div>
-
 	</div>
 </div>
 {%endblock%}
@@ -101,5 +120,7 @@
 <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
 <script type="text/javascript" src="/lib/js/tableList.js"></script>
-<script type="text/javascript" src="/products/js/product.js"></script>
+<script type="text/javascript" src="/common/js/table.js"></script>
+<script type="text/javascript" src="/common/js/modal.js"></script>
+<script type="text/javascript" src="/managers/js/list.js"></script>
 {%endblock%}
