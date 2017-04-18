@@ -27,7 +27,7 @@
 			<div class="caption"><i class="icon-user"></i>{{page.barTitle}}</div>
 		</div>
 		<div class="portlet-body">
-			<form class="v-product" id="Jform" method="get" action="/manager/list">
+			<form class="v-product" method="get" action="/manager/list">
 				<div class="product-item">
 					<span>管理员ID：</span>
 					<input placeholder="管理员ID" class="m-wrap small" type="text" name="managerId" value="{$managerId}"/>
@@ -96,13 +96,13 @@
                             <td>{date("Y-m-d H:i:s", $mv['last_in_time'])} / {long2ip($mv['last_in_ip'])}</td>
                             <td>
                                 <button data-id="{$mv['manager_id']}" data-name="{$mv['manager_name']}" data-truename="{$mv['true_name']}" class="Jedit btn purple common-btn" type="button">
-                                	<i class="icon-edit"></i>&nbsp;编辑
+                                	<i class="icon-edit"></i>编辑
                                 </button>
                                 <button data-id="{$mv['manager_id']}" class="Jreset btn yellow common-btn" type="button">
-                                	<i class="icon-undo"></i>&nbsp;重置密码
+                                	<i class="icon-undo"></i>重置密码
                                 </button>
                                 <button data-id="{$mv['manager_id']}" class="Jdelete btn red common-btn" type="button">
-                                	<i class="icon-trash"></i>&nbsp;删除
+                                	<i class="icon-trash"></i>删除
                                 </button>
                             </td>
 						</tr>

@@ -69,6 +69,7 @@ class core_db_Cms extends core_db_DbBase {
             if($rs === false) {
                 throw new Exception("更新失败");
             }
+            return true;
         } catch (Exception $e) {
             return false;
         }

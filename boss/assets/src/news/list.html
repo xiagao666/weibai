@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
 <link rel="stylesheet" type="text/css" href="/lib/css/DT_bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="/common/css/table.css" />
-<link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
+<link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css"/>
 <link rel="stylesheet" type="text/css" href="/news/css/list.css" />
 {%endblock%}
 {%block content%}
@@ -28,7 +28,7 @@
 			<div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
 		</div>
 		<div class="portlet-body">
-			<form class="v-product" id="Jform" method="get" action="/product/list">
+			<form class="v-product" method="get" action="/cms/news">
 				<div class="product-item">
 					<select name="searchKey">
 						<option value="0">请选择查询条件</option>
@@ -68,12 +68,12 @@
 						<td>{$item['create_date']}</td>
 						<td>{$item['last_update_date']}</td>
 						<td>
-							<a id="editCms" data-id="{$item['id']}" class="btn purple common-btn">
-	                        	<i class="icon-edit"></i>&nbsp;编辑
-	                        </a>
-	                        <a id="deleteCms" href="#myModal1" data-toggle="modal" role="button" data-id="{$item['id']}" class="btn red common-btn">
-	                        	<i class="icon-trash"></i>&nbsp;删除
-	                        </a>
+							<button data-id="{$item['id']}" class="Jedit btn purple common-btn">
+	                        	<i class="icon-edit"></i>编辑
+	                        </button>
+	                        <button data-id="{$item['id']}" class="Jdelete btn red common-btn">
+	                        	<i class="icon-trash"></i>删除
+	                        </button>
 						</td>
 					</tr>
 					{/foreach}

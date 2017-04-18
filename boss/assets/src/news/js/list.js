@@ -16,13 +16,13 @@ var News = {
     },
     bind: function() {
         var t = this;
-        $(document).on("click", "#editCms", function() {
+        $(document).on("click", ".Jedit", function() {
             t.showEditForm($(this).data("id"));
         }).on("click", "#cancelEdit", function() {
             $("#newsForm").hide();
         }).on("click", "#saveEdit", function() {
             t.saveEditFormData();
-        }).on("click", "#deleteCms", function() {
+        }).on("click", ".Jdelete", function() {
             var $this = $(this);
             Modal.confirm({
                 "id": "Jmodal",
@@ -67,7 +67,7 @@ var News = {
             cmsId: id
         };
         var config = {
-            url: '/cms/GetOneById',
+            url: '/cms/getonebyid',
             data: param,
             callback: t.setEditFormData
         };
@@ -113,7 +113,8 @@ var News = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": "新闻添加失败，请稍后重试！"
+                        "content": "新闻添加失败，请稍后重试！",
+                        "callback": function(){}
                     });
                 }
             }
@@ -141,7 +142,8 @@ var News = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": "删除失败，请稍后重试！"
+                        "content": "删除失败，请稍后重试！",
+                        "callback": function(){}
                     });
                 }
             }
@@ -160,4 +162,4 @@ var News = {
 
 $(function() {
     News.init();
-})
+});

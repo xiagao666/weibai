@@ -28,7 +28,7 @@ class index_cms extends index_base
         $condition["type"] = 2;
         $rs = $dbCms->queryNews($condition, 1, 20, "");
         $param["cmsData"] = $rs->items;
-        return $this->render("boss/brand.html", $param);
+        return $this->render("/brand/list.html", $param);
     }
 
     /**
@@ -40,7 +40,7 @@ class index_cms extends index_base
         $condition["type"] = 3;
         $rs = $dbCms->queryNews($condition, 1, 20, "");
         $param["cmsData"] = $rs->items;
-        return $this->render("boss/tech.html", $param);
+        return $this->render("/tech/list.html", $param);
     }
 
     /**
@@ -52,7 +52,7 @@ class index_cms extends index_base
         $condition["type"] = 4;
         $rs = $dbCms->getOneCms($condition);
         $param["cmsData"] = $rs;
-        return $this->render("boss/about.html", $param);
+        return $this->render("/about/list.html", $param);
     }
 
     /**
@@ -85,21 +85,21 @@ class index_cms extends index_base
     public function pageUpdate($inPath)
     {
         $dbCms = new core_db_Cms();
-        $condition["id"] = $_GET["cmsId"];
-        $item["title"] = isset($_GET['title']) ? core_lib_Comm::getStr($_GET['title']) : '';//ID;
-        $item["des"] = isset($_GET['des']) ? core_lib_Comm::getStr($_GET['des']) : '';
-        //$item["img_url"] = $_GET["imgUrl"];
-        //$item["content"] = $_GET["content"];
-        $item["hyperlink"] = isset($_GET['hyperlink']) ? core_lib_Comm::getStr($_GET['hyperlink']) : '';
+        $condition["id"] = $_REQUEST["cmsId"];
+        $item["title"] = isset($_REQUEST['title']) ? core_lib_Comm::getStr($_REQUEST['title']) : '';//ID;
+        $item["des"] = isset($_REQUEST['des']) ? core_lib_Comm::getStr($_REQUEST['des']) : '';
+        //$item["img_url"] = $_REQUEST["imgUrl"];
+        //$item["content"] = $_REQUEST["content"];
+        $item["hyperlink"] = isset($_REQUEST['hyperlink']) ? core_lib_Comm::getStr($_REQUEST['hyperlink']) : '';
         $item["last_update_date"] = date("y-m-d H:i:s", time());
-        $item["content"] = $_GET['content'];
+        $item["content"] = $_REQUEST['content'];
         $rs = $dbCms->updateOneNews($condition, $item);
         if ($rs) {
-            $params["success"] = true;
+            $params = array("status"=>"success","msg"=>"更新新闻成功！");
         } else {
-            $params["success"] = false;
+            $params = array("status"=>"error","msg"=>"更新新闻失败，请稍后重试！");
         }
-        echo json_encode($params);
+        return $this->alert($params);
     }
 
     /**
@@ -132,7 +132,7 @@ class index_cms extends index_base
         if ($rs) {
             $params = array("status"=>"success","msg"=>"添加新闻成功！");
         } else {
-            $params = array("status"=>"error","msg"=>"添加新闻失败！");
+            $params = array("status"=>"error","msg"=>"添加新闻失败，请稍后重试！");
         }
         return $this->alert($params);
     }
