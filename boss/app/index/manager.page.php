@@ -98,8 +98,6 @@ class index_manager extends index_base
             }
            return $this->alert(array('status'=>'success','msg'=>$msg."用户成功！"));
         }
-        // $this->_params['isEdit'] = $isEdit;
-        // return $this->render("boss/manager/action.html", $this->_params);
     }
 
     /**
@@ -107,7 +105,7 @@ class index_manager extends index_base
      */
     public function pageLock()
     {
-        $managerId = isset($_GET['managerId']) ? core_lib_Comm::getStr($_GET['managerId'], 'int') : 0;//管理员ID
+        $managerId = isset($_POST['managerId']) ? core_lib_Comm::getStr($_POST['managerId'], 'int') : 0;//管理员ID
         if (!$managerId) {
             return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
         }
@@ -119,9 +117,9 @@ class index_manager extends index_base
             $managerRS = $dbManager->edit($data);
             $msg = $isLock ? "锁定" : "解锁";
             if ($managerRS === false) {
-//                return $this->alert(array('status'=>'error','msg'=>"管理员".$msg."失败"));
+               return $this->alert(array('status'=>'error','msg'=>"管理员".$msg."失败！"));
             }
-//            return $this->alert(array('status'=>'error','msg'=>"管理员".$msg."成功"));
+           return $this->alert(array('status'=>'success','msg'=>"管理员".$msg."成功！"));
         }
     }
 
@@ -160,7 +158,7 @@ class index_manager extends index_base
         if ($managerRS === false) {
             return $this->alert(array('status'=>'error','msg'=>"重置密码失败！"));
         }
-        return $this->alert(array('status'=>'success','msg'=>"重置密码成功！新密码为".MANAGER_PASSWD."，请妥善保管！"));
+        return $this->alert(array('status'=>'success','msg'=>"重置密码成功！新密码为<strong style='font-weight:bold;color:#f22;'>".MANAGER_PASSWD."</strong>，请妥善保管！"));
     }
 
     // 删除用户
