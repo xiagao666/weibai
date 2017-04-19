@@ -40,18 +40,26 @@ class index_product extends index_base
                 }
             }
         }
+        $searchKey = $_GET['searchKey'];
+        $searchValue = $_GET['searchVal'];
+        $query = "";
+        if(!empty($searchKey) && !empty($searchValue)) {
+            $query = $searchKey." like '%".$searchValue."%'";
+        }
         $searchCategoryStr = is_array($searchCategoryIds) ? implode(",", $searchCategoryIds) : '';
         if (is_array($searchCategoryIds)) {
+            if(!empty($query)){
+                $query." and ";
+            }
             $query = "category_id in ({$searchCategoryStr})";
         }
-
         $dbProduct = new core_db_Product();
         $products = $dbProduct->queryProductList($query, $page, $limit, array("id" => "desc"));
 
         $this->pageBar($products['total'], $limit, $page, '/manager/list');
 
         //处理字段
-        $columns = explode(",", PRODUCT_COLUMNS);
+        $columns = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
         $this->_params['cCategorys'] = $cCategory;
         $this->_params['products'] = $products['list'];
         $this->_params['pCategorys'] = $parentCategorys['items'];
@@ -60,6 +68,8 @@ class index_product extends index_base
         $this->_params['columns'] = $columns;
         $this->_params['actTitle'] = "产品列表";
         $this->_params['act'] = "productList";
+        $this->_params['searchKey'] = $searchKey;
+        $this->_params['searchVal'] = $searchValue;
         return $this->render("/products/list.html", $this->_params);
     }
 

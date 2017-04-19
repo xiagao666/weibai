@@ -56,11 +56,11 @@
 				<div class="product-item">
 					<select name="searchKey">
 						<option value="0">请选择查询条件</option>
-						{foreach $columns as $item}
-						{if $item[id] == $searchKey}
-						<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+						{foreach $columns as $key => $item}
+						{if $key == $searchKey}
+						<option value='{$key}' selected="selected">{$item}</option>
 						{else}
-						<option value='{$item[id]}'>{$item[name]}</option>
+						<option value='{$key}'>{$item}</option>
 						{/if}
 						{/foreach}
 					</select>
