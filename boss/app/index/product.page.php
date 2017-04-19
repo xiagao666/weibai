@@ -288,7 +288,7 @@ class index_product extends index_base
         $this->_params['parentCategorys'] = $parentCategorys['items'];
         $this->_params['actTitle'] = $msg."产品";
         $this->_params['act'] = "productList";
-        return $this->render("boss/product/action.html", $this->_params);
+        return $this->render("/products/action.html", $this->_params);
     }
 
     /**
