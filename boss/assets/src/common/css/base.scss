@@ -9,7 +9,8 @@ button.btn i{
 }
 .modal-body{
 	overflow: hidden;
-	i{
+	max-height: inherit;
+	&.#{$space}tip i{
 		margin-right: 8px;
 		font-size: 30px;
     	vertical-align: -5px;

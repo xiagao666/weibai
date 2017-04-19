@@ -50,7 +50,7 @@
 		            </button>
 		        </div>
 		        <div class="product-item">
-		        	<button id="addNews" type="button" class="btn blue"><i class="icon-plus"></i>添加新闻</button>
+		        	<button data-type="0" type="button" class="Joperate btn blue"><i class="icon-plus"></i>添加新闻</button>
 		        </div>
 			</form>
 			<table class="table table-striped table-bordered table-hover table-full-width">
@@ -76,7 +76,7 @@
 						<td>{$item['create_date']}</td>
 						<td>{$item['last_update_date']}</td>
 						<td>
-							<button data-id="{$item['id']}" class="Jedit btn purple common-btn">
+							<button data-id="{$item['id']}" class="Joperate btn purple common-btn">
 	                        	<i class="icon-edit"></i>编辑
 	                        </button>
 	                        <button data-id="{$item['id']}" class="Jdelete btn red common-btn">
@@ -92,90 +92,17 @@
 		</div>
 
 	</div>
-	<div id="newsForm" class="row-fluid hide">
-		<div class="span12">
-			<!-- BEGIN SAMPLE FORM PORTLET-->
-			<div class="portlet box blue">
-				<div class="portlet-title v-product">
-					<div class="caption"><i class="icon-reorder"></i>添加新闻</div>
-				</div>
-
-				<div class="portlet-body form">
-					<!-- BEGIN FORM-->
-					<form id="Jnewform" action="#" class="form-horizontal">
-						<input type="hidden" name="cmsType" value="1" />
-						<input type="hidden" name="json" value="1" />
-						<input id="cmsId" name="cmsId" type="hidden" value=""/>
-						<div class="control-group">
-							<label class="control-label">标题</label>
-							<div class="controls">
-								<input id="cmsTitle" name="title" type="text" class="span6 m-wrap" />
-							</div>
-
-						</div>
-						<div class="control-group">
-
-							<label class="control-label">简述</label>
-
-							<div class="controls">
-
-								<textarea id="cmsDes" name="des" class="span6 m-wrap" rows="3"></textarea>
-
-							</div>
-
-						</div>
-						<div class="control-group">
-
-							<label class="control-label">链接地址</label>
-
-							<div class="controls">
-
-								<input id="cmsUrl" name="hyperlink" type="text" class="span6 m-wrap" />
-
-
-							</div>
-
-						</div>
-
-						<div class="control-group">
-							<label class="control-label">内容</label>
-                            <div class="controls">
-                                <div id="editor-trigger"><p>请输入内容</p></div>
-                            </div>
-						</div>
-
-
-						<div class="form-actions">
-
-							<button id="saveEdit" type="button" class="btn blue"><i class="icon-save"></i>保存</button>
-
-							<button id="cancelEdit" type="button" class="btn"><i class=" icon-remove"></i>取消</button>
-
-						</div>
-
-					</form>
-
-					<!-- END FORM-->
-
-				</div>
-
-			</div>
-
-			<!-- END SAMPLE FORM PORTLET-->
-
-		</div>
-
-	</div>
 </div>
 {%endblock%}
 {%block js%}
 <script type="text/javascript" src="/lib/js/select2.min.js"></script>
 <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
-<script type="text/javascript" src="/lib/js/tableList.js"></script>
-<script type="text/javascript" src="/common/js/table.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
 <script type="text/javascript" src="/lib/js/jquery.bootpag.min.js"></script>
+<script type="text/javascript" src="/lib/js/tableList.js"></script>
+<script type="text/javascript" src="/common/js/table.js"></script>
 <script type="text/javascript" src="/common/js/modal.js"></script>
 <script type="text/javascript" src="/news/js/list.js"></script>
 {%endblock%}

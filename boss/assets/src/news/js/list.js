@@ -1,14 +1,13 @@
 var News = {
+    $newForm: null,
     wangEditor: null,
+    $template: null,
     init: function() {
         this.bind();
-        this.intWangEditor();
-        $("#newsForm").hide();
-
     },
     intWangEditor: function() {
         var t = this;
-        t.wangEditor = new wangEditor('editor-trigger');
+        t.wangEditor = new wangEditor('Jeditor');
         // 上传图片
         t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
         t.wangEditor.config.uploadImgFileName = 'upfile';
@@ -16,24 +15,62 @@ var News = {
     },
     bind: function() {
         var t = this;
-        $(document).on("click", ".Jedit", function() {
-            t.showEditForm($(this).data("id"));
-        }).on("click", "#cancelEdit", function() {
-            $("#newsForm").hide();
-        }).on("click", "#saveEdit", function() {
-            t.saveEditFormData();
-        }).on("click", ".Jdelete", function() {
+        // 删除记录
+        $(document).on("click", ".Jdelete", function() {
             var $this = $(this);
             Modal.confirm({
                 "id": "Jmodal",
-                "content": "确定要删除该条记录？",
+                "content": "确定要删除该条新闻？",
                 "callback": function() {
-                    App.blockUI($("#Jmodal"));
-                    t.deleteOne($this.data("id"));
+                    t.deleteNew($this.data("id"));
                 }
             });
-        }).on("click", "#addNews", function() {
-            t.showAddForm();
+            // 新增/编辑新闻
+        }).on("click", ".Joperate", function() {
+            var $this = $(this),
+                msg = "",
+                id = $this.data("id");
+            msg = id ? "修改新闻信息" : "添加新闻";
+            Modal.template({
+                "id": "Jtemplate",
+                "title": msg,
+                "class": "v-news",
+                "content": t._template({
+                    "id": id
+                }),
+                "callback": function() {
+                    t.handleNew({
+                        "id": id
+                    });
+                }
+            });
+            t.$template = $("#Jtemplate");
+            t.$newForm = $("#JnewForm");
+            t.$newForm.find(".alert-error button").click(function() {
+                $(this).parent().hide();
+            });
+            $("#JtemplateBtn").removeData("dismiss").removeAttr("data-dismiss");
+            t.validate();
+            t.intWangEditor();
+            if (id){
+                t.postData({
+                    "url": "/cms/getonebyid",
+                    "type": "get",
+                    "data": {"cmsId": id, "json":1},
+                    "callback": function(res){
+                        if (res.status == "success") {
+                            var data = res.data;
+                            $("#cmsId").val(data["id"]);
+                            $("#title").val(data["title"]);
+                            $("#cmsDes").val(data["des"]);
+                            $("#cmsUrl").val(data["hyperlink"]);
+                            t.wangEditor.$txt.html(data["content"]);
+                        } else {
+                            t.$newForm.find(".alert-error").show().find("span").html(res.msg);
+                        }
+                    }
+                });
+            }
         });
     },
     postData: function(config) {
@@ -44,7 +81,9 @@ var News = {
                 data: config.data,
                 type: config.type || "get",
                 dataType: "json",
-                beforeSend: function() {},
+                beforeSend: function() {
+                    App.blockUI(config.hObject);
+                },
                 success: function(res) {
                     if (config.callback != null) {
                         config.callback(res);
@@ -53,57 +92,28 @@ var News = {
                 error: function(res) {
 
                 },
-                complete: function(res) {
-
+                complete: function() {
+                    App.unblockUI(config.hObject);
                 }
             });
         } catch (e) {
             console.error(e);
         }
     },
-    showEditForm: function(id) {
-        var t = News;
-        var param = {
-            cmsId: id
-        };
-        var config = {
-            url: '/cms/getonebyid',
-            data: param,
-            callback: t.setEditFormData
-        };
-        t.postData(config);
-    },
-    setEditFormData: function(rs) {
-        var t = News;
-        if (rs == null) {
-            return;
-        }
-        $("#cmsId").val(rs["id"]);
-        $("#cmsTitle").val(rs["title"]);
-        $("#cmsDes").val(rs["des"]);
-        $("#cmsUrl").val(rs["hyperlink"]);
-        t.wangEditor.$txt.html(rs["content"]);
-        $("#newsForm").show();
-    },
-    saveEditFormData: function() {
-        var t = this,
-            id = $("#cmsId").val(),
-            wEditorText = News.wangEditor.$txt.html(),
-            urlData = '/cms/add?content=' + wEditorText;
-
-        if (id > 0) {
-            urlData = '/cms/update?content=' + wEditorText;
-        }
-
-        t.postData({
-            url: urlData,
-            data: $("#Jnewform").serialize(),
-            type: "post",
+    // 删除新闻
+    deleteNew: function(id) {
+        this.postData({
+            url: '/cms/delete',
+            data: {
+                "cmsId": id,
+                "json": 1
+            },
+            hObject: t.$template.find(".Jload"),
             callback: function(res) {
                 if (res.status == "success") {
                     Modal.alert({
                         "id": "Jalert",
-                        "content": "新闻添加成功！",
+                        "content": "删除成功！",
                         "type": "success",
                         "callback": function() {
                             window.location.reload();
@@ -113,50 +123,124 @@ var News = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": "新闻添加失败，请稍后重试！",
-                        "callback": function(){}
-                    });
-                }
-            }
-        });
-    },
-    deleteOne: function(id) {
-        this.postData({
-            url: '/cms/delete',
-            data: {
-                "cmsId": id,
-                "json": 1
-            },
-            callback: function(res) {
-                App.unblockUI($("#Jmodal"));
-                if (res.status == "success") {
-                    Modal.alert({
-                        "id": "Jalert",
-                        "content": "删除成功！",
-                        "type":"success",
-                        "callback": function() {
-                            window.location.reload();
-                        }
-                    });
-                } else {
-                    Modal.alert({
-                        "id": "Jalert",
-                        "type": "error",
                         "content": "删除失败，请稍后重试！",
-                        "callback": function(){}
+                        "callback": function() {}
                     });
                 }
             }
         });
     },
-    showAddForm: function() {
-        $("#newsForm").show();
-        $(':input', '#newsForm')
-            .not(':button, :submit, :reset, :hidden')
-            .val('')
-            .removeAttr('checked')
-            .removeAttr('selected');
-        this.wangEditor.$txt.html('<p><br></p>');
+    // 新增/编辑新闻
+    handleNew: function(config) {
+        var t = this;
+        if (t.$newForm.validate().form()) {
+            var url = "",text = t.wangEditor.$txt.html();
+            if (config.id){
+                url = '/cms/update?content=' + text;
+            } else {
+                url = '/cms/add?content=' + text;
+            }
+            t.postData({
+                url: url,
+                type: "post",
+                data: t.$newForm.serialize(),
+                hObject: t.$template.find(".Jload"),
+                callback: function(res) {
+                    if (res.status == "success") {
+                        t.$template.modal("hide");
+                        Modal.alert({
+                            "id": "Jalert",
+                            "content": res.msg,
+                            "type": "success",
+                            "callback": function() {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        t.$newForm.find(".alert-error").show().find("span").html(res.msg);
+                    }
+                }
+            });
+        }
+    },
+    // 模板渲染
+    _template: function(config) {
+        var content = '<form id="JnewForm" action="#" class="form-horizontal">\
+                        <input type="hidden" name="cmsType" value="1" />\
+                        <input type="hidden" name="json" value="1" />\
+                        <input id="cmsId" name="cmsId" type="hidden" value="'+config.id+'"/>\
+                        <div class="alert alert-error hide">\
+                            <button class="close" type="button"></button>\
+                            <span>请完善相关信息</span>\
+                        </div>\
+                        <div class="control-group">\
+                            <label class="control-label">标题：</label>\
+                            <div class="controls">\
+                                <input id="title" name="title" type="text" class="span6 m-wrap" />\
+                            </div>\
+                        </div>\
+                        <div class="control-group">\
+                            <label class="control-label">简述：</label>\
+                            <div class="controls">\
+                                <textarea id="cmsDes" name="des" class="span6 m-wrap" rows="3"></textarea>\
+                            </div>\
+                        </div>\
+                        <div class="control-group">\
+                            <label class="control-label">链接地址：</label>\
+                            <div class="controls">\
+                                <input id="cmsUrl" name="hyperlink" type="text" class="span6 m-wrap" />\
+                            </div>\
+                        </div>\
+                        <div class="control-group">\
+                            <label class="control-label">内容：</label>\
+                            <div class="controls">\
+                                <div id="Jeditor"><p><br/></p></div>\
+                            </div>\
+                        </div>\
+                    </form>';
+
+        return content;
+    },
+    // 数据校验
+    validate: function() {
+        var t = this;
+        t.$newForm.validate({
+            errorElement: 'label', //default input error message container
+            errorClass: 'help-inline', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            rules: {
+                title: {
+                    required: true
+                }
+            },
+            messages: {
+                title: {
+                    required: "请输入新闻标题"
+                }
+            },
+
+            invalidHandler: function(event, validator) { //display error alert on form submit   
+                $('.alert-error', t.$newForm).show();
+            },
+
+            highlight: function(element) { // hightlight error inputs
+                $(element)
+                    .closest('.control-group').addClass('error'); // set error class to the control group
+            },
+
+            success: function(label) {
+                label.closest('.control-group').removeClass('error');
+                label.remove();
+            },
+
+            errorPlacement: function(error, element) {
+                error.addClass('help-small no-left-padding').insertAfter(element.closest('.span6.m-wrap'));
+            },
+
+            submitHandler: function(form) {
+                return false;
+            }
+        });
     }
 };
 

@@ -97,7 +97,10 @@ class index_cms extends index_base
         $dbCms = new core_db_Cms();
         $condition["id"] = $_GET["cmsId"];
         $rs = $dbCms->getOneCms($condition);
-        echo json_encode($rs);
+        if (empty($rs)){
+            return $this->alert(array('status'=>'error','msg'=>"获取新闻信息失败！"));
+        }
+        return $this->alert(array('status'=>'success','msg'=>"获取新闻信息成功！", "data"=>$rs));
     }
 
     /**

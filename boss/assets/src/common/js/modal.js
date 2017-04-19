@@ -36,7 +36,7 @@ var Modal = function() {
                 <div class="modal-header">\
                     <h3>' + config.title + '</h3>\
                 </div>\
-                <div class="modal-body alert-' + config.type + '">\
+                <div class="v-tip modal-body alert-' + config.type + '">\
                     <i class="' + _icon + '"></i><span>' + config.content + '</span>\
                 </div>\
                 <div class="modal-footer">\
@@ -77,7 +77,7 @@ var Modal = function() {
                 <div class="modal-header">\
                     <h3>' + config.title + '</h3>\
                 </div>\
-                <div class="modal-body alert">\
+                <div class="v-tip modal-body alert">\
                     <i class="icon-warning-sign"></i><span>' + config.content + '</span>\
                 </div>\
                 <div class="modal-footer">\
@@ -111,9 +111,10 @@ var Modal = function() {
         config.title = config.title || "系统提示";
         config.content = config.content || "系统提示消息";
         config.callback = config.callback || {};
+        config.class = config.class || "";
         var _confirm = $("#" + config.id + "");
         if (!_confirm.length) {
-            _template = '<div id="' + config.id + '" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">\
+            _template = '<div id="' + config.id + '" class="'+config.class+' modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">\
             <div class="Jload">\
                 <div class="modal-header">\
                     <h3>' + config.title + '</h3>\

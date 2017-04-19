@@ -50,7 +50,7 @@ var Manager = {
                 }
             });
             t.$template = $("#Jtemplate");
-            t.$userForm = $("#Juserform");
+            t.$userForm = $("#JuserForm");
             t.$userForm.find(".alert-error button").click(function() {
                 $(this).parent().hide();
             });
@@ -222,7 +222,7 @@ var Manager = {
     },
     // 模板渲染
     _template: function(config) {
-        var content = '<form id="Juserform" action="#" class="form-horizontal">\
+        var content = '<form id="JuserForm" action="#" class="form-horizontal">\
                         <input type="hidden" name="isEdit" value="' + config.iType + '" />\
                         <input type="hidden" name="json" value="1" />\
                         <input type="hidden" name="managerId" value="' + config.managerId + '" />\
