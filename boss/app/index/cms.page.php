@@ -13,9 +13,16 @@ class index_cms extends index_base
     public function pageNews($inPath)
     {
         $dbCms = new core_db_Cms();
-        $condition["type"] = 1;
+        $condition = " type=1 ";
+        $searchKey = $_GET['searchKey'];
+        $searchValue = $_GET['searchVal'];
+        if(!empty($searchKey) && !empty($searchValue)) {
+            $condition = $condition." and ".$searchKey." like '%".$searchValue."%'";
+        }
         $rs = $dbCms->queryNews($condition, 1, 20, "");
         $param["cmsData"] = $rs->items;
+        $param['searchKey'] = $searchKey;
+        $param['searchVal'] = $searchValue;
         return $this->render("/news/list.html", $param);
     }
 
@@ -25,9 +32,16 @@ class index_cms extends index_base
     public function pageBrand($inPath)
     {
         $dbCms = new core_db_Cms();
-        $condition["type"] = 2;
+        $condition = " type=2 ";
+        $searchKey = $_GET['searchKey'];
+        $searchValue = $_GET['searchVal'];
+        if(!empty($searchKey) && !empty($searchValue)) {
+            $condition = $condition." and ".$searchKey." like '%".$searchValue."%'";
+        }
         $rs = $dbCms->queryNews($condition, 1, 20, "");
         $param["cmsData"] = $rs->items;
+        $param['searchKey'] = $searchKey;
+        $param['searchVal'] = $searchValue;
         return $this->render("/brand/list.html", $param);
     }
 
@@ -37,9 +51,16 @@ class index_cms extends index_base
     public function pageTech($inPath)
     {
         $dbCms = new core_db_Cms();
-        $condition["type"] = 3;
+        $condition = " type=3 ";
+        $searchKey = $_GET['searchKey'];
+        $searchValue = $_GET['searchVal'];
+        if(!empty($searchKey) && !empty($searchValue)) {
+            $condition = $condition." and ".$searchKey." like '%".$searchValue."%'";
+        }
         $rs = $dbCms->queryNews($condition, 1, 20, "");
         $param["cmsData"] = $rs->items;
+        $param['searchKey'] = $searchKey;
+        $param['searchVal'] = $searchValue;
         return $this->render("/tech/list.html", $param);
     }
 

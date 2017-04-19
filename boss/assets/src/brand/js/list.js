@@ -2,23 +2,38 @@ var Brand = {
     wangEditor: null,
     init: function() {
         this.bind();
+        //this.intWangEditor();
         $("#brandForm").hide();
 
     },
+    intWangEditor: function() {
+        var t = this;
+        t.wangEditor = new wangEditor('editor-trigger');
+        // 上传图片
+        t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
+        t.wangEditor.config.uploadImgFileName = 'upfile';
+        t.wangEditor.create();
+    },
     bind: function() {
         var t = this;
-        $(document).on("click", "#editCms", function() {
+        $(document).on("click", ".Jedit", function() {
             t.showEditForm($(this).data("id"));
         }).on("click", "#cancelEdit", function() {
             $("#brandForm").hide();
         }).on("click", "#saveEdit", function() {
             t.saveEditFormData();
-        }).on("click", "#deleteCms", function() {
-            $("#Jdelete").data("id",$(this).data("id"));
+        }).on("click", ".Jdelete", function() {
+            var $this = $(this);
+            Modal.confirm({
+                "id": "Jmodal",
+                "content": "确定要删除该条记录？",
+                "callback": function() {
+                    App.blockUI($("#Jmodal"));
+                    t.deleteOne($this.data("id"));
+                }
+            });
         }).on("click", "#addNews", function() {
             t.showAddForm();
-        }).on("click","#Jdelete",function(){
-            t.deleteOne($(this).data("id"));
         });
     },
     postData: function(config) {
@@ -47,12 +62,12 @@ var Brand = {
         }
     },
     showEditForm: function(id) {
-        var t = this
+        var t = Brand;
         var param = {
             cmsId: id
         };
         var config = {
-            url: '/cms/GetOneById',
+            url: '/cms/getonebyid',
             data: param,
             callback: t.setEditFormData
         };
@@ -67,11 +82,13 @@ var Brand = {
         $("#cmsTitle").val(rs["title"]);
         $("#cmsDes").val(rs["des"]);
         $("#cmsUrl").val(rs["hyperlink"]);
+        //t.wangEditor.$txt.html(rs["content"]);
         $("#brandForm").show();
     },
     saveEditFormData: function() {
-        var  t = this,
+        var t = this,
             id = $("#cmsId").val(),
+            //wEditorText = Brand.wangEditor.$txt.html(),
             urlData = '/cms/add';
 
         if (id > 0) {
@@ -80,28 +97,57 @@ var Brand = {
 
         t.postData({
             url: urlData,
-            data: $("#Jform").serialize(),
-            callback: t.refreshTable
+            data: $("#Jnewform").serialize(),
+            type: "post",
+            callback: function(res) {
+                if (res.status == "success") {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "content": "新闻添加成功！",
+                        "type": "success",
+                        "callback": function() {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "type": "error",
+                        "content": "新闻添加失败，请稍后重试！",
+                        "callback": function(){}
+                    });
+                }
+            }
         });
     },
-    refreshTable: function(rs) {
-        if (rs == null) {
-            alert("操作失败");
-        }else{
-            alert("操作成功");
-        }
-        window.location.reload();
-    },
     deleteOne: function(id) {
-        var param = {
-            cmsId: id
-        };
-        var config = {
+        this.postData({
             url: '/cms/delete',
-            data: param
-        };
-        this.postData(config);
-        window.location.reload();
+            data: {
+                "cmsId": id,
+                "json": 1
+            },
+            callback: function(res) {
+                App.unblockUI($("#Jmodal"));
+                if (res.status == "success") {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "content": "删除成功！",
+                        "type":"success",
+                        "callback": function() {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "type": "error",
+                        "content": "删除失败，请稍后重试！",
+                        "callback": function(){}
+                    });
+                }
+            }
+        });
     },
     showAddForm: function() {
         $("#brandForm").show();
@@ -110,6 +156,7 @@ var Brand = {
             .val('')
             .removeAttr('checked')
             .removeAttr('selected');
+        //this.wangEditor.$txt.html('<p><br></p>');
     }
 };
 

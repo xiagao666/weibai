@@ -32,8 +32,16 @@
 				<div class="product-item">
 					<select name="searchKey">
 						<option value="0">请选择查询条件</option>
-						<option value="">新闻标题</option>
-						<option value="">新闻简述</option>
+						{if "title" == $searchKey}
+						<option value="title" selected="selected">新闻标题</option>
+						{else}
+						<option value="title">新闻标题</option>
+						{/if}
+						{if "des" == $searchKey}
+						<option value="des" selected="selected">新闻简述</option>
+						{else}
+						<option value="des">新闻简述</option>
+						{/if}
 					</select>
 				</div>
 				<div class="product-item">
