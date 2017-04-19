@@ -95,15 +95,24 @@
                             </td>
                             <td>{date("Y-m-d H:i:s", $mv['last_in_time'])} / {long2ip($mv['last_in_ip'])}</td>
                             <td>
-                                <button data-id="{$mv['manager_id']}" data-name="{$mv['manager_name']}" data-truename="{$mv['true_name']}" class="Jedit btn purple common-btn" type="button">
-                                	<i class="icon-edit"></i>编辑
+                                <button data-id="{$mv['manager_id']}" data-name="{$mv['manager_name']}" data-truename="{$mv['true_name']}" class="Jedit btn blue common-btn" type="button">
+                                	<i class="icon-edit"></i>编 辑
                                 </button>
-                                <button data-id="{$mv['manager_id']}" class="Jreset btn yellow common-btn" type="button">
+                                <button data-id="{$mv['manager_id']}" class="Jreset btn purple common-btn" type="button">
                                 	<i class="icon-undo"></i>重置密码
                                 </button>
                                 <button data-id="{$mv['manager_id']}" class="Jdelete btn red common-btn" type="button">
-                                	<i class="icon-trash"></i>删除
+                                	<i class="icon-trash"></i>删 除
                                 </button>
+                                {if $mv['status']}
+                                <button data-id="{$mv['manager_id']}" data-lock="0" class="Jcontrol btn yellow common-btn" type="button">
+                                	<i class="icon-unlock"></i>解锁用户
+                                </button>
+                                {else}
+                                <button data-id="{$mv['manager_id']}" data-lock="1" class="Jcontrol btn yellow common-btn" type="button">
+                                	<i class="icon-lock"></i>锁定用户
+                                </button>
+                                {/if}
                             </td>
 						</tr>
 					{/foreach}
@@ -119,6 +128,7 @@
 <script type="text/javascript" src="/lib/js/select2.min.js"></script>
 <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/lib/js/tableList.js"></script>
 <script type="text/javascript" src="/common/js/table.js"></script>
 <script type="text/javascript" src="/common/js/modal.js"></script>

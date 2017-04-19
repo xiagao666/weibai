@@ -55,7 +55,6 @@ var Login = {
             }
         });
 
-
         $(document).on("click", "#Jsubmit", function() {
         	if ($('#Jform').validate().form()) {
                 $.ajax({
