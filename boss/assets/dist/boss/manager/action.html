@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>{$headerTitle} | {$pageTitle} - {$actTitle}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="/boss/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="/boss/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>-->
+    <link href="/boss/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/boss/css/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="/boss/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/boss/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/boss/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="/boss/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="/boss/css/bootstrap-fileupload.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/jquery.gritter.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/chosen.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/select2_metro.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/jquery.tagsinput.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/clockface.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/bootstrap-wysihtml5.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/timepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/colorpicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/bootstrap-toggle-buttons.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/datetimepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/boss/css/multi-select-metro.css"/>
+    <link href="/boss/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+
+    <!--引入wangEditor wangEditor.css-->
+    <link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
+    <style type="text/css">
+        #editor-trigger {
+            height: 400px;
+            /*max-height: 500px;*/
+        }
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+    </style>
+    <!--引入wangEditor wangEditor.css-->
+
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="/boss/img/favicon.ico"/>
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+
+{include "boss/common/header.html"}
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container row-fluid">
+    {include "boss/common/sidebar.html"}<!--左边导航-->
+
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <div id="portlet-config" class="modal hide">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3>portlet Settings</h3>
+            </div>
+            <div class="modal-body">
+                <p>Here will be a configuration form</p>
+            </div>
+        </div>
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+                <div class="span12">
+                    {include "boss/common/stylesetting.html"}
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">{$pageTitle}
+                        <small>{$actTitle}</small>
+                    </h3>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row-fluid">
+
+                <div class="span12">
+
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="icon-reorder"></i>{$actTitle}</div>
+                        </div>
+
+                        <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" class="form-horizontal">
+
+                                <div class="row-fluid">
+                                    <!--品牌 BEGIN-->
+                                    <div class="span6 ">
+                                        <div class="control-group">
+                                            <label class="control-label">品牌</label>
+                                            <div class="controls">
+                                                <input type="text" class="span6 m-wrap" name="brand" value="{$product['brand']}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--品牌 END-->
+
+                                    <!--货号 BEGIN-->
+                                    <div class="span6 ">
+                                        <div class="control-group">
+                                            <label class="control-label">货号</label>
+                                            <div class="controls">
+                                                <input type="text" class="span6 m-wrap" name="catalogNumber" value="{$product['catalog_number']}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--货号 END-->
+                                </div>
+
+                                <!--产品 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">产品</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="product" value="{$product['product']}"/>
+                                    </div>
+                                </div>
+                                <!--产品 END-->
+
+                                <!--包装 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">包装</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="package" value="{$product['package']}"/>
+                                    </div>
+                                </div>
+                                <!--包装 END-->
+
+                                <!--价格 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">价格</label>
+                                    <div class="controls">
+                                        <div class="input-prepend input-append">
+                                            <span class="add-on">&yen;</span><input class="m-wrap " type="text" name="price" value="{$product['price']}"/><span class="add-on">.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--价格 END-->
+
+                                <!--简写 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">简写</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="abbreviation" value="{$product['abbreviation']}"/>
+                                    </div>
+                                </div>
+                                <!--简写 END-->
+
+                                <!--中文名 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">中文名</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="chineseName" value="{$product['chinese_name']}"/>
+                                    </div>
+                                </div>
+                                <!--中文名 END-->
+
+                                <!--产地 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">产地</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="origin" value="{$product['origin']}"/>
+                                    </div>
+                                </div>
+                                <!--产地 END-->
+
+                                <!--应用/处理 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">应用/处理</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="applicationProcess" value="{$product['application_process']}"/>
+                                    </div>
+                                </div>
+                                <!--应用/处理 END-->
+
+                                <!--别名 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">别名</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="otherName" value="{$product['other_name']}"/>
+                                    </div>
+                                </div>
+                                <!--别名 END-->
+
+                                <!--储存温度 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">储存温度</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="storageTemperature" value="{$product['storage_temperature']}"/>
+                                    </div>
+                                </div>
+                                <!--储存温度 END-->
+
+                                <!--类别 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">类别</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="type" value="{$product['type']}"/>
+                                    </div>
+                                </div>
+                                <!--类别 END-->
+
+                                <!--来源种属 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">来源种属</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="raiseFrom" value="{$product['raise_from']}"/>
+                                    </div>
+                                </div>
+                                <!--来源种属 END-->
+
+                                <!--反应种属 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">反应种属</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="raiseFrom" value="{$product['raise_from']}"/>
+                                    </div>
+                                </div>
+                                <!--反应种属 END-->
+
+                                <!--应用类别 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">应用类别</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="application" value="{$product['application']}"/>
+                                    </div>
+                                </div>
+                                <!--应用类别 END-->
+
+                                <!--标记物 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">标记物</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="label" value="{$product['label']}"/>
+                                    </div>
+                                </div>
+                                <!--标记物 END-->
+
+                                <!--CAS号 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">CAS号</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="casNo" value="{$product['cas_no']}"/>
+                                    </div>
+                                </div>
+                                <!--CAS号 END-->
+
+                                <!--分子式 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">分子式</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="molecularFormula" value="{$product['molecular_formula']}"/>
+                                    </div>
+                                </div>
+                                <!--分子式 END-->
+
+                                <!--分子量 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">分子量</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="molecularWeight" value="{$product['molecular_weight']}"/>
+                                    </div>
+                                </div>
+                                <!--分子量 END-->
+
+                                <!--级别 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">级别</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="grade" value="{$product['grade']}"/>
+                                    </div>
+                                </div>
+                                <!--级别 END-->
+
+                                <!--级别 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">级别</label>
+                                    <div class="controls">
+                                        <input type="text" class="span6 m-wrap" name="grade" value="{$product['grade']}"/>
+                                    </div>
+                                </div>
+                                <!--级别 END-->
+
+                                <!--类目 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">类目</label>
+                                    <div class="controls">
+                                        <select class="span6 chosen" data-placeholder="请选择类目" tabindex="1">
+                                            {if $parentCategorys}
+                                            {foreach $parentCategorys as $pck => $pcv}
+                                            <option value="{$pcv['id']}">{$pcv['name']}</option>
+                                            {/foreach}
+                                            {/if}
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--类目 END-->
+
+                                <!--是否促销产品 BEGIN-->
+                                <div class="control-group">
+                                    <label class="control-label">是否促销</label>
+                                    <div class="controls">
+                                        <label class="radio">
+                                            <input type="radio" name="isSale" value="1" {if $product['is_sale']}checked{/if}/>是
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="isSale" value="0" {if $product['is_sale'] != 1}checked{/if}/>否
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--是否促销产品 END-->
+
+                                <!--产品图片 BEGIN-->
+
+                                <!--产品图片 END-->
+
+                                <!--产品附件 BEGIN-->
+
+                                <!--产品附件 END-->
+
+                                <!--产品描述 BEGIN-->
+                                <div class="control-group" style="height: 400px;">
+                                    <label class="control-label">内容</label>
+                                    <div class="controls">
+                                        <div id="editor-trigger"><p>请输入内容</p></div>
+                                    </div>
+                                </div>
+                                <!--产品描述 END-->
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Submit</button>
+                                    <button type="button" class="btn">Cancel</button>
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+                    <!-- END SAMPLE FORM PORTLET-->
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+
+</div>
+<!-- END CONTAINER -->
+{include "boss/common/footer.html"}
+
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<script src="/boss/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="/boss/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="/boss/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="/boss/js/bootstrap.min.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+<script src="/boss/js/excanvas.min.js"></script>
+<script src="/boss/js/respond.min.js"></script>
+<![endif]-->
+<script src="/boss/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/boss/js/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/boss/js/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="/boss/js/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="/boss/js/ckeditor.js"></script>
+<script type="text/javascript" src="/boss/js/bootstrap-fileupload.js"></script>
+<script type="text/javascript" src="/boss/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/boss/js/select2.min.js"></script>
+<script type="text/javascript" src="/boss/js/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="/boss/js/bootstrap-wysihtml5.js"></script>
+<script type="text/javascript" src="/boss/js/jquery.tagsinput.min.js"></script>
+<script type="text/javascript" src="/boss/js/jquery.toggle.buttons.js"></script>
+<script type="text/javascript" src="/boss/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/boss/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="/boss/js/clockface.js"></script>
+<script type="text/javascript" src="/boss/js/date.js"></script>
+<script type="text/javascript" src="/boss/js/daterangepicker.js"></script>
+<script type="text/javascript" src="/boss/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="/boss/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="/boss/js/jquery.inputmask.bundle.min.js"></script>
+<script type="text/javascript" src="/boss/js/jquery.input-ip-address-control-1.0.min.js"></script>
+<script type="text/javascript" src="/boss/js/jquery.multi-select.js"></script>
+<script src="/boss/js/bootstrap-modal.js" type="text/javascript"></script>
+<script src="/boss/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/boss/js/app.js"></script>
+<script src="/boss/js/form-components.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
+<!--END 引入jquery和wangEditor.js-->
+<script>
+    jQuery(document).ready(function () {
+        // initiate layout and plugins
+        App.init();
+        FormComponents.init();
+
+        var editor = new wangEditor('editor-trigger');
+        editor.config.uploadImgUrl = '/upload/index?action=edimage';
+        editor.config.uploadImgFileName = 'upfile';
+        editor.create();
+    });
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
