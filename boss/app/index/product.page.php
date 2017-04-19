@@ -40,11 +40,19 @@ class index_product extends index_base
                 }
             }
         }
+        $searchKey = $_GET['searchKey'];
+        $searchValue = $_GET['searchVal'];
+        $query = "";
+        if(!empty($searchKey) && !empty($searchValue)) {
+            $query = $searchKey." like '%".$searchValue."%'";
+        }
         $searchCategoryStr = is_array($searchCategoryIds) ? implode(",", $searchCategoryIds) : '';
         if (is_array($searchCategoryIds)) {
+            if(!empty($query)){
+                $query." and ";
+            }
             $query = "category_id in ({$searchCategoryStr})";
         }
-
         $dbProduct = new core_db_Product();
         $products = $dbProduct->queryProductList($query, $page, $limit, array("id" => "desc"));
 
@@ -60,6 +68,8 @@ class index_product extends index_base
         $this->_params['columns'] = $columns;
         $this->_params['actTitle'] = "产品列表";
         $this->_params['act'] = "productList";
+        $this->_params['searchKey'] = $searchKey;
+        $this->_params['searchVal'] = $searchValue;
         return $this->render("/products/list.html", $this->_params);
     }
 
