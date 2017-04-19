@@ -12,6 +12,9 @@ secondCur: "list"
 <link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
 <link rel="stylesheet" href="/common/css/table.css" />
 <link rel="stylesheet" href="/products/css/list.css" />
+<!--引入wangEditor wangEditor.css-->
+<link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
+
 {%endblock%}
 {%block content%}
 <div class="container-fluid">
@@ -27,7 +30,7 @@ secondCur: "list"
             <div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
         </div>
         <div class="portlet-body">
-            <form action="/product/action" class="form-horizontal">
+            <form action="/product/action" class="form-horizontal" method="POST">
                 <!--基本信息 BEGIN-->
                 <h3 class="form-section">基本信息</h3>
                 <div class="row-fluid">
@@ -289,19 +292,25 @@ secondCur: "list"
                         <div class="control-group">
                             <label class="control-label">类目</label>
                             <div class="controls">
-                                <select class="span6 chosen" data-placeholder="请选择类目" tabindex="1">
-                                    {if $parentCategorys}
-                                    {foreach $parentCategorys as $pck => $pcv}
-                                    <option value="{$pcv['id']}">{$pcv['name']}</option>
-                                    {/foreach}
+                                <select id="JcategoryParent" name="parentCategoryId">
+                                    <option value="0">请选择一级类目</option>
+                                    {foreach $pCategorys as $item}
+                                    {if $item[id] == $parentCategoryId}
+                                    <option value='{$item[id]}' selected="selected">{$item[name]}</option>
+                                    {else}
+                                    <option value='{$item[id]}'>{$item[name]}</option>
                                     {/if}
+                                    {/foreach}
                                 </select>
-                                <select class="span6 chosen" data-placeholder="请选择类目" tabindex="1">
-                                    {if $parentCategorys}
-                                    {foreach $parentCategorys as $pck => $pcv}
-                                    <option value="{$pcv['id']}">{$pcv['name']}</option>
-                                    {/foreach}
+                                <select id="JcategoryChild" name="childCategoryId">
+                                    <option value="0">请选择二级类目</option>
+                                    {foreach $cCategorys as $item}
+                                    {if $item[id] == $childCategoryId}
+                                    <option value='{$item[id]}' selected="selected">{$item[name]}</option>
+                                    {else}
+                                    <option value='{$item[id]}'>{$item[name]}</option>
                                     {/if}
+                                    {/foreach}
                                 </select>
                             </div>
                         </div>
@@ -331,7 +340,30 @@ secondCur: "list"
                 <!--上传图片／附件 BEGIN-->
                 <h3 class="form-section">上传图片／附件</h3>
                 <!--产品图片 BEGIN-->
+                <div class="control-group">
+                    <label class="control-label">Image Upload</label>
+                    <div class="controls">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                <img src="media/image/AAAAAA&amp;text=no+image" alt="">
+                            </div>
+                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                            <div>
+													<span class="btn btn-file"><span class="fileupload-new">Select image</span>
 
+													<input type="file" class="default"></span>
+                                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                            </div>
+                        </div>
+                        <span class="label label-important">NOTE!</span>
+                        <span>
+											Attached image thumbnail is
+											supported in Latest Firefox, Chrome, Opera,
+											Safari and Internet Explorer 10 only
+											</span>
+                    </div>
+
+                </div>
                 <!--产品图片 END-->
 
                 <!--产品附件 BEGIN-->
@@ -342,10 +374,7 @@ secondCur: "list"
                 <h3 class="form-section">产品描述</h3>
                 <!--产品描述 BEGIN-->
                 <div class="control-group" style="height: 400px;">
-                    <label class="control-label">产品描述</label>
-                    <div class="controls">
-                        <div id="editor-trigger"><p>请输入内容</p></div>
-                    </div>
+                    <div id="editor-trigger"><p>{$productDes['description']}</p></div>
                 </div>
                 <!--产品描述 END-->
 
@@ -364,8 +393,14 @@ secondCur: "list"
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
 <script type="text/javascript" src="/lib/js/tableList.js"></script>
 <script type="text/javascript" src="/common/js/table.js"></script>
-<script type="text/javascript" src="/products/js/list.js"></script>
 <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
 <script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
 <!--END 引入jquery和wangEditor.js-->
+<script type="text/javascript" src="/products/js/list.js"></script>
+<script>
+    var editor = new wangEditor('editor-trigger');
+    editor.config.uploadImgUrl = '/upload/index?action=edimage';
+    editor.config.uploadImgFileName = 'upfile';
+    editor.create();
+</script>
 {%endblock%}
