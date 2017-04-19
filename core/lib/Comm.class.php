@@ -393,6 +393,13 @@ class core_lib_Comm
     public static function getTableColumns($str){
         $columns = explode(",", $str);
         $columnsNew = array_filter($columns);//去掉空元素
-        return $columnsNew;
+        $columnRow = array();
+        foreach ($columnsNew as $v){
+            $columnsItem = array();
+            $columnsItem = explode("_",$v);
+            $key = core_lib_Comm::toUnderScore($columnsItem[0]);
+            $columnRow[$key] = $columnsItem[1];
+        }
+        return $columnRow;
     }
 }

@@ -51,7 +51,7 @@ class index_product extends index_base
         $this->pageBar($products['total'], $limit, $page, '/manager/list');
 
         //处理字段
-        $columns = explode(",", PRODUCT_COLUMNS);
+        $columns = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
         $this->_params['cCategorys'] = $cCategory;
         $this->_params['products'] = $products['list'];
         $this->_params['pCategorys'] = $parentCategorys['items'];
