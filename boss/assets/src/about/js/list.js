@@ -15,7 +15,7 @@ var About = {
     bind: function() {
         var t = this;
         $(document).on("click", "#cancelEdit", function() {
-            $("#aboutForm").hide();
+            t.resetForm();
         }).on("click", "#saveEdit", function() {
             t.saveEditFormData();
         });
@@ -46,13 +46,38 @@ var About = {
         }
     },
     saveEditFormData: function() {
-        var  t = this,
+        var t = this,
+            id = $("#cmsId").val(),
             wEditorText = t.wangEditor.$txt.html(),
+            urlData = '/cms/add?content=' + wEditorText;
+
+        if (id > 0) {
             urlData = '/cms/update?content=' + wEditorText;
+        }
+
         t.postData({
             url: urlData,
-            data: $("#Jform").serialize(),
-            callback: t.refreshTable
+            data: $("#Jnewform").serialize(),
+            type: "post",
+            callback: function(res) {
+                if (res.status == "success") {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "content": "操作成功！",
+                        "type": "success",
+                        "callback": function() {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "type": "error",
+                        "content": "操作失败，请稍后重试！",
+                        "callback": function(){}
+                    });
+                }
+            }
         });
     },
     refreshTable: function(rs) {
@@ -62,6 +87,10 @@ var About = {
             alert("操作成功");
         }
         window.location.reload();
+    },
+    resetForm:function () {
+        var t = this;
+        t.wangEditor.$txt.html('<p><br></p>');
     }
 };
 
