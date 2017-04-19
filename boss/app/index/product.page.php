@@ -297,26 +297,46 @@ class index_product extends index_base
     public function pageDetail($inPath)
     {
         $productId = isset($_GET["id"]) ? core_lib_Comm::getStr($_GET["id"], 'int') : 0;
-        if ($productId) {
+        if (!$productId) {
 //            return $this->alert(array('status'=>'error','msg'=>"缺少产品编号"));
             core_lib_Comm::p('缺少产品编号');
         }
-
+        //一级类目
+        $dbCategory = new core_db_Category();
+        $categoryConditon = array("pid" => 0);
+        $parentCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
         //产品详细信息
         $dbProduct = new core_db_Product();
         $product = $dbProduct->getProductById($productId);
-
         //产品描述文档
         $dbProductDes = new core_db_ProductDes();
         $des = $dbProductDes->getProductDesByProductId($productId);
-
- //       $dbProductRel = new core_db_ProductRelation();
-        //$rel = $dbProductRel->getOneProductRelByProductId($productId);//产品关联内容
-
+        if($product && $product['category_id'] > 0) {
+            $category = $dbCategory->getCategoryById($product['category_id']);
+            $cCategory = null;
+            $childCategoryConditon = array("pid" => $category['pid']);
+            $childCategorys = $dbCategory->queryAllCategory($childCategoryConditon, CATEGORY_SEL_NUM, 0);
+            $cCategory = $childCategorys['items'];
+            $param['parentCategoryId'] = $category['pid'];
+            $param['childCategoryId'] = $product['category_id'];
+        }
+        $dbProductRel = new core_db_ProductRelation();
+        $relCondition['product_id'] = $productId;
+        $rel = $dbProductRel->queryProductRelationList($relCondition);//产品关联内容
+        foreach ($rel['list'] as $item) {
+            if($item['type'] == 1) {//文献／文档
+                $pArticle[] = $item;
+            } else if($item['type'] == 2){//产品说明书
+                $pDes[] = $item;
+            }
+        }
         $param["product"] = $product;
         $param["des"] = $des;
-///        $param["rel"] = $rel;
-        return $this->render("boss/productdetail.html", $param);
+        $param['pCategorys'] = $parentCategorys['items'];
+        $param['cCategorys'] = $cCategory;
+        $param["pArticle"] = $pArticle;
+        $param["pDes"] = $pDes;
+        return $this->render("/products/detail.html", $param);
     }
 
 
