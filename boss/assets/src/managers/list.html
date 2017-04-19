@@ -61,11 +61,11 @@
 					</select>
 				</div>
 				<div class="product-item">
-		            <button type="submit" class="btn blue product-btn"><i class="icon-search"></i> 搜索
+		            <button type="submit" class="btn blue product-btn"><i class="icon-search"></i>搜索
 		            </button>
 		        </div>
 		        <div class="product-item">
-		        	<button id="Jadd" class="btn blue" type="button"><i class="icon-plus"></i>添加管理员</button>
+		        	<button data-id="" data-type="0" data-name="" data-truename="" class="Joperate btn green" type="button"><i class="icon-plus"></i>添加管理员</button>
 		        </div>
 			</form>
 			<table class="table table-striped table-bordered table-hover table-full-width">
@@ -95,14 +95,14 @@
                             </td>
                             <td>{date("Y-m-d H:i:s", $mv['last_in_time'])} / {long2ip($mv['last_in_ip'])}</td>
                             <td>
-                                <button data-id="{$mv['manager_id']}" data-name="{$mv['manager_name']}" data-truename="{$mv['true_name']}" class="Jedit btn blue common-btn" type="button">
-                                	<i class="icon-edit"></i>编 辑
+                                <button data-id="{$mv['manager_id']}" data-type="1" data-name="{$mv['manager_name']}" data-truename="{$mv['true_name']}" class="Joperate btn blue common-btn" type="button">
+                                	<i class="icon-edit"></i>编辑
                                 </button>
                                 <button data-id="{$mv['manager_id']}" class="Jreset btn purple common-btn" type="button">
                                 	<i class="icon-undo"></i>重置密码
                                 </button>
                                 <button data-id="{$mv['manager_id']}" class="Jdelete btn red common-btn" type="button">
-                                	<i class="icon-trash"></i>删 除
+                                	<i class="icon-trash"></i>删除
                                 </button>
                                 {if $mv['status']}
                                 <button data-id="{$mv['manager_id']}" data-lock="0" class="Jcontrol btn yellow common-btn" type="button">
