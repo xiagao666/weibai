@@ -16,6 +16,6 @@ class index_main extends index_base
      */
     public function pageIndex($inPath)
     {
-        return $this->render("boss/productList.html");
+        return $this->render("/products/list.html");
     }
 }

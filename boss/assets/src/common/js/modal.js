@@ -33,16 +33,16 @@ var Modal = function() {
         }
         if (!_alert.length) {
             _template = '<div id="' + config.id + '" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">\
-				<div class="modal-header">\
-					<h3>' + config.title + '</h3>\
-				</div>\
-				<div class="modal-body alert-' + config.type + '">\
-					<i class="' + _icon + '"></i><span>' + config.content + '</span>\
-				</div>\
-				<div class="modal-footer">\
-					<button id="JalertBtn" data-dismiss="modal" class="btn ' + _btn + '"><i class="icon-ok"></i>确 定</button>\
-				</div>\
-			</div>';
+                <div class="modal-header">\
+                    <h3>' + config.title + '</h3>\
+                </div>\
+                <div class="modal-body alert-' + config.type + '">\
+                    <i class="' + _icon + '"></i><span>' + config.content + '</span>\
+                </div>\
+                <div class="modal-footer">\
+                    <button id="JalertBtn" data-dismiss="modal" class="btn ' + _btn + '"><i class="icon-ok"></i>确 定</button>\
+                </div>\
+            </div>';
             $("body").append(_template);
             $("#" + config.id + "").modal("show");
         } else {
@@ -73,17 +73,19 @@ var Modal = function() {
         var _confirm = $("#" + config.id + "");
         if (!_confirm.length) {
             _template = '<div id="' + config.id + '" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">\
-				<div class="modal-header">\
-					<h3>' + config.title + '</h3>\
-				</div>\
-				<div class="modal-body alert">\
-					<i class="icon-warning-sign"></i><span>' + config.content + '</span>\
-				</div>\
-				<div class="modal-footer">\
-					<button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i>取 消</button>\
-					<button id="JconfirmBtn" data-dismiss="modal" class="btn yellow"><i class="icon-ok"></i>确 定</button>\
-				</div>\
-			</div>';
+            <div class="Jload">\
+                <div class="modal-header">\
+                    <h3>' + config.title + '</h3>\
+                </div>\
+                <div class="modal-body alert">\
+                    <i class="icon-warning-sign"></i><span>' + config.content + '</span>\
+                </div>\
+                <div class="modal-footer">\
+                    <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i>取 消</button>\
+                    <button id="JconfirmBtn" data-dismiss="modal" class="btn yellow"><i class="icon-ok"></i>确 定</button>\
+                </div>\
+                </div>\
+            </div>';
             $("body").append(_template);
             $("#" + config.id + "").modal("show");
         } else {
@@ -112,17 +114,19 @@ var Modal = function() {
         var _confirm = $("#" + config.id + "");
         if (!_confirm.length) {
             _template = '<div id="' + config.id + '" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">\
-				<div class="modal-header">\
-					<h3>' + config.title + '</h3>\
-				</div>\
-				<div class="modal-body">\
-					' + config.content + '\
-				</div>\
-				<div class="modal-footer">\
-					<button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i>取 消</button>\
-					<button id="JtemplateBtn" data-dismiss="modal" class="btn green"><i class="icon-ok"></i>确 定</button>\
-				</div>\
-			</div>';
+            <div class="Jload">\
+                <div class="modal-header">\
+                    <h3>' + config.title + '</h3>\
+                </div>\
+                <div class="modal-body">\
+                    ' + config.content + '\
+                </div>\
+                <div class="modal-footer">\
+                    <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i>取 消</button>\
+                    <button id="JtemplateBtn" data-dismiss="modal" class="btn green"><i class="icon-ok"></i>确 定</button>\
+                </div>\
+                </div>\
+            </div>';
             $("body").append(_template);
             $("#" + config.id + "").modal("show");
         } else {

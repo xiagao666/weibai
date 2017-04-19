@@ -42,13 +42,13 @@ class index_sign extends STpl
 
             $dbManager = new core_db_Manager();
             $manager = $dbManager->getMangerByManagerName($managerName);
+
             if ($manager === false){
-                return $this->alert(array('status'=>'error','msg'=>"登录失败，请输入正确的用户名和密码重新登录"));
+                return $this->alert(array('status'=>'error','msg'=>"用户名或密码错误"));
             }
             $sign = $dbManager->sign($managerName, $password);
-
             if ($sign === false) {
-                return $this->alert(array('status'=>'error','msg'=>"登录失败，请输入正确的用户名和密码重新登录"));
+                return $this->alert(array('status'=>'error','msg'=>"用户名或密码错误"));
             }
 
             $_SESSION['manager']['managerId'] = $manager['manager_id'];

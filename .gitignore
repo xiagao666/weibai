@@ -5,3 +5,5 @@ templates_c/*
 .idea/*
 file/*
 node_modules/*
+dist/*
+.gitignore
