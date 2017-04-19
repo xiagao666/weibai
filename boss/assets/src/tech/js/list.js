@@ -64,10 +64,11 @@ var Tech = {
     showEditForm: function(id) {
         var t = Tech;
         var param = {
-            cmsId: id
+            cmsId: id,
+            json:1
         };
         var config = {
-            url: '/cms/getonebyid',
+            url: '/cms/GetOneById',
             data: param,
             callback: t.setEditFormData
         };
@@ -78,10 +79,11 @@ var Tech = {
         if (rs == null) {
             return;
         }
-        $("#cmsId").val(rs["id"]);
-        $("#cmsTitle").val(rs["title"]);
-        $("#cmsDes").val(rs["des"]);
-        $("#cmsUrl").val(rs["hyperlink"]);
+        var data = rs.data;
+        $("#cmsId").val(data["id"]);
+        $("#cmsTitle").val(data["title"]);
+        $("#cmsDes").val(data["des"]);
+        $("#cmsUrl").val(data["hyperlink"]);
         //t.wangEditor.$txt.html(rs["content"]);
         $("#techForm").show();
     },
@@ -103,7 +105,7 @@ var Tech = {
                 if (res.status == "success") {
                     Modal.alert({
                         "id": "Jalert",
-                        "content": "新闻添加成功！",
+                        "content": "操作成功！",
                         "type": "success",
                         "callback": function() {
                             window.location.reload();
@@ -113,7 +115,7 @@ var Tech = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": "新闻添加失败，请稍后重试！",
+                        "content": "操作失败，请稍后重试！",
                         "callback": function(){}
                     });
                 }
