@@ -156,7 +156,7 @@ class index_product extends index_base
         //查询一级类目
         $dbCategory = new core_db_Category();
         $categoryConditon = array("pid" => 0);
-        $parentCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
+        $pCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
 
         if ($isEdit) {
             $productId = isset($_GET['productId']) ? core_lib_Comm::getStr($_GET['productId'], 'int') : 0;// 产品ID
@@ -285,10 +285,10 @@ class index_product extends index_base
             return $this->alert(array('status'=>'error','msg'=>$msg."成功"));
         }
         $this->_params['isEdit'] = $isEdit;
-        $this->_params['parentCategorys'] = $parentCategorys['items'];
+        $this->_params['pCategorys'] = $pCategorys['items'];
         $this->_params['actTitle'] = $msg."产品";
         $this->_params['act'] = "productList";
-        return $this->render("boss/product/action.html", $this->_params);
+        return $this->render("/products/action.html", $this->_params);
     }
 
     /**
