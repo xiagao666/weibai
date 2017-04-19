@@ -15,10 +15,10 @@
 		box-sizing: border-box;
 	}
 	.wangEditor-container{
-		min-height: 300px;
+		height: 300px;
 
 		.wangEditor-txt{
-			height: 100%;
+			min-height: 227px !important;
 		}
 	}
 }

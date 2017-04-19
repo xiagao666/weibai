@@ -19,12 +19,13 @@ var News = {
         $(document).on("click", ".Jdelete", function() {
             var $this = $(this);
             Modal.confirm({
-                "id": "Jmodal",
+                "id": "Jconfirm",
                 "content": "确定要删除该条新闻？",
                 "callback": function() {
                     t.deleteNew($this.data("id"));
                 }
             });
+            t.$template = $("#Jconfirm");
             // 新增/编辑新闻
         }).on("click", ".Joperate", function() {
             var $this = $(this),
@@ -102,7 +103,8 @@ var News = {
     },
     // 删除新闻
     deleteNew: function(id) {
-        this.postData({
+        var t = this;
+        t.postData({
             url: '/cms/delete',
             data: {
                 "cmsId": id,
