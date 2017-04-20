@@ -160,4 +160,19 @@ class index_cms extends index_base
         }
         return $this->alert($params);
     }
+    /**
+     * 针对于通用的cms 比如首页滚动图
+     */
+    public function pageOther($inPath){
+        $dbCms = new core_db_Cms();
+        if($_GET['cmsType'] == 0){
+            $condition = "type in (6)";
+        }else{
+            $condition['type'] = $_GET['cmsType'];
+        }
+        $rs = $dbCms->queryNews($condition, 1, 20, "");
+        $param["cmsData"] = $rs->items;
+        $param['cmsType'] = $_GET['cmsType'];
+        return $this->render("/cms/list.html", $param);
+    }
 }
