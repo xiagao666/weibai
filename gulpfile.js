@@ -40,7 +40,6 @@ var config = {
     libSrc: "./"+yargs.build+"/assets/src/lib/**/*",
     // 目标地址
     dist: "./"+yargs.build+"/assets/dist",
-    // boss常量
     // 入口文件
     entry: "./gulpfile.js",
     // html压缩选项
