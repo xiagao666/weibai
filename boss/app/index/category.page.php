@@ -14,30 +14,21 @@ class index_category extends index_base
     {
         //查询类目信息
         $dbCategory = new core_db_Category();
+        $pCategoryId = isset($_GET["parentCategoryId"]) ? core_lib_Comm::getStr($_GET["parentCategoryId"],
+            'int') : 0;
         $pCondition['pid'] = 0;
         $pCategorys = $dbCategory->queryAllCategory($pCondition, CATEGORY_SEL_NUM, 0);
 
-        $condition[] = 'pid > 0';
-        $categorys = $dbCategory->queryAllCategory($condition, CATEGORY_SEL_NUM, 0);
-
-        if ($pCategorys['items']) {
-            foreach ($pCategorys['items'] as $k=>$v) {
-                $categoryList[$v['id']] = $v;
-                if ($v['pid']) {
-                    $categoryList[$v['pid']]['son'][$v['id']] = $v;
-                }
-            }
+        if($pCategoryId == 0) {
+            $params['categoryData'] = $pCategorys['items'];
+        }else{
+            $query['pid'] = $pCategoryId;
+            $categorys = $dbCategory->queryAllCategory($query,CATEGORY_SEL_NUM, 0);
+            $params['categoryData'] = $categorys['items'];
         }
-        if ($categorys['items']) {
-            foreach ($categorys['items'] as $ck=>$cv) {
-                if ($cv['pid']) {
-                    $categoryList[$cv['pid']]['son'][$cv['id']] = $cv;
-                }
-            }
-        }
-
-        $params['category'] = $categoryList;
-        return $this->render("boss/category.html");
+        $params['pCategorys'] = $pCategorys['items'];
+        $params['parentCategoryId'] = $pCategoryId;
+        return $this->render("/category/list.html", $params);
     }
 
     /**
