@@ -1,0 +1,11 @@
+.DS_Store
+templates_c
+templates_c/*
+.idea
+.idea/*
+file/*
+node_modules/*
+dist/
+!dist/lib/
+!dist/boss/
+.gitignore
