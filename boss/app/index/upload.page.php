@@ -31,6 +31,8 @@ class index_upload extends index_base
             $fileInfo = $supload->uploadfile($upfile);
             if ($action == "edimage") {
                 exit(WWW_URL.$fileInfo['url']);
+            } else {
+                return $this->alert(array('status'=>$fileInfo['status'],'msg'=>$fileInfo['path']));
             }
         }
     }
