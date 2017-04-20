@@ -1,0 +1,73 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+    title : "唯佰科技管理后台-分类列表",
+    keywords : "唯佰科技管理后台-分类列表",
+    description : "唯佰科技管理后台-分类列表",
+    barTitle: "分类列表",
+    firstCur: "category",
+    secondCur: "list"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
+<link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/lib/css/jquery.nestable.css" />
+<link rel="stylesheet" href="/managers/css/list.css" />
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3 class="page-title">
+				唯佰科技管理后台 <small>{{ page.barTitle }}</small>
+			</h3>
+		</div>
+	</div>
+	<div id="JdataPanel" class="portlet box blue">
+		<div class="portlet-title v-product">
+			<div class="caption"><i class="icon-sitemap"></i>{{page.barTitle}}</div>
+		</div>
+		<div class="portlet-body">
+			<div class="dd" id="nestable_list_3">
+				<ol class="dd-list">
+					<li class="dd-item dd3-item" data-id="13">
+						<div class="dd-handle dd3-handle"></div>
+						<div class="dd3-content">Item 13</div>
+					</li>
+					<li class="dd-item dd3-item" data-id="14">
+						<div class="dd-handle dd3-handle"></div>
+						<div class="dd3-content">Item 14</div>
+					</li>
+					<li class="dd-item dd3-item" data-id="15"><button data-action="collapse" type="button">Collapse</button><button data-action="expand" type="button" style="display: none;">Expand</button>
+						<div class="dd-handle dd3-handle"></div>
+						<div class="dd3-content">Item 15</div>
+						<ol class="dd-list">
+							<li class="dd-item dd3-item" data-id="16">
+								<div class="dd-handle dd3-handle"></div>
+								<div class="dd3-content">Item 16</div>
+							</li>
+							<li class="dd-item dd3-item" data-id="17">
+								<div class="dd-handle dd3-handle"></div>
+								<div class="dd3-content">Item 17</div>
+							</li>
+							<li class="dd-item dd3-item" data-id="18">
+								<div class="dd-handle dd3-handle"></div>
+								<div class="dd3-content">Item 18</div>
+							</li>
+						</ol>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}
+{%block js%}
+<script type="text/javascript" src="/lib/js/select2.min.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/lib/js/tableList.js"></script>
+<script type="text/javascript" src="/common/js/table.js"></script>
+<script type="text/javascript" src="/common/js/modal.js"></script>
+<script type="text/javascript" src="/managers/js/list.js"></script>
+{%endblock%}
