@@ -104,7 +104,7 @@ Close icon used for modal dialog and other UI element close buttons
   width: 9px;
   height: 9px;
   background-repeat: no-repeat !important;
-  background-image: url("/boss/img/remove-icon-small.png") !important;
+  background-image: url("/lib/img/remove-icon-small.png") !important;
 }
 
 /***
@@ -512,7 +512,7 @@ ul.page-sidebar-menu > li.active > a .selected {
   display: block;
   width: 8px;
   height: 25px;
-  background-image: url("/boss/img/sidebar-menu-arrow.png");
+  background-image: url("/lib/img/sidebar-menu-arrow.png");
   float: right;
   position: absolute;
   right:0px;
@@ -658,7 +658,7 @@ ul.page-sidebar-menu > li > ul.sub-menu  li > ul.sub-menu > li > a > i {
   margin-top: 8px;
   width: 13px;
   height: 13px;
-  background-image: url(/boss/img/search-icon.png);
+  background-image: url(/lib/img/search-icon.png);
   background-repeat: no-repeat;
 }
  
@@ -1264,29 +1264,29 @@ Portlets
 }
 
 .portlet-title .tools > a.remove {
-  background-image:url(/boss/img/portlet-remove-icon.png);
+  background-image:url(/lib/img/portlet-remove-icon.png);
   background-repeat: no-repeat;
   width: 11px;
 }
 
 .portlet-title .tools > a.config {
-  background-image:url(/boss/img/portlet-config-icon.png);
+  background-image:url(/lib/img/portlet-config-icon.png);
   background-repeat: no-repeat;
   width: 12px;
 }
 
 .portlet-title .tools > a.reload {
-  background-image:url(/boss/img/portlet-reload-icon.png);
+  background-image:url(/lib/img/portlet-reload-icon.png);
   width: 13px;
 }
 
 .portlet-title .tools > a.expand {
-  background-image:url(/boss/img/portlet-expand-icon.png);
+  background-image:url(/lib/img/portlet-expand-icon.png);
   width: 14px;
 }
 
 .portlet-title .tools > a.collapse {
-  background-image:url(/boss/img/portlet-collapse-icon.png);
+  background-image:url(/lib/img/portlet-collapse-icon.png);
   width: 14px;
 }
 
@@ -1477,27 +1477,27 @@ Box portlet
 
 .portlet.box .portlet-title .tools > a.remove, 
 .portlet.solid .portlet-title .tools > a.remove {
-  background-image:url(/boss/img/portlet-remove-icon-white.png);
+  background-image:url(/lib/img/portlet-remove-icon-white.png);
 }
 
 .portlet.box .portlet-title .tools > a.config,
 .portlet.solid .portlet-title .tools > a.config {
-  background-image:url(/boss/img/portlet-config-icon-white.png);
+  background-image:url(/lib/img/portlet-config-icon-white.png);
 }
 
 .portlet.box .portlet-title .tools > a.reload,
 .portlet.solid .portlet-title .tools > a.reload {
-  background-image:url(/boss/img/portlet-reload-icon-white.png);
+  background-image:url(/lib/img/portlet-reload-icon-white.png);
 }
 
 .portlet.box .portlet-title .tools > a.expand,
 .portlet.solid .portlet-title .tools > a.expand {
-  background-image:url(/boss/img/portlet-expand-icon-white.png);
+  background-image:url(/lib/img/portlet-expand-icon-white.png);
 }
 
 .portlet.box .portlet-title .tools > a.collapse,
 .portlet.solid .portlet-title .tools > a.collapse {
-  background-image:url(/boss/img/portlet-collapse-icon-white.png);
+  background-image:url(/lib/img/portlet-collapse-icon-white.png);
 }
 
 /* portlet buttons */
@@ -2328,7 +2328,7 @@ Zoom icon overlay on images
 }
 
 .zoom .zoom-icon {
-  background-image:url("/boss/img/overlay-icon.png");
+  background-image:url("/lib/img/overlay-icon.png");
   background-color: #222;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -3402,7 +3402,7 @@ Styler Panel
 }
 
 .color-panel .icon-color {
-  background:#c9c9c9 url(/boss/img/icon-color.png) center no-repeat !important;
+  background:#c9c9c9 url(/lib/img/icon-color.png) center no-repeat !important;
 }
 
 .color-panel .icon-color:hover {
@@ -3411,7 +3411,7 @@ Styler Panel
 
 .color-panel .icon-color-close {
   display:none;
-  background:#3d3d3d url(/boss/img/icon-color-close.png) center no-repeat !important;
+  background:#3d3d3d url(/lib/img/icon-color-close.png) center no-repeat !important;
 }
 
 .color-panel .icon-color-close:hover {
@@ -4420,7 +4420,7 @@ jQuery UI Datepicker(new in v1.2.2)
 }
 
 .ui-widget-header .ui-icon {
-  background-image: url(/boss/img/ui-icons_888888_256x240.png) !important;
+  background-image: url(/lib/img/ui-icons_888888_256x240.png) !important;
 }
 
 .ui-widget-header .ui-datepicker-next,
@@ -4543,7 +4543,7 @@ jQuery UI Dialogs(new in v1.2.4)
   outline: none !important;
   border: 0 !important;
   box-shadow: none;
-  background: url(/boss/img/hor-menu-search-close.png) no-repeat center;
+  background: url(/lib/img/hor-menu-search-close.png) no-repeat center;
   margin-top: -12px !important;
 }
 
@@ -4559,7 +4559,7 @@ jQuery UI Dialogs(new in v1.2.4)
 }
 
 .ui-dialog.ui-dialog-blue .ui-dialog-titlebar-close {
-  background: url(/boss/img/hor-menu-search-close-white.png) no-repeat center;
+  background: url(/lib/img/hor-menu-search-close-white.png) no-repeat center;
 }
 
 .ui-dialog.ui-dialog-red .ui-dialog-titlebar {
@@ -4568,7 +4568,7 @@ jQuery UI Dialogs(new in v1.2.4)
 }
 
 .ui-dialog.ui-dialog-red .ui-dialog-titlebar-close {
-  background: url(/boss/img/hor-menu-search-close-white.png) no-repeat center;
+  background: url(/lib/img/hor-menu-search-close-white.png) no-repeat center;
 }
 
 .ui-dialog.ui-dialog-yellow .ui-dialog-titlebar {
@@ -4577,7 +4577,7 @@ jQuery UI Dialogs(new in v1.2.4)
 }
 
 .ui-dialog.ui-dialog-yellow .ui-dialog-titlebar-close {
-  background: url(/boss/img/hor-menu-search-close-white.png) no-repeat center;
+  background: url(/lib/img/hor-menu-search-close-white.png) no-repeat center;
 }
 
 .ui-dialog.ui-dialog-green .ui-dialog-titlebar {
@@ -4586,7 +4586,7 @@ jQuery UI Dialogs(new in v1.2.4)
 }
 
 .ui-dialog.ui-dialog-green .ui-dialog-titlebar-close {
-  background: url(/boss/img/hor-menu-search-close-white.png) no-repeat center;
+  background: url(/lib/img/hor-menu-search-close-white.png) no-repeat center;
 }
 
 .ui-dialog.ui-dialog-purple .ui-dialog-titlebar {
@@ -4595,7 +4595,7 @@ jQuery UI Dialogs(new in v1.2.4)
 }
 
 .ui-dialog.ui-dialog-purple .ui-dialog-titlebar-close {
-  background: url(/boss/img/hor-menu-search-close-white.png) no-repeat center;
+  background: url(/lib/img/hor-menu-search-close-white.png) no-repeat center;
 }
 
 .ui-dialog.ui-dialog-grey .ui-dialog-titlebar {
@@ -4604,7 +4604,7 @@ jQuery UI Dialogs(new in v1.2.4)
 }
 
 .ui-dialog.ui-dialog-grey .ui-dialog-titlebar-close {
-  background: url(/boss/img/hor-menu-search-close-white.png) no-repeat center;
+  background: url(/lib/img/hor-menu-search-close-white.png) no-repeat center;
 }
 /*dialog title bg colors*/
 
@@ -4750,7 +4750,7 @@ Horezantal Menu(new in v1.2)
     display: inline-block;
     padding: 11px 22px 11px 22px !important;
     cursor: pointer;
-    background: url(/boss/img/hor-menu-search.png) no-repeat center;
+    background: url(/lib/img/hor-menu-search.png) no-repeat center;
 }
 
 .header .hor-menu .hor-menu-search-form-toggler:hover {
@@ -4759,7 +4759,7 @@ Horezantal Menu(new in v1.2)
 }
 
 .header .hor-menu .hor-menu-search-form-toggler.hide {
-   background: #101010 url(/boss/img/hor-menu-search-close.png) no-repeat center;
+   background: #101010 url(/lib/img/hor-menu-search-close.png) no-repeat center;
 }
 
 .header .hor-menu a.hor-menu-search-form-toggler-close {
@@ -4782,7 +4782,7 @@ Horezantal Menu(new in v1.2)
   height: 32px;
   width: 10px;
   display: inline-block;
-  background: #2d2d2d url(/boss/img/search-icon.png) no-repeat center;
+  background: #2d2d2d url(/lib/img/search-icon.png) no-repeat center;
 }
 
 .header .hor-menu .search-form .btn:hover {
@@ -5023,35 +5023,35 @@ Social Icons(new in v1.2.2)
   background-position:0 -38px;
 }
 
-.social-icons .amazon {background: url(/boss/img/amazon.png) no-repeat;}
-.social-icons .behance {background: url(/boss/img/behance.png) no-repeat;}
-.social-icons .blogger {background: url(/boss/img/blogger.png) no-repeat;}
-.social-icons .deviantart {background: url(/boss/img/deviantart.png) no-repeat;}
-.social-icons .dribbble {background: url(/boss/img/dribbble.png) no-repeat;}
-.social-icons .dropbox {background: url(/boss/img/dropbox.png) no-repeat;}
-.social-icons .evernote {background: url(/boss/img/evernote.png) no-repeat;}
-.social-icons .facebook {background: url(/boss/img/facebook.png) no-repeat;}
-.social-icons .forrst {background: url(/boss/img/forrst.png) no-repeat;}
-.social-icons .github {background: url(/boss/img/github.png) no-repeat;}
-.social-icons .googleplus {background: url(/boss/img/googleplus.png) no-repeat;}
-.social-icons .jolicloud {background: url(/boss/img/jolicloud.png) no-repeat;}
-.social-icons .last-fm {background: url(/boss/img/last-fm.png) no-repeat;}
-.social-icons .linkedin {background: url(/boss/img/linkedin.png) no-repeat;}
-.social-icons .picasa {background: url(/boss/img/picasa.png) no-repeat;}
-.social-icons .pintrest {background: url(/boss/img/pintrest.png) no-repeat;}
-.social-icons .rss {background: url(/boss/img/rss.png) no-repeat;}
-.social-icons .skype {background: url(/boss/img/skype.png) no-repeat;}
-.social-icons .spotify {background: url(/boss/img/spotify.png) no-repeat;}
-.social-icons .stumbleupon {background: url(/boss/img/stumbleupon.png) no-repeat;}
-.social-icons .tumblr {background: url(/boss/img/tumblr.png) no-repeat;}
-.social-icons .twitter {background: url(/boss/img/twitter.png) no-repeat;}
-.social-icons .vimeo {background: url(/boss/img/vimeo.png) no-repeat;}
-.social-icons .wordpress {background: url(/boss/img/wordpress.png) no-repeat;}
-.social-icons .xing {background: url(/boss/img/xing.png) no-repeat;}
-.social-icons .yahoo {background: url(/boss/img/yahoo.png) no-repeat;}
-.social-icons .youtube {background: url(/boss/img/youtube.png) no-repeat;}
-.social-icons .vk {background: url(/boss/img/vk.png) no-repeat;}
-.social-icons .instagram {background: url(/boss/img/instagram.png) no-repeat;}
+.social-icons .amazon {background: url(/lib/img/amazon.png) no-repeat;}
+.social-icons .behance {background: url(/lib/img/behance.png) no-repeat;}
+.social-icons .blogger {background: url(/lib/img/blogger.png) no-repeat;}
+.social-icons .deviantart {background: url(/lib/img/deviantart.png) no-repeat;}
+.social-icons .dribbble {background: url(/lib/img/dribbble.png) no-repeat;}
+.social-icons .dropbox {background: url(/lib/img/dropbox.png) no-repeat;}
+.social-icons .evernote {background: url(/lib/img/evernote.png) no-repeat;}
+.social-icons .facebook {background: url(/lib/img/facebook.png) no-repeat;}
+.social-icons .forrst {background: url(/lib/img/forrst.png) no-repeat;}
+.social-icons .github {background: url(/lib/img/github.png) no-repeat;}
+.social-icons .googleplus {background: url(/lib/img/googleplus.png) no-repeat;}
+.social-icons .jolicloud {background: url(/lib/img/jolicloud.png) no-repeat;}
+.social-icons .last-fm {background: url(/lib/img/last-fm.png) no-repeat;}
+.social-icons .linkedin {background: url(/lib/img/linkedin.png) no-repeat;}
+.social-icons .picasa {background: url(/lib/img/picasa.png) no-repeat;}
+.social-icons .pintrest {background: url(/lib/img/pintrest.png) no-repeat;}
+.social-icons .rss {background: url(/lib/img/rss.png) no-repeat;}
+.social-icons .skype {background: url(/lib/img/skype.png) no-repeat;}
+.social-icons .spotify {background: url(/lib/img/spotify.png) no-repeat;}
+.social-icons .stumbleupon {background: url(/lib/img/stumbleupon.png) no-repeat;}
+.social-icons .tumblr {background: url(/lib/img/tumblr.png) no-repeat;}
+.social-icons .twitter {background: url(/lib/img/twitter.png) no-repeat;}
+.social-icons .vimeo {background: url(/lib/img/vimeo.png) no-repeat;}
+.social-icons .wordpress {background: url(/lib/img/wordpress.png) no-repeat;}
+.social-icons .xing {background: url(/lib/img/xing.png) no-repeat;}
+.social-icons .yahoo {background: url(/lib/img/yahoo.png) no-repeat;}
+.social-icons .youtube {background: url(/lib/img/youtube.png) no-repeat;}
+.social-icons .vk {background: url(/lib/img/vk.png) no-repeat;}
+.social-icons .instagram {background: url(/lib/img/instagram.png) no-repeat;}
 
 
 /***
@@ -5247,11 +5247,11 @@ Datatables Plugin(in v1.3)
 }
 
 .dataTable .row-details.row-details-close {
-  background: url("/boss/img/datatable-row-openclose.png") no-repeat 0 0;
+  background: url("/lib/img/datatable-row-openclose.png") no-repeat 0 0;
 }
 
 .dataTable .row-details.row-details-open {  
-  background: url("/boss/img/datatable-row-openclose.png") no-repeat 0 -23px !important;
+  background: url("/lib/img/datatable-row-openclose.png") no-repeat 0 -23px !important;
 }
 
 .dataTable .details {
