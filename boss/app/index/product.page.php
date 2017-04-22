@@ -22,21 +22,23 @@ class index_product extends index_base
             'int') : 0;//子ID
         $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
         $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
-
+        $isSale = isset($_GET['isSale']) ? core_lib_Comm::getStr($_GET["isSale"], 'int') : 2;
         //查询一级类目
         $dbCategory = new core_db_Category();
         $categoryConditon = array("pid" => 0);
         $parentCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
         $cCategory = null;
-        $childCategoryConditon = array("pid" => $parentCategoryId);
-        $childCategorys = $dbCategory->queryAllCategory($childCategoryConditon, CATEGORY_SEL_NUM, 0);
-        $cCategory = $childCategorys['items'];
-        if ($childCategoryId > 0) {//二级类目
-            $searchCategoryIds[] = $childCategoryId;
-        } elseif ($parentCategoryId > 0) {//一级类目
-            if ($childCategorys['items']) {
-                foreach ($childCategorys['items'] as $ck => $cv) {
-                    $searchCategoryIds[] = $cv['id'];
+        if($parentCategoryId > 0){
+            $childCategoryConditon = array("pid" => $parentCategoryId);
+            $childCategorys = $dbCategory->queryAllCategory($childCategoryConditon, CATEGORY_SEL_NUM, 0);
+            $cCategory = $childCategorys['items'];
+            if ($childCategoryId > 0) {//二级类目
+                $searchCategoryIds[] = $childCategoryId;
+            } elseif ($parentCategoryId > 0) {//一级类目
+                if ($childCategorys['items']) {
+                    foreach ($childCategorys['items'] as $ck => $cv) {
+                        $searchCategoryIds[] = $cv['id'];
+                    }
                 }
             }
         }
@@ -46,17 +48,23 @@ class index_product extends index_base
         if(!empty($searchKey) && !empty($searchValue)) {
             $query = $searchKey." like '%".$searchValue."%'";
         }
+        if(!empty($query)){
+            $query = $query." and ";
+        }
+        if($isSale < 2){
+            $query = $query."is_sale = ".$isSale;
+        }
         $searchCategoryStr = is_array($searchCategoryIds) ? implode(",", $searchCategoryIds) : '';
         if (is_array($searchCategoryIds)) {
             if(!empty($query)){
-                $query." and ";
+                $query = $query." and ";
             }
-            $query = "category_id in ({$searchCategoryStr})";
+            $query = $query."category_id in ({$searchCategoryStr})";
         }
         $dbProduct = new core_db_Product();
         $products = $dbProduct->queryProductList($query, $page, $limit, array("id" => "desc"));
 
-        $this->pageBar($products['total'], $limit, $page, '/manager/list');
+        $this->pageBar($products['total'], $limit, $page, '/product/list');
 
         //处理字段
         $columns = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
@@ -70,6 +78,7 @@ class index_product extends index_base
         $this->_params['act'] = "productList";
         $this->_params['searchKey'] = $searchKey;
         $this->_params['searchVal'] = $searchValue;
+        $this->_params['isSale'] = $isSale;
         return $this->render("/products/list.html", $this->_params);
     }
 

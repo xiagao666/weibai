@@ -53,6 +53,23 @@
 						{/foreach}
 					</select>
 				</div>
+				<span>是否促销</span>
+				<div class="product-item">
+						<select name="isSale">
+							<option value="2">请选择</option>
+							{if "0" == $isSale}
+							<option value="0" selected="selected">否</option>
+							{else}
+							<option value="0">否</option>
+							{/if}
+							{if "1" == $isSale}
+							<option value="1" selected="selected">是</option>
+							{else}
+							<option value="1">是</option>
+							{/if}
+						</select>
+				</div>
+
 				<div class="product-item">
 					<select name="searchKey">
 						<option value="0">请选择查询条件</option>

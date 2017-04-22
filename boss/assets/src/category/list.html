@@ -91,10 +91,9 @@
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
 					<form id="Jnewform" action="#" class="form-horizontal">
-						<input type="hidden" name="cmsType" value="2" />
 						<input type="hidden" name="json" value="1" />
-						<input id="cmsId" name="cmsId" type="hidden" value=""/>
-						<div class="control-group">
+						<input id="categoryId" name="categoryId" type="hidden" value=""/>
+						<div id ="JfpCategoryControl" class="control-group">
 							<label class="control-label">一级类目</label>
 							<div class="controls">
 							<select id="JFormCategoryParent" name="formParentCategoryId">
@@ -112,7 +111,7 @@
 						<div class="control-group">
 							<label class="control-label">类目名</label>
 							<div class="controls">
-								<input id="cmsTitle" name="title" type="text" class="span6 m-wrap" />
+								<input id="name" name="name" type="text" class="span6 m-wrap" />
 							</div>
 
 						</div>
@@ -122,7 +121,18 @@
 
 							<div class="controls">
 
-								<textarea id="cmsDes" name="des" class="span6 m-wrap" rows="3"></textarea>
+								<textarea id="des" name="des" class="span6 m-wrap" rows="3"></textarea>
+
+							</div>
+
+						</div>
+						<div class="control-group">
+
+							<label class="control-label">排序</label>
+
+							<div class="controls">
+
+								<input id="showSort" type="text" name="showSort" class="span6 m-wrap" />
 
 							</div>
 
@@ -160,5 +170,4 @@
 <script type="text/javascript" src="/common/js/table.js"></script>
 <script type="text/javascript" src="/common/js/modal.js"></script>
 <script type="text/javascript" src="/category/js/list.js"></script>
-=======
 {%endblock%}

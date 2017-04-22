@@ -63,12 +63,13 @@ var Category = {
     },
     showEditForm: function(id) {
         var t = Category;
+
         var param = {
-            cmsId: id,
+            categoryId: id,
             json:1
         };
         var config = {
-            url: '/cms/GetOneById',
+            url: '/category/getOneCategoryById',
             data: param,
             callback: t.setEditFormData
         };
@@ -76,29 +77,59 @@ var Category = {
     },
     setEditFormData: function(rs) {
         var t = Category;
-        if (rs == null) {
-            return;
+        if (rs.status == "error") {
+            Modal.alert({
+                "id": "Jalert",
+                "content": "内部错误！",
+                "type": "error",
+                "callback": function() {
+                    window.location.reload();
+                }
+            });
+        }else{
+            try {
+                var data = rs.data['category'],
+                    pCategorys = rs.data['pCategorys'];
+                if (data) {
+                    if(data['pid'] == 0){
+                        $("#JfpCategoryControl").hide();
+                    }else{
+                        $("#JFormCategoryParent").empty();
+                        var sHtml = "<option value='0'>请选择一级类目</option>";
+                        for (var i = 0; i < pCategorys.length; i++) {
+                            var categoryItem = pCategorys[i];
+                            if(data['pid'] == categoryItem['id']){
+                                sHtml += "<option selected='selected' value=" + categoryItem["id"] + ">" + categoryItem["name"] + "</option>";
+                            }else{
+                                sHtml += "<option value=" + categoryItem["id"] + ">" + categoryItem["name"] + "</option>";
+                            }
+
+                        }
+                        $("#JFormCategoryParent").append(sHtml);
+                    }
+                    $("#name").val(data["name"]);
+                    $("#des").val(data["des"]);
+                    $("#showSort").val(data["show_sort"]);
+                    $("#categoryId").val(data["id"]);
+                    $("#cmsUrl").val(data["hyperlink"]);
+                    //t.wangEditor.$txt.html(rs["content"]);
+                    $("#categoryForm").show();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+
         }
-        var data = rs.data;
-        $("#cmsId").val(data["id"]);
-        $("#cmsTitle").val(data["title"]);
-        $("#cmsDes").val(data["des"]);
-        $("#cmsUrl").val(data["hyperlink"]);
-        //t.wangEditor.$txt.html(rs["content"]);
-        $("#categoryForm").show();
     },
     saveEditFormData: function() {
         var t = this,
-            id = $("#cmsId").val(),
-            //wEditorText = Brand.wangEditor.$txt.html(),
-            urlData = '/cms/add';
-
-        if (id > 0) {
-            urlData = '/cms/update';
+            categoryId = $("#categoryId").val(),
+            isEdit = 0;
+        if(categoryId > 0){
+            isEdit = 1;
         }
-
         t.postData({
-            url: urlData,
+            url: "/category/actionCategory?isEdit="+isEdit,
             data: $("#Jnewform").serialize(),
             type: "post",
             callback: function(res) {
@@ -115,7 +146,7 @@ var Category = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": "操作失败，请稍后重试！",
+                        "content": res.msg,
                         "callback": function(){}
                     });
                 }
@@ -124,11 +155,12 @@ var Category = {
     },
     deleteOne: function(id) {
         this.postData({
-            url: '/cms/delete',
+            url: '/category/delete',
             data: {
-                "cmsId": id,
+                "categoryId": id,
                 "json": 1
             },
+            type: "post",
             callback: function(res) {
                 App.unblockUI($("#Jmodal"));
                 if (res.status == "success") {
