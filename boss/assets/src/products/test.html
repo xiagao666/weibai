@@ -1,0 +1,34 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+    title : "唯佰科技管理后台-产品列表",
+    keywords : "唯佰科技管理后台-产品列表",
+    description : "唯佰科技管理后台-产品列表",
+    barTitle: "产品列表",
+    firstCur: "product",
+    secondCur: "list"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
+<link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
+<link src="/lib/css/jquery.fileupload-ui.css"/>
+<link rel="stylesheet" href="/common/css/table.css" />
+<link rel="stylesheet" href="/products/css/list.css" />
+{%endblock%}
+{%block content%}
+	<span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Select files...</span>
+        <input id="fileupload" type="file" name="files[]" multiple>
+    </span>
+    <div id="progress" class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+    <!-- The container for the uploaded files -->
+    <div id="files" class="files"></div>
+{%endblock%}
+{%block js%}
+<script src="/lib/js/jquery.ui.widget.js"></script>
+<script src="/lib/js/jquery.iframe-transport.js"></script>
+<script src="/lib/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/products/js/test.js"></script>
+{%endblock%}

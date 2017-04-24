@@ -27,7 +27,7 @@ var gulp = require('gulp'),
 // 路径配置
 var config = {
     // js原文件路径
-    jsSrc: "./"+yargs.build+"/assets/src/**/js/*.js",
+    jsSrc: ["./"+yargs.build+"/assets/src/**/js/*.js",!"./"+yargs.build+"/assets/src/lib/**/*"],
     // sass源文件
     sassSrc: "./"+yargs.build+"/assets/src/**/css/*.scss",
     // 图片源地址

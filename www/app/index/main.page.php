@@ -15,13 +15,13 @@ class index_main extends STpl
      */
     public function pageIndex($inPath)
     {
-        $condition["type"] = 6;
+        /*$condition["type"] = 6;
         $dbCms = new core_db_Cms();
         $images = $dbCms->queryNews($condition, 1, 3);
         $condition["type"] = 1;
         $news = $dbCms->queryNews($condition,1,3," create_date desc ");
         $params["indexImages"] = $images;
-        $params["indexNews"] = $news;
+        $params["indexNews"] = $news;*/
         return $this->render("index/index.html", $params);
     }
 

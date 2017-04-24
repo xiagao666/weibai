@@ -14,6 +14,8 @@ secondCur: "list"
 <link rel="stylesheet" href="/products/css/list.css" />
 <!--引入wangEditor wangEditor.css-->
 <link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
+<link href="/boss/css/jquery.fancybox.css" rel="stylesheet" />
+<link href="/boss/css/jquery.fileupload-ui.css" rel="stylesheet" />
 
 {%endblock%}
 {%block content%}
@@ -341,27 +343,78 @@ secondCur: "list"
                 <h3 class="form-section">上传图片／附件</h3>
                 <!--产品图片 BEGIN-->
                 <div class="control-group">
-                    <label class="control-label">Image Upload</label>
-                    <div class="controls">
-                        <div class="fileupload fileupload-new" data-provides="fileupload">
-                            <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                <img src="media/image/AAAAAA&amp;text=no+image" alt="">
-                            </div>
-                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                            <div>
-													<span class="btn btn-file"><span class="fileupload-new">Select image</span>
+                    <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+                            <div class="row-fluid fileupload-buttonbar">
+                                <div class="span7">
+                                    <span class="btn green fileinput-button">
+                                    <i class="icon-plus icon-white"></i>
+                                    <span>选择文件</span>
+                                    <input id="JfileUpload" type="file" name="files[]" multiple data-url="/product/action"/>
+                                    </span>
 
-													<input type="file" class="default"></span>
-                                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                    <button type="submit" class="btn blue start">
+
+                                    <i class="icon-upload icon-white"></i>
+
+                                    <span>开始上传</span>
+
+                                    </button>
+
+                                    <button type="reset" class="btn yellow cancel">
+
+                                    <i class="icon-ban-circle icon-white"></i>
+
+                                    <span>取消上传</span>
+
+                                    </button>
+
+                                    <button type="button" class="btn red delete">
+
+                                    <i class="icon-trash icon-white"></i>
+
+                                    <span>删除</span>
+
+                                    </button>
+
+                                    <input type="checkbox" class="toggle fileupload-toggle-checkbox">
+
+                                </div>
+
+                                <!-- The global progress information -->
+
+                                <div class="span5 fileupload-progress fade">
+
+                                    <!-- The global progress bar -->
+
+                                    <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+
+                                        <div class="bar" style="width:0%;"></div>
+
+                                    </div>
+
+                                    <!-- The extended global progress information -->
+
+                                    <div class="progress-extended">&nbsp;</div>
+
+                                </div>
+
                             </div>
-                        </div>
-                        <span class="label label-important">NOTE!</span>
-                        <span>
-											Attached image thumbnail is
-											supported in Latest Firefox, Chrome, Opera,
-											Safari and Internet Explorer 10 only
-											</span>
-                    </div>
+
+                            <!-- The loading indicator is shown during file processing -->
+
+                            <div class="fileupload-loading"></div>
+
+                            <br>
+
+                            <!-- The table listing the files available for upload/download -->
+
+                            <table role="presentation" class="table table-striped">
+
+                                <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+
+                            </table>
+
+                        </form>
 
                 </div>
                 <!--产品图片 END-->
@@ -393,14 +446,25 @@ secondCur: "list"
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
 <script type="text/javascript" src="/lib/js/tableList.js"></script>
 <script type="text/javascript" src="/common/js/table.js"></script>
+<script src="/lib/js/jquery.fancybox.pack.js"></script>
+<script src="/lib/js/jquery.ui.widget.js"></script>
+<script src="/lib/js/load-image.min.js"></script>
+<script src="/lib/js/canvas-to-blob.min.js"></script>
+<script src="/lib/js/jquery.iframe-transport.js"></script>
+<script src="/lib/js/jquery.fileupload.js"></script>
+<script src="/lib/js/jquery.fileupload-fp.js"></script>
+<script src="/lib/js/jquery.fileupload-ui.js"></script>
 <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
 <script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
 <!--END 引入jquery和wangEditor.js-->
 <script type="text/javascript" src="/products/js/list.js"></script>
+<script src="/lib/js/form-fileupload.js"></script>
 <script>
     var editor = new wangEditor('editor-trigger');
     editor.config.uploadImgUrl = '/upload/index?action=edimage';
     editor.config.uploadImgFileName = 'upfile';
     editor.create();
+    // FormFileUpload.init();
+    $("#JfileUpload").fileupload();
 </script>
 {%endblock%}
