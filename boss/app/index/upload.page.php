@@ -8,7 +8,7 @@ class index_upload extends index_base
 {
     public function __construct()
     {
-//        parent::__construct();
+        parent::__construct();
     }
 
     /**
@@ -28,7 +28,7 @@ class index_upload extends index_base
         switch ($action) {
             case 'pdoc'://产品文档
                 $fileInfo = $supload->uploadDoc($upfile);
-                return $this->alert(array('status'=>$fileInfo['status'],'msg'=>$fileInfo['url']));
+                return $this->alert(array('status'=>$fileInfo['status'],'url'=>WWW_URL.$fileInfo['url'], 'name'=>$fileInfo['originalName']));
                 break;
             case 'edimage'://富文本图片
                 $fileInfo = $supload->uploadfile($upfile);

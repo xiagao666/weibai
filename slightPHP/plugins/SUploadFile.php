@@ -328,28 +328,31 @@ class SUploadFile
             if (!file_exists($upfileTmpName)) {
                 return false; //临时文件不存在
             } else {
+                $fileName = date("ymdhis", time());
+                $url = "/" . $this->getUri() . "/";
+                $dfile = date("Y-m-d") . "/";
+                $this->filepath .= $dfile;
+                $url .= $dfile;
                 if (!file_exists($this->filepath)) {
                     mkdir($this->filepath);
                 }
-                $dfile = date("Y-m-d") . "/";
-                $this->filepath .= $dfile;
-                $name = explode(".", $upfile['name']);
-                $newFileName = $name[0] . "." . $type;
-                $newPath = $this->filepath . $newFileName;
-                $newAction = "/" . $this->getUri() . "/" . $dfile . $newFileName;
-                if (!move_uploaded_file($upfileTmpName, $newPath)) {
+                $newFileName = $this->filepath . $fileName . "." . $type;
+                $url .= $fileName . "." . $type;
+
+                if (!move_uploaded_file($upfileTmpName, $newFileName)) {
                     return false; //文件在移动中丢失
                 } else {
                     $fileInfo = array(
                         "originalName" => $upfile['name'],
-                        "name" => $newFileName,
+                        "name" => $fileName,
+                        "path" => $newFileName,
+                        "url" => $url,
                         "size" => $upfileSize,
                         "type" => $type,
-                        "path" => $newAction,
                         "status" => "success"
                     );
-                    return $fileInfo; //上传成功!
                     unlink($upfileTmpName);
+                    return $fileInfo; //上传成功!
                 }
             }
         }
