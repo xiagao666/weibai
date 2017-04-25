@@ -19,6 +19,8 @@ class SUploadFile
 
     public $uri;//uri地址
 
+    public $isThumbnail;//是否缩略图
+
     /**
      * 设置图片存放路径
      */
@@ -117,6 +119,22 @@ class SUploadFile
     }
 
     /**
+     * 是否设置缩略图
+     */
+    public function setIsThumbnail($isThumbnail = false)
+    {
+        $this->isThumbnail = $isThumbnail;
+    }
+
+    /**
+     * 返回是否设置缩略图
+     */
+    public function getIsThumbnail()
+    {
+        return $this->isThumbnail;
+    }
+
+    /**
      * 上传图片
      */
     public function uploadfile($upfile)
@@ -161,9 +179,9 @@ class SUploadFile
             if (!file_exists($upfileTmpName)) {
                 return false; //临时文件不存在
             } else {
-                $fileName = date("ymdhis", time())."_s";//s 代表原图
-                $url = "/".$this->getUri()."/";
-                $dfile = date("Y-m-d")."/";
+                $fileName = date("ymdhis", time()) . "_s";//s 代表原图
+                $url = "/" . $this->getUri() . "/";
+                $dfile = date("Y-m-d") . "/";
                 $this->filepath .= $dfile;
                 $url .= $dfile;
                 if (!file_exists($this->filepath)) {
@@ -171,19 +189,21 @@ class SUploadFile
                 }
                 $newFileName = $this->filepath . $fileName . "." . $type;
                 $url .= $fileName . "." . $type;
+
                 if (!move_uploaded_file($upfileTmpName, $newFileName)) {
                     return false; //文件在移动中丢失
                 } else {
                     $fileInfo = array(
                         "originalName" => $upfile['name'],
                         "name" => $fileName,
+                        "path" => $newFileName,
                         "url" => $url,
                         "size" => $upfileSize,
                         "type" => $type,
                         "status" => "success"
                     );
-                    return $fileInfo; //上传成功!
                     unlink($upfileTmpName);
+                    return $fileInfo; //上传成功!
                 }
             }
         }
@@ -203,25 +223,25 @@ class SUploadFile
      * .......多个缩略图 传入多个
      * );
      */
-    public function createThumbnail($thumbSize)
+    public function createThumbnail($filePath, $thumbSize)
     {
         if (!is_array($thumbSize)) {//缩略图最大尺寸
             return false;
         }
-        $thumbnail = new SThumbnail($this->filepath, 100);
+        $thumbnail = new SThumbnail($filePath, 100);
 
         if ($this->india) {
             $thumbnail->addLogo($this->indiaPath, $this->position, $this->margin);
         }
-        list($sWidth, $sHeight, $sImageType, $des) = getimagesize($this->filepath);
-        $pathInfo = explode("/", $this->filepath);
-        $oldFileName = $pathInfo[count($pathInfo)-1];
-        unset($pathInfo[count($pathInfo)-1]);
+        list($sWidth, $sHeight, $sImageType, $des) = getimagesize($filePath);
+        $pathInfo = explode("/", $filePath);
+        $oldFileName = $pathInfo[count($pathInfo) - 1];
+        unset($pathInfo[count($pathInfo) - 1]);
         $thumbPath = implode("/", $pathInfo);
         $oldFileNames = explode("_", $oldFileName);
-        $thumbFileName = $oldFileNames[0]."_t_";
+        $thumbFileName = $oldFileNames[0] . "_t_";
         $thumbSuffixs = explode(".", $oldFileNames[1]);
-        $thumbSuffix = $thumbSuffixs[count($thumbSuffixs)-1];
+        $thumbSuffix = $thumbSuffixs[count($thumbSuffixs) - 1];
         //等比例缩放
         foreach ($thumbSize as $k => $v) {
             $tMaxWidth = $v['tMaxWidth'];
@@ -253,7 +273,10 @@ class SUploadFile
             }
             $thumbnail->setMaxSize($nWidth, $nHeight);//设置缩略图新宽 高
             $thumbnail->setQualityOutput(true);
-            $thumbnail->genFile($thumbPath . "/" .$thumbFileName.$v['tMaxWidth']."_".$v['tMaxHeight'].".".$thumbSuffix);//生成缩略图
+            $thumbUrl = "/" . $pathInfo[3] . "/" . $pathInfo[4] . "/";
+            $thumbName = $thumbFileName . $v['tMaxWidth'] . "_" . $v['tMaxHeight'] . "." . $thumbSuffix;
+            $thumbnail->genFile($thumbPath . "/" . $thumbName);//生成缩略图
+            return $thumbUrl . "/" . $thumbName;
         }
     }
 
@@ -308,12 +331,12 @@ class SUploadFile
                 if (!file_exists($this->filepath)) {
                     mkdir($this->filepath);
                 }
-                $dfile = date("Y-m-d")."/";
+                $dfile = date("Y-m-d") . "/";
                 $this->filepath .= $dfile;
                 $name = explode(".", $upfile['name']);
                 $newFileName = $name[0] . "." . $type;
                 $newPath = $this->filepath . $newFileName;
-                $newAction = "/".$this->getUri()."/".$dfile.$newFileName;
+                $newAction = "/" . $this->getUri() . "/" . $dfile . $newFileName;
                 if (!move_uploaded_file($upfileTmpName, $newPath)) {
                     return false; //文件在移动中丢失
                 } else {
@@ -322,7 +345,7 @@ class SUploadFile
                         "name" => $newFileName,
                         "size" => $upfileSize,
                         "type" => $type,
-                        "path"=>$newAction,
+                        "path" => $newAction,
                         "status" => "success"
                     );
                     return $fileInfo; //上传成功!

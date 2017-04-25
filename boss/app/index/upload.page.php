@@ -24,16 +24,24 @@ class index_upload extends index_base
         $supload = new SUploadFile();
         $supload->setFilePath("../../file/".$action."/");
         $supload->setUri($action);
-        if ($action == 'pdoc') {
-            $fileInfo = $supload->uploadDoc($upfile);
-            return $this->alert(array('status'=>$fileInfo['status'],'msg'=>$fileInfo['path']));
-        } else {
-            $fileInfo = $supload->uploadfile($upfile);
-            if ($action == "edimage") {
+
+        switch ($action) {
+            case 'pdoc'://产品文档
+                $fileInfo = $supload->uploadDoc($upfile);
+                return $this->alert(array('status'=>$fileInfo['status'],'msg'=>$fileInfo['url']));
+                break;
+            case 'edimage'://富文本图片
+                $fileInfo = $supload->uploadfile($upfile);
                 exit(WWW_URL.$fileInfo['url']);
-            } else {
-                return $this->alert(array('status'=>$fileInfo['status'],'msg'=>$fileInfo['path']));
-            }
+                break;
+            case 'pdimage'://产品图片
+                $fileInfo = $supload->uploadfile($upfile);
+                $thumbSize = array(//缩略图尺寸
+                    array('tMaxWidth'=>THUMBNAIL_W, 'tMaxHeight'=>THUMBNAIL_H)
+                );
+                $minUrl = $supload->createThumbnail($fileInfo['path'], $thumbSize);
+                return $this->alert(array('status'=>$fileInfo['status'],'bgUrl'=>WWW_URL.$fileInfo['url'], 'minUrl'=>WWW_URL.$minUrl));
+                break;
         }
     }
 }
