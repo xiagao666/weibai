@@ -2,8 +2,6 @@ var Category = {
     wangEditor: null,
     init: function() {
         this.bind();
-        //this.intWangEditor();
-        $("#categoryForm").hide();
 
     },
     intWangEditor: function() {
@@ -190,7 +188,7 @@ var Category = {
             .val('')
             .removeAttr('checked')
             .removeAttr('selected');
-        //this.wangEditor.$txt.html('<p><br></p>');
+        $("#JfpCategoryControl").show();
     }
 };
 
