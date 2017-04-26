@@ -13,7 +13,7 @@ secondCur: "list"
 <!--引入wangEditor wangEditor.css-->
 <link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
 <link href="/lib/css/jquery.fileupload-ui.css" rel="stylesheet" />
-
+<link href="/products/css/action.css" rel="stylesheet" />
 {%endblock%}
 {%block content%}
 <div class="container-fluid">
@@ -398,8 +398,8 @@ secondCur: "list"
 
                 <h3 class="form-section">产品描述</h3>
                 <!--产品描述 BEGIN-->
-                <div class="control-group" style="height: 400px;">
-                    <div id="editor-trigger"><p>{$productDes['description']}</p></div>
+                <div class="control-group" style="height: 400px;max-height: 500px;">
+                    <div id="JeditorDes"><p>{$productDes['description']}</p></div>
                 </div>
                 <!--产品描述 END-->
 

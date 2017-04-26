@@ -5,6 +5,15 @@
 var Detail = {
     init: function() {
         this.bind();
+        this.initWangEditor();
+    },
+    initWangEditor: function() {
+        var t = this;
+        t.wangEditor = new wangEditor('JeditorDes');
+        // 上传图片
+        t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
+        t.wangEditor.config.uploadImgFileName = 'upfile';
+        t.wangEditor.create();
     },
     // 事件统一绑定
     bind: function() {
