@@ -29,7 +29,7 @@ secondCur: "list"
             <div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
         </div>
         <div class="portlet-body">
-            <div action="/product/action" class="form-horizontal" method="POST">
+            <div action="/product/action" class="form-horizontal" method="POST" id="productForm">
                 <!--基本信息 BEGIN-->
                 <h3 class="form-section">基本信息</h3>
                 <div class="row-fluid">
@@ -404,7 +404,9 @@ secondCur: "list"
                 <!--产品描述 END-->
 
                 <div class="form-actions">
-                    <button type="submit" class="btn blue">提交</button>
+                    <input type="hidden" name="isEdit" value="{$isEdit}">
+                    <input type="hidden" name="productId" value="{$productId}">
+                    <button type="button" class="btn blue" id="productSumbit">提交</button>
                     <button type="button" class="btn">取消</button>
                 </div>
             </div>

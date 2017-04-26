@@ -20,6 +20,8 @@ var Detail = {
         var t = this;
         $(document).on("change", "#JcategoryParent", function() {
             t.updateChildCategory();
+        }).on("click", "#productSumbit", function () {
+            t.postProductData();
         });
     },
     postData: function(config) {
@@ -100,6 +102,9 @@ var Detail = {
                 );
             }
         });
+    },
+    postProductData: function () {
+        
     }
 };
 
