@@ -157,6 +157,7 @@ class index_product extends index_base
     public function pageAction()
     {
         $isEdit = isset($_GET['isEdit']) ? core_lib_Comm::getStr($_GET['isEdit'], 'int') : 0;//是否编辑 1 编辑 0 添加
+        $productId = isset($_GET['productId']) ? core_lib_Comm::getStr($_GET['productId'], 'int') : 0;// 产品ID
         $dbProduct = new core_db_Product();
         $dbProductDes = new core_db_ProductDes();
         $dbProductRelation = new core_db_ProductRelation();
@@ -168,7 +169,6 @@ class index_product extends index_base
         $pCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
 
         if ($isEdit) {
-            $productId = isset($_GET['productId']) ? core_lib_Comm::getStr($_GET['productId'], 'int') : 0;// 产品ID
             if (!$productId) {
                 return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
             }
@@ -187,11 +187,11 @@ class index_product extends index_base
             $product = isset($_POST['product']) ? core_lib_Comm::getStr($_POST['product']) : '';//产品
             $package = isset($_POST['package']) ? core_lib_Comm::getStr($_POST['package']) : '';//包装
             $price = isset($_POST['price']) ? core_lib_Comm::getStr($_POST['price']) : '';//价格
-            $abbreviation  = isset($_POST['abbreviation ']) ? core_lib_Comm::getStr($_POST['abbreviation ']) : '';//简写
+            $abbreviation  = isset($_POST['abbreviation']) ? core_lib_Comm::getStr($_POST['abbreviation']) : '';//简写
             $chineseName = isset($_POST['chineseName']) ? core_lib_Comm::getStr($_POST['chineseName']) : '';//中文名
             $origin = isset($_POST['origin']) ? core_lib_Comm::getStr($_POST['origin']) : '';//产地
             $applicationProcess = isset($_POST['applicationProcess']) ? core_lib_Comm::getStr($_POST['applicationProcess']) : '';//应用/处理
-            $otherName = isset($_POST[' otherName ']) ? core_lib_Comm::getStr($_POST['otherName']) : '';//别名
+            $otherName = isset($_POST['otherName']) ? core_lib_Comm::getStr($_POST['otherName']) : '';//别名
             $storageTemperature = isset($_POST['storageTemperature']) ? core_lib_Comm::getStr($_POST['storageTemperature']) : '';//储存温度
             $type = isset($_POST['type']) ? core_lib_Comm::getStr($_POST['type']) : '';//类别
             $raiseFrom = isset($_POST['raiseFrom']) ? core_lib_Comm::getStr($_POST['raiseFrom']) : '';//来源种属
@@ -204,12 +204,17 @@ class index_product extends index_base
             $grade = isset($_POST['grade']) ? core_lib_Comm::getStr($_POST['grade']) : '';//级别
             $imgUrl = isset($_POST['imgUrl']) ? core_lib_Comm::getStr($_POST['imgUrl']) : '';//产品代表图片url
             $isSale = isset($_POST['isSale']) ? core_lib_Comm::getStr($_POST['isSale']) : '';//是否促销产品
-            $categoryId = isset($_POST['categoryId']) ? core_lib_Comm::getStr($_POST['categoryId']) : '';//类目ID
-            $productDes = isset($_POST['productDes']) ? core_lib_Comm::getStr($_POST['productDes']) : '';//产品描述
+            $categoryId = isset($_POST['childCategoryId']) ? core_lib_Comm::getStr($_POST['childCategoryId']) : '';//类目ID
+
+            $productDes = isset($_POST['productDes']) ? core_lib_Comm::reMoveXss($_POST['productDes']) : '';//产品描述
             $productRelations = isset($_POST['productRelations']) ? core_lib_Comm::getStr($_POST['productRelations']) : '';//产品关联文件
             $productRelationsType = isset($_POST['productRelationsType']) ? core_lib_Comm::getStr($_POST['productRelationsType']) : '';//产品关联文件类型
             $productRelationsTitle = isset($_POST['productRelationsTitle']) ? core_lib_Comm::getStr($_POST['productRelationsTitle']) : '';//产品关联文件标题
             $productRelationsPath = isset($_POST['productRelationsPath']) ? core_lib_Comm::getStr($_POST['productRelationsPath']) : '';//产品关联文件路径
+
+            if (!$catalogNumber || !$package) {
+                return $this->alert(array('status'=>'error','msg'=>"产品货号或包装不能为空"));
+            }
 
             $data['brand'] = $brand;
             $data['catalog_number'] = $catalogNumber;
@@ -227,7 +232,7 @@ class index_product extends index_base
             $data['reacts_with'] = $reactsWith;
             $data['application'] = $application;
             $data['label'] = $label;
-            $data['case_no'] = $casNo;
+            $data['cas_no'] = $casNo;
             $data['molecular_formula'] = $molecularFormula;
             $data['molecular_weight'] = $molecularWeight;
             $data['grade'] = $grade;
@@ -263,7 +268,7 @@ class index_product extends index_base
                         $dbProductRelation->addProductRelation($productRelationData);
                     }
                 }
-
+                return $this->alert(array('status'=>'success','msg'=>$msg."成功"));
             } else {
                 //添加基础产品信息
                 $productId = $dbProduct->addProduct($data);
@@ -289,14 +294,14 @@ class index_product extends index_base
                         $dbProductRelation->addProductRelation($productRelationData);
                     }
                 }
-
             }
-            return $this->alert(array('status'=>'error','msg'=>$msg."成功"));
+            return $this->alert(array('status'=>'success','msg'=>$msg."成功"));
         }
         $this->_params['isEdit'] = $isEdit;
         $this->_params['pCategorys'] = $pCategorys['items'];
         $this->_params['actTitle'] = $msg."产品";
         $this->_params['act'] = "productList";
+        $this->_params['productId'] = $productId;
         return $this->render("/products/action.html", $this->_params);
     }
 
@@ -347,44 +352,4 @@ class index_product extends index_base
         $param["pDes"] = $pDes;
         return $this->render("/products/detail.html", $param);
     }
-
-
-    //产品列表
-    public function pageGetList($inPath)
-    {
-        $categoryParentId = $_GET["categoryParentId"];//父ID
-        $categoryChildId = $_GET["categoryChildId"];//子ID
-        if ($categoryChildId == 0 && $categoryParentId > 0) {
-            $dbCategory = new core_db_Category();
-            $condition['pid'] = $categoryParentId;
-            $rs = $dbCategory->queryAllCategory($condition);
-            if ($rs['items']) {
-                foreach ($rs['items'] as $v) {
-                    $ids[] = $v['id'];
-                }
-            }
-        }
-        if ($categoryChildId > 0) {
-            $ids[] = $categoryChildId;
-        }
-        $category = explode(",", $ids);
-        $page = $_GET["page"];
-        $limit = $_GET["limit"];
-        if (!empty($ids)) {
-            $query = array("category_id in ({$category})");
-        }
-        $dbProduct = new core_db_Product();
-        $productRs = $dbProduct->queryProductList($query, $page, $limit, "id desc");
-        $param['items'] = $productRs->items;
-        $page['total'] = $productRs->totalSize;
-        $param['limit'] = $limit;
-        $param['page'] = $page;
-        $param['categoryParentId'] = $categoryParentId;
-        $param['categoryChildId'] = $categoryChildId;
-        $param['cCategory'] = $rs['items'];
-        echo json_encode($productRs);
-    }
-
-
-
 }

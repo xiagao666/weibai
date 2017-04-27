@@ -3,6 +3,7 @@
  */
 
 var Detail = {
+    $productForm: null,//产品表单
     init: function() {
         this.bind();
         this.initWangEditor();
@@ -104,7 +105,52 @@ var Detail = {
         });
     },
     postProductData: function () {
-        
+        var  t = this;
+        $productForm = $("#productForm");
+        // if (t.productValidate()) {
+            t.postData({
+                url: "/product/action",
+                type: "post",
+                data: $productForm.serialize(),
+                "callback": function(res){
+                    if (res.status == "success") {
+                        Modal.alert({
+                            "id": "Jalert",
+                            "content": res.msg,
+                            "type": "success",
+                            "callback": function() {
+                                window.location.href = "/product/list";
+                            }
+                        });
+                    } else {
+                        Modal.alert({
+                            "id": "Jalert",
+                            "content": res.msg,
+                            "type": "error",
+                            "callback": function() {
+                            }
+                        });
+                    }
+                }
+            });
+        // }
+    },
+    productValidate: function () {
+        var t = this;
+        t.$productForm.validate({
+            rules: {
+                catalogNumber: "required",
+                package: "required"
+            },
+            messages: {
+                managerName: {
+                    required: "请输入货号"
+                },
+                trueName: {
+                    required: "请输入包装"
+                }
+            }
+        });
     }
 };
 
