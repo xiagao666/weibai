@@ -156,8 +156,8 @@ class index_product extends index_base
      */
     public function pageAction()
     {
-        $isEdit = isset($_GET['isEdit']) ? core_lib_Comm::getStr($_GET['isEdit'], 'int') : 0;//是否编辑 1 编辑 0 添加
-        $productId = isset($_GET['productId']) ? core_lib_Comm::getStr($_GET['productId'], 'int') : 0;// 产品ID
+        $isEdit = isset($_REQUEST['isEdit']) ? core_lib_Comm::getStr($_REQUEST['isEdit'], 'int') : 0;//是否编辑 1 编辑 0 添加
+        $productId = isset($_REQUEST['productId']) ? core_lib_Comm::getStr($_REQUEST['productId'], 'int') : 0;// 产品ID
         $dbProduct = new core_db_Product();
         $dbProductDes = new core_db_ProductDes();
         $dbProductRelation = new core_db_ProductRelation();
@@ -181,6 +181,7 @@ class index_product extends index_base
             $this->_params['productRelationList'] = $productRelations['list'];
             $msg = "编辑";
         }
+
         if ($_POST) {
             $brand = isset($_POST['brand']) ? core_lib_Comm::getStr($_POST['brand']) : '';//品牌
             $catalogNumber = isset($_POST['catalogNumber']) ? core_lib_Comm::getStr($_POST['catalogNumber']) : '';//货号
@@ -205,8 +206,8 @@ class index_product extends index_base
             $imgUrl = isset($_POST['imgUrl']) ? core_lib_Comm::getStr($_POST['imgUrl']) : '';//产品代表图片url
             $isSale = isset($_POST['isSale']) ? core_lib_Comm::getStr($_POST['isSale']) : '';//是否促销产品
             $categoryId = isset($_POST['childCategoryId']) ? core_lib_Comm::getStr($_POST['childCategoryId']) : '';//类目ID
-
             $productDes = isset($_POST['productDes']) ? core_lib_Comm::reMoveXss($_POST['productDes']) : '';//产品描述
+
             $productRelations = isset($_POST['productRelations']) ? core_lib_Comm::getStr($_POST['productRelations']) : '';//产品关联文件
             $productRelationsType = isset($_POST['productRelationsType']) ? core_lib_Comm::getStr($_POST['productRelationsType']) : '';//产品关联文件类型
             $productRelationsTitle = isset($_POST['productRelationsTitle']) ? core_lib_Comm::getStr($_POST['productRelationsTitle']) : '';//产品关联文件标题
@@ -306,50 +307,30 @@ class index_product extends index_base
     }
 
     /**
-     * 产品明细信息
+     * 删除产品
      */
-    public function pageDetail($inPath)
+    public function pageDelProduct()
     {
-        $productId = isset($_GET["id"]) ? core_lib_Comm::getStr($_GET["id"], 'int') : 0;
-        if (!$productId) {
-//            return $this->alert(array('status'=>'error','msg'=>"缺少产品编号"));
-            core_lib_Comm::p('缺少产品编号');
-        }
-        //一级类目
-        $dbCategory = new core_db_Category();
-        $categoryConditon = array("pid" => 0);
-        $parentCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
-        //产品详细信息
-        $dbProduct = new core_db_Product();
-        $product = $dbProduct->getProductById($productId);
-        //产品描述文档
-        $dbProductDes = new core_db_ProductDes();
-        $des = $dbProductDes->getProductDesByProductId($productId);
-        if($product && $product['category_id'] > 0) {
-            $category = $dbCategory->getCategoryById($product['category_id']);
-            $cCategory = null;
-            $childCategoryConditon = array("pid" => $category['pid']);
-            $childCategorys = $dbCategory->queryAllCategory($childCategoryConditon, CATEGORY_SEL_NUM, 0);
-            $cCategory = $childCategorys['items'];
-            $param['parentCategoryId'] = $category['pid'];
-            $param['childCategoryId'] = $product['category_id'];
-        }
-        $dbProductRel = new core_db_ProductRelation();
-        $relCondition['product_id'] = $productId;
-        $rel = $dbProductRel->queryProductRelationList($relCondition);//产品关联内容
-        foreach ($rel['list'] as $item) {
-            if($item['type'] == 1) {//文献／文档
-                $pArticle[] = $item;
-            } else if($item['type'] == 2){//产品说明书
-                $pDes[] = $item;
+        if ($_POST) {
+            $productId = isset($_REQUEST['productId']) ? core_lib_Comm::getStr($_REQUEST['productId'], 'int') : 0;// 产品ID
+
+            $dbProduct = new core_db_Product();
+            $dbProductDes = new core_db_ProductDes();
+            $dbProductRelation = new core_db_ProductRelation();
+            $product = $dbProduct->getProductById($productId);
+            if ($product == false) {
+                return $this->alert(array('status'=>'error','msg'=>"删除的产品不存在"));
             }
+
+            $dbProductDes->deleteProductDesByProductId($productId);
+            $dbProductRelation->deleteProductRelationByProductId($productId);
+            $productRS = $dbProduct->deleteProductById($productId);
+            if ($productRS === false) {
+                return $this->alert(array('status'=>'error','msg'=>"删除失败"));
+            }
+            return $this->alert(array('status'=>'success','msg'=>"删除成功"));
+        } else {
+            return $this->alert(array('status'=>'error','msg'=>"姿势没摆对"));
         }
-        $param["product"] = $product;
-        $param["des"] = $des;
-        $param['pCategorys'] = $parentCategorys['items'];
-        $param['cCategorys'] = $cCategory;
-        $param["pArticle"] = $pArticle;
-        $param["pDes"] = $pDes;
-        return $this->render("/products/detail.html", $param);
     }
 }

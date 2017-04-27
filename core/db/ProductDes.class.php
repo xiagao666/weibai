@@ -79,7 +79,7 @@ class core_db_ProductDes extends core_db_DbBase {
             }
 
             $this->useConfig("common","main");
-            $rs = $this->updateData(array('product_id'=>$productId), $data);
+            $rs = $this->updateData(array('id'=>$productId), $data);
             if($rs === false) {
                 throw new Exception("更新失败");
             }

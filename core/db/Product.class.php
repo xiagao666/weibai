@@ -49,7 +49,7 @@ class core_db_Product extends core_db_DbBase
      * @param $orderBy
      * @return bool
      */
-    public function queryProductList($query, $orderBy = array("id"=>"desc"), $limit = 10, $page = 0)
+    public function queryProductList($query, $orderBy = array("id" => "desc"), $limit = 10, $page = 0)
     {
         try {
             $this->useConfig("common", "query");
@@ -75,18 +75,18 @@ class core_db_Product extends core_db_DbBase
     {
         try {
             core_lib_Comm::p($data);
-            $id = $data['id'];
-            unset($data['id']);
-            if (empty($data) || !$id) {
+            $product_id = $data['product_id'];
+            unset($data['product_id']);
+            if (empty($data) || !$product_id) {
                 throw new Exception("缺少必要参数");
             }
 
-            $product = $this->getProductById($id);
+            $product = $this->getProductById($product_id);
             if ($product == false) {
                 throw new Exception("记录不存在");
             }
             $this->useConfig("common", "main");
-            $rs = $this->updateData(array('id'=>$id), $data);
+            $rs = $this->updateData(array('id' => $product_id), $data);
             if ($rs === false) {
                 throw new Exception("更新失败");
             }
@@ -112,6 +112,32 @@ class core_db_Product extends core_db_DbBase
             $product = $this->getOne(array("id" => $id));
             if ($product === false) {
                 throw new Exception("获取当个产品失败");
+            }
+            return $product;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
+    }
+
+    /**
+     * 删除产品
+     */
+    public function deleteProductById($id)
+    {
+        try {
+            if (empty($id)) {
+                throw new Exception("缺少必要参数");
+            }
+
+            $product = $this->getProductById($id);
+            if ($product == false) {
+                throw new Exception("记录不存在");
+            }
+            $this->useConfig("common", "main");
+            $product = $this->deleteData(array("id" => $id));
+            if ($product === false) {
+                throw new Exception("删除产品失败");
             }
             return $product;
         } catch (Exception $e) {
