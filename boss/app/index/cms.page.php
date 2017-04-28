@@ -51,7 +51,7 @@ class index_cms extends index_base
         }
         $brandList = $dbCms->queryNews($query, $limit, $page);
 
-        $this->pageBar($brandList['total'], $limit, $page, '/cms/news');
+        $this->pageBar($brandList['total'], $limit, $page, '/cms/brand');
 
         $this->_params['searchKey'] = $searchKey;
         $this->_params['searchVal'] = $searchValue;
@@ -77,7 +77,7 @@ class index_cms extends index_base
         }
         $techList = $dbCms->queryNews($query, $limit, $page);
 
-        $this->pageBar($techList['total'], $limit, $page, '/cms/news');
+        $this->pageBar($techList['total'], $limit, $page, '/cms/tech');
 
         $this->_params['searchKey'] = $searchKey;
         $this->_params['searchVal'] = $searchValue;
@@ -104,30 +104,59 @@ class index_cms extends index_base
     }
 
     /**
-     * 查询
+     * 联系我们
      */
-    public function pageQueryList($inPath)
+    public function pageContact($inPath)
     {
         $dbCms = new core_db_Cms();
-        $condition["type"] = $_GET["type"];
-        $page = $_GET["page"];
-        $size = $_GET["size"];
-        $rs = $dbCms->queryNews($condition, $page, $size, "");
-        echo json_encode($rs);
+
+        $query['type'] = 5;//联系我们
+        $about = $dbCms->queryNews($query, 1, 1);
+        if (is_array($about['data'][0])) {
+            $isEdit = 1;
+        }
+        $this->_params['contact'] = $about['data'][0];
+        $this->_params['type'] = 5;
+        $this->_params['isEdit'] = $isEdit;
+        return $this->render("contact/action.html", $this->_params);
     }
 
     /**
-     * 根据ID获取信息
+     * 针对于通用的cms 比如首页滚动图
+     * cms管理相关
      */
-    public function pageGetOneById($inPath)
-    {
-        $dbCms = new core_db_Cms();
-        $condition["id"] = $_GET["cmsId"];
-        $rs = $dbCms->getOneCms($condition);
-        if (empty($rs)){
-            return $this->alert(array('status'=>'error','msg'=>"获取新闻信息失败！"));
+    public function pageOther($inPath){
+        /*$dbCms = new core_db_Cms();
+        if($_GET['cmsType'] == 0){
+            $condition = "type in (6)";
+        }else{
+            $condition['type'] = $_GET['cmsType'];
         }
-        return $this->alert(array('status'=>'success','msg'=>"获取新闻信息成功！", "data"=>$rs));
+        $rs = $dbCms->queryNews($condition, 1, 20, "");
+        $param["cmsData"] = $rs->items;
+        $param['cmsType'] = $_GET['cmsType'];*/
+        $type = isset($_GET['type']) ? core_lib_Comm::getStr($_GET["type"], 'int') : 10;
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
+
+        $dbCms = new core_db_Cms();
+        $typeNames = $dbCms->getTypeNameByType();
+        unset($typeNames[0]);
+        unset($typeNames[1]);
+        unset($typeNames[2]);
+        unset($typeNames[3]);
+        unset($typeNames[4]);
+        core_lib_Comm::p($typeNames);
+
+        $query['type'] = $type;//技术服务
+        $techList = $dbCms->queryNews($query, $limit, $page);
+
+        $this->pageBar($techList['total'], $limit, $page, '/cms/news');
+        var_dump($type);
+        $this->_params['type'] = $type;
+        $this->_params['types'] = $typeNames;
+        $this->_params['cmsData'] = $techList['data'];
+        return $this->render("cms/list.html", $this->_params);
     }
 
     /**
@@ -143,6 +172,7 @@ class index_cms extends index_base
         $msg = "添加";
 
         $dbCms = new core_db_Cms();
+        $typeNames = $dbCms->getTypeNameByType();
         if ($isEdit) {
             if (!$cmsId) {
                 return $this->alert(array('status'=>'error','msg'=>"缺少内容ID"));
@@ -167,7 +197,7 @@ class index_cms extends index_base
 
             //@todo 判断那些是必填
 
-            $typeName = $dbCms->getTypeNameByType($type);
+            $typeName = $typeNames[$type];
             $data["title"] = $title;
             $data["des"] = $des;
             $data["img_url"] = $imgUrl;
@@ -203,9 +233,20 @@ class index_cms extends index_base
             case 4://关于我们
                 $tpl = "about/action.html";
                 break;
+            default:
+                $tpl = "cms/action.html";
+        }
+
+        if (!$type) {
+            unset($typeNames[0]);
+            unset($typeNames[1]);
+            unset($typeNames[2]);
+            unset($typeNames[3]);
+            unset($typeNames[4]);
         }
 
         $this->_params['type'] = $type;
+        $this->_params['types'] = $typeNames;
         $this->_params['cmsId'] = $cmsId;
         $this->_params['isEdit'] = $isEdit;
         return $this->render($tpl, $this->_params);
@@ -235,23 +276,5 @@ class index_cms extends index_base
             return $this->alert(array("status"=>"error","msg"=>"删除{$typeName}失败！"));
         }
         return $this->alert(array("status"=>"success","msg"=>"删除{$typeName}成功"));
-    }
-
-
-
-    /**
-     * 针对于通用的cms 比如首页滚动图
-     */
-    public function pageOther($inPath){
-        $dbCms = new core_db_Cms();
-        if($_GET['cmsType'] == 0){
-            $condition = "type in (6)";
-        }else{
-            $condition['type'] = $_GET['cmsType'];
-        }
-        $rs = $dbCms->queryNews($condition, 1, 20, "");
-        $param["cmsData"] = $rs->items;
-        $param['cmsType'] = $_GET['cmsType'];
-        return $this->render("/cms/list.html", $param);
     }
 }
