@@ -1,149 +1,63 @@
 @import "../../common/css/variable.scss";
-.swiper-container{
-	width: 100%;
-	height: 328px;
-	.swiper-slide{
-		height: 100%;
+.v-pTech{
+	overflow: hidden;
+	padding-bottom: 40px;
+
+	.pTech-special{
+		background-color: #fff;
+		padding: 20px;
+		margin-bottom: 18px;
 		img{
-			width: 100%;
-			height: 100%;
+			display: inline-block;
+			width: 660px;
 		}
-	}
-}
-
-.v-bar{
-	position: #{$pr};
-	border-bottom: 2px solid #{$c2};
-	color: #{$c2};
-	height:80px;
-	margin-bottom: 15px;
-	margin-top: 15px;
-	a,i,span,h2{
-		position: #{$pa};
-	}
-	a{
-		right: 40px;
-		bottom: 20px;
-		color: #a29f9f;
-		font-size: 14px;
-	}
-	i{
-		display: #{$db};
-		width: 12px;
-		height: 19px;
-		background: url("/index/img/arrow.png") no-repeat left top;
-		right: 0;
-		bottom: 20px;
-	}
-	span{
-		font-size: 30px;
-		left: 0;
-		bottom: 0;
-		strong{
-			font-size: 44px;
-			font-weight: normal;
-		}
-	}
-	h2{
-		font-size: 30px;
-		left: 37px;
-		top: 9px;
-		font-weight: normal;
-	}
-}
-
-.v-product{
-	img{
-		width: 100%;
-		height: 420px;
-	}
-
-	.product-list{
-		margin-top: 24px;
-		overflow: hidden;
-
-		li{
-			position: #{$pr};
-			float: #{$fl};
-			width: 580px;
-			height: 280px;
-			background-color: #{$c3};
-			color: #000;
-			font-weight: normal;
-			letter-spacing: 2px;
-			padding-top: 10px;
-			padding-bottom: 10px;
-			&.first{
-				margin-right: 29px;
-			}
-
-			h3,span{
-				position: #{$pa};
-				left: 396px;
-			}
+		div{
+			display: inline-block;
+			width: 460px;
+		    vertical-align: top;
+		    margin-left: 30px;
 			h3{
-				top: 40px;
+				margin-bottom: 30px;
+    			margin-top: 30px;
+				text-align: center;
+				font-size: 18px;
 			}
-			.brand{
-				top: 80px;
-			}
-			.price{
-				top: 110px;
+			p{
+				line-height: 24px;
+				font-size: 14px;
 			}
 		}
-
-		img{
-			width: 313px;
-			height: 100%;
-			margin-left: 10px;
-		}
-	}
-}
-.v-news{
-	img{
-		width: 610px;
-		height: 360px;
 	}
 	ul{
-		float: #{$fr};
-		width: 530px;
-		color: #121212;
+		overflow: hidden;
 		li{
-			position: #{$pr};
-			padding-left: 20px;
-			border-left: 3px solid #{$c2};
-			margin-bottom: 30px;
+			width: 343px;
+			padding: 20px;
+			float: left;
+			margin-right: 20px;
+			margin-bottom: 20px;
+			color: #1a1a1a;
+			background-color: #fff;
+			&.last{
+				margin-right: 0;
+			}
+			img{
+				width: 100%;
+				height: 200px;
+			}
+			h3{
+				font-size: 18px;
+				font-weight: normal;
+				text-align: center;
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+
+			p{
+				font-size: 14px;
+				line-height: 20px;
+				height: 50px;
+			}
 		}
-		h3{
-			font-size: 24px;
-			font-weight: normal;
-		}
-		p{
-			margin-top: 24px;
-			font-size: 16px;
-			height: 48px;
-			line-height: 24px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			width: 100%;
-		}
-		a{
-			position: #{$pa};
-			right: 0;
-			top: 10px;
-			color: #{$c2};
-		}
-	}
-}
-.v-about{
-	h3{
-		text-align: center;
-		color: #{$c2};
-		font-size: 30px;
-	}
-	p{
-		padding: 30px;
-		line-height: 24px;
-		color: #999;
 	}
 }

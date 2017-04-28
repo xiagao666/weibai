@@ -6,17 +6,41 @@
 } %}
 {%block css%}
 {{ super() }}
-<link rel="stylesheet" type="text/css" href="/index/css/main.css"/>
-<link rel="stylesheet" type="text/css" href="/lib/swiper/2.7.6/css/idangerous.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="/tech/css/main.css"/>
 {%endblock%}
 {%block content%}
     {% include "www/assets/src/common/_swiper.html" %}
-    {% include "www/assets/src/index/tmpl/_product.html" %}
-    {% include "www/assets/src/index/tmpl/_news.html" %}
-    {% include "www/assets/src/index/tmpl/_about.html" %}
+    <div class="v-content v-pTitle">
+    	<h2>代理品牌<span>Technical services</span></h2>
+    </div>
+    <div class="v-content v-pTech">
+    	<div class="pTech-special">
+			<img src="/brand/img/a.jpg" alt=""/>
+			<div>
+				<h3>北京伯尔迈生物技术有限公司</h3>
+				<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+			</div>
+		</div>
+    	<ul>
+    		<li>
+    			<img src="/brand/img/a.jpg" alt=""/>
+    			<h3>北京伯尔迈生物技术有限公司</h3>
+    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+    		</li>
+    		<li>
+    			<img src="/brand/img/a.jpg" alt=""/>
+    			<h3>北京伯尔迈生物技术有限公司</h3>
+    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+    		</li>
+    		<li class="last">
+    			<img src="/brand/img/a.jpg" alt=""/>
+    			<h3>北京伯尔迈生物技术有限公司</h3>
+    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+    		</li>
+    	</ul>
+    </div>
 {%endblock%}
 {%block js%}
 {{ super() }}
-<script type="text/javascript" src="/lib/swiper/2.7.6/js/idangerous.swiper.min.js"></script>
-<script type="text/javascript" src="/index/js/index.js"></script>
+<script type="text/javascript" src="/tech/js/main.js"></script>
 {%endblock%}

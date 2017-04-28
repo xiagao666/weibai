@@ -22,7 +22,7 @@ class index_main extends STpl
         $news = $dbCms->queryNews($condition,1,3," create_date desc ");
         $params["indexImages"] = $images;
         $params["indexNews"] = $news;*/
-        return $this->render("product/index.html", $params);
+        return $this->render("index/index.html", $params);
     }
 
     /**
@@ -33,7 +33,7 @@ class index_main extends STpl
         $dbCms = new core_db_Cms();
         $rs = $dbCms->queryNews($condition);
         $params["brands"] = $rs;
-        return $this->render("index/brand.html", $params);
+        return $this->render("brand/index.html", $params);
     }
 
     /**
@@ -44,7 +44,7 @@ class index_main extends STpl
         $dbCms = new core_db_Cms();
         $rs = $dbCms->queryNews($condition);
         $params["techs"] = $rs;
-        return $this->render("index/tech.html", $params);
+        return $this->render("tech/index.html", $params);
     }
     /**
      * 关于唯佰
@@ -54,7 +54,7 @@ class index_main extends STpl
         $dbCms = new core_db_Cms();
         $rs = $dbCms->queryNews($condition);
         $params["about"] = $rs;
-        return $this->render("index/about.html", $params);
+        return $this->render("about/index.html", $params);
     }
     /**
      * 联系我们
@@ -64,7 +64,7 @@ class index_main extends STpl
         $dbCms = new core_db_Cms();
         $rs = $dbCms->queryNews($condition);
         $params["contact"] = $rs;
-        return $this->render("index/contact.html", $params);
+        return $this->render("contact/index.html", $params);
     }
 
 }
