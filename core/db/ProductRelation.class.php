@@ -146,7 +146,6 @@ class core_db_ProductRelation extends core_db_DbBase {
             if ($productRelations === false || $productRelations['total'] <= 0) {
                 throw new Exception("查询失败或无相关文件");
             }
-
             $this->useConfig("common","main");
             $productRS = $this->deleteData(array('product_id'=>$productId));
             if($productRS === false) {

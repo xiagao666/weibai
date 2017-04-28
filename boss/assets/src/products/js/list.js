@@ -11,6 +11,15 @@ var Product = {
         var t = this;
         $(document).on("change", "#JcategoryParent", function() {
             t.updateChildCategory();
+        }).on("click", "#delProduct", function () {
+            var $this = $(this);
+            Modal.confirm({
+                "id": "Jconfirm",
+                "content": "确定要删除此产品？",
+                "callback": function() {
+                    t.deleteProduct($this.data("id"));
+                }
+            });
         });
     },
     postData: function(config) {
@@ -72,6 +81,36 @@ var Product = {
                 "categoryId": parentCategoryId
             },
             callback: t.updateChildOption
+        });
+    },
+    deleteProduct: function (productId) {
+        var t = this;
+        t.postData({
+            url: "/product/delproduct",
+            type: "post",
+            data: {
+                "productId": productId,
+                "json": 1
+            },
+            callback: function(res) {
+                if (res.status == "success") {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "content": res.msg,
+                        "type": "success",
+                        "callback": function() {
+                            window.location.reload();
+                        }
+                    });
+                } else {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "type": "error",
+                        "content": res.msg,
+                        "callback": function() {}
+                    });
+                }
+            }
         });
     }
 };

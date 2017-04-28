@@ -5,6 +5,7 @@ body {
   min-width: 1180px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  background: #eee url("/common/img/bg.jpg") no-repeat center;
 }
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   margin: 0;
@@ -19,57 +20,176 @@ ul,li{
 // Variables
 @import "variable.scss";
 
+.#{$space}hide{
+	display: none;
+}
 .#{$space}content{
-	width: 1180px;
+	width: 1190px;
 	margin: 0 auto;
 }
 // header
 .#{$space}header{
-	border-bottom: 2px solid #{$c2};
+	width: 100%;
+	height: 80px;
+	background-color: #{$c3};
+	.header-cover{
+		position: #{$pa};
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		// opacity: .6;
+		// filter: alpha(opacity=60);
+		background-color: #{$c3};
+	}
 	.#{$space}content{
-		height: 128px;
+		height: 100%;
 		position: #{$pr};
 	}
 	.header-logo{
 		position: #{$pa};
 		left: 0;
-		bottom: 0;
+		bottom: 4px;
 		display: block;
-		width: 240px;
-		height: 120px;
+		width: 170px;
+		height: 70px;
 		img{
 			width: 100%;
+			height: 100%;
 		}
 	}
 	.header-nav{
 		position: #{$pa};
-		bottom: 6px;
+		bottom: 0px;
 		right: 30px;
-		overflow: #{$oh};
 	}
 	.nav-item{
+		position: #{$pr};
 		float: #{$fl};
-		height: 42px;
-		line-height: 42px;
-		a{
-			padding: 0 30px;
-			border-right: 1px solid #ccc;
+		&.active .item-arrow{
+			border-width: 0 6px 6px 6px;
+			border-color: transparent transparent #{$c2};
+		}
+		> a{
+			display: block;
+			padding: 30px;
 			font-size: #{$f14};
-			color: #{$c1};
-			&:hover{
-				color: #{$c2};
+			color: #{$c2};
+		}
+		.item-arrow{
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 6px 6px 0 6px;
+			border-color: #{$c2} transparent transparent;
+			position: absolute;
+			bottom: 15px;
+			left: 50%;
+			margin-left: -6px;
+			transition: all .3s;
+		}
+		ul{
+			position: #{$pa};
+			z-index: 3;
+			background-color: #{$c3};
+			top: 80px;
+			padding: 18px;
+			width: 300px;
+			a{
+				color:#191919;
+			}
+			li{
+				overflow: #{$oh};
+				margin-bottom: 10px;
+				padding-bottom: 10px;
+    			border-bottom: 1px solid #{$c2};
+			}
+			.item-child{
+				display: #{$dib};
+				font-size: #{$f16};
+				float: #{$fl};
+
+				&.left{
+					width: 30%;
+				}
+
+				&.right{
+					width: 70%;
+					a{
+						display: #{$dib};
+						margin-right: 8px;
+					}
+				}
 			}
 		}
 	}
 }
+// search
+.#{$space}search{
+	position: #{$pa};
+	top: 60%;
+	left: 50%;
+	margin-left: -340px;
+	width: 680px;
+	height: 56px;
+	opacity: .6;
+	filter: alpha(opacity=60);
+	background-color: #{$c3};
+	.search-text{
+		font-size: 18px;
+		width: 538px;
+		height: 100%;
+		text-indent: 20px;
+		color: #999;
+		border: none;
+	}
+	.search-button{
+		position: #{$pa};
+		right: 0;
+		top: 0;
+		width: 142px;
+		height: 100%;
+		font-size: 24px;
+		color:#{$c3};
+		background-color: #{$c2};
+		border: none;
+	}
+}
 // footer
 .#{$space}footer{
-	border-top: 2px solid #{$c2};
-	padding: 20px 0;
-	ul{
-		float: #{$fr};
-		li{
-			float: #{$fl};
+	height: 260px;
+	background-color: #{$c2};
+	color: #{$c3};
+	font-size: 16px;
+	.v-content{
+		position: #{$pr};
+		ul{
+			position: #{$pa};
+		}
+		.footer-info{
+			left: 60px;
+			top: 30px;
+			li{
+				margin-bottom: 15px;
+			}
+		}
+		.footer-list{
+			right: -30px;
+			top: 50px;
+			li{
+				float: #{$fl};
+				text-align: center;
+				margin-right: 70px;
+				h3{
+					font-size: 20px;
+					font-weight: normal;
+					padding: 0 5px 6px;
+					border-bottom: 2px solid #{$c3};
+				}
+				p{
+					margin-top: 10px;
+				}
+			}
 		}
 	}
 }

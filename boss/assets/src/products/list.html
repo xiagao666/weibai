@@ -114,6 +114,7 @@
 						{foreach $columns as $key => $item}
 						<th>{$item}</th>
 						{/foreach}
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -141,6 +142,14 @@
 							<td>{$item['molecular_formula']}</td>
 							<td>{$item['molecular_weight']}</td>
 							<td>{$item['grade']}</td>
+							<td>
+								<a href="" class="Joperate btn blue common-btn">
+									<i class="icon-edit"></i>编辑
+								</a>
+								<button data-id="{$item['id']}" id="delProduct" class="Jdelete btn red common-btn" type="button">
+									<i class="icon-trash"></i>删除
+								</button>
+							</td>
 						</tr>
 					{/foreach}
 				{/if}
@@ -148,7 +157,6 @@
 			</table>
 			{% include "boss/assets/src/common/pagebar.html" %}
 		</div>
-
 	</div>
 </div>
 {%endblock%}
@@ -156,6 +164,7 @@
 <script type="text/javascript" src="/lib/js/select2.min.js"></script>
 <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
+<script type="text/javascript" src="/common/js/modal.js"></script>
 <script type="text/javascript" src="/lib/js/tableList.js"></script>
 <script type="text/javascript" src="/common/js/table.js"></script>
 <script type="text/javascript" src="/products/js/list.js"></script>
