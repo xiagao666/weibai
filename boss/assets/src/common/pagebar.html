@@ -7,8 +7,8 @@
     <div class="span6">
         <div class="dataTables_paginate paging_bootstrap pagination">
             <ul>
-                <li class="prev {if $prePage == 1}disabled{/if}">
-                    <a href="{if $prePage == 1}javascript:;{else}{$prePageUrl}{/if}">
+                <li class="prev {if $prePage < 1}disabled{/if}">
+                    <a href="{if $prePage < 1}javascript:;{else}{$prePageUrl}{/if}">
                         ← <span class="hidden-480">上一页</span>
                     </a>
                 </li>
