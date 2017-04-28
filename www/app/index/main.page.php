@@ -22,7 +22,7 @@ class index_main extends STpl
         $news = $dbCms->queryNews($condition,1,3," create_date desc ");
         $params["indexImages"] = $images;
         $params["indexNews"] = $news;*/
-        return $this->render("index/index.html", $params);
+        return $this->render("product/index.html", $params);
     }
 
     /**
