@@ -64,18 +64,25 @@ class index_cms extends index_base
      */
     public function pageTech($inPath)
     {
+        $searchKey = isset($_GET['searchKey']) ? trim(core_lib_Comm::getStr($_GET['searchKey'])) : '';
+        $searchValue = isset($_GET['searchVal']) ? trim(core_lib_Comm::getStr($_GET['searchVal'])) : '';
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
+
         $dbCms = new core_db_Cms();
-        $condition = " type=3 ";
-        $searchKey = $_GET['searchKey'];
-        $searchValue = $_GET['searchVal'];
-        if(!empty($searchKey) && !empty($searchValue)) {
-            $condition = $condition." and ".$searchKey." like '%".$searchValue."%'";
+
+        $query['type'] = 3;//技术服务
+        if ($searchKey && $searchValue) {
+            $query[] = " `{$searchKey}` like '%{$searchValue}%' ";
         }
-        $rs = $dbCms->queryNews($condition, 1, 20, "");
-        $param["cmsData"] = $rs->items;
-        $param['searchKey'] = $searchKey;
-        $param['searchVal'] = $searchValue;
-        return $this->render("/tech/list.html", $param);
+        $newsList = $dbCms->queryNews($query, $limit, $page);
+
+        $this->pageBar($newsList['total'], $limit, $page, '/cms/news');
+
+        $this->_params['searchKey'] = $searchKey;
+        $this->_params['searchVal'] = $searchValue;
+        $this->_params['cmsData'] = $newsList['data'];
+        return $this->render("tech/list.html", $this->_params);
     }
 
     /**
@@ -183,6 +190,9 @@ class index_cms extends index_base
                 break;
             case 2://代理品牌
                 $tpl = "brand/action.html";
+                break;
+            case 3://技术服务
+                $tpl = "tech/action.html";
                 break;
         }
 

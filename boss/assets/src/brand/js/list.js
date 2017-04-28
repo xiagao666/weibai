@@ -68,7 +68,7 @@ var Brand = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": "删除失败，请稍后重试！",
+                        "content": res.msg,
                         "callback": function(){}
                     });
                 }

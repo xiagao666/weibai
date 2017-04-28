@@ -32,14 +32,14 @@
 					<select name="searchKey">
 						<option value="0">请选择查询条件</option>
 						{if "title" == $searchKey}
-						<option value="title" selected="selected">技术服务</option>
+						<option value="title" selected="selected">技术服务名称</option>
 						{else}
-						<option value="title">技术服务</option>
+						<option value="title">技术服务名称</option>
 						{/if}
 						{if "des" == $searchKey}
-						<option value="des" selected="selected">简述</option>
+						<option value="des" selected="selected">技术服务描述</option>
 						{else}
-						<option value="des">简述</option>
+						<option value="des">技术服务描述</option>
 						{/if}
 					</select>
 				</div>
@@ -49,16 +49,18 @@
 		            </button>
 		        </div>
 		        <div class="product-item">
-		        	<button id="addNews" class="btn blue" type="button"><i class="icon-plus"></i>添加服务</button>
+					<a href="/cms/action?type=3" class="btn blue"><i class="icon-plus"></i>添加技术服务</a>
 		        </div>
 			</form>
 			<table class="table table-striped table-bordered table-hover table-full-width">
 				<thead>
 					<tr>
 						<th>序号</th>
-						<th>技术服务名</th>
-						<th>描述</th>
+						<th>技术服务名称</th>
+						<th>技术服务描述</th>
 						<th>链接地址</th>
+						<th>排序</th>
+						<th>技术服务图片</th>
 						<th>创建时间</th>
 						<th>最后更新时间</th>
 						<th>操作</th>
@@ -72,10 +74,12 @@
 							<td>{$item[title]}</td>
 							<td>{$item[des]}</td>
 							<td>{$item[hyperlink]}</td>
+							<td>{$item[sort]}</td>
+							<td>{$item[img_url]}</td>
 							<td>{$item[create_date]}</td>
 							<td>{$item[last_update_date]}</td>
 							<td>
-								<buttton class="Jedit btn purple common-btn" data-id="{$item[id]}" type="button"><i class="icon-edit"></i>编 辑</buttton>
+								<a href="/cms/action?type=3&cmsId={$item['id']}&isEdit=1" class="btn purple common-btn"><i class="icon-edit"></i>编 辑</a>
 								<buttton class="Jdelete btn red common-btn" data-id="{$item[id]}" type="button"><i class="icon-trash"></i>删 除</buttton>
 							</td>
 						</tr>
@@ -84,72 +88,6 @@
 				</tbody>
 			</table>
 			{% include "boss/assets/src/common/pagebar.html" %}
-		</div>
-
-	</div>
-	<div id="techForm" class="row-fluid hide">
-		<div class="span12">
-			<!-- BEGIN SAMPLE FORM PORTLET-->
-			<div class="portlet box blue">
-				<div class="portlet-title v-product">
-					<div class="caption"><i class="icon-reorder"></i>添加技术服务</div>
-				</div>
-
-				<div class="portlet-body form">
-					<!-- BEGIN FORM-->
-					<form id="Jnewform" action="#" class="form-horizontal">
-						<input type="hidden" name="cmsType" value="3" />
-						<input type="hidden" name="json" value="1" />
-						<input id="cmsId" name="cmsId" type="hidden" value=""/>
-						<div class="control-group">
-							<label class="control-label">技术服务名</label>
-							<div class="controls">
-								<input id="cmsTitle" name="title" type="text" class="span6 m-wrap" />
-							</div>
-
-						</div>
-						<div class="control-group">
-
-							<label class="control-label">简述</label>
-
-							<div class="controls">
-
-								<textarea id="cmsDes" name="des" class="span6 m-wrap" rows="3"></textarea>
-
-							</div>
-
-						</div>
-						<div class="control-group">
-
-							<label class="control-label">链接地址</label>
-
-							<div class="controls">
-
-								<input id="cmsUrl" name="hyperlink" type="text" class="span6 m-wrap" />
-
-
-							</div>
-
-						</div>
-
-						<div class="form-actions">
-
-							<button id="saveEdit" type="button" class="btn blue"><i class="icon-save"></i>保存</button>
-
-							<button id="cancelEdit" type="button" class="btn"><i class=" icon-remove"></i>取消</button>
-
-						</div>
-
-					</form>
-
-					<!-- END FORM-->
-
-				</div>
-
-			</div>
-
-			<!-- END SAMPLE FORM PORTLET-->
-
 		</div>
 
 	</div>
