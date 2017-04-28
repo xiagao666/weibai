@@ -49,13 +49,13 @@ class index_cms extends index_base
         if ($searchKey && $searchValue) {
             $query[] = " `{$searchKey}` like '%{$searchValue}%' ";
         }
-        $newsList = $dbCms->queryNews($query, $limit, $page);
+        $brandList = $dbCms->queryNews($query, $limit, $page);
 
-        $this->pageBar($newsList['total'], $limit, $page, '/cms/news');
+        $this->pageBar($brandList['total'], $limit, $page, '/cms/news');
 
         $this->_params['searchKey'] = $searchKey;
         $this->_params['searchVal'] = $searchValue;
-        $this->_params['cmsData'] = $newsList['data'];
+        $this->_params['cmsData'] = $brandList['data'];
         return $this->render("brand/list.html", $this->_params);
     }
 
@@ -75,13 +75,13 @@ class index_cms extends index_base
         if ($searchKey && $searchValue) {
             $query[] = " `{$searchKey}` like '%{$searchValue}%' ";
         }
-        $newsList = $dbCms->queryNews($query, $limit, $page);
+        $techList = $dbCms->queryNews($query, $limit, $page);
 
-        $this->pageBar($newsList['total'], $limit, $page, '/cms/news');
+        $this->pageBar($techList['total'], $limit, $page, '/cms/news');
 
         $this->_params['searchKey'] = $searchKey;
         $this->_params['searchVal'] = $searchValue;
-        $this->_params['cmsData'] = $newsList['data'];
+        $this->_params['cmsData'] = $techList['data'];
         return $this->render("tech/list.html", $this->_params);
     }
 
@@ -91,10 +91,16 @@ class index_cms extends index_base
     public function pageAbout($inPath)
     {
         $dbCms = new core_db_Cms();
-        $condition["type"] = 4;
-        $rs = $dbCms->getOneCms($condition);
-        $param["cmsData"] = $rs;
-        return $this->render("/about/list.html", $param);
+
+        $query['type'] = 4;//关于唯佰
+        $about = $dbCms->queryNews($query, 1, 1);
+        if (is_array($about['data'][0])) {
+            $isEdit = 1;
+        }
+        $this->_params['about'] = $about['data'][0];
+        $this->_params['type'] = 4;
+        $this->_params['isEdit'] = $isEdit;
+        return $this->render("about/action.html", $this->_params);
     }
 
     /**
@@ -193,6 +199,9 @@ class index_cms extends index_base
                 break;
             case 3://技术服务
                 $tpl = "tech/action.html";
+                break;
+            case 4://关于我们
+                $tpl = "about/action.html";
                 break;
         }
 

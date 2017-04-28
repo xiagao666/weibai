@@ -60,7 +60,7 @@ class core_db_Cms extends core_db_DbBase
             unset($query['isDesc']);
             $orderby = '';
             switch ($sort) {
-                case 1://新闻ID
+                case 1://CmsID
                     $orderby .= "id";
                     break;
                 case 2://排序 越大越在前面
@@ -180,7 +180,7 @@ class core_db_Cms extends core_db_DbBase
             1 => '公司新闻',
             2 => '代理品牌',
             3 => '技术服务',
-            4 => '关于我们',
+            4 => '关于唯佰',
             5 => '联系我们',
             6 => '首页图片',
             7 => '导航',
