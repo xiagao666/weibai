@@ -311,10 +311,10 @@ secondCur: "list"
                             <label class="control-label">是否促销</label>
                             <div class="controls">
                                 <label class="radio">
-                                    <input type="radio" name="isSale" value="1" checked="{if $product['is_sale']}checked{/if}" />是
+                                    <input class="radio-action" type="radio" name="isSale" value="1" checked="{if $product['is_sale']}checked{/if}" />是
                                 </label>
                                 <label class="radio">
-                                    <input type="radio" name="isSale" value="0" checked="{if $product['is_sale'] != 1}checked{/if}" />否
+                                    <input class="radio-action" type="radio" name="isSale" value="0" checked="{if $product['is_sale'] != 1}checked{/if}" />否
                                 </label>
                             </div>
                         </div>
@@ -327,7 +327,7 @@ secondCur: "list"
                 <h3 class="form-section">上传图片／附件</h3>
                 <!--产品图片 BEGIN-->
                 <div class="control-group">
-                    <div class="row fileupload-buttonbar">
+                    <div class="fileupload-buttonbar-new">
                         <div class="col-lg-7">
                             <!-- The fileinput-button span is used to style the file input field as button -->
                             <span class="btn btn-success fileinput-button">

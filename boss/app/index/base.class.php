@@ -30,7 +30,7 @@ class index_base extends STpl
         }
 
         //获取来源
-        $referer = $_REQUEST['referer'] ? $_REQUEST['referer'] : (string)$_SERVER['HTTP_REFERER'];
+        $referer = isset($_REQUEST['referer']) ? $_REQUEST['referer'] : (string)$_SERVER['HTTP_REFERER'];
         if (preg_match('/' . preg_quote(BOSS_URL . '/sign', '/') . '/', $referer)
             || !preg_match('/' . preg_quote(BOSS_URL, '/') . '/', $referer)) {
             $referer = '/';
@@ -60,7 +60,6 @@ class index_base extends STpl
         $currPage = min($totalPage, $currPage);
         $currPage = $currPage ? $currPage : 1;
         $prePage = $currPage - 1;
-        $prePage = $prePage ? $prePage : 1;
         $nextPage = $currPage >= $totalPage ? '' : $currPage + 1;
 
         $pageStart = max(min($currPage - 2, $totalPage - PAGE_SIZE), 1);
@@ -94,10 +93,12 @@ class index_base extends STpl
         $this->_params['currPage'] = $currPage;
         $this->_params['totalPage'] = $totalPage;
         $this->_params['limit'] = $limit;
+        $queryRow['page'] = $prePage;
         $this->_params['prePage'] = $prePage;
-        $this->_params['prePageUrl'] = $queryStr ? $url."&page=".$prePage : "?page=".$prePage;
+        $this->_params['prePageUrl'] = $url."?".http_build_query($queryRow);
+        $queryRow['page'] = $nextPage;
         $this->_params['nextPage'] = $nextPage;
-        $this->_params['nextPageUrl'] = $queryStr ? $url."&page=".$nextPage : "?page=".$nextPage;
+        $this->_params['nextPageUrl'] = $url."?".http_build_query($queryRow);
     }
 
     public function __destruct()
