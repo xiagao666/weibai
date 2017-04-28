@@ -2,26 +2,11 @@ var Brand = {
     wangEditor: null,
     init: function() {
         this.bind();
-        //this.intWangEditor();
-        $("#brandForm").hide();
-
-    },
-    intWangEditor: function() {
-        var t = this;
-        t.wangEditor = new wangEditor('editor-trigger');
-        // 上传图片
-        t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
-        t.wangEditor.config.uploadImgFileName = 'upfile';
-        t.wangEditor.create();
     },
     bind: function() {
         var t = this;
         $(document).on("click", ".Jedit", function() {
             t.showEditForm($(this).data("id"));
-        }).on("click", "#cancelEdit", function() {
-            $("#brandForm").hide();
-        }).on("click", "#saveEdit", function() {
-            t.saveEditFormData();
         }).on("click", ".Jdelete", function() {
             var $this = $(this);
             Modal.confirm({
@@ -61,67 +46,6 @@ var Brand = {
             console.error(e);
         }
     },
-    showEditForm: function(id) {
-        var t = Brand;
-        var param = {
-            cmsId: id,
-            json:1
-        };
-        var config = {
-            url: '/cms/GetOneById',
-            data: param,
-            callback: t.setEditFormData
-        };
-        t.postData(config);
-    },
-    setEditFormData: function(rs) {
-        var t = Brand;
-        if (rs == null) {
-            return;
-        }
-        var data = rs.data;
-        $("#cmsId").val(data["id"]);
-        $("#cmsTitle").val(data["title"]);
-        $("#cmsDes").val(data["des"]);
-        $("#cmsUrl").val(data["hyperlink"]);
-        //t.wangEditor.$txt.html(rs["content"]);
-        $("#brandForm").show();
-    },
-    saveEditFormData: function() {
-        var t = this,
-            id = $("#cmsId").val(),
-            //wEditorText = Brand.wangEditor.$txt.html(),
-            urlData = '/cms/add';
-
-        if (id > 0) {
-            urlData = '/cms/update';
-        }
-
-        t.postData({
-            url: urlData,
-            data: $("#Jnewform").serialize(),
-            type: "post",
-            callback: function(res) {
-                if (res.status == "success") {
-                    Modal.alert({
-                        "id": "Jalert",
-                        "content": "操作成功！",
-                        "type": "success",
-                        "callback": function() {
-                            window.location.reload();
-                        }
-                    });
-                } else {
-                    Modal.alert({
-                        "id": "Jalert",
-                        "type": "error",
-                        "content": "操作失败，请稍后重试！",
-                        "callback": function(){}
-                    });
-                }
-            }
-        });
-    },
     deleteOne: function(id) {
         this.postData({
             url: '/cms/delete',
@@ -150,15 +74,6 @@ var Brand = {
                 }
             }
         });
-    },
-    showAddForm: function() {
-        $("#brandForm").show();
-        $(':input', '#brandForm')
-            .not(':button, :submit, :reset, :hidden')
-            .val('')
-            .removeAttr('checked')
-            .removeAttr('selected');
-        //this.wangEditor.$txt.html('<p><br></p>');
     }
 };
 

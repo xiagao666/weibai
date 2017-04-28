@@ -12,8 +12,8 @@ class index_cms extends index_base
      */
     public function pageNews($inPath)
     {
-        $searchKey = isset($_GET['searchKey']) ? core_lib_Comm::getStr($_GET['searchKey']) : '';
-        $searchValue = isset($_GET['searchVal']) ? core_lib_Comm::getStr($_GET['searchVal']) : '';
+        $searchKey = isset($_GET['searchKey']) ? trim(core_lib_Comm::getStr($_GET['searchKey'])) : '';
+        $searchValue = isset($_GET['searchVal']) ? trim(core_lib_Comm::getStr($_GET['searchVal'])) : '';
         $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
         $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
 
@@ -38,18 +38,25 @@ class index_cms extends index_base
      */
     public function pageBrand($inPath)
     {
+        $searchKey = isset($_GET['searchKey']) ? trim(core_lib_Comm::getStr($_GET['searchKey'])) : '';
+        $searchValue = isset($_GET['searchVal']) ? trim(core_lib_Comm::getStr($_GET['searchVal'])) : '';
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
+
         $dbCms = new core_db_Cms();
-        $condition = " type=2 ";
-        $searchKey = $_GET['searchKey'];
-        $searchValue = $_GET['searchVal'];
-        if(!empty($searchKey) && !empty($searchValue)) {
-            $condition = $condition." and ".$searchKey." like '%".$searchValue."%'";
+
+        $query['type'] = 2;//代理品牌
+        if ($searchKey && $searchValue) {
+            $query[] = " `{$searchKey}` like '%{$searchValue}%' ";
         }
-        $rs = $dbCms->queryNews($condition, 1, 20, "");
-        $param["cmsData"] = $rs->items;
-        $param['searchKey'] = $searchKey;
-        $param['searchVal'] = $searchValue;
-        return $this->render("/brand/list.html", $param);
+        $newsList = $dbCms->queryNews($query, $limit, $page);
+
+        $this->pageBar($newsList['total'], $limit, $page, '/cms/news');
+
+        $this->_params['searchKey'] = $searchKey;
+        $this->_params['searchVal'] = $searchValue;
+        $this->_params['cmsData'] = $newsList['data'];
+        return $this->render("brand/list.html", $this->_params);
     }
 
     /**
@@ -111,55 +118,6 @@ class index_cms extends index_base
     }
 
     /**
-     * 更新cms信息
-     */
-    public function pageUpdate($inPath)
-    {
-        $dbCms = new core_db_Cms();
-        $condition["id"] = $_REQUEST["cmsId"];
-        $item["title"] = isset($_REQUEST['title']) ? core_lib_Comm::getStr($_REQUEST['title']) : '';//ID;
-        $item["des"] = isset($_REQUEST['des']) ? core_lib_Comm::getStr($_REQUEST['des']) : '';
-        //$item["img_url"] = $_REQUEST["imgUrl"];
-        //$item["content"] = $_REQUEST["content"];
-        $item["hyperlink"] = isset($_REQUEST['hyperlink']) ? core_lib_Comm::getStr($_REQUEST['hyperlink']) : '';
-        $item["last_update_date"] = date("y-m-d H:i:s", time());
-        $item["content"] = $_REQUEST['content'];
-        $rs = $dbCms->updateOneNews($condition, $item);
-        if ($rs) {
-            $params = array("status"=>"success","msg"=>"更新新闻成功！");
-        } else {
-            $params = array("status"=>"error","msg"=>"更新新闻失败，请稍后重试！");
-        }
-        return $this->alert($params);
-    }
-
-    /**
-     * 删除内容
-     */
-    public function pageDelete($inPath)
-    {
-        $cmsId = isset($_REQUEST['cmsId']) ? core_lib_Comm::getStr($_REQUEST['cmsId'], 'int') : 0;// 内容ID
-
-        if (!$cmsId) {
-            return $this->alert(array('status'=>'error','msg'=>"缺少内容ID"));
-        }
-        $dbCms = new core_db_Cms();
-        $cmsInfo = $dbCms->getCmsById($cmsId);
-        if ($cmsInfo === false) {
-            return $this->alert(array('status'=>'error','msg'=>"删除数据不存在"));
-        }
-        $typeName = $dbCms->getTypeNameByType($cmsInfo['type']);
-
-
-        $rs = $dbCms->deleteCmsById($cmsId);
-        core_lib_Comm::p($rs);
-        if ($rs === false) {
-            return $this->alert(array("status"=>"error","msg"=>"删除{$typeName}失败！"));
-        }
-        return $this->alert(array("status"=>"success","msg"=>"删除{$typeName}成功"));
-    }
-
-    /**
      * 添加CMS内容
      * @param $inPath
      * @return string|voi
@@ -194,6 +152,8 @@ class index_cms extends index_base
             $hyperlink = isset($_POST['hyperlink']) ? core_lib_Comm::getStr($_POST['hyperlink']) : 0;//链接
             $sort = isset($_POST['sort']) ? core_lib_Comm::getStr($_POST['sort'], 'int') : 0;//排序
 
+            //@todo 判断那些是必填
+
             $typeName = $dbCms->getTypeNameByType($type);
             $data["title"] = $title;
             $data["des"] = $des;
@@ -221,13 +181,41 @@ class index_cms extends index_base
             case 1://新闻
                 $tpl = "news/action.html";
                 break;
-
+            case 2://代理品牌
+                $tpl = "brand/action.html";
+                break;
         }
 
         $this->_params['type'] = $type;
         $this->_params['cmsId'] = $cmsId;
         $this->_params['isEdit'] = $isEdit;
         return $this->render($tpl, $this->_params);
+    }
+
+    /**
+     * 删除内容
+     */
+    public function pageDelete($inPath)
+    {
+        $cmsId = isset($_REQUEST['cmsId']) ? core_lib_Comm::getStr($_REQUEST['cmsId'], 'int') : 0;// 内容ID
+
+        if (!$cmsId) {
+            return $this->alert(array('status'=>'error','msg'=>"缺少内容ID"));
+        }
+        $dbCms = new core_db_Cms();
+        $cmsInfo = $dbCms->getCmsById($cmsId);
+        if ($cmsInfo === false) {
+            return $this->alert(array('status'=>'error','msg'=>"删除数据不存在"));
+        }
+        $typeName = $dbCms->getTypeNameByType($cmsInfo['type']);
+
+
+        $rs = $dbCms->deleteCmsById($cmsId);
+        core_lib_Comm::p($rs);
+        if ($rs === false) {
+            return $this->alert(array("status"=>"error","msg"=>"删除{$typeName}失败！"));
+        }
+        return $this->alert(array("status"=>"success","msg"=>"删除{$typeName}成功"));
     }
 
 
