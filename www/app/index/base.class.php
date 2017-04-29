@@ -14,6 +14,7 @@ class index_base extends STpl
         $this->_dbCms = new core_db_Cms();
         $this->getLogo();//logo设置
         $this->getNav();//导航
+        $this->getRollImg();//轮播图片
     }
 
     /**
@@ -39,8 +40,16 @@ class index_base extends STpl
     }
 
     /**
-     * 首页轮播图
+     * 轮播图
      */
+    public function getRollImg()
+    {
+        $query['type'] = 6;
+        $query['sort'] = 2;//sort 排序
+        $query['isDesc'] = 2;//倒序
+        $rolls = $this->_dbCms->queryNews($query, 6, 1);
+        $this->_params['rollList'] = $rolls['data'];
+    }
 
     /**
      * 分页
