@@ -49,7 +49,7 @@ class core_db_Product extends core_db_DbBase
      * @param $orderBy
      * @return bool
      */
-    public function queryProductList($query, $orderBy = array("id" => "desc"), $limit = 10, $page = 0)
+    public function queryProductList($query, $orderBy = array("id" => "desc"), $limit = 10, $page = 1)
     {
         try {
             $this->useConfig("common", "query");
