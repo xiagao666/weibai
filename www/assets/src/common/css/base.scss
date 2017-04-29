@@ -38,8 +38,6 @@ ul,li{
 		top: 0;
 		height: 100%;
 		width: 100%;
-		// opacity: .6;
-		// filter: alpha(opacity=60);
 		background-color: #{$c3};
 	}
 	.#{$space}content{
@@ -66,9 +64,15 @@ ul,li{
 	.nav-item{
 		position: #{$pr};
 		float: #{$fl};
-		&.active .item-arrow{
-			border-width: 0 6px 6px 6px;
-			border-color: transparent transparent #{$c2};
+		&.active{
+			background-color: #{$c2};
+			> a{
+				color: #{$c3};
+			}
+			.item-arrow{
+				border-width: 0 6px 6px 6px;
+				border-color: transparent transparent #{$c2};
+			}
 		}
 		> a{
 			display: block;
