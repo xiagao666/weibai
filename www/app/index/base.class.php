@@ -15,6 +15,7 @@ class index_base extends STpl
         $this->getLogo();//logo设置
         $this->getNav();//导航
         $this->getRollImg();//轮播图片
+        $this->getCategorys();//分类
     }
 
     /**
@@ -49,6 +50,27 @@ class index_base extends STpl
         $query['isDesc'] = 2;//倒序
         $rolls = $this->_dbCms->queryNews($query, 6, 1);
         $this->_params['rollList'] = $rolls['data'];
+    }
+
+    /**
+     * 产品分类
+     */
+    public function getCategorys()
+    {
+        $dbCategory = new core_db_Category();
+        $parentCategorys = $dbCategory->queryAllCategory(array("pid"=>0), 10000, 1);
+        if (is_array($parentCategorys['items'])) {
+            foreach ( $parentCategorys['items'] as $cpk => $cpv ) {
+                $categoryList[$cpv['id']] = $cpv;
+            }
+        }
+        $categorys = $dbCategory->queryAllCategory(array("pid > 0"), 10000, 1);
+        if (is_array($categorys['items'])) {
+            foreach ($categorys['items'] as $ck => $cv) {
+                $categoryList[$cv['pid']]['son'][$cv['id']] = $cv;
+            }
+        }
+        $this->_params['categoryList'] = $categoryList;
     }
 
     /**

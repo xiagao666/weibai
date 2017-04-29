@@ -14,13 +14,6 @@ class index_main extends index_base
     {
         $this->getNewest();//最新新闻
         $this->getSaleImg();//产品促销大图
-        /*$condition["type"] = 6;
-        $dbCms = new core_db_Cms();
-        $images = $dbCms->queryNews($condition, 1, 3);
-        $condition["type"] = 1;
-        $news = $dbCms->queryNews($condition,1,3," create_date desc ");
-        $params["indexImages"] = $images;
-        $params["indexNews"] = $news;*/
         return $this->render("index/index.html", $this->_params);
     }
 

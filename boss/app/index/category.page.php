@@ -21,19 +21,19 @@ class index_category extends index_base
         $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
         $pCondition['pid'] = 0;
         $pCategorys = $dbCategory->queryAllCategory($pCondition, CATEGORY_SEL_NUM, 0);
-
         if($pCategoryId == 0) {
-            $params['categoryData'] = $pCategorys['items'];
+            $this->_params['categoryData'] = $pCategorys['items'];
             $this->pageBar($pCategorys['total'], $limit, $page, '/category/list');
         }else{
             $query['pid'] = $pCategoryId;
             $categorys = $dbCategory->queryAllCategory($query,CATEGORY_SEL_NUM, 0);
             $this->pageBar($categorys['total'], $limit, $page, '/category/list');
-            $params['categoryData'] = $categorys['items'];
+            $this->_params['categoryData'] = $categorys['items'];
         }
-        $params['pCategorys'] = $pCategorys['items'];
-        $params['parentCategoryId'] = $pCategoryId;
-        return $this->render("/category/list.html", $params);
+
+        $this->_params['pCategorys'] = $pCategorys['items'];
+        $this->_params['parentCategoryId'] = $pCategoryId;
+        return $this->render("/category/list.html", $this->_params);
     }
 
     /**
@@ -111,7 +111,8 @@ class index_category extends index_base
      */
     public function pageGetOneCategoryById($inPath){
         $categoryId = isset($_GET['categoryId']) ? core_lib_Comm::getStr($_GET['categoryId'], 'int') : 0;//分类ID
-        if(!categoryId){
+        $pCategoryId = isset($_GET['pCategoryId']) ? core_lib_Comm::getStr($_GET['pCategoryId'], 'int') : 0;//父分类ID
+        if(!$categoryId){
             return $this->alert(array('status'=>'error','msg'=>"类目ID异常！"));
         }
         $dbCategory = new core_db_Category();
@@ -120,6 +121,7 @@ class index_category extends index_base
         $pCategorys = $dbCategory->queryAllCategory($pCondition, CATEGORY_SEL_NUM, 0);
         $params['pCategorys'] = $pCategorys['items'];
         $params['category'] = $rs;
+        $params['pCategoryId'] = $pCategoryId;
         return $this->alert(array('status'=>'success','msg'=>"查询成功！",'data'=>$params));
     }
 
@@ -140,5 +142,6 @@ class index_category extends index_base
             }
             return $this->alert(array('status'=>'error','msg'=>"删除失败，".$dbCategory->getError("msg")));
         }
+        return $this->alert(array('status'=>'error','msg'=>"请求错误"));
     }
 }

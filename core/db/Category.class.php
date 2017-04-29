@@ -148,17 +148,17 @@ class core_db_Category extends core_db_DbBase
             if (!$categoryId) {
                 throw new Exception("缺少必要参数", 10001);
             }
-            $this->useConfig("common", "query");
+
             $category = $this->getCategoryById($categoryId);
-            core_lib_Comm::p($category);
             if ($category === false) {
                 throw new Exception("删除的分类不存在无需删除", 10001);
             }
             $categorys = $this->queryAllCategory(array("pid"=>$categoryId), CATEGORY_SEL_NUM, 0);
-            core_lib_Comm::p($categorys);
             if ($categorys['total']) {
                 throw new Exception("删除的分类存在子分类，需要把", 10001);
             }
+
+            $this->useConfig("common", "main");
             $delRS = $this->deleteData(array('id'=>$categoryId));
             if ($delRS === false) {
                 throw new Exception("删除的分类失败,".$delRS);
