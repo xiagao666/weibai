@@ -185,6 +185,8 @@ class core_db_Cms extends core_db_DbBase
             6 => '首页图片',
             7 => '导航',
             8 => '整站logo',
+            9 => '首页-产品促销-大图',
+            10 => '首页-新闻资讯-左图',
         );
         if ($type) {
             return $types[$type];
