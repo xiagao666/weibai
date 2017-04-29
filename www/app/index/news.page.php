@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * 新闻相关
+ */
+class index_news extends index_base
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * 新闻列表
+     */
+    public function pageIndex()
+    {
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $limit = 1;
+        $query['type'] = 1;
+        $query['sort'] = 2;//sort 排序
+        $query['isDesc'] = 2;//倒序
+        $newsList = $this->_dbCms->queryNews($query, $limit, $page);
+
+        if ($newsList['data']) {
+            foreach ($newsList['data'] as $nek => $nev) {
+                $newsList['data'][$nek]['createYmd'] = date("[m/d] Y", strtotime($nev['create_date']));
+            }
+        }
+
+        $this->_params['newsList'] = $newsList['data'];
+//        return $this->render("news/list.html", $this->_params);
+    }
+
+    /**
+     * 新闻详情页
+     */
+    public function pageDetail()
+    {
+        $id = isset($_GET['id']) ? core_lib_Comm::getStr($_GET["id"], 'int') : 1;
+        if (!$id) {
+            return $this->alert(array("status"=>"error", "msg"=>"缺少必要参数"));
+        }
+        $newsInfo = $this->_dbCms->getCmsById($id);
+        $this->_params['news'] = $newsInfo;
+//        return $this->render("news/detail.html", $this->_params);
+    }
+}
