@@ -143,7 +143,7 @@ class index_cms extends index_base
         if ($type) {
             $query['type'] = $type;
         } else {
-            $query[] = "type in (6,7,8)";
+            $query[] = "type in (6,7,8,9,10)";
         }
         $techList = $dbCms->queryNews($query, $limit, $page);
 

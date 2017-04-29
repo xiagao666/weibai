@@ -7,16 +7,13 @@ class index_main extends index_base
         parent::__construct();
     }
 
-    function __destruct()
-    {
-    }
-
     /**
      * 首页
      */
     public function pageIndex($inPath)
     {
         $this->getNewest();//最新新闻
+        $this->getSaleImg();//产品促销大图
         /*$condition["type"] = 6;
         $dbCms = new core_db_Cms();
         $images = $dbCms->queryNews($condition, 1, 3);
@@ -118,4 +115,27 @@ class index_main extends index_base
         $this->_params['newsList'] = $newsList['data'];
     }
 
+    /**
+     * 首页-产品促销-大图
+     */
+    public function getSaleImg()
+    {
+        $query['type'] = 9;
+        $query['sort'] = 2;//sort 排序
+        $query['isDesc'] = 2;//倒序
+        $sales = $this->_dbCms->queryNews($query, 1, 1);
+        $this->_params['saleImg'] = $sales['data'][0];
+    }
+
+    /**
+     * 首页-新闻资讯-左图
+     */
+    public function getNewsLeftImg()
+    {
+        $query['type'] = 10;
+        $query['sort'] = 2;//sort 排序
+        $query['isDesc'] = 2;//倒序
+        $leftImgs = $this->_dbCms->queryNews($query, 1, 1);
+        $this->_params['leftImg'] = $leftImgs['data'][0];
+    }
 }
