@@ -1,8 +1,8 @@
 {% extends "www/assets/src/common/_layout.html" %}
 {% set page={
-    title : "测试首页",
-    keywords : "测试首页",
-    description : "测试首页"
+    title : "关于唯佰-唯佰生物科技有限公司",
+    keywords : "关于唯佰-唯佰生物科技有限公司",
+    description : "关于唯佰-唯佰生物科技有限公司"
 } %}
 {%block css%}
 {{ super() }}
@@ -11,6 +11,7 @@
 {%endblock%}
 {%block content%}
     {% include "www/assets/src/common/_swiper.html" %}
+    {$about['content']}
 {%endblock%}
 {%block js%}
 {{ super() }}

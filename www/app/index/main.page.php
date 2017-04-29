@@ -69,11 +69,17 @@ class index_main extends index_base
      */
     public function pageAbout($inPath)
     {
-        $condition["type"] = 4;
+        $query["type"] = 4;
+        $query['sort'] = 2;//sort 排序
+        $query['isDesc'] = 2;//倒序
         $dbCms = new core_db_Cms();
-        $rs = $dbCms->queryNews($condition);
-        $params["about"] = $rs;
-        return $this->render("about/index.html", $params);
+        $abouts = $dbCms->queryNews($query, 1, 1);
+
+        $about = $abouts['data'][0];
+
+        $this->_params['about'] = $about;
+        $this->_params['currNav'] = "about";
+        return $this->render("about/index.html", $this->_params);
     }
 
     /**
@@ -81,11 +87,17 @@ class index_main extends index_base
      */
     public function pageContact($inPath)
     {
-        $condition["type"] = 5;
+        $query["type"] = 5;
+        $query['sort'] = 2;//sort 排序
+        $query['isDesc'] = 2;//倒序
         $dbCms = new core_db_Cms();
-        $rs = $dbCms->queryNews($condition);
-        $params["contact"] = $rs;
-        return $this->render("contact/index.html", $params);
+        $contacts = $dbCms->queryNews($query, 1, 1);
+
+        $contact = $contacts['data'][0];
+
+        $this->_params['contact'] = $contact;
+        $this->_params['currNav'] = "contact";
+        return $this->render("contact/index.html", $this->_params);
     }
 
     /**
