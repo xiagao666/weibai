@@ -125,17 +125,9 @@ class index_cms extends index_base
      * 针对于通用的cms 比如首页滚动图
      * cms管理相关
      */
-    public function pageOther($inPath){
-        /*$dbCms = new core_db_Cms();
-        if($_GET['cmsType'] == 0){
-            $condition = "type in (6)";
-        }else{
-            $condition['type'] = $_GET['cmsType'];
-        }
-        $rs = $dbCms->queryNews($condition, 1, 20, "");
-        $param["cmsData"] = $rs->items;
-        $param['cmsType'] = $_GET['cmsType'];*/
-        $type = isset($_GET['type']) ? core_lib_Comm::getStr($_GET["type"], 'int') : 10;
+    public function pageOther($inPath)
+    {
+        $type = isset($_GET['type']) ? core_lib_Comm::getStr($_GET["type"], 'int') : 0;
         $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
         $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
 
@@ -146,13 +138,16 @@ class index_cms extends index_base
         unset($typeNames[2]);
         unset($typeNames[3]);
         unset($typeNames[4]);
-        core_lib_Comm::p($typeNames);
+        unset($typeNames[5]);
 
-        $query['type'] = $type;//技术服务
+        if ($type) {
+            $query['type'] = $type;
+        } else {
+            $query[] = "type in (6,7,8)";
+        }
         $techList = $dbCms->queryNews($query, $limit, $page);
 
-        $this->pageBar($techList['total'], $limit, $page, '/cms/news');
-        var_dump($type);
+        $this->pageBar($techList['total'], $limit, $page, '/cms/other');
         $this->_params['type'] = $type;
         $this->_params['types'] = $typeNames;
         $this->_params['cmsData'] = $techList['data'];
@@ -195,7 +190,12 @@ class index_cms extends index_base
             $hyperlink = isset($_POST['hyperlink']) ? core_lib_Comm::getStr($_POST['hyperlink']) : 0;//链接
             $sort = isset($_POST['sort']) ? core_lib_Comm::getStr($_POST['sort'], 'int') : 0;//排序
 
-            //@todo 判断那些是必填
+            if (!$type) {
+                return $this->alert(array("status"=>"error", "msg"=>"缺少类型"));
+            }
+            if (!$title) {
+                return $this->alert(array("status"=>"error", "msg"=>"缺少标题"));
+            }
 
             $typeName = $typeNames[$type];
             $data["title"] = $title;
@@ -243,6 +243,7 @@ class index_cms extends index_base
             unset($typeNames[2]);
             unset($typeNames[3]);
             unset($typeNames[4]);
+            unset($typeNames[5]);
         }
 
         $this->_params['type'] = $type;
@@ -271,7 +272,6 @@ class index_cms extends index_base
 
 
         $rs = $dbCms->deleteCmsById($cmsId);
-        core_lib_Comm::p($rs);
         if ($rs === false) {
             return $this->alert(array("status"=>"error","msg"=>"删除{$typeName}失败！"));
         }

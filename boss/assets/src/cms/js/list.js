@@ -18,10 +18,6 @@ var Cms = {
         var t = this;
         $(document).on("click", ".Jedit", function() {
             t.showEditForm($(this).data("id"));
-        }).on("click", "#cancelEdit", function() {
-            $("#cmsForm").hide();
-        }).on("click", "#saveEdit", function() {
-            t.saveEditFormData();
         }).on("click", ".Jdelete", function() {
             var $this = $(this);
             Modal.confirm({
@@ -32,8 +28,6 @@ var Cms = {
                     t.deleteOne($this.data("id"));
                 }
             });
-        }).on("click", "#addNews", function() {
-            t.showAddForm();
         });
     },
     postData: function(config) {
@@ -61,67 +55,6 @@ var Cms = {
             console.error(e);
         }
     },
-    showEditForm: function(id) {
-        var t = Cms;
-        var param = {
-            cmsId: id,
-            json:1
-        };
-        var config = {
-            url: '/cms/GetOneById',
-            data: param,
-            callback: t.setEditFormData
-        };
-        t.postData(config);
-    },
-    setEditFormData: function(rs) {
-        var t = Cms;
-        if (rs == null) {
-            return;
-        }
-        var data = rs.data;
-        $("#cmsId").val(data["id"]);
-        $("#cmsTitle").val(data["title"]);
-        $("#cmsDes").val(data["des"]);
-        $("#cmsUrl").val(data["hyperlink"]);
-        //t.wangEditor.$txt.html(rs["content"]);
-        $("#cmsForm").show();
-    },
-    saveEditFormData: function() {
-        var t = this,
-            id = $("#cmsId").val(),
-            //wEditorText = Brand.wangEditor.$txt.html(),
-            urlData = '/cms/add';
-
-        if (id > 0) {
-            urlData = '/cms/update';
-        }
-
-        t.postData({
-            url: urlData,
-            data: $("#Jnewform").serialize(),
-            type: "post",
-            callback: function(res) {
-                if (res.status == "success") {
-                    Modal.alert({
-                        "id": "Jalert",
-                        "content": "操作成功！",
-                        "type": "success",
-                        "callback": function() {
-                            window.location.reload();
-                        }
-                    });
-                } else {
-                    Modal.alert({
-                        "id": "Jalert",
-                        "type": "error",
-                        "content": "操作失败，请稍后重试！",
-                        "callback": function(){}
-                    });
-                }
-            }
-        });
-    },
     deleteOne: function(id) {
         this.postData({
             url: '/cms/delete',
@@ -144,21 +77,12 @@ var Cms = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": "删除失败，请稍后重试！",
+                        "content": res.msg,
                         "callback": function(){}
                     });
                 }
             }
         });
-    },
-    showAddForm: function() {
-        $("#cmsForm").show();
-        $(':input', '#cmsForm')
-            .not(':button, :submit, :reset, :hidden')
-            .val('')
-            .removeAttr('checked')
-            .removeAttr('selected');
-        //this.wangEditor.$txt.html('<p><br></p>');
     }
 };
 
