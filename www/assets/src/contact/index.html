@@ -6,15 +6,18 @@
 } %}
 {%block css%}
 {{ super() }}
-<link rel="stylesheet" type="text/css" href="/index/css/main.css"/>
-<link rel="stylesheet" type="text/css" href="/lib/swiper/2.7.6/css/idangerous.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="/contact/css/main.css"/>
 {%endblock%}
 {%block content%}
     {% include "www/assets/src/common/_swiper.html" %}
-    {$contact['content']}
+    <div class="v-content v-pTitle">
+    	<h2>联系我们<span>Contact ours</span></h2>
+    </div>
+    <div class="v-content v-pContact">
+    	{$contact['content']}
+    </div>
 {%endblock%}
 {%block js%}
 {{ super() }}
-<script type="text/javascript" src="/lib/swiper/2.7.6/js/idangerous.swiper.min.js"></script>
-<script type="text/javascript" src="/index/js/index.js"></script>
+<script type="text/javascript" src="/contact/js/index.js"></script>
 {%endblock%}
