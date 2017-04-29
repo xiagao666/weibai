@@ -74,7 +74,6 @@ class core_db_Product extends core_db_DbBase
     public function updateProductById($data)
     {
         try {
-            core_lib_Comm::p($data);
             $product_id = $data['product_id'];
             unset($data['product_id']);
             if (empty($data) || !$product_id) {

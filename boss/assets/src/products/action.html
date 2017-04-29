@@ -280,20 +280,20 @@ secondCur: "list"
                         <div class="control-group">
                             <label class="control-label">类目</label>
                             <div class="controls">
-                                <select id="JcategoryParent" name="parentCategoryId">
+                                <select id="JcategoryParent" name="parentCategoryId" style="width:150px;">
                                     <option value="0">请选择一级类目</option>
                                     {foreach $pCategorys as $item}
-                                    {if $item[id] == $parentCategoryId}
-                                    <option value='{$item[id]}' selected="selected">{$item[name]}</option>
-                                    {else}
-                                    <option value='{$item[id]}'>{$item[name]}</option>
-                                    {/if}
+                                        {if $item[id] == $parentCategoryId}
+                                            <option value='{$item[id]}' selected="selected">{$item[name]}</option>
+                                        {else}
+                                            <option value='{$item[id]}'>{$item[name]}</option>
+                                        {/if}
                                     {/foreach}
                                 </select>
-                                <select id="JcategoryChild" name="childCategoryId">
+                                <select id="JcategoryChild" name="childCategoryId" style="width:150px;">
                                     <option value="0">请选择二级类目</option>
                                     {foreach $cCategorys as $item}
-                                    {if $item[id] == $childCategoryId}
+                                    {if $item[id] == $product[category_id]}
                                     <option value='{$item[id]}' selected="selected">{$item[name]}</option>
                                     {else}
                                     <option value='{$item[id]}'>{$item[name]}</option>
@@ -320,6 +320,19 @@ secondCur: "list"
                         </div>
                     </div>
                     <!--级别 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--排序 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">排序</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="sort" value="{$product['sort']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--排序 END-->
                 </div>
                 <!--基本信息 END-->
 
@@ -396,7 +409,8 @@ secondCur: "list"
                     <input type="hidden" name="isEdit" value="{$isEdit}">
                     <input type="hidden" name="productId" value="{$productId}">
                     <input type="hidden" name="json" value="1">
-                    <button type="button" class="btn blue" id="productSumbit">提交</button>
+                    <button type="button" class="btn blue" id="productSumbit" style="width: 150px;">提交</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn">取消</button>
                 </div>
             </form>

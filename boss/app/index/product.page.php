@@ -176,6 +176,15 @@ class index_product extends index_base
             $productDes = $dbProductDes->getProductDesByProductId($productId);//产品描述
             $productRelations = $dbProductRelation->queryProductRelationList(array('proudct_id'=>$productId), CATEGORY_SEL_NUM, 0);
 
+            if ($product['category_id']) {
+                $productCategory = $dbCategory->getCategoryById($product['category_id']);
+                $this->_params['parentCategoryId'] = $productCategory['pid'];
+                if ($productCategory['pid']) {
+                    $childCategorys = $dbCategory->queryAllCategory(array('pid'=>$productCategory['pid']), CATEGORY_SEL_NUM, 0);
+                    $this->_params['cCategorys'] = $childCategorys['items'];
+                }
+            }
+
             $this->_params['product'] = $product;
             $this->_params['productDes'] = $productDes;
             $this->_params['productRelationList'] = $productRelations['list'];
@@ -207,6 +216,7 @@ class index_product extends index_base
             $isSale = isset($_POST['isSale']) ? core_lib_Comm::getStr($_POST['isSale']) : '';//是否促销产品
             $categoryId = isset($_POST['childCategoryId']) ? core_lib_Comm::getStr($_POST['childCategoryId']) : '';//类目ID
             $productDes = isset($_POST['productDes']) ? core_lib_Comm::reMoveXss($_POST['productDes']) : '';//产品描述
+            $sort = isset($_POST['sort']) ? core_lib_Comm::reMoveXss($_POST['sort']) : '';//排序
 
             $productRelations = isset($_POST['productRelations']) ? core_lib_Comm::getStr($_POST['productRelations']) : '';//产品关联文件
             $productRelationsType = isset($_POST['productRelationsType']) ? core_lib_Comm::getStr($_POST['productRelationsType']) : '';//产品关联文件类型
@@ -240,6 +250,7 @@ class index_product extends index_base
             $data['img_url'] = $imgUrl;
             $data['is_sale'] = $isSale;
             $data['category_id'] = $categoryId;
+            $data['sort'] = $sort;
 
             if ($isEdit) {
                 $data['product_id'] = $productId;

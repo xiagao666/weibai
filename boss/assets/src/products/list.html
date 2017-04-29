@@ -142,8 +142,9 @@
 							<td>{$item['molecular_formula']}</td>
 							<td>{$item['molecular_weight']}</td>
 							<td>{$item['grade']}</td>
+							<td>{$item['sort']}</td>
 							<td>
-								<a href="" class="Joperate btn blue common-btn">
+								<a href="/product/action?productId={$item[id]}&isEdit=1" class="Joperate btn blue common-btn">
 									<i class="icon-edit"></i>编辑
 								</a>
 								<button data-id="{$item['id']}" id="delProduct" class="Jdelete btn red common-btn" type="button">
