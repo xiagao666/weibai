@@ -48,14 +48,19 @@ class index_main extends index_base
      */
     public function pageTech($inPath)
     {
-        $query["type"] = 2;
+        $query["type"] = 3;
         $query['sort'] = 2;//sort 排序
         $query['isDesc'] = 2;//倒序
         $dbCms = new core_db_Cms();
-        $brands = $dbCms->queryNews($query, 16, 1);
+        $techs = $dbCms->queryNews($query, 16, 1);
 
-        $this->_params['brands'] =$brands['data'];
-        $this->_params['currNav'] = "brand";
+        $techList = $techs['data'];
+        $bigTech = $techList[0];
+        unset($techList[0]);
+
+        $this->_params['techs'] = array_values($techList);
+        $this->_params['bigTech'] = $bigTech;
+        $this->_params['currNav'] = "tech";
         return $this->render("tech/index.html", $this->_params);
     }
 
