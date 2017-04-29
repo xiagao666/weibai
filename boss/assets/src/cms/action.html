@@ -1,0 +1,120 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+title : "唯佰科技管理后台-cms内容添加／编辑",
+keywords : "唯佰科技管理后台-cms内容添加／编辑",
+description : "唯佰科技管理后台-cms内容添加／编辑",
+barTitle: "cms内容添加／编辑",
+firstCur: "cms",
+secondCur: "other"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css"/>
+<link rel="stylesheet" href="/lib/css/DT_bootstrap.css"/>
+<link href="/lib/css/jquery.fileupload-ui.css" rel="stylesheet"/>
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h3 class="page-title">
+                唯佰科技管理后台
+                <small>{{ page.barTitle }}</small>
+            </h3>
+        </div>
+    </div>
+    <div id="JdataPanel" class="portlet box blue">
+        <div class="portlet-title v-product">
+            <div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
+        </div>
+        <div class="portlet-body">
+            <form action="/cms/action" class="form-horizontal" method="POST" id="cmsForm">
+                <!-- 类型 BEGIN-->
+                <div class="control-group">
+                    <label class="control-label">类型：</label>
+                    <div class="controls">
+                        <select name="type">
+                            <option value="0">请选择</option>
+                            {if $types}
+                            {foreach $types as $tk => $tv}
+                            {if $tk == $type}
+                            <option value="{$tk}" selected="selected">{$tv}</option>
+                            {else}
+                            <option value="{$tk}">{$tv}</option>
+                            {/if}
+                            {/foreach}
+                            {/if}
+                        </select>
+                    </div>
+                </div>
+                <!-- 类型 END-->
+
+                <!-- 标题 BEGIN-->
+                <div class="control-group">
+                    <label class="control-label">标题：</label>
+                    <div class="controls">
+                        <input id="title" name="title" class="span6 m-wrap" type="text" value="{$cms[title]}" />
+                    </div>
+                </div>
+                <!-- 标题 END-->
+
+                <!-- 链接地址 BEGIN-->
+                <div class="control-group">
+                    <label class="control-label">链接地址：</label>
+                    <div class="controls">
+                        <input id="hyperlink" name="hyperlink" class="span6 m-wrap" type="text" value="{$cms[hyperlink]}" />
+                    </div>
+                </div>
+                <!-- 链接地址 END-->
+
+                <!-- 图片 BEGIN-->
+                <div class="control-group">
+                    <label class="control-label">图片：</label>
+                    <div class="controls">
+                        <input id="imgUrl" name="imgUrl" class="span6 m-wrap" type="text" />
+                    </div>
+                </div>
+                <!-- 图片 BEGIN-->
+
+                <!-- 排序 BEGIN-->
+                <div class="control-group">
+                    <label class="control-label">排序：</label>
+                    <div class="controls">
+                        <input id="sort" name="sort" class="span6 m-wrap" type="text" value="{$cms[sort]}" />
+                    </div>
+                </div>
+                <!-- 排序 BEGIN-->
+
+                <!-- 描述 BEGIN-->
+                <div class="control-group">
+                    <label class="control-label">描述：</label>
+                    <div class="controls">
+                        <textarea id="des" name="des" class="span6 m-wrap" rows="3">{$cms[des]}</textarea>
+                    </div>
+                </div>
+                <!-- 描述 END-->
+
+                <div class="form-actions">
+                    <input type="hidden" name="isEdit" value="{$isEdit}">
+                    <input type="hidden" name="cmsId" value="{$cmsId}">
+                    <input type="hidden" name="json" value="1">
+                    <button type="button" class="btn blue" id="cmsSubmit" style="width: 150px;">提交</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn" style="width: 100px;">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
+{%block js%}
+<script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+<script type="text/javascript" src="/lib/js/select2.min.js"></script>
+<script src="/lib/js/jquery.ui.widget.js"></script>
+<script src="/lib/js/jquery.iframe-transport.js"></script>
+<script src="/lib/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/lib/js/tableList.js"></script>
+<script type="text/javascript" src="/common/js/table.js"></script>
+<script type="text/javascript" src="/common/js/modal.js"></script>
+<script type="text/javascript" src="/cms/js/action.js"></script>
+<script type="text/javascript" src="/common/js/upload.js"></script>
+{%endblock%}

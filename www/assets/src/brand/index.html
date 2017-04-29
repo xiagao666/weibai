@@ -1,8 +1,8 @@
 {% extends "www/assets/src/common/_layout.html" %}
 {% set page={
-    title : "测试首页",
-    keywords : "测试首页",
-    description : "测试首页"
+    title : "代理品牌-唯佰生物科技有限公司",
+    keywords : "代理品牌-唯佰生物科技有限公司",
+    description : "代理品牌-唯佰生物科技有限公司"
 } %}
 {%block css%}
 {{ super() }}
@@ -15,36 +15,15 @@
     </div>
     <div class="v-content v-pBrand">
     	<ul>
-    		<li>
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
-    		<li>
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
-    		<li class="last">
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
-    		<li>
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
-    		<li>
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
-    		<li class="last">
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
+			{if $brands}
+				{foreach $brands as $bk => $bv}
+					<li class="{if $bk%3 == 2}last{/if}">
+						<img src="{$bv['img_url']}" alt="{$bv['title']}"/>
+						<h3>{$bv['title']}</h3>
+						<p>{$bv['des']}</p>
+					</li>
+				{/foreach}
+			{/if}
     	</ul>
     </div>
 {%endblock%}

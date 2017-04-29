@@ -1,8 +1,8 @@
 {% extends "www/assets/src/common/_layout.html" %}
 {% set page={
-    title : "测试首页",
-    keywords : "测试首页",
-    description : "测试首页"
+    title : "技术服务-唯佰生物科技有限公司",
+    keywords : "技术服务-唯佰生物科技有限公司",
+    description : "技术服务-唯佰生物科技有限公司"
 } %}
 {%block css%}
 {{ super() }}
@@ -11,32 +11,26 @@
 {%block content%}
     {% include "www/assets/src/common/_swiper.html" %}
     <div class="v-content v-pTitle">
-    	<h2>代理品牌<span>Technical services</span></h2>
+    	<h2>技术服务<span>Technical services</span></h2>
     </div>
     <div class="v-content v-pTech">
     	<div class="pTech-special">
-			<img src="/brand/img/a.jpg" alt=""/>
+			<img src="{$bigTech['img_url']}" alt="{$bigTech['title']}"/>
 			<div>
-				<h3>北京伯尔迈生物技术有限公司</h3>
-				<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+				<h3>{$bigTech['title']}</h3>
+				<p>{$bigTech['des']}</p>
 			</div>
 		</div>
     	<ul>
-    		<li>
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
-    		<li>
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
-    		<li class="last">
-    			<img src="/brand/img/a.jpg" alt=""/>
-    			<h3>北京伯尔迈生物技术有限公司</h3>
-    			<p>啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌灌啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-    		</li>
+			{if techs}
+				{foreach $techs as $tk => $tv}
+				<li class="{if $tk%3 == 2}last{/if}">
+					<img src="{$bigTech['img_url']}" alt="{$bigTech['title']}"/>
+					<h3>{$bigTech['title']}</h3>
+					<p>{$bigTech['des']}</p>
+				</li>
+				{/foreach}
+			{/if}
     	</ul>
     </div>
 {%endblock%}

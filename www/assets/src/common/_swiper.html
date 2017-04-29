@@ -1,8 +1,10 @@
 <div class="swiper-container">
   <div class="swiper-wrapper">
-    <a class="swiper-slide"><img src="/index/img/a.jpg"/></a>
-    <a class="swiper-slide"><img src="/index/img/a.jpg"/></a>
-    <a class="swiper-slide"><img src="/index/img/a.jpg"/></a>
+    {if $rollList}
+      {foreach $rollList as $rk => $rv}
+        <a class="swiper-slide" href="{$rv['hyperlink']}"><img src="{$rv['img_url']}" title="{$rv['title']}"/></a>
+      {/foreach}
+    {/if}
   </div>
   <div class="swiper-pagination">
   </div>

@@ -1,32 +1,25 @@
+/**
+ * Created by ycp on 2017/4/13.
+ */
+
 var News = {
-    $newForm: null,
-    wangEditor: null,
-    $template: null,
     init: function() {
         this.bind();
+        this.initWangEditor();
     },
-    intWangEditor: function() {
+    initWangEditor: function() {
         var t = this;
-        t.wangEditor = new wangEditor('Jeditor');
+        t.wangEditor = new wangEditor('JeditorDes');
         // 上传图片
         t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
         t.wangEditor.config.uploadImgFileName = 'upfile';
         t.wangEditor.create();
     },
+    // 事件统一绑定
     bind: function() {
         var t = this;
-        // 删除记录
-        $(document).on("click", ".Jdelete", function() {
-            var $this = $(this);
-            Modal.confirm({
-                "id": "Jconfirm",
-                "content": "确定要删除该条新闻？",
-                "callback": function() {
-                    t.deleteNew($this.data("id"));
-                }
-            });
-            t.$template = $("#Jconfirm");
-            // 新增/编辑新闻
+        $(document).on("click", "#contactSubmit", function () {
+            t.postNewsData();
         });
     },
     postData: function(config) {
@@ -37,40 +30,33 @@ var News = {
                 data: config.data,
                 type: config.type || "get",
                 dataType: "json",
-                beforeSend: function() {
-                    App.blockUI(config.hObject);
-                },
+                beforeSend: function() {},
                 success: function(res) {
-                    if (config.callback != null) {
-                        config.callback(res);
-                    }
+                    config.callback(res);
                 },
                 error: function(res) {
 
                 },
-                complete: function() {
-                    App.unblockUI(config.hObject);
+                complete: function(res) {
+
                 }
             });
         } catch (e) {
             console.error(e);
         }
     },
-    // 删除新闻
-    deleteNew: function(id) {
-        var t = this;
+    postNewsData: function () {
+        var  t = this;
+        $contactForm = $("#contactForm");
         t.postData({
-            url: '/cms/delete',
-            data: {
-                "cmsId": id,
-                "json": 1
-            },
-            hObject: t.$template.find(".Jload"),
-            callback: function(res) {
+            url: "/cms/action",
+            type: "post",
+            data: $contactForm.serialize(),
+            "callback": function(res){
                 if (res.status == "success") {
                     Modal.alert({
                         "id": "Jalert",
-                        "content": "删除成功！",
+                        "content": res.msg,
                         "type": "success",
                         "callback": function() {
                             window.location.reload();
@@ -79,9 +65,10 @@ var News = {
                 } else {
                     Modal.alert({
                         "id": "Jalert",
-                        "type": "error",
                         "content": res.msg,
-                        "callback": function() {}
+                        "type": "error",
+                        "callback": function() {
+                        }
                     });
                 }
             }

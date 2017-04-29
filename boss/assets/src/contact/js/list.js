@@ -1,13 +1,12 @@
-var News = {
-    $newForm: null,
+var About = {
     wangEditor: null,
-    $template: null,
     init: function() {
         this.bind();
+        this.intWangEditor();
     },
     intWangEditor: function() {
         var t = this;
-        t.wangEditor = new wangEditor('Jeditor');
+        t.wangEditor = new wangEditor('editor-trigger-about');
         // 上传图片
         t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
         t.wangEditor.config.uploadImgFileName = 'upfile';
@@ -15,18 +14,10 @@ var News = {
     },
     bind: function() {
         var t = this;
-        // 删除记录
-        $(document).on("click", ".Jdelete", function() {
-            var $this = $(this);
-            Modal.confirm({
-                "id": "Jconfirm",
-                "content": "确定要删除该条新闻？",
-                "callback": function() {
-                    t.deleteNew($this.data("id"));
-                }
-            });
-            t.$template = $("#Jconfirm");
-            // 新增/编辑新闻
+        $(document).on("click", "#cancelEdit", function() {
+            t.resetForm();
+        }).on("click", "#saveEdit", function() {
+            t.saveEditFormData();
         });
     },
     postData: function(config) {
@@ -37,9 +28,7 @@ var News = {
                 data: config.data,
                 type: config.type || "get",
                 dataType: "json",
-                beforeSend: function() {
-                    App.blockUI(config.hObject);
-                },
+                beforeSend: function() {},
                 success: function(res) {
                     if (config.callback != null) {
                         config.callback(res);
@@ -48,29 +37,33 @@ var News = {
                 error: function(res) {
 
                 },
-                complete: function() {
-                    App.unblockUI(config.hObject);
+                complete: function(res) {
+
                 }
             });
         } catch (e) {
             console.error(e);
         }
     },
-    // 删除新闻
-    deleteNew: function(id) {
-        var t = this;
+    saveEditFormData: function() {
+        var t = this,
+            id = $("#cmsId").val(),
+            wEditorText = t.wangEditor.$txt.html(),
+            urlData = '/cms/add?content=' + wEditorText;
+
+        if (id > 0) {
+            urlData = '/cms/update?content=' + wEditorText;
+        }
+
         t.postData({
-            url: '/cms/delete',
-            data: {
-                "cmsId": id,
-                "json": 1
-            },
-            hObject: t.$template.find(".Jload"),
+            url: urlData,
+            data: $("#Jnewform").serialize(),
+            type: "post",
             callback: function(res) {
                 if (res.status == "success") {
                     Modal.alert({
                         "id": "Jalert",
-                        "content": "删除成功！",
+                        "content": "操作成功！",
                         "type": "success",
                         "callback": function() {
                             window.location.reload();
@@ -80,15 +73,27 @@ var News = {
                     Modal.alert({
                         "id": "Jalert",
                         "type": "error",
-                        "content": res.msg,
-                        "callback": function() {}
+                        "content": "操作失败，请稍后重试！",
+                        "callback": function(){}
                     });
                 }
             }
         });
+    },
+    refreshTable: function(rs) {
+        if (rs == null) {
+            alert("操作失败");
+        } else {
+            alert("操作成功");
+        }
+        window.location.reload();
+    },
+    resetForm:function () {
+        var t = this;
+        t.wangEditor.$txt.html('<p><br></p>');
     }
 };
 
 $(function() {
-    News.init();
+    About.init();
 });

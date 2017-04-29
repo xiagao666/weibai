@@ -1,8 +1,8 @@
 {% extends "www/assets/src/common/_layout.html" %}
 {% set page={
-    title : "测试首页",
-    keywords : "测试首页",
-    description : "测试首页"
+    title : "联系我们-唯佰生物科技有限公司",
+    keywords : "联系我们-唯佰生物科技有限公司",
+    description : "联系我们-唯佰生物科技有限公司"
 } %}
 {%block css%}
 {{ super() }}
@@ -13,7 +13,9 @@
     <div class="v-content v-pTitle">
     	<h2>联系我们<span>Contact ours</span></h2>
     </div>
-    <div class="v-content v-pContact"></div>
+    <div class="v-content v-pContact">
+    	{$contact['content']}
+    </div>
 {%endblock%}
 {%block js%}
 {{ super() }}
