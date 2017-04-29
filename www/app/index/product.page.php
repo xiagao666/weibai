@@ -3,14 +3,11 @@
 /**
  * 产品相关
  */
-class index_product extends STpl
+class index_product extends index_base
 {
-    function __construct()
+    public function __construct()
     {
-    }
-
-    function __destruct()
-    {
+        parent::__construct();
     }
 
     /**
@@ -18,28 +15,50 @@ class index_product extends STpl
      */
     public function pageIndex($inPath)
     {
-        //查询类目信息
-        $dbCategory = new core_db_Category();
-        $condition["pid"] = 0;
-        $rs = $dbCategory->queryAllCategory($condition);
-        $condition["pid"] != 0;
-        $rsItems = $dbCategory->queryAllCategory($condition);
-        foreach ($rs as $k => $item) {
-            foreach ($rsItems as $key => $rv) {
-                if ( $item['id'] == $rv['pid'] ) {
-                    $rs[$k]['son'][$key] = $rv;
-                }
-            }
-        }
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $key = isset($_GET['key']) ? core_lib_Comm::getStr($_GET["key"]) : '';
+        $limit = 1;
         //查询产品信息
         $dbProduct = new core_db_Product();
-        $productRs = $dbProduct->queryProductList("",1,20,"");
-        $param["categorys"] = $rs;
-        $param["products"] = $productRs;
-        return $this->render("index/product.html", $param);
+        if ($key) {
+            $query[] = "catalog_number like '%{$key}%' OR product like '%{$key}%' OR abbreviation like '%{$key}%' OR chinese_name like '%{$key}%' OR other_name like '%{$key}%'";
+        }
+        $products = $dbProduct->queryProductList($query, array("sort"=>"desc"), $limit, $page);
+        core_lib_Comm::p($products);
+        $this->pageBar($products['total'], $limit, $page, "/product/index");
+
+        $this->_params["productList"] = $products['list'];
+        return $this->render("product/list.html", $this->_params);
     }
 
-    //产品列表
+    /**
+     * 产品详情
+     */
+    public function pageDetail($inPath)
+    {
+        $id = isset($_GET['id']) ? core_lib_Comm::getStr($_GET["id"], 'int') : 0;
+        if (!$id) {
+            return $this->alert(array("status"=>"error", "msg"=>"缺少打开产品详情必要参数"));
+        }
+
+        $dbProduct = new core_db_Product();
+        $product = $dbProduct->getProductById($id);
+        core_lib_Comm::p($product);
+        if ($product === false) {
+            return $this->alert(array("status"=>"error", "msg"=>"打开的产品不存在"));
+        }
+
+        $dbProductDes = new core_db_ProductDes();
+        $productDes = $dbProductDes->getProductDesByProductId($id);
+        core_lib_Comm::p($productDes);
+        $this->_params["product"] = $product;
+        $this->_params["productDes"] = $productDes;
+        $this->render("product/detail.html", $this->_params);
+    }
+
+    /**
+     * 产品列表
+     */
     public function pageList($inPath) {
         $categoryIdList = $_GET["categoryIds"];//,各个子类目ID用，号隔开
         $categoryIds = explode(",", $categoryIdList);
@@ -53,21 +72,7 @@ class index_product extends STpl
         echo json_encode($productRs);
     }
 
-    /**
-     * 产品详情
-     */
-    public function pageDetail($inPath)
-    {
-        $productId = $_GET["productId"];
-        $dbProduct = new core_db_Product();
-        $condition["id"] = $productId;
-        $baseInfo = $dbProduct->getOne($condition);
-        $dbProductDes = new core_db_ProductDes();
-        $productDes = $dbProductDes->getOneProductDesByProductId($productId);
-        $param["baseInfo"] = $baseInfo;
-        $param["$productDes"] = $productDes;
-        $this->render("index/pdetail.html");
-    }
+
 
     /**
      * 文献、文章type=1/产品说明书type=2
