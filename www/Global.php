@@ -1,5 +1,7 @@
 <?php
 date_default_timezone_set("Asia/Shanghai");
+session_start();// 启动 Session
+setcookie(session_name(), session_id(), time() + 24 * 3600 * 30, "/");
 
 //{{{
 spl_autoload_register(function ($class) {

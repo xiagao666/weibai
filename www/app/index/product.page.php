@@ -27,15 +27,21 @@ class index_product extends index_base
         core_lib_Comm::p($products);
         $this->pageBar($products['total'], $limit, $page, "/product/index");
 
+        $dbViewHistory = new core_db_ViewHistory();
+        $query['uuid'] = $this->_productViewLogQid;
+        $views = $dbViewHistory->getViewHistorys($query);
+
         $this->_params["productList"] = $products['list'];
+        $this->_params["viewList"] = $views['data'];
         return $this->render("product/list.html", $this->_params);
     }
 
     /**
      * 产品详情
      */
-    public function pageDetail($inPath)
+    public function pageDetail()
     {
+        var_dump($this->_productViewLogQid);
         $id = isset($_GET['id']) ? core_lib_Comm::getStr($_GET["id"], 'int') : 0;
         if (!$id) {
             return $this->alert(array("status"=>"error", "msg"=>"缺少打开产品详情必要参数"));
@@ -50,6 +56,13 @@ class index_product extends index_base
 
         $dbProductDes = new core_db_ProductDes();
         $productDes = $dbProductDes->getProductDesByProductId($id);
+
+        //添加浏览记录
+        $viewData['uuid'] = $this->_productViewLogQid;
+        $viewData['product_id'] = $id;
+        $dbViewHistory = new core_db_ViewHistory();
+        $dbViewHistory->addViewHistory($viewData);
+
         core_lib_Comm::p($productDes);
         $this->_params["product"] = $product;
         $this->_params["productDes"] = $productDes;

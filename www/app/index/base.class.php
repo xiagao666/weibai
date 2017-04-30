@@ -8,6 +8,7 @@ class index_base extends STpl
 {
     public $_params;
     public $_dbCms;
+    public $_productViewLogQid;
 
     public function __construct()
     {
@@ -16,6 +17,7 @@ class index_base extends STpl
         $this->getNav();//导航
         $this->getRollImg();//轮播图片
         $this->getCategorys();//分类
+        $this->getProductViewLogQid();//浏览产品记录串
     }
 
     /**
@@ -71,6 +73,17 @@ class index_base extends STpl
             }
         }
         $this->_params['categoryList'] = $categoryList;
+    }
+
+    /**
+     * 产品浏览记录串
+     */
+    public function getProductViewLogQid()
+    {
+        $this->_productViewLogQid = $_SESSION['viewLog'];
+        if (!$this->_productViewLogQid) {
+            $_SESSION['viewLog'] = uniqid();
+        }
     }
 
     /**
