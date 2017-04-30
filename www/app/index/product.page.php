@@ -24,12 +24,28 @@ class index_product extends index_base
             $query[] = "catalog_number like '%{$key}%' OR product like '%{$key}%' OR abbreviation like '%{$key}%' OR chinese_name like '%{$key}%' OR other_name like '%{$key}%'";
         }
         $products = $dbProduct->queryProductList($query, array("sort"=>"desc"), $limit, $page);
-        core_lib_Comm::p($products);
         $this->pageBar($products['total'], $limit, $page, "/product/index");
 
         $dbViewHistory = new core_db_ViewHistory();
         $query['uuid'] = $this->_productViewLogQid;
         $views = $dbViewHistory->getViewHistorys($query);
+        $viewsProductIds = is_array($views['data']) ? array_column($views['data'], 'product_id') : '';
+        if (is_array($viewsProductIds)) {
+            $viewsProductIds = array_unique($viewsProductIds);
+            $viewProductQuery[] = "id in (".implode(",", $viewsProductIds).")";
+            $viewProducts = $dbProduct->queryProductList($viewProductQuery, "", count($viewsProductIds), 1);
+            if ($viewsProductIds) {
+                foreach ($viewsProductIds as $vk => $vv) {
+                    foreach ($viewProducts['list'] as $vpk => $vpv) {
+                        if ($vv == $vpv['id']) {
+                            $viewProductList[$vv] = $vpv;
+                            $viewProductList[$vv]['viewYmd'] = $views['data'][$vk]['create_time'];
+                        }
+                    }
+                }
+            }
+            core_lib_Comm::p($viewProductList);
+        }
 
         $this->_params["productList"] = $products['list'];
         $this->_params["viewList"] = $views['data'];
@@ -41,7 +57,6 @@ class index_product extends index_base
      */
     public function pageDetail()
     {
-        var_dump($this->_productViewLogQid);
         $id = isset($_GET['id']) ? core_lib_Comm::getStr($_GET["id"], 'int') : 0;
         if (!$id) {
             return $this->alert(array("status"=>"error", "msg"=>"缺少打开产品详情必要参数"));
@@ -56,6 +71,7 @@ class index_product extends index_base
 
         $dbProductDes = new core_db_ProductDes();
         $productDes = $dbProductDes->getProductDesByProductId($id);
+        core_lib_Comm::p($productDes);
 
         //添加浏览记录
         $viewData['uuid'] = $this->_productViewLogQid;
@@ -63,7 +79,6 @@ class index_product extends index_base
         $dbViewHistory = new core_db_ViewHistory();
         $dbViewHistory->addViewHistory($viewData);
 
-        core_lib_Comm::p($productDes);
         $this->_params["product"] = $product;
         $this->_params["productDes"] = $productDes;
         $this->render("product/detail.html", $this->_params);

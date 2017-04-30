@@ -28,7 +28,7 @@ class core_db_ViewHistory extends core_db_DbBase
             $query['uuid'] = $data['uuid'];
             $query['product_id'] = $data['product_id'];
             $views = $this->getViewHistorys($query, 1, 1);
-            if (strtotime($views['create_time']) - time() <= 30 * 60) {
+            if (time() - strtotime($views['data'][0]['create_time']) <= 30 * 60) {
                 throw new Exception("30分钟内浏览过");
             }
 
