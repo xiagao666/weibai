@@ -14,6 +14,7 @@ class index_main extends index_base
     {
         $this->getNewest();//最新新闻
         $this->getSaleImg();//产品促销大图
+        $this->getSaleProduct();//促销产品
         return $this->render("index/index.html", $this->_params);
     }
 
@@ -130,5 +131,17 @@ class index_main extends index_base
         $query['isDesc'] = 2;//倒序
         $leftImgs = $this->_dbCms->queryNews($query, 1, 1);
         $this->_params['leftImg'] = $leftImgs['data'][0];
+    }
+
+    /**
+     * 获取促销商品
+     */
+    public function getSaleProduct()
+    {
+        $query['is_sale'] = 1;
+        $dbProduct = new core_db_Product();
+        $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 2, 1);
+        $this->_params['saleProducts'] = $saleProducts['list'];
+        core_lib_Comm::p($saleProducts);
     }
 }
