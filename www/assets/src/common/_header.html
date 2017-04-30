@@ -12,11 +12,11 @@
                     {if $categoryList}
                         {foreach $categoryList as $clk => $clv}
                             <li>
-                                <a class="item-child left" href="/product/list?cid={$clv['id']}"><strong>{$clv['name']}</strong></a>
+                                <a class="item-child left" href="/product/index?pid={$clv['id']}"><strong>{$clv['name']}</strong></a>
                                 <div class="item-child right">
                                 {if $clv['son']}
                                     {foreach $clv['son'] as $csk => $csv}
-                                        <a href="/product/list?cid={$csv['id']}"><span>{$csv['name']}</span></a>
+                                        <a href="/product/index?pid={$csv['pid']}&cid={$csv['id']}"><span>{$csv['name']}</span></a>
                                     {/foreach}
                                 {/if}
                                 </div>

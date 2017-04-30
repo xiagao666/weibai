@@ -1,5 +1,17 @@
 <ul class="pProduct-content">
-	<li>
+
+	{if $productList}
+		{foreach $productList as $pk => $pv}
+			<li>
+				<a href="/product/detail?id={$pv['id']}"><img src="{$pv['img_url']}" alt="{$pv['product']}"/></a>
+				<a href="/product/detail?id={$pv['id']}" class="desc">{$pv['product']}</a>
+				<p>价格：{if $pv['price']}{$pv['price']}{else}面议{/if}</p>
+			</li>
+		{/foreach}
+	{/if}
+
+
+	<!--<li>
 		<img src="/product/img/a.jpg" alt=""/>
 		<p class="desc">胎牛血清04-001-1ACS</p>
 		<p>价格：面议</p>
@@ -28,10 +40,5 @@
 		<img src="/product/img/a.jpg" alt=""/>
 		<p class="desc">胎牛血清04-001-1ACS</p>
 		<p>价格：面议</p>
-	</li>
-	<li>
-		<img src="/product/img/a.jpg" alt=""/>
-		<p class="desc">胎牛血清04-001-1ACS</p>
-		<p>价格：面议</p>
-	</li>
+	</li>-->
 </ul>
