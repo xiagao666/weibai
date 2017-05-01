@@ -1,0 +1,24 @@
+{% extends "www/assets/src/common/_layout.html" %}
+{% set page={
+    title : "新闻列表-唯佰生物科技有限公司",
+    keywords : "列表-唯佰生物科技有限公司",
+    description : "新闻列表-唯佰生物科技有限公司"
+} %}
+{%block css%}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="/news/css/main.css"/>
+{%endblock%}
+{%block content%}
+    {% include "www/assets/src/common/_swiper.html" %}
+    <div class="v-content v-pTitle">
+    	<h2>新闻资讯<span>新闻列表</span></h2>
+    </div>
+    <div class="v-content v-pNews">
+    	{% include "www/assets/src/news/tmpl/_newslist.html" %}
+    </div>
+{%endblock%}
+{%block js%}
+{{ super() }}
+<script type="text/javascript" src="/common/js/page.js"></script>
+<script type="text/javascript" src="/news/js/main.js"></script>
+{%endblock%}

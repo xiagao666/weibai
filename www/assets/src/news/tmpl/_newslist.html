@@ -1,0 +1,26 @@
+<ul class="pNews-content">
+    <li class="first">
+        <div class="newsImg"><img src="{$firstNews[img_url]}" alt="{$firstNews[title]}"/></div>
+        <div class="desc">
+            <a href="/news/detail?id={$firstNews[id]}" class="title">{$firstNews[title]}</a>
+            <p class="content">{$firstNews[des]}
+            </p>
+        </div>
+    </li>
+</ul>
+<ul class="pNews-list">
+    {if $newsList}
+        {foreach $newsList as $nk => $nv}
+        <li>
+            <a href="/news/detail?id={$nv[id]}">
+                <span class="title">{$nv[title]}</span>
+                <span class="desc">{$nv[des]}</span>
+                <span class="time">{$nv[createYmd]}</span>
+            </a>
+        </li>
+        {/foreach}
+    {/if}
+</ul>
+<input type="hidden" name="totalPage" value="{$totalPage}"/>
+<input type="hidden" name="currPage" value="{$page}"/>
+<div class="tcdPageCode"></div>

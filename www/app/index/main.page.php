@@ -142,6 +142,5 @@ class index_main extends index_base
         $dbProduct = new core_db_Product();
         $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 2, 1);
         $this->_params['saleProducts'] = $saleProducts['list'];
-        core_lib_Comm::p($saleProducts);
     }
 }
