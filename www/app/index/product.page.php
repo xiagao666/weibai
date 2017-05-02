@@ -18,11 +18,11 @@ class index_product extends index_base
         $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
         $key = isset($_GET['key']) ? core_lib_Comm::getStr($_GET["key"]) : '';
         $parentCategoryId = isset($_GET['pid']) ? core_lib_Comm::getStr($_GET["pid"]) : 0;//父级ID
-        $chidlCategoryId = isset($_GET['cid']) ? core_lib_Comm::getStr($_GET["cid"]) : 0;//子级ID
+        $childCategoryId = isset($_GET['cid']) ? core_lib_Comm::getStr($_GET["cid"]) : 0;//子级ID
         $limit = 3;
         //查询产品信息
         $dbProduct = new core_db_Product();
-        if ($parentCategoryId && !$chidlCategoryId) {
+        if ($parentCategoryId && !$childCategoryId) {
             $dbCategory = new core_db_Category();
             $categoryIds = $dbCategory->queryAllCategory(array('pid'=>$parentCategoryId), 1000, 1);
             $childCategoryIds = array_column($categoryIds['items'], 'id');
@@ -30,16 +30,16 @@ class index_product extends index_base
                 $query[] = "category_id in ".implode(",", $childCategoryIds);
             }
         }
-        if ($chidlCategoryId) {
-            $query['category_id'] = $chidlCategoryId;
+        if ($childCategoryId) {
+            $query['category_id'] = $childCategoryId;
         }
         if ($key) {
             $query[] = "catalog_number like '%{$key}%' OR product like '%{$key}%' OR abbreviation like '%{$key}%' OR chinese_name like '%{$key}%' OR other_name like '%{$key}%'";
         }
 
         $products = $dbProduct->queryProductList($query, array("sort"=>"desc"), $limit, $page);
-        core_lib_Comm::p($products);
-        $this->pageBar($products['total'], $limit, $page, "/product/index");
+//        core_lib_Comm::p($products);
+        $totalPage = ceil($products['total']/$limit);
 
         $dbViewHistory = new core_db_ViewHistory();
         $query['uuid'] = $this->_productViewLogQid;
@@ -59,12 +59,30 @@ class index_product extends index_base
                     }
                 }
             }
-            core_lib_Comm::p($viewProductList);
+//            core_lib_Comm::p($viewProductList);
         }
+
+        if ($key) {
+            $urlData['key'] = $key;
+        }
+        if ($parentCategoryId) {
+            $urlData['pid'] = $parentCategoryId;
+        }
+        if ($parentCategoryId) {
+            $urlData['cid'] = $childCategoryId;
+        }
+        $urlData['page'] = '';
+        $url = '/product/index?'.http_build_query($urlData);
 
         $this->_params["productList"] = $products['list'];
         $this->_params["pid"] = $parentCategoryId;
         $this->_params["viewList"] = $views['data'];
+        $this->_params["page"] = $page;
+        $this->_params["totalPage"] = $totalPage;
+        $this->_params["key"] = $key;
+        $this->_params["parentCategoryId"] = $parentCategoryId;
+        $this->_params["childCategoryId"] = $childCategoryId;
+        $this->_params["url"] = $url;
         return $this->render("product/index.html", $this->_params);
     }
 
