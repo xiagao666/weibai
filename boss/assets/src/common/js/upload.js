@@ -78,7 +78,7 @@ $(function() {
                     $(".fileinput-button").show();
                     $this.parent().parent().remove();
                 });
-                var link = "<img src='" + data.result.minUrl + "'><input type='hidden' name='imgUrl[]' value='" + data.result.bgUrl + "'>";
+                var link = "<img src='" + data.result.minUrl + "'><input type='hidden' name='imgUrl' value='" + data.result.bgUrl + "'>";
                 $(data.context.children()).append(link);
                 $(data.context.children()).append(closeBtn);
                 $(data.context).find("span").remove();
