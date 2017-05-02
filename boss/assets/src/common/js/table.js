@@ -1,7 +1,4 @@
 (function(){
-	// 框架初始化
-	App.init();
-
     // table初始化
     TableList.init({
         // 操作对象
