@@ -85,7 +85,7 @@
 			<!-- BEGIN SAMPLE FORM PORTLET-->
 			<div class="portlet box blue">
 				<div class="portlet-title v-product">
-					<div class="caption"><i class="icon-reorder"></i>添加类目</div>
+					<div class="caption"><i class="icon-reorder"></i>{if $parentCategoryId}添加二级类目{else}添加一级类目{/if}</div>
 				</div>
 
 				<div class="portlet-body form">
@@ -93,6 +93,7 @@
 					<form id="Jnewform" action="#" class="form-horizontal">
 						<input type="hidden" name="json" value="1" />
 						<input id="categoryId" name="categoryId" type="hidden" value=""/>
+						{if $parentCategoryId}
 						<div id ="JfpCategoryControl" class="control-group">
 							<label class="control-label">一级类目</label>
 							<div class="controls">
@@ -108,6 +109,7 @@
 							</select>
 							</div>
 						</div>
+						{/if}
 						<div class="control-group">
 							<label class="control-label">类目名</label>
 							<div class="controls">
@@ -127,19 +129,14 @@
 
 						</div>
 						<div class="control-group">
-
 							<label class="control-label">排序</label>
-
 							<div class="controls">
-
 								<input id="showSort" type="text" name="showSort" class="span6 m-wrap" />
-
 							</div>
-
 						</div>
 
 						<div class="form-actions">
-							<button id="saveEdit" type="button" class="btn blue"><i class="icon-save"></i>保存</button>
+							<button id="saveEdit" type="button" class="btn blue" style="width: 150px;"><i class="icon-save"></i>提交</button>&nbsp;&nbsp;
 							<button id="cancelEdit" type="button" class="btn"><i class=" icon-remove"></i>取消</button>
 						</div>
 

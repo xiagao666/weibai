@@ -42,27 +42,22 @@ class index_product extends index_base
                 }
             }
         }
-        $searchKey = $_GET['searchKey'];
-        $searchValue = $_GET['searchVal'];
+        $searchKey = isset($_GET['searchKey']) ? core_lib_Comm::getStr($_GET['searchKey']) : '';
+        $searchValue = isset($_GET['searchVal']) ? core_lib_Comm::getStr($_GET['searchVal']) : '';
         $query = "";
+        if($isSale < 2 && $isSale >= 0){
+            $query['is_sale'] = $isSale;
+        }
         if(!empty($searchKey) && !empty($searchValue)) {
-            $query = $searchKey." like '%".$searchValue."%'";
+            $query[] = $searchKey." like '%".$searchValue."%'";
         }
-        if(!empty($query)){
-            $query = $query." and ";
-        }
-        if($isSale < 2){
-            $query = $query."is_sale = ".$isSale;
-        }
+
         $searchCategoryStr = is_array($searchCategoryIds) ? implode(",", $searchCategoryIds) : '';
         if (is_array($searchCategoryIds)) {
-            if(!empty($query)){
-                $query = $query." and ";
-            }
-            $query = $query."category_id in ({$searchCategoryStr})";
+            $query[] = "category_id in ({$searchCategoryStr})";
         }
         $dbProduct = new core_db_Product();
-        $products = $dbProduct->queryProductList($query, $page, $limit, array("id" => "desc"));
+        $products = $dbProduct->queryProductList($query, array("id" => "desc"), $limit, $page);
 
         $this->pageBar($products['total'], $limit, $page, '/product/list');
 
@@ -166,7 +161,7 @@ class index_product extends index_base
         //查询一级类目
         $dbCategory = new core_db_Category();
         $categoryConditon = array("pid" => 0);
-        $pCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 0);
+        $pCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 1);
 
         if ($isEdit) {
             if (!$productId) {
@@ -174,13 +169,13 @@ class index_product extends index_base
             }
             $product = $dbProduct->getProductById($productId);//产品基础数据
             $productDes = $dbProductDes->getProductDesByProductId($productId);//产品描述
-            $productRelations = $dbProductRelation->queryProductRelationList(array('proudct_id'=>$productId), CATEGORY_SEL_NUM, 0);
+            $productRelations = $dbProductRelation->queryProductRelationList(array('product_id'=>$productId), CATEGORY_SEL_NUM, 1);
 
             if ($product['category_id']) {
                 $productCategory = $dbCategory->getCategoryById($product['category_id']);
                 $this->_params['parentCategoryId'] = $productCategory['pid'];
                 if ($productCategory['pid']) {
-                    $childCategorys = $dbCategory->queryAllCategory(array('pid'=>$productCategory['pid']), CATEGORY_SEL_NUM, 0);
+                    $childCategorys = $dbCategory->queryAllCategory(array('pid'=>$productCategory['pid']), CATEGORY_SEL_NUM, 1);
                     $this->_params['cCategorys'] = $childCategorys['items'];
                 }
             }
@@ -218,11 +213,8 @@ class index_product extends index_base
             $productDes = isset($_POST['productDes']) ? core_lib_Comm::reMoveXss($_POST['productDes']) : '';//产品描述
             $sort = isset($_POST['sort']) ? core_lib_Comm::reMoveXss($_POST['sort']) : '';//排序
 
-            $productRelations = isset($_POST['productRelations']) ? core_lib_Comm::getStr($_POST['productRelations']) : '';//产品关联文件
-            $productRelationsType = isset($_POST['productRelationsType']) ? core_lib_Comm::getStr($_POST['productRelationsType']) : '';//产品关联文件类型
             $productRelationsTitle = isset($_POST['productRelationsTitle']) ? core_lib_Comm::getStr($_POST['productRelationsTitle']) : '';//产品关联文件标题
             $productRelationsPath = isset($_POST['productRelationsPath']) ? core_lib_Comm::getStr($_POST['productRelationsPath']) : '';//产品关联文件路径
-
             if (!$catalogNumber || !$package) {
                 return $this->alert(array('status'=>'error','msg'=>"产品货号或包装不能为空"));
             }
@@ -247,7 +239,7 @@ class index_product extends index_base
             $data['molecular_formula'] = $molecularFormula;
             $data['molecular_weight'] = $molecularWeight;
             $data['grade'] = $grade;
-            $data['img_url'] = $imgUrl;
+            $data['img_url'] = $imgUrl[0];
             $data['is_sale'] = $isSale;
             $data['category_id'] = $categoryId;
             $data['sort'] = $sort;
@@ -269,15 +261,17 @@ class index_product extends index_base
                 }
 
                 //添加编辑管理关联文件
-                if ($productRelations) {
+                $dbProductRelation->deleteProductRelationByProductId($productId);
+                if (is_array($productRelationsPath)) {
                     //先删除
-                    $dbProductRelation->deleteProductRelationByProductId($productId);
-                    foreach ($productRelations as $prk => $prv) {
-                        $productRelationData['product_id'] = $productId;
-                        $productRelationData['type'] = $productRelationsType[$prk];
-                        $productRelationData['title'] = $productRelationsTitle[$prk];
-                        $productRelationData['download_url'] = $productRelationsPath[$prk];
-                        $dbProductRelation->addProductRelation($productRelationData);
+                    foreach ($productRelationsPath as $prk => $prv) {
+                        foreach ($prv as $cprk => $cprv) {
+                            $productRelationData['product_id'] = $productId;
+                            $productRelationData['type'] = $prk;
+                            $productRelationData['title'] = $productRelationsTitle[$prk][$cprk];
+                            $productRelationData['download_url'] = $cprv;
+                            $dbProductRelation->addProductRelation($productRelationData);
+                        }
                     }
                 }
                 return $this->alert(array('status'=>'success','msg'=>$msg."成功"));
@@ -298,12 +292,14 @@ class index_product extends index_base
 
                 //添加产品管理关联文件
                 if ($productRelations) {
-                    foreach ($productRelations as $prk => $prv) {
-                        $productRelationData['product_id'] = $productId;
-                        $productRelationData['type'] = $productRelationsType[$prk];
-                        $productRelationData['title'] = $productRelationsTitle[$prk];
-                        $productRelationData['download_url'] = $productRelationsPath[$prk];
-                        $dbProductRelation->addProductRelation($productRelationData);
+                    foreach ($productRelationsPath as $prk => $prv) {
+                        foreach ($prv as $cprk => $cprv) {
+                            $productRelationData['product_id'] = $productId;
+                            $productRelationData['type'] = $prk;
+                            $productRelationData['title'] = $productRelationsTitle[$prk][$cprk];
+                            $productRelationData['download_url'] = $cprv;
+                            $dbProductRelation->addProductRelation($productRelationData);
+                        }
                     }
                 }
             }

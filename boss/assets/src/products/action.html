@@ -194,7 +194,7 @@ secondCur: "list"
                         <div class="control-group">
                             <label class="control-label">反应种属</label>
                             <div class="controls">
-                                <input type="text" class="span6 m-wrap" name="raiseFrom" value="{$product['raise_from']}"/>
+                                <input type="text" class="span6 m-wrap" name="reactsWith" value="{$product['reacts_with']}"/>
                             </div>
                         </div>
                     </div>
@@ -310,10 +310,18 @@ secondCur: "list"
                             <label class="control-label">是否促销</label>
                             <div class="controls">
                                 <label class="radio">
-                                    <input class="radio-action" type="radio" name="isSale" value="1" checked="{if $product['is_sale']}checked{/if}" />是
+                                    {if $product['is_sale']}
+                                    <input class="radio-action" type="radio" name="isSale" value="1" checked="checked" />是
+                                    {else}
+                                    <input class="radio-action" type="radio" name="isSale" value="1" />是
+                                    {/if}
                                 </label>
                                 <label class="radio">
-                                    <input class="radio-action" type="radio" name="isSale" value="0" checked="{if $product['is_sale'] != 1}checked{/if}" />否
+                                    {if !$product['is_sale']}
+                                    <input class="radio-action" type="radio" name="isSale" value="0" checked />否
+                                    {else}
+                                    <input class="radio-action" type="radio" name="isSale" value="0" />否
+                                    {/if}
                                 </label>
                             </div>
                         </div>

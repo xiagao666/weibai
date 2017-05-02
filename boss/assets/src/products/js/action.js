@@ -154,7 +154,7 @@ var Action = {
                         var $this = $(this);
                         $this.parent().parent().remove();
                     });
-                    var link = "<input type='hidden' name='productRelationsPath["+data.linkType+"]' value='" + data.result.url + "'/>";
+                    var link = "<input type='hidden' name='productRelationsPath["+data.linkType+"][]' value='" + data.result.url + "'/><input type='hidden' name='productRelationsTitle["+data.linkType+"][]' value='" + data.result.name + "'/>";
                     $(data.context.children()).append(link);
                     $(data.context.children()).append(closeBtn);
                 }
