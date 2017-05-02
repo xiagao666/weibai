@@ -17,8 +17,8 @@ class index_upload extends index_base
     public function pageIndex($inPath)
     {
         $action = isset($_GET['action']) ? core_lib_Comm::getStr($_GET['action']) : '';//图片上传来源
-        $upfile = isset($_FILES['upfile']) ? $_FILES['upfile'] : '';
-        if (empty($upfile)) {
+        $upfiles = isset($_FILES['upfile']) ? $_FILES['upfile'] : '';
+        if (empty($upfiles)) {
             return $this->alert(array('status'=>'error','msg'=>"上传的信息不正确"));
         }
         $supload = new SUploadFile();
@@ -27,15 +27,15 @@ class index_upload extends index_base
 
         switch ($action) {
             case 'pdoc'://产品文档
-                $fileInfo = $supload->uploadDoc($upfile);
+                $fileInfo = $supload->uploadDoc($upfiles);
                 return $this->alert(array('status'=>$fileInfo['status'],'url'=>WWW_URL.$fileInfo['url'], 'name'=>$fileInfo['originalName']));
                 break;
             case 'edimage'://富文本图片
-                $fileInfo = $supload->uploadfile($upfile);
+                $fileInfo = $supload->uploadfile($upfiles);
                 exit(WWW_URL.$fileInfo['url']);
                 break;
             case 'pdimage'://产品图片
-                $fileInfo = $supload->uploadfile($upfile);
+                $fileInfo = $supload->uploadfile($upfiles);
                 $thumbSize = array(//缩略图尺寸
                     array('tMaxWidth'=>THUMBNAIL_W, 'tMaxHeight'=>THUMBNAIL_H)
                 );

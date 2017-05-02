@@ -12,7 +12,8 @@ secondCur: "list"
 <link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
 <!--引入wangEditor wangEditor.css-->
 <link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
-<link href="/lib/css/jquery.fileupload-ui.css" rel="stylesheet" />
+<link href="/products/css/jquery.fileupload-ui.css" rel="stylesheet" />
+<!--<link href="/lib/css/jquery.fileupload-ui.css" rel="stylesheet" />-->
 <link href="/products/css/action.css" rel="stylesheet" />
 {%endblock%}
 {%block content%}
@@ -29,7 +30,7 @@ secondCur: "list"
             <div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
         </div>
         <div class="portlet-body">
-            <form action="/product/action" class="form-horizontal" method="POST" id="productForm">
+            <form action="" class="form-horizontal" id="productForm">
                 <!--基本信息 BEGIN-->
                 <h3 class="form-section">基本信息</h3>
                 <div class="row-fluid">
@@ -338,59 +339,71 @@ secondCur: "list"
 
                 <!--上传图片／附件 BEGIN-->
                 <h3 class="form-section">上传图片／附件</h3>
-                <!--产品图片 BEGIN-->
                 <div class="control-group">
-                    <div class="fileupload-buttonbar-new">
-                        <div class="col-lg-7">
-                            <!-- The fileinput-button span is used to style the file input field as button -->
-                            <span class="btn btn-success fileinput-button">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                <span>Add files...</span>
-                                <input id="Jupload" type="file" name="upfile" multiple/>
-                            </span>
-                            <button type="submit" class="btn btn-primary start">
-                                <i class="glyphicon glyphicon-upload"></i>
-                                <span>Start upload</span>
-                            </button>
-                            <button type="reset" class="btn btn-warning cancel">
-                                <i class="glyphicon glyphicon-ban-circle"></i>
-                                <span>Cancel upload</span>
-                            </button>
-                            <button type="button" class="btn btn-danger delete">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                <span>Delete</span>
-                            </button>
-                            <input type="checkbox" class="toggle">
-                            <!-- The global file processing state -->
-                            <span class="fileupload-process"></span>
-                        </div>
-                        <!-- The global progress state -->
-                        <div class="col-lg-5 fileupload-progress fade">
-                            <!-- The global progress bar -->
-                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                    <div class="row-fluid">
+                        <!--产品图片 BEGIN-->
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">产品图片</label>
+                                <div class="controls">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>添加图片</span>
+                                        <input id="fileupload" type="file" name="upfile" multiple>
+                                    </span>
+                                    <!--<div id="files" class="files"></div>-->
+                                </div>
                             </div>
-                            <!-- The extended global progress state -->
-                            <div class="progress-extended">&nbsp;</div>
+                        </div>
+                        <!--产品图片 END-->
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <div id="files" class="files"></div>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- The loading indicator is shown during file processing -->
-
-                    <div class="fileupload-loading"></div>
-
-                    <br>
-
-                    <!-- The table listing the files available for upload/download -->
-
-                    <table role="presentation" class="table table-striped">
-
-                        <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-
-                    </table>
                 </div>
-                <!--产品图片 END-->
 
+                <div class="control-group">
+                    <div class="row-fluid">
+                        <!--文献 BEGIN-->
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">文献</label>
+                                <div class="controls">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>添加文献</span>
+                                        <input id="fileupload1" type="file" name="upfile" multiple>
+                                    </span>
+                                    <div id="files1" class="files"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--文献 END-->
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="row-fluid">
+                        <!--说明书 BEGIN-->
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">说明书</label>
+                                <div class="controls">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>添加说明书</span>
+                                        <input id="fileupload2" type="file" name="upfile" multiple>
+                                    </span>
+                                    <div id="files2" class="files"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--说明书 END-->
+                    </div>
+                </div>
                 <!--产品附件 BEGIN-->
 
                 <!--产品附件 END-->
@@ -422,8 +435,11 @@ secondCur: "list"
 <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
 <script type="text/javascript" src="/lib/js/select2.min.js"></script>
 <script src="/lib/js/jquery.ui.widget.js"></script>
-<script src="/lib/js/jquery.iframe-transport.js"></script>
-<script src="/lib/js/jquery.fileupload.js"></script>
+<script src="/common/js/fileupload/jquery.iframe-transport.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-process.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-validate.js"></script>
+
 <script type="text/javascript" src="/lib/js/tableList.js"></script>
 <script type="text/javascript" src="/common/js/table.js"></script>
 <script type="text/javascript" src="/common/js/modal.js"></script>
@@ -431,5 +447,5 @@ secondCur: "list"
 <script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
 <!--END 引入jquery和wangEditor.js-->
 <script type="text/javascript" src="/products/js/detail.js"></script>
-<script type="text/javascript" src="/common/js/upload.js"></script>
+<script type="text/javascript" src="/products/js/upload.js"></script>
 {%endblock%}
