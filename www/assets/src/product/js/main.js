@@ -1,4 +1,4 @@
-var Index = {
+var Main = {
 	init: function(){
         var currPage = $("input[name='currPage']").val();
         var totalPage = $("input[name='totalPage']").val();
@@ -11,17 +11,17 @@ var Index = {
             }
         });
 		var t = this;
-		// t.bind();
+		t.bind();
 	},
 	bind: function(){
-		$(document).on("hover", ".Jchild", function(){
+		$(document).on("click", ".Jnav", function(){
 			var $this = $(this);
-			$this.addClass("active").find("ul").removeClass("v-hide");
-		}).on("mouseleave", ".Jchild", function(){
-			var $this = $(this);
-			$this.removeClass("active").find("ul").addClass("v-hide");
+			$this.siblings().removeClass("active");
+			$this.addClass("active");
 		});
 	}
 };
 
-Index.init();
+$(function(){
+	Main.init();
+});

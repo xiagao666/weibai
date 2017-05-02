@@ -1,47 +1,16 @@
 <ul class="pProduct-nav">
 	{if $categoryList}
 		{foreach $categoryList as $clk => $clv}
-			<li class="active {if $clv['category_id'] == $pid}选中{/if}">
+			<li class="Jnav{if $clv['category_id'] == $pid} active{/if}">
 				<strong>{$clv['name']}<i></i></strong>
 				<p>
 					{if $clv['son']}
 						{foreach $clv['son'] as $csk => $csv}
-							<a class="active {if $csv['category_id'] == $cid}选中{/if}" href="/product/index?pid={$csv['pid']}&cid={$csv['id']}">{$csv['name']}</a>
+							<a class="{if $csv['category_id'] == $cid}active{/if}" href="/product/index?pid={$csv['pid']}&cid={$csv['id']}">{$csv['name']}</a>
 						{/foreach}
 					{/if}
-					<!--<a href="">血清</a>
-					<a href="">血清</a>
-					<a class="active" href="">血清</a>
-					<a href="">血清</a>
-					<a href="">血清</a>-->
 				</p>
 			</li>
 		{/foreach}
 	{/if}
-
-
-	<!--<li class="active">
-		<strong>细胞培养</strong>
-		<p>
-			<a class="active" href="">血清</a>
-			<a href="">血清</a>
-			<a href="">血清</a>
-		</p>
-	</li>
-	<li class="active">
-		<strong>细胞培养</strong>
-		<p>
-			<a class="active" href="">血清</a>
-			<a href="">血清</a>
-			<a href="">血清</a>
-		</p>
-	</li>
-	<li class="active">
-		<strong>细胞培养</strong>
-		<p>
-			<a class="active" href="">血清</a>
-			<a href="">血清</a>
-			<a href="">血清</a>
-		</p>
-	</li>-->
 </ul>

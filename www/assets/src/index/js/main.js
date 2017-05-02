@@ -14,4 +14,6 @@ var Main = {
 	}
 };
 
-Main.init();
+$(function(){
+	Main.init();
+});
