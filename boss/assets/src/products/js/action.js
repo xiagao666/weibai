@@ -7,27 +7,24 @@ var Action = {
         var t = this;
     },
     _upload: function(config) {
-        var uploadButton = $('<button/>')
-        .addClass('btn btn-primary')
-        .prop('disabled', true)
-        .prop('type', 'button')
-        .text('Processing...')
+        var uploadButton = $('<button class="JbtnUpload btn blue" disabled type="button">处理中...</button>')
         .on('click', function() {
             var $this = $(this),
                 data = $this.data();
             $this
                 .off('click')
-                .text('Abort')
+                .text('中断上传')
                 .on('click', function() {
                     $this.remove();
                     data.abort();
                 });
             data.submit().always(function() {
-                $this.next("input").remove();
+                $this.next("button").remove();
                 $this.remove();
             });
         }),
-        removeBtn = $("<input style='margin-left:8px;' class='btn btn-primary' type='button' value='删除'>").on("click", function(){
+        removeBtn = $("<button style='margin-left: 8px;' class='btn red' type='button'><i class='icon-trash'></i> 删除</button>")
+        .on("click", function(){
             var $this = $(this);
             $this.parent().parent().remove();
         });
@@ -75,15 +72,13 @@ var Action = {
                         .append($('<span class="text-danger"/>').text(file.error));
                 }
                 if (index + 1 === data.files.length) {
-                    data.context.find('button')
-                        .text('上传')
+                    data.context.find('.JbtnUpload')
+                        .html('<i class="icon-upload"></i> 上传')
                         .prop('disabled', !!data.files.error);
                 }
             }).on('fileuploaddone', function(e, data) {
                 if (data.result.status === 'success') {
-                    var closeBtn = $("<i/>").
-                    addClass("btn-close").
-                    text("x").
+                    var closeBtn = $("<i class='pre-close'>x</i>").
                     on("click", function() {
                         var $this = $(this);
                         $this.parent().parent().remove();
@@ -121,7 +116,7 @@ var Action = {
             }).on('fileuploadadd', function(e, data) {
                 var _btn = $(data.fileInputClone[0]), _show = _btn.data("show");
                 data.context = $('<div/>').appendTo($(_show));
-                data.linkType = _btn.data("type");
+                data.linkType = _btn.data("ptype");
                 $.each(data.files, function(index, file) {
                     var node = $('<p/>')
                         .append($('<span/>').text(file.name));
@@ -148,20 +143,20 @@ var Action = {
                         .append($('<span class="text-danger"/>').text(file.error));
                 }
                 if (index + 1 === data.files.length) {
-                    data.context.find('button')
-                        .text('上传')
+                    data.context.find('.JbtnUpload')
+                        .html('<i class="icon-upload"></i> 上传')
                         .prop('disabled', !!data.files.error);
                 }
             }).on('fileuploaddone', function(e, data) {
                 if (data.result.status === 'success') {
-                    /*var closeBtn = $("<i class='btn-close'>x<i/>").
+                    var closeBtn = $("<i class='pre-close'>x</i>").
                     on("click", function() {
                         var $this = $(this);
                         $this.parent().parent().remove();
-                    });*/
-                    var link = "<input type='hidden' name='imgUrl[]' value='" + data.result.url + "'/>";
+                    });
+                    var link = "<input type='hidden' name='productRelationsPath["+data.linkType+"]' value='" + data.result.url + "'/>";
                     $(data.context.children()).append(link);
-                    // $(data.context.children()).append(closeBtn);
+                    $(data.context.children()).append(closeBtn);
                 }
             }).on('fileuploadfail', function(e, data) {
                 $.each(data.files, function(index) {

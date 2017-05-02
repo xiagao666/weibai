@@ -8,8 +8,7 @@ firstCur: "cms",
 secondCur: "tech"
 } %}
 {%block css%}
-<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css"/>
-<link rel="stylesheet" href="/lib/css/DT_bootstrap.css"/>
+<link rel="stylesheet" href="/common/css/upload.css"/>
 <link href="/lib/css/jquery.fileupload-ui.css" rel="stylesheet"/>
 {%endblock%}
 {%block content%}
@@ -50,8 +49,12 @@ secondCur: "tech"
                 <div class="control-group">
                     <label class="control-label">技术服务图片：</label>
                     <div class="controls">
-                        <input id="imgUrl" name="imgUrl" class="span6 m-wrap" type="text" />
+                        <span class="btn green fileinput-button">
+                            <span><i class="icon-plus"></i> 添加图片</span>
+                            <input class="Jupload" data-show="#JshowPic" type="file" name="upfile"  accept="image/gif,image/jpeg,image/png"/>
+                        </span>
                     </div>
+                    <div id="JshowPic" class="span6 files upload-pre"></div>
                 </div>
                 <!-- 技术服务图片 BEGIN-->
 
@@ -88,14 +91,11 @@ secondCur: "tech"
 </div>
 {%endblock%}
 {%block js%}
-<script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
-<script type="text/javascript" src="/lib/js/select2.min.js"></script>
-<script src="/lib/js/jquery.ui.widget.js"></script>
-<script src="/lib/js/jquery.iframe-transport.js"></script>
-<script src="/lib/js/jquery.fileupload.js"></script>
-<script type="text/javascript" src="/lib/js/tableList.js"></script>
-<script type="text/javascript" src="/common/js/table.js"></script>
+<script src="/common/js/fileupload/jquery.iframe-transport.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-process.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-validate.js"></script>
 <script type="text/javascript" src="/common/js/modal.js"></script>
-<script type="text/javascript" src="/tech/js/action.js"></script>
 <script type="text/javascript" src="/common/js/upload.js"></script>
+<script type="text/javascript" src="/tech/js/action.js"></script>
 {%endblock%}

@@ -8,13 +8,11 @@ firstCur: "product",
 secondCur: "list"
 } %}
 {%block css%}
-<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
-<link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
+<link rel="stylesheet" href="/common/css/upload.css"/>
 <!--引入wangEditor wangEditor.css-->
 <link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
-<!-- <link href="/products/css/jquery.fileupload-ui.css" rel="stylesheet" /> -->
-<link href="/lib/css/jquery.fileupload-ui.css" rel="stylesheet" />
-<link href="/products/css/action.css" rel="stylesheet" />
+<link rel="stylesheet" href="/lib/css/jquery.fileupload-ui.css" />
+<link rel="stylesheet" href="/products/css/action.css"/>
 {%endblock%}
 {%block content%}
 <div class="container-fluid">
@@ -346,9 +344,8 @@ secondCur: "list"
                             <div class="control-group">
                                 <label class="control-label">产品图片</label>
                                 <div class="controls">
-                                    <span class="btn btn-success fileinput-button">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span>添加图片</span>
+                                    <span class="btn green fileinput-button">
+                                        <span><i class="icon-plus"></i> 添加图片</span>
                                         <input id="JuploadPic" data-show="#JshowPic" type="file" name="upfile" multiple accept="image/gif,image/jpeg,image/png"/>
                                     </span>
                                 </div>
@@ -371,10 +368,9 @@ secondCur: "list"
                             <div class="control-group">
                                 <label class="control-label">文献</label>
                                 <div class="controls">
-                                    <span class="btn btn-success fileinput-button">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span>添加文献</span>
-                                        <input class="JuploadDoc" data-type="1" data-show="#JshowDoc" type="file" name="upfile" multiple accept="application/vnd.ms-excel,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                    <span class="btn green fileinput-button">
+                                        <span><i class="icon-plus"></i> 添加文献</span>
+                                        <input class="JuploadDoc" data-ptype="1" data-show="#JshowDoc" type="file" name="upfile" multiple accept="application/vnd.ms-excel,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                     </span>
                                 </div>
                             </div>
@@ -396,10 +392,9 @@ secondCur: "list"
                             <div class="control-group">
                                 <label class="control-label">说明书</label>
                                 <div class="controls">
-                                    <span class="btn btn-success fileinput-button">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span>添加说明书</span>
-                                        <input class="JuploadDoc" data-type="2" data-show="#JshowDoc1" type="file" name="upfile" multiple accept="application/vnd.ms-excel,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                    <span class="btn green fileinput-button">
+                                        <span><i class="icon-plus"></i> 添加说明书</span>
+                                        <input class="JuploadDoc" data-ptype="2" data-show="#JshowDoc1" type="file" name="upfile" multiple accept="application/vnd.ms-excel,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                     </span>
                                 </div>
                             </div>
@@ -441,7 +436,6 @@ secondCur: "list"
 </div>
 {%endblock%}
 {%block js%}
-<script type="text/javascript" src="/lib/js/select2.min.js"></script>
 <script src="/common/js/fileupload/jquery.iframe-transport.js"></script>
 <script src="/common/js/fileupload/jquery.fileupload.js"></script>
 <script src="/common/js/fileupload/jquery.fileupload-process.js"></script>
