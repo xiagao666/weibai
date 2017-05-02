@@ -48,12 +48,13 @@ class index_news extends index_base
      */
     public function pageDetail()
     {
-        $id = isset($_GET['id']) ? core_lib_Comm::getStr($_GET["id"], 'int') : 1;
+        $id = isset($_GET['id']) ? core_lib_Comm::getStr($_GET["id"], 'int') : 0;
         if (!$id) {
             return $this->alert(array("status"=>"error", "msg"=>"缺少必要参数"));
         }
         $newsInfo = $this->_dbCms->getCmsById($id);
+        core_lib_Comm::p($newsInfo);
         $this->_params['news'] = $newsInfo;
-//        return $this->render("news/detail.html", $this->_params);
+        return $this->render("news/detail.html", $this->_params);
     }
 }

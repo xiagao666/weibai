@@ -1,0 +1,30 @@
+@import "../../common/css/variable.scss";
+
+.v-pNews {
+  overflow: hidden;
+
+  .pNews-detail {
+    float: right;
+    width: 1190px;
+    color: #000;
+    font-size: 18px;
+    background-color: #fff;
+    margin-bottom: 25px;
+    .title{
+      text-align: center;
+      margin-top:10px;
+    }
+    .time{
+      text-align: center;
+      margin-top:10px;
+      font-size:10px;
+      color: #D0D0D0;
+    }
+    .detail{
+      margin: 20px;
+      text-align: left;
+      text-indent: 2em;
+      margin-top: 20px;
+    }
+  }
+}
