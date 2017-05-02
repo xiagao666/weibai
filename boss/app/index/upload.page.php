@@ -44,8 +44,7 @@ class index_upload extends index_base
                 break;
             case 'thimage':
                 $fileInfo = $supload->uploadfile($upfiles);
-                return $this->alert(array('status'=>$fileInfo['status'],'bgUrl'=>WWW_URL.$fileInfo['url']));
-                break;
+                return $this->alert(array('status'=>$fileInfo['status'],'imgUrl'=>WWW_URL.$fileInfo['url']));
                 break;
         }
     }
