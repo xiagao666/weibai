@@ -79,7 +79,7 @@ class index_product extends index_base
         $this->_params['searchKey'] = $searchKey;
         $this->_params['searchVal'] = $searchValue;
         $this->_params['isSale'] = $isSale;
-        return $this->render("/products/list.html", $this->_params);
+        return $this->render("products/list.html", $this->_params);
     }
 
     /**
@@ -314,7 +314,7 @@ class index_product extends index_base
         $this->_params['actTitle'] = $msg."产品";
         $this->_params['act'] = "productList";
         $this->_params['productId'] = $productId;
-        return $this->render("/products/action.html", $this->_params);
+        return $this->render("products/action.html", $this->_params);
     }
 
     /**

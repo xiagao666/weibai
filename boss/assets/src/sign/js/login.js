@@ -65,7 +65,7 @@ var Login = {
 	                    try {
 	                    	res = JSON.parse(res);
 	                        if (res.status == "success") {
-	                            window.location.href = res.backUrl;
+	                            window.location.href = res.backurl;
 	                        } else {
 	                        	$(".alert-error").find("span").html(res.msg);
 	                        	$('.alert-error').show();

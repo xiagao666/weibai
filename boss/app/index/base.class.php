@@ -27,6 +27,7 @@ class index_base extends STpl
             $this->assign('_managerId', $this->_managerId);
             $this->assign('_managerName', $this->_managerName);
             $this->assign('_manager', $manager);
+            $this->_params['_managerName'] = $this->_managerName;
         }
 
         //获取来源

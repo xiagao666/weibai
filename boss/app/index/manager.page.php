@@ -57,7 +57,7 @@ class index_manager extends index_base
         $this->_params['isLock'] = $isLock;
         $this->_params['act'] = "mangerList";
         $this->_params['actTitle'] = "管理员列表";
-        return $this->render("/managers/list.html", $this->_params);
+        return $this->render("managers/list.html", $this->_params);
     }
 
     /**
@@ -161,7 +161,9 @@ class index_manager extends index_base
         return $this->alert(array('status'=>'success','msg'=>"重置密码成功！新密码为<strong style='font-weight:bold;color:#f22;'>".MANAGER_PASSWD."</strong>，请妥善保管！"));
     }
 
-    // 删除用户
+    /**
+     * 删除用户
+     */
     public function pageDelete(){
         $managerId = isset($_REQUEST['managerId']) ? core_lib_Comm::getStr($_REQUEST['managerId'], 'int') : 0;
 
