@@ -38,7 +38,6 @@ class index_product extends index_base
         }
 
         $products = $dbProduct->queryProductList($query, array("sort"=>"desc"), $limit, $page);
-//        core_lib_Comm::p($products);
         $totalPage = ceil($products['total']/$limit);
 
         $dbViewHistory = new core_db_ViewHistory();
@@ -59,7 +58,6 @@ class index_product extends index_base
                     }
                 }
             }
-//            core_lib_Comm::p($viewProductList);
         }
 
         if ($key) {
@@ -98,7 +96,6 @@ class index_product extends index_base
 
         $dbProduct = new core_db_Product();
         $product = $dbProduct->getProductById($id);
-//        core_lib_Comm::p($product);
         if ($product === false) {
             return $this->alert(array("status"=>"error", "msg"=>"打开的产品不存在"));
         }
@@ -119,7 +116,6 @@ class index_product extends index_base
                 $productRelationList[$prev['type']][] = $prev;
             }
         }
-//        core_lib_Comm::p($productRelationList);
 
         //添加浏览记录
         $viewData['uuid'] = $this->_productViewLogQid;
