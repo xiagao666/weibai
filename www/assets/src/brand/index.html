@@ -6,6 +6,7 @@
 } %}
 {%block css%}
 {{ super() }}
+<link rel="stylesheet" type="text/css" href="/common/css/page.css"/>
 <link rel="stylesheet" type="text/css" href="/brand/css/main.css"/>
 {%endblock%}
 {%block content%}
@@ -26,8 +27,12 @@
 			{/if}
     	</ul>
     </div>
+	<input type="hidden" name="totalPage" value="{$totalPage}"/>
+	<input type="hidden" name="currPage" value="{$page}"/>
+	<div class="tcdPageCode"></div>
 {%endblock%}
 {%block js%}
 {{ super() }}
+<script type="text/javascript" src="/common/js/page.js"></script>
 <script type="text/javascript" src="/brand/js/main.js"></script>
 {%endblock%}

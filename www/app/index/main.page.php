@@ -23,13 +23,18 @@ class index_main extends index_base
      */
     public function pageBrand($inPath)
     {
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $limit = 16;
         $query["type"] = 2;
         $query['sort'] = 2;//sort 排序
         $query['isDesc'] = 2;//倒序
         $dbCms = new core_db_Cms();
-        $brands = $dbCms->queryNews($query, 16, 1);
+        $brands = $dbCms->queryNews($query, $limit, $page);
+        $totalPage = ceil($brands['total'] / $limit);
 
-        $this->_params['brands'] =$brands['data'];
+        $this->_params['brands'] = $brands['data'];
+        $this->_params['totalPage'] = $totalPage;
+        $this->_params['page'] = $page;
         $this->_params['currNav'] = "brand";
         return $this->render("brand/index.html", $this->_params);
     }
@@ -39,18 +44,28 @@ class index_main extends index_base
      */
     public function pageTech($inPath)
     {
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $limit = 16;
+
         $query["type"] = 3;
         $query['sort'] = 2;//sort 排序
         $query['isDesc'] = 2;//倒序
         $dbCms = new core_db_Cms();
-        $techs = $dbCms->queryNews($query, 16, 1);
+        $topTech = $dbCms->queryNews($query, 1, 1);
+        $bigTech = $topTech['data'][0];
 
-        $techList = $techs['data'];
-        $bigTech = $techList[0];
-        unset($techList[0]);
+        $query["type"] = 3;
+        $query['sort'] = 2;//sort 排序
+        $query['isDesc'] = 2;//倒序
+        $query[] = " id != ".$bigTech['id'];
+        $dbCms = new core_db_Cms();
+        $techs = $dbCms->queryNews($query, $limit, $page);
+        $totalPage = ceil($techs['total'] /  $limit);
 
-        $this->_params['techs'] = array_values($techList);
+        $this->_params['techs'] = $techs['data'];
         $this->_params['bigTech'] = $bigTech;
+        $this->_params['totalPage'] = $totalPage;
+        $this->_params['page'] = $page;
         $this->_params['currNav'] = "tech";
         return $this->render("tech/index.html", $this->_params);
     }
