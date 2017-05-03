@@ -103,6 +103,11 @@ class index_product extends index_base
             return $this->alert(array("status"=>"error", "msg"=>"打开的产品不存在"));
         }
 
+        //获取分类信息
+        $dbCategory = new core_db_Category();
+        $category = $dbCategory->getCategoryById($product['category_id']);
+        $pCategory = $dbCategory->getCategoryById($category['pid']);
+
         $dbProductDes = new core_db_ProductDes();
         $productDes = $dbProductDes->getProductDesByProductId($id);
 
@@ -123,21 +128,10 @@ class index_product extends index_base
         $dbViewHistory->addViewHistory($viewData);
 
         $this->_params["product"] = $product;
+        $this->_params["pCategory"] = $pCategory;
+        $this->_params["category"] = $category;
         $this->_params["productDes"] = $productDes;
         $this->_params['productRelationList'] = $productRelationList;
         $this->render("productDetail/index.html", $this->_params);
-    }
-
-    /**
-     * 文献、文章type=1/产品说明书type=2
-     */
-    public function pageProductRelation($inPath) {
-        $productId = $_GET["productId"];
-        $type = $_GET["type"];
-        $dbProductRelation = new core_db_ProductRelation();
-        $condition["product_id"] = $productId;
-        $condition["type"] = $type;
-        $rs = $dbProductRelation->queryProductRelationList($condition);
-        echo json_encode($rs);
     }
 }
