@@ -1,4 +1,4 @@
-var Index = {
+var Contact = {
 	init: function(){
 		var t = this;
 		t.bind();
@@ -7,6 +7,4 @@ var Index = {
 	}
 };
 
-$(function(){
-	Index.init();
-});
+Contact.init();

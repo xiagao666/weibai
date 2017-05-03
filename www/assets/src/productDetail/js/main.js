@@ -1,4 +1,4 @@
-var Main = {
+var ProductDetail = {
 	init: function(){
 		var t = this;
 		t.bind();
@@ -15,5 +15,5 @@ var Main = {
 };
 
 $(function(){
-	Main.init();
+	ProductDetail.init();
 });

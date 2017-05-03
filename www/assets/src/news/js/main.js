@@ -1,4 +1,4 @@
-var Index = {
+var New = {
 	init: function(){
         var currPage = $("input[name='currPage']").val();
         var totalPage = $("input[name='totalPage']").val();
@@ -12,5 +12,6 @@ var Index = {
 		var t = this;
 	}
 };
-
-Index.init();
+$(function(){
+    New.init();
+});
