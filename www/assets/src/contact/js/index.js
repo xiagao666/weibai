@@ -1,7 +1,7 @@
 var Index = {
 	init: function(){
 		var t = this;
-		// t.bind();
+		t.bind();
 	},
 	bind: function(){
 		$(document).on("hover", ".Jchild", function(){
