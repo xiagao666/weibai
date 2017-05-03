@@ -75,6 +75,7 @@ class index_product extends index_base
 
         $this->_params["productList"] = $products['list'];
         $this->_params["pid"] = $parentCategoryId;
+        $this->_params["cid"] = $childCategoryId;
         $this->_params["viewList"] = $views['data'];
         $this->_params["page"] = $page;
         $this->_params["totalPage"] = $totalPage;
