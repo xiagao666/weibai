@@ -61,12 +61,22 @@ secondCur: "news"
                 <div class="control-group">
                     <label class="control-label">新闻图片：</label>
                     <div class="controls">
-                        <span class="btn green fileinput-button">
+                        <span class="btn green fileinput-button{if $cms[img_url]} v-hide{/if}">
                             <span><i class="icon-plus"></i> 添加图片</span>
                             <input class="Jupload" data-show="#JshowPic" type="file" name="upfile"  accept="image/gif,image/jpeg,image/png"/>
                         </span>
                     </div>
-                    <div id="JshowPic" class="span6 files upload-pre"></div>
+                    <div id="JshowPic" class="span6 files upload-pre">
+                        {if $cms[img_url]}
+                            <div>
+                                <p>
+                                    <img style="vertical-align: middle;" src="{$cms[img_url]}" alt="新闻图片"/>
+                                    <input type="hidden" name="imgUrl" value="{$cms[img_url]}"/>
+                                    <button id="JmodifyPic" type="button" style="margin-left: 8px;" class="btn blue"><i class="icon-edit"></i> 修改图片</button>
+                                </p>
+                            </div>
+                        {/if}
+                    </div>
                 </div>
                 <!-- 新闻图片 BEGIN-->
 
@@ -90,13 +100,12 @@ secondCur: "news"
                 <!--内容 END-->
 
                 <div class="form-actions">
-                    <input type="hidden" name="isEdit" value="{$isEdit}">
-                    <input type="hidden" name="cmsId" value="{$cmsId}">
-                    <input type="hidden" name="json" value="1">
-                    <input type="hidden" name="type" value="{$type}">
-                    <button type="button" class="btn blue" id="newsSubmit" style="width: 150px;">提交</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn" style="width: 100px;">取消</button>
+                    <input type="hidden" name="isEdit" value="{$isEdit}"/>
+                    <input type="hidden" name="cmsId" value="{$cmsId}"/>
+                    <input type="hidden" name="json" value="1"/>
+                    <input type="hidden" name="type" value="{$type}"/>
+                    <button type="button" class="btn blue" id="newsSubmit"><i class="icon-ok"></i> 提交</button>
+                    <a href="/cms/news" class="btn red"><i class="icon-remove"></i> 取消</a>
                 </div>
             </form>
         </div>

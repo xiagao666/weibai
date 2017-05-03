@@ -18,7 +18,7 @@ $(function() {
         removeBtn = $("<button style='margin-left: 8px;' class='btn red' type='button'><i class='icon-trash'></i> 删除</button>")
         .on("click", function() {
             var $this = $(this);
-            $(".fileinput-button").show();
+            $(".fileinput-button").removeClass("v-hide");
             $this.parent().parent().remove();
         });
     $(".Jupload").fileupload({
@@ -50,7 +50,7 @@ $(function() {
                 }
                 node.appendTo(data.context);
             });
-            $(".fileinput-button").hide();
+            $(".fileinput-button").addClass("v-hide");
         }).on('fileuploadprocessalways', function(e, data) {
             var index = data.index,
                 file = data.files[index],
@@ -75,7 +75,7 @@ $(function() {
                 var closeBtn = $("<i class='pre-close'>x</i>").
                 on("click", function() {
                     var $this = $(this);
-                    $(".fileinput-button").show();
+                    $(".fileinput-button").removeClass("v-hide");
                     $this.parent().parent().remove();
                 });
                 var link = "<img src='" + data.result.imgUrl + "'><input type='hidden' name='imgUrl' value='" + data.result.imgUrl + "'>";
@@ -92,4 +92,11 @@ $(function() {
             });
         }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+        // 修改图片
+        $("#JmodifyPic").on("click", function(){
+            var $this = $(this);
+            $this.parent().parent().remove();
+            $(".fileinput-button").removeClass("v-hide");
+        });
 });

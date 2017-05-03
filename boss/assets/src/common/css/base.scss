@@ -4,8 +4,11 @@
 .#{$space}pagebar{
 	margin-top: #{$p16};
 }
-button.btn i{
+.btn i{
 	margin-right: 6px;
+}
+.v-hide{
+	display: none;
 }
 .modal-body{
 	overflow: hidden;
