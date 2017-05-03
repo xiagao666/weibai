@@ -1,25 +1,25 @@
 <div class="pDetail-info">
-	<a class="cloud-zoom" href="/productDetail/img/a.jpg" rel="adjustX: 10, adjustY:-5, softFocus:true,zoomWidth:480">
-		<img src="/productDetail/img/a.jpg" alt="" title="胎牛血清04-001-1ACS"/>
+	<a class="cloud-zoom" href="" rel="adjustX: 10, adjustY:-5, softFocus:true,zoomWidth:480">
+		<img src="{$product[img_url]}" alt="" title="{$product[product]}"/>
     </a>
-	<h3>胎牛血清04-001-1ACS</h3>
-	<p class="info-brand">品牌：BI丨货号：04-001-1ACS</p>
+	<h3>{$product[product]}</h3>
+	<p class="info-brand">品牌：{$product[brand]}丨货号：{$product[catalog_number]}</p>
 	<ul class="info-left">
-		<li><strong>产地：</strong>南美</li>
-		<li><strong>别名：</strong>无</li>
-		<li><strong>应用/处理：</strong>通用</li>
-		<li><strong>储存温度：</strong>-20℃</li>
+		<li><strong>产地：</strong>{$product[origin]}</li>
+		<li><strong>别名：</strong>{$product[other_name]}</li>
+		<li><strong>应用/处理：</strong>{$product[application_process]}</li>
+		<li><strong>储存温度：</strong>{$product[storage_temperature]}</li>
 	</ul>
 	<ul class="info-right">
 		<li class="special">商品品牌</li>
-		<li>BI</li>
+		<li>{$product[brand]}</li>
 		<li class="special">商品货号值</li>
-		<li>04-001-1ACS-500 ml</li>
+		<li>{$product[catalog_number]}</li>
 		<li class="special">商品品名</li>
-		<li>Fteal Bovine Serum</li>
+		<li>{$product[storage_temperature]}</li>
 		<li class="special">规格</li>
-		<li>500 ml</li>
-		<li class="special">产地</li>
-		<li>2600元</li>
+		<li>{$product[package]}</li>
+		<li class="special">价格</li>
+		<li>{$product[price]}元</li>
 	</ul>
 </div>

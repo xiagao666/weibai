@@ -276,7 +276,7 @@ class SUploadFile
             $thumbUrl = "/" . $pathInfo[3] . "/" . $pathInfo[4] . "/";
             $thumbName = $thumbFileName . $v['tMaxWidth'] . "_" . $v['tMaxHeight'] . "." . $thumbSuffix;
             $thumbnail->genFile($thumbPath . "/" . $thumbName);//生成缩略图
-            return $thumbUrl . "/" . $thumbName;
+            return $thumbUrl . $thumbName;
         }
     }
 

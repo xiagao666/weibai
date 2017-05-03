@@ -98,14 +98,23 @@ class index_product extends index_base
 
         $dbProduct = new core_db_Product();
         $product = $dbProduct->getProductById($id);
-        core_lib_Comm::p($product);
+//        core_lib_Comm::p($product);
         if ($product === false) {
             return $this->alert(array("status"=>"error", "msg"=>"打开的产品不存在"));
         }
 
         $dbProductDes = new core_db_ProductDes();
         $productDes = $dbProductDes->getProductDesByProductId($id);
-        core_lib_Comm::p($productDes);
+
+        $dbProductRelation = new core_db_ProductRelation();
+        $condition["product_id"] = $id;
+        $productRelations = $dbProductRelation->queryProductRelationList($condition);
+        if ($productRelations['list']) {// 文献、文章type=1/产品说明书type=2
+            foreach ($productRelations['list'] as $prek => $prev) {
+                $productRelationList[$prev['type']][] = $prev;
+            }
+        }
+//        core_lib_Comm::p($productRelationList);
 
         //添加浏览记录
         $viewData['uuid'] = $this->_productViewLogQid;
@@ -115,26 +124,9 @@ class index_product extends index_base
 
         $this->_params["product"] = $product;
         $this->_params["productDes"] = $productDes;
-        $this->render("product/detail.html", $this->_params);
+        $this->_params['productRelationList'] = $productRelationList;
+        $this->render("productDetail/index.html", $this->_params);
     }
-
-    /**
-     * 产品列表
-     */
-    public function pageList($inPath) {
-        $categoryIdList = $_GET["categoryIds"];//,各个子类目ID用，号隔开
-        $categoryIds = explode(",", $categoryIdList);
-        $categoryIds = array_filter($categoryIds);//去掉空元素
-        $category =  implode(",", $categoryIds);
-        $page = $_GET["page"];
-        $size = $_GET["size"];
-        $query = array("category_id in ({$category})");
-        $dbProduct = new core_db_Product();
-        $productRs = $dbProduct->queryProductList($query,$page,$size,"id desc");
-        echo json_encode($productRs);
-    }
-
-
 
     /**
      * 文献、文章type=1/产品说明书type=2
