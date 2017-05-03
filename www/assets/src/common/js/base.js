@@ -5,6 +5,16 @@ var Base = {
 		t.initSwiper();
 	},
 	bind: function(){
+		$(document).on({
+			"mouseenter": function(){
+				var $this = $(this);
+				$this.addClass("active").find("ul").removeClass("v-hide");
+			},
+			"mouseleave": function(){
+				var $this = $(this);
+				$this.removeClass("active").find("ul").addClass("v-hide");
+			}
+		}, ".Jchild");
 	},
 	initSwiper: function(){
 		var mySwiper = new Swiper('.swiper-container', {

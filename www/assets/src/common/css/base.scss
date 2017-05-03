@@ -58,20 +58,22 @@ ul,li{
 	}
 	.header-nav{
 		position: #{$pa};
+		height: 100%;
 		bottom: 0px;
 		right: 30px;
 	}
 	.nav-item{
 		position: #{$pr};
+		height: 100%;
 		float: #{$fl};
-		&.active{
+		&.active,&:hover{
 			background-color: #{$c2};
 			> a{
 				color: #{$c3};
 			}
 			.item-arrow{
 				border-width: 0 6px 6px 6px;
-				border-color: transparent transparent #{$c2};
+				border-color: transparent transparent #{$c3};
 			}
 		}
 		> a{
@@ -90,15 +92,18 @@ ul,li{
 			bottom: 15px;
 			left: 50%;
 			margin-left: -6px;
-			transition: all .3s;
 		}
 		ul{
 			position: #{$pa};
 			z-index: 3;
 			background-color: #{$c3};
 			top: 80px;
+			left: 0;
 			padding: 18px;
 			width: 300px;
+			border-left: 1px solid #ccc;
+		    border-right: 1px solid #ccc;
+		    border-bottom: 1px solid #ccc;
 			a{
 				color:#191919;
 			}
