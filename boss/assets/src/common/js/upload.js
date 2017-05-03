@@ -22,7 +22,7 @@ $(function() {
             $this.parent().parent().remove();
         });
     $(".Jupload").fileupload({
-            url: "/upload/index?action=pdimage&json=1",
+            url: "/upload/index?action=thimage&json=1",
             dataType: 'json',
             autoUpload: false,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -78,7 +78,7 @@ $(function() {
                     $(".fileinput-button").show();
                     $this.parent().parent().remove();
                 });
-                var link = "<img src='" + data.result.minUrl + "'><input type='hidden' name='imgUrl[]' value='" + data.result.bgUrl + "'>";
+                var link = "<img src='" + data.result.imgUrl + "'><input type='hidden' name='imgUrl' value='" + data.result.imgUrl + "'>";
                 $(data.context.children()).append(link);
                 $(data.context.children()).append(closeBtn);
                 $(data.context).find("span").remove();

@@ -33,7 +33,7 @@ class index_category extends index_base
 
         $this->_params['pCategorys'] = $pCategorys['items'];
         $this->_params['parentCategoryId'] = $pCategoryId;
-        return $this->render("/category/list.html", $this->_params);
+        return $this->render("category/list.html", $this->_params);
     }
 
     /**
