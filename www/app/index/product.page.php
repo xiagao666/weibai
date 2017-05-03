@@ -8,6 +8,7 @@ class index_product extends index_base
     public function __construct()
     {
         parent::__construct();
+        $this->_params['currNav'] = 'product';
     }
 
     /**

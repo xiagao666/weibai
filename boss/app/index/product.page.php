@@ -68,7 +68,8 @@ class index_product extends index_base
         $this->_params['pCategorys'] = $parentCategorys['items'];
         $this->_params['parentCategoryId'] = $parentCategoryId;//一级类目ID
         $this->_params['childCategoryId'] = $childCategoryId;//二级类目ID
-        $this->_params['columns'] = $columns;
+        $this->_params['columns'] = $columns;//显示字段
+        $this->_params['selColumns'] = array_values($columns);//筛选
         $this->_params['actTitle'] = "产品列表";
         $this->_params['act'] = "productList";
         $this->_params['searchKey'] = $searchKey;
