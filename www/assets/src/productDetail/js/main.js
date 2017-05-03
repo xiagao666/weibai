@@ -5,16 +5,12 @@ var Main = {
 	},
 	bind: function(){
 		$(document).on("click", ".Jtab", function(){
-			var $this = $(this);
-			$this.siblings().removeClass("active").find("div").addClass("v-hide");
-			$this.addClass("active").find("div").removeClass("v-hide");
-		}).on("hover", ".Jchild", function(){
-            var $this = $(this);
-            $this.addClass("active").find("ul").removeClass("v-hide");
-        }).on("mouseleave", ".Jchild", function(){
-            var $this = $(this);
-            $this.removeClass("active").find("ul").addClass("v-hide");
-        });
+			var $this = $(this), $content = $("#Jcontent").find(".cotent-main");
+			$this.siblings().removeClass("active");
+			$content.addClass("v-hide");
+			$this.addClass("active");
+			$content.eq($this.index()).removeClass("v-hide");
+		});
 	}
 };
 
