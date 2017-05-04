@@ -90,7 +90,7 @@ class index_product extends index_base
             $products = array_filter($data);
             unset($products[0]);
 
-            $categoryNames = array_column($products, 'category_id');
+            $categoryNames = array_column($products, 'category');
             $categoryNames = array_unique($categoryNames);
             if (!empty($categoryNames)) {
                 $dbCategory = new core_db_Category();
@@ -110,15 +110,26 @@ class index_product extends index_base
                     $updateProduct = array();
                     $importProduct = array();
                     foreach ($newCategoryNames as $nk => $nv) {
-                        if (trim($pv['category_id']) == $nv) {
+                        if (trim($pv['category']) == $nv) {
                             $categoryId = $categoryIds[$nk];
                         }
+                    }
+                    unset($pv['category']);
+                    if (!$pv['catalog_number'] || !$pv['package']) {
+                        $errorData[] = $pv;
+                        continue;
                     }
                     $hasQueryProduct = array('catalog_number'=>$pv['catalog_number'], 'package'=>$pv['package']);
                     $hasProduct = $dbProduct->queryProductList($hasQueryProduct, 1, 0);
                     if ($hasProduct) {//已有产品 做更新处理
-                        $updateProduct = array_filter($pv);;
-                        $updateProduct['id'] = $hasProduct['list'][0]['id'];
+                        $updateProduct = array_filter($pv);
+                        if (is_array($updateProduct)) {
+                            foreach ( $updateProduct as $ik => $iv) {
+                                unset($updateProduct[$ik]);
+                                $updateProduct[trim($ik)] = trim($iv);
+                            }
+                        }
+                        $updateProduct['product_id'] = $hasProduct['list'][0]['id'];
                         $updateProduct['category_id'] = $categoryId;
                         $productRS = $dbProduct->updateProductById($updateProduct);
                         if ($productRS) {
@@ -128,22 +139,72 @@ class index_product extends index_base
                         }
                     } else {
                         $importProduct = array_filter($pv);
+                        if (is_array($importProduct)) {
+                            foreach ( $importProduct as $ik => $iv) {
+                                unset($importProduct[$ik]);
+                                $importProduct[trim($ik)] = trim($iv);
+                            }
+                        }
                         $importProduct['category_id'] = $categoryId;
                         $productRS = $dbProduct->addProduct($importProduct);
                         if ($productRS) {
                             $insertCount++;
                         } else {
-                            $insertError[] = $updateProduct;
+                            $insertError[] = $importProduct;
                         }
                     }
                 }
-                //@todo 发送邮件 处理失败的数据发送给 导入的人
+                //没有货号和规格/包装
+                if (is_array($errorData)) {
+                    $message = "导入数据中没有货号和规格/包装的数据：\n";
+                    foreach ($errorData as $ek => $ev) {
+                        $i=0;
+                        foreach ($ev as $eek => $eev) {
+                            $message .= $eek."：".$eev."，";
+                            if ($i == count($eev)) {
+                                $message .= "\n";
+                            }
+                            $i++;
+                        }
+                    }
+                }
+                if (is_array($updateError)) {
+                    $message .= "\n更新失败的数据有：\n";
+                    foreach ($updateError as $uk => $uv) {
+                        $i=0;
+                        foreach ($uv as $uuk => $uuv) {
+                            $message .= $uuk."：".$uuv."，";
+                            if ($i == count($uuv)) {
+                                $message .= "\n";
+                            }
+                            $i++;
+                        }
+                    }
+                }
+                if (is_array($insertError)) {
+                    $message .= "\n添加失败的数据有：\n";
+                    foreach ($insertError as $iek => $iev) {
+                        $i=0;
+                        foreach ($iev as $iiek => $iiev) {
+                            $message .= $iiek."：".$iiev."，";
+                            if ($i == count($iiev)) {
+                                $message .= "\n";
+                            }
+                            $i++;
+                        }
+                    }
+                }
+                $headers = "From:".TOMAIL;
+                $subject = "产品导入错误提示";
+                mail(TOMAIL, "产品导入错误提示", $message, FROMMAIL);
                 if ($productRS == true) {
-                    return $this->alert(array('status'=>'success','msg'=>"成功处理"));
+                    return $this->alert(array('status'=>'success','msg'=>"成功更新{$updateCount}条产品，成功添加{$insertCount}条产品"));
                 }
             }
             //处理失败提示
             return $this->alert(array('status'=>'error','msg'=>"失败"));
+        } else {
+            return $this->alert(array('status'=>'error','msg'=>"导入姿势不对"));
         }
     }
 

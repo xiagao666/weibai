@@ -41,25 +41,6 @@ class core_db_ProductDes extends core_db_DbBase {
     }
 
     /**
-     * 查询描述列表 @todo 删除
-     * @param $param
-     * @param $page
-     * @param $limit
-     * @return bool|\SlightPHP\DbData
-     */
-    /*public function queryProductDesList($param, $page, $limit){
-        try{
-            $this->useConfig("common","query");
-            $this->setPage((int)$page);
-            $this->setLimit((int)$limit);
-            return $this->select($this->table,$param,'*');
-        } catch (Exception $e) {
-            $this->log($e);
-            return false;
-        }
-    }*/
-
-    /**
      * 更新产品描述
      * @param $condition
      * @param $item

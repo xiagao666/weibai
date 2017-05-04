@@ -78,31 +78,6 @@ class core_db_ProductRelation extends core_db_DbBase {
     }
 
     /**
-     * @todo 无需更新操作
-     * @param $condition
-     * @return bool
-     */
-    /*public function updateOneProductRelation($condition, $item){
-        try{
-            if(empty($condition) || empty($item)) {
-                throw new Exception("缺少必要参数");
-            }
-            $this->useConfig("common","main");
-            $id = $condition['id'];
-            $itemRes = $this->getOne(array("id"=>$id));
-            if(empty($itemRes)) {
-                throw new Exception("记录不存在");
-            }
-            $rs = $this->update($this->table, $condition, $item);
-            if($rs === false) {
-                throw new Exception("更新失败");
-            }
-        } catch (Exception $e) {
-            return false;
-        }
-    }*/
-
-    /**
      * 文件ID删除关联产品ID
      * @param $condition
      * @return bool
@@ -129,7 +104,6 @@ class core_db_ProductRelation extends core_db_DbBase {
             return false;
         }
     }
-
 
     /**
      * 产品ID删除关联产品ID
