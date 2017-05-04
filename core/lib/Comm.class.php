@@ -389,7 +389,6 @@ class core_lib_Comm
     /**
      * 从常量文件中组装表头array,参数以，隔开的字符串
      */
-
     public static function getTableColumns($str){
         $columns = explode(",", $str);
         $columnsNew = array_filter($columns);//去掉空元素
@@ -401,5 +400,17 @@ class core_lib_Comm
             $columnRow[$key] = $columnsItem[1];
         }
         return $columnRow;
+    }
+
+    /**
+     * 发送邮件
+     */
+    public function sendMail($toMail, $fromMail = '', $data = array())
+    {
+        $headers = "From: {$fromMail}";
+        $subject = "用户：{$data['name']} 发来建议邮件";
+        $message = "用户：{$data['name']}\n电话：{$data['telephone']}\n建议：{$data['suggest']}";
+        mail($toMail, $subject, $message, $headers);
+        return true;
     }
 }

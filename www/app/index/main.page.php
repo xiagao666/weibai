@@ -35,7 +35,7 @@ class index_main extends index_base
         $this->_params['brands'] = $brands['data'];
         $this->_params['totalPage'] = $totalPage;
         $this->_params['page'] = $page;
-        $this->_params['currNav'] = "brand";
+        $this->_params['currNav'] = "/main/brand";
         return $this->render("brand/index.html", $this->_params);
     }
 
@@ -66,7 +66,7 @@ class index_main extends index_base
         $this->_params['bigTech'] = $bigTech;
         $this->_params['totalPage'] = $totalPage;
         $this->_params['page'] = $page;
-        $this->_params['currNav'] = "tech";
+        $this->_params['currNav'] = "/main/tech";
         return $this->render("tech/index.html", $this->_params);
     }
 
@@ -84,7 +84,7 @@ class index_main extends index_base
         $about = $abouts['data'][0];
 
         $this->_params['about'] = $about;
-        $this->_params['currNav'] = "about";
+        $this->_params['currNav'] = "/main/about";
         return $this->render("about/index.html", $this->_params);
     }
 
@@ -102,7 +102,7 @@ class index_main extends index_base
         $contact = $contacts['data'][0];
 
         $this->_params['contact'] = $contact;
-        $this->_params['currNav'] = "contact";
+        $this->_params['currNav'] = "/main/contact";
         return $this->render("contact/index.html", $this->_params);
     }
 
@@ -157,5 +157,26 @@ class index_main extends index_base
         $dbProduct = new core_db_Product();
         $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 2, 1);
         $this->_params['saleProducts'] = $saleProducts['list'];
+    }
+
+    /**
+     * 意见反馈
+     */
+    public function pageFeedBack()
+    {
+        if ($_POST) {
+            $name = isset($_POST['name']) ? core_lib_Comm::getStr($_POST['name']) : '';//姓名
+            $telephone = isset($_POST['telephone']) ? core_lib_Comm::getStr($_POST['telephone']) : '';//电话
+            $suggest = isset($_POST['suggest']) ? core_lib_Comm::getStr($_POST['suggest']) : '';//建议
+
+            $data['name'] = $name;
+            $data['telephone'] = $telephone;
+            $data['suggest'] = $suggest;
+
+            core_lib_Comm::sendMail(TOMAIL, FROMMAIL, $data);
+            return $this->alert(array("status"=>"success", "msg"=>"您的建议我们已收到，我们会尽快联系您！"));
+        } else {
+            return $this->alert(array("status"=>"error", "msg"=>"接口调用错误"));
+        }
     }
 }

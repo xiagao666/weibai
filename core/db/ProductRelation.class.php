@@ -142,10 +142,6 @@ class core_db_ProductRelation extends core_db_DbBase {
                 throw new Exception("缺少必要参数");
             }
 
-            $productRelations = $this->queryProductRelationList(array('proudct_id'=>$productId), CATEGORY_SEL_NUM, 0);
-            if ($productRelations === false || $productRelations['total'] <= 0) {
-                throw new Exception("查询失败或无相关文件");
-            }
             $this->useConfig("common","main");
             $productRS = $this->deleteData(array('product_id'=>$productId));
             if($productRS === false) {
