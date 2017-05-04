@@ -2,9 +2,17 @@ var Action = {
     init: function() {
         var t = this;
         t._upload();
+        t.bind();
     },
     bind: function() {
         var t = this;
+        $(document).on("click", "#JmodifyPic", function(){
+            var $this = $(this);
+            $("#JpicBtn").removeClass("v-hide");
+            $this.parent().parent().remove();
+        }).on("click", ".pre-close", function(){
+            $(this).parent().parent().remove();
+        });
     },
     _upload: function(config) {
         var uploadButton = $('<button class="JbtnUpload btn blue" disabled type="button">处理中...</button>')
@@ -53,10 +61,13 @@ var Action = {
                         node
                             .append(uploadButton.clone(true).data(data));
                         node
-                            .append(removeBtn.clone(true));
+                            .append(removeBtn.clone(true).on("click", function(){
+                                $("#JpicBtn").removeClass("v-hide");
+                            }));
                     }
                     node.appendTo(data.context);
                 });
+                $("#JpicBtn").addClass("v-hide");
             }).on('fileuploadprocessalways', function(e, data) {
                 var index = data.index,
                     file = data.files[index],
@@ -80,8 +91,7 @@ var Action = {
                 if (data.result.status === 'success') {
                     var closeBtn = $("<i class='pre-close'>x</i>").
                     on("click", function() {
-                        var $this = $(this);
-                        $this.parent().parent().remove();
+                        $("#JpicBtn").removeClass("v-hide");
                     });
                     var link = "<img src='" + data.result.minUrl + "'><input type='hidden' name='imgUrl[]' value='" + data.result.bgUrl + "'>";
                     $(data.context.children()).append(link);
@@ -149,11 +159,7 @@ var Action = {
                 }
             }).on('fileuploaddone', function(e, data) {
                 if (data.result.status === 'success') {
-                    var closeBtn = $("<i class='pre-close'>x</i>").
-                    on("click", function() {
-                        var $this = $(this);
-                        $this.parent().parent().remove();
-                    });
+                    var closeBtn = $("<i class='pre-close'>x</i>");
                     var link = "<input type='hidden' name='productRelationsPath["+data.linkType+"][]' value='" + data.result.url + "'/><input type='hidden' name='productRelationsTitle["+data.linkType+"][]' value='" + data.result.name + "'/>";
                     $(data.context.children()).append(link);
                     $(data.context.children()).append(closeBtn);

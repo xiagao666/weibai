@@ -352,10 +352,19 @@ secondCur: "list"
                             <div class="control-group">
                                 <label class="control-label">产品图片</label>
                                 <div class="controls">
-                                    <span class="btn green fileinput-button">
+                                    <span id="JpicBtn" class="btn green fileinput-button{if $product[img_url]} v-hide{/if}">
                                         <span><i class="icon-plus"></i> 添加图片</span>
-                                        <input id="JuploadPic" data-show="#JshowPic" type="file" name="upfile" multiple accept="image/gif,image/jpeg,image/png"/>
+                                        <input id="JuploadPic" data-show="#JshowPic" type="file" name="upfile" accept="image/gif,image/jpeg,image/png"/>
                                     </span>
+                                    {if $product[img_url]}
+                                    <div class="files upload-pre">
+                                        <p>
+                                            <img style="vertical-align: middle;" src="{$cms[img_url]}" alt="新闻图片"/>
+                                            <input type="hidden" name="imgUrl" value="{$cms[img_url]}"/>
+                                            <button id="JmodifyPic" type="button" style="margin-left: 8px;" class="btn blue"><i class="icon-edit"></i> 修改图片</button>
+                                        </p>
+                                    </div>
+                                    {/if}
                                 </div>
                             </div>
                         </div>
@@ -387,7 +396,22 @@ secondCur: "list"
 
                         <div class="span6">
                             <div class="control-group">
-                                <div id="JshowDoc" class="files upload-pre"></div>
+                                <div id="JshowDoc" class="files upload-pre">
+                                    {if $productRelationList[1]}
+                                        {foreach $productRelationList[1] as $item}
+                                            {if $item[download_url]}
+                                                <div>
+                                                    <p>
+                                                        <span>{$item[title]}</span>
+                                                        <input type="hidden" name="productRelationsPath[1][]" value="{$item[download_url]}"/>
+                                                        <input type="hidden" name="productRelationsTitle[1][]" value="{$item[title]}"/>
+                                                        <i class="pre-close">x</i>
+                                                    </p>
+                                                </div>
+                                            {/if}
+                                        {/foreach}
+                                    {/if}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -411,7 +435,22 @@ secondCur: "list"
 
                         <div class="span6">
                             <div class="control-group">
-                                <div id="JshowDoc1" class="files upload-pre"></div>
+                                <div id="JshowDoc1" class="files upload-pre">
+                                    {if $productRelationList[2]}
+                                        {foreach $productRelationList[2] as $item}
+                                            {if $item[download_url]}
+                                                <div>
+                                                    <p>
+                                                        <span>{$item[title]}</span>
+                                                        <input type="hidden" name="productRelationsPath[2][]" value="{$item[download_url]}"/>
+                                                        <input type="hidden" name="productRelationsTitle[2][]" value="{$item[title]}"/>
+                                                        <i class="pre-close">x</i>
+                                                    </p>
+                                                </div>
+                                            {/if}
+                                        {/foreach}
+                                    {/if}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -434,9 +473,8 @@ secondCur: "list"
                     <input type="hidden" name="isEdit" value="{$isEdit}">
                     <input type="hidden" name="productId" value="{$productId}">
                     <input type="hidden" name="json" value="1">
-                    <button type="button" class="btn blue" id="productSumbit" style="width: 150px;">提交</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn">取消</button>
+                    <button type="button" class="btn blue" id="productSumbit"><i class="icon-ok"></i> 提交</button>
+                    <a href="/" class="btn red"><i class="icon-remove"></i> 取消</a>
                 </div>
             </form>
         </div>
