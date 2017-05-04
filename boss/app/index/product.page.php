@@ -14,7 +14,7 @@ class index_product extends index_base
     /**
      * 首页
      */
-    public function pageList($inPath)
+    public function pageList()
     {
         $parentCategoryId = isset($_GET["parentCategoryId"]) ? core_lib_Comm::getStr($_GET["parentCategoryId"],
             'int') : 0;//父ID
@@ -181,9 +181,15 @@ class index_product extends index_base
                 }
             }
 
+            if ($productRelations['list']) {// 文献、文章type=1/产品说明书type=2
+                foreach ($productRelations['list'] as $prek => $prev) {
+                    $productRelationList[$prev['type']][] = $prev;
+                }
+            }
+
             $this->_params['product'] = $product;
             $this->_params['productDes'] = $productDes;
-            $this->_params['productRelationList'] = $productRelations['list'];
+            $this->_params['productRelationList'] = $productRelationList;
             $msg = "编辑";
         }
 
