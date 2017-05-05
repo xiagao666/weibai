@@ -5,7 +5,7 @@
 		<h2>新闻资讯</h2>
 		<span><strong>N</strong>ews</span>
 	</div>
-	<img src="{$leftImg['img_url']}" alt="{$leftImg['title']}" />
+	<img src="{if $leftImg['img_url']}{$leftImg['img_url']}{else}holder.js/610x360?text=新闻资讯{/if}" alt="{$leftImg['title']}" />
 	<ul>
 		{if $newsList}
 			{foreach $newsList as $nek => $nev}

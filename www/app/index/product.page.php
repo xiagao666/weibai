@@ -20,7 +20,7 @@ class index_product extends index_base
         $key = isset($_GET['key']) ? core_lib_Comm::getStr($_GET["key"]) : '';
         $parentCategoryId = isset($_GET['pid']) ? core_lib_Comm::getStr($_GET["pid"]) : 0;//父级ID
         $childCategoryId = isset($_GET['cid']) ? core_lib_Comm::getStr($_GET["cid"]) : 0;//子级ID
-        $limit = 3;
+        $limit = 4;
         //查询产品信息
         $dbProduct = new core_db_Product();
         if ($parentCategoryId && !$childCategoryId) {

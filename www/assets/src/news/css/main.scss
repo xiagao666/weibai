@@ -3,6 +3,36 @@
 .v-pNews {
   overflow: hidden;
 
+  .pNews-special{
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 18px;
+    img{
+      display: inline-block;
+      width: 660px;
+      height: 600px;
+    }
+    div{
+      display: inline-block;
+      width: 460px;
+        vertical-align: top;
+        margin-left: 30px;
+      h3{
+        margin-bottom: 30px;
+        margin-top: 30px;
+        text-align: center;
+        font-size: 18px;
+        a{
+          color: #{$c2};
+        }
+      }
+      p{
+        line-height: 24px;
+        font-size: 14px;
+      }
+    }
+  }
+
   .pNews-content {
     float: right;
     width: 1190px;

@@ -19,9 +19,11 @@
 			{if $brands}
 				{foreach $brands as $bk => $bv}
 					<li class="{if $bk%3 == 2}last{/if}">
-						<img src="{$bv['img_url']}" alt="{$bv['title']}"/>
-						<h3>{$bv['title']}</h3>
-						<p>{$bv['des']}</p>
+						<a href="{if $bv[hyperlink]}{$bv[hyperlink]}{else}javascript:void 0{/if}" target="_blank">
+							<img src="{if $bv['img_url']}{$bv['img_url']}{else}holder.js/343x200?text=代理品牌{/if}" alt="{$bv['title']}"/>
+							<h3>{$bv['title']}</h3>
+							<p>{$bv['des']}</p>
+						</a>
 					</li>
 				{/foreach}
 			{/if}

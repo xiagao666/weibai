@@ -1,9 +1,10 @@
 @import "../../common/css/variable.scss";
 .#{$space}pContact{
 	padding-top: 20px;
+	padding-bottom: 20px;
 	form{
 		width: 600px;
-		margin: 0 auto;
+		margin: 0 auto 30px;
 		p{
 			position: relative;
 			margin-bottom: 30px;

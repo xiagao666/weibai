@@ -1,6 +1,6 @@
 <div class="pDetail-info">
-	<a class="cloud-zoom" href="{$product[img_url]}" rel="adjustX: 10, adjustY:-5, softFocus:true,zoomWidth:480">
-		<img src="{$product[img_url]}" alt="" title="{$product[product]}"/>
+	<a class="cloud-zoom" href="{if $product[img_url]}{$product[img_url]}{else}/common/img/holder.png{/if}" rel="adjustX: 10, adjustY:-5, softFocus:true,zoomWidth:480">
+		<img src="{if $product[img_url]}{$product[img_url]}{else}/common/img/holder.png{/if}" alt="" title="{$product[product]}"/>
     </a>
 	<h3>{$product[product]}</h3>
 	<p class="info-brand">品牌：{$product[brand]}丨货号：{$product[catalog_number]}</p>

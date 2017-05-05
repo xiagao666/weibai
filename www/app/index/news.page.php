@@ -53,7 +53,6 @@ class index_news extends index_base
             return $this->alert(array("status"=>"error", "msg"=>"缺少必要参数"));
         }
         $newsInfo = $this->_dbCms->getCmsById($id);
-        core_lib_Comm::p($newsInfo);
         $this->_params['news'] = $newsInfo;
         return $this->render("news/detail.html", $this->_params);
     }

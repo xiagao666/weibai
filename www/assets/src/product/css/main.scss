@@ -93,8 +93,12 @@
 				margin: 8px;
 			}
 			.desc{
+				display: block;
 				margin-bottom: 20px;
 	    		margin-top: 10px;
+	    		color: #{$c2};
+	    		overflow: hidden;
+    			height: 20px;
 			}
 		}
 	}

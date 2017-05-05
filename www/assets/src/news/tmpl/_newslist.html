@@ -1,13 +1,10 @@
-<ul class="pNews-content">
-    <li class="first">
-        <div class="newsImg"><img src="{$firstNews[img_url]}" alt="{$firstNews[title]}"/></div>
-        <div class="desc">
-            <a href="/news/detail?id={$firstNews[id]}" class="title">{$firstNews[title]}</a>
-            <p class="content">{$firstNews[des]}
-            </p>
-        </div>
-    </li>
-</ul>
+<div class="pNews-special">
+    <img src="{if $firstNews[img_url]}{$firstNews[img_url]}{else}holder.js/343x200?text=新闻图片{/if}" alt="{$firstNews[title]}"/>
+    <div>
+        <h3><a href="/news/detail?id={$firstNews[id]}">{$firstNews[title]}</a></h3>
+        <p>{$firstNews[des]}</p>
+    </div>
+</div>
 <ul class="pNews-list">
     {if $newsList}
         {foreach $newsList as $nk => $nv}
