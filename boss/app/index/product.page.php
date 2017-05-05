@@ -230,7 +230,7 @@ class index_product extends index_base
                 return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
             }
             $product = $dbProduct->getProductById($productId);//产品基础数据
-            $productDes = $dbProductDes->getProductDesByProductId($productId);//产品描述
+            $productDesInfo = $dbProductDes->getProductDesByProductId($productId);//产品描述
             $productRelations = $dbProductRelation->queryProductRelationList(array('product_id'=>$productId), CATEGORY_SEL_NUM, 1);
 
             if ($product['category_id']) {
@@ -249,7 +249,7 @@ class index_product extends index_base
             }
 
             $this->_params['product'] = $product;
-            $this->_params['productDes'] = $productDes;
+            $this->_params['productDes'] = $productDesInfo;
             $this->_params['productRelationList'] = $productRelationList;
             $msg = "编辑";
         }
@@ -323,7 +323,11 @@ class index_product extends index_base
                 //编辑产品描述
                 $productDesData['product_id'] = $productId;
                 $productDesData['description'] = $productDes;
-                $productDesRS = $dbProductDes->updateProductDesByProductId($productDesData);
+                if ($productDesInfo === false ) {
+                    $productDesRS = $dbProductDes->addProductDes($productDesData);
+                } else {
+                    $productDesRS = $dbProductDes->updateProductDesByProductId($productDesData);
+                }
                 if ($productDesRS === false) {
                     return $this->alert(array('status'=>'error','msg'=>"产品描述编辑失败"));
                 }
