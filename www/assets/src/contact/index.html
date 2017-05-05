@@ -17,14 +17,14 @@
         <div>
             {$contact['content']}
         </div>
-        <form id="Jcontact" action="">
-            <input type="hidden" name="json" value="1" />
-            <p><label for="Jname"><span>*</span>您的姓名</label><input id="Jname" name="name" type="text"/><span class="tip">用户名不能为空</span></p>
-            <p><label for="Jphone"><span>*</span>您的电话</label><input id="Jphone" name="telephone" type="text" maxlength="11" /><span class="tip"></span></p>
-            <p><label for="Jsuggest"><span>*</span>您的建议</label><textarea name="suggest" id="Jsuggest"></textarea><span class="tip"></span></p>
+        <form action="">
+            <p><label for="Jname"><span>*</span>您的姓名</label><input id="Jname" name="userName" type="text"/><span class="tip">用户名不能为空</span></p>
+            <p><label for="Jphone"><span>*</span>您的电话</label><input id="Jphone" name="userMobile" type="text" maxlength="11" /><span class="tip"></span></p>
+            <p><label for="Jsuggest"><span>*</span>您的建议</label><textarea name="userSuggest" id="Jsuggest"></textarea><span class="tip last"></span></p>
             <button id="Jsend" class="send" type="button">发送</button>
             <button type="reset">重置</button>
         </form>
+        <a id="JsendMail" href="mailto:"></a>
     </div>
 {%endblock%}
 {%block js%}
