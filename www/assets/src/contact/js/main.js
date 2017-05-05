@@ -52,6 +52,7 @@ var Contact = {
 			type: "post",
 			data: $("#Jcontact").serialize(),
 			success: function(res){
+				$("#Jsend").removeClass("disabled");
 				res = JSON.parse(res);
 				if (res.status == "success"){
 					t.reset();
@@ -59,10 +60,8 @@ var Contact = {
 				}
 			},
 			error: function(){
-				alert("请稍后重试！");
-			},
-			complete: function(){
 				$("#Jsend").removeClass("disabled");
+				alert("请稍后重试！");
 			}
 		})
 	},
