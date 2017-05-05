@@ -4,7 +4,9 @@
 
 var Product = {
     init: function() {
-        this.bind();
+        var t = this;
+        t.initUpload();
+        t.bind();
     },
     // 事件统一绑定
     bind: function() {
@@ -111,6 +113,38 @@ var Product = {
                     });
                 }
             }
+        });
+    },
+    initUpload: function(){
+        $('#JuploadDoc').fileupload({
+            autoUpload: true,
+            url: "/product/import?json=1",
+            dataType: 'json',
+            done: function (e, data) {
+                if (data.result.status == "success"){
+                    Modal.alert({
+                        "id": "Jalert",
+                        "content": "产品导入成功！",
+                        "type": "success",
+                        "callback": function() {}
+                    });
+                } else {
+                    Modal.alert({
+                        "id": "Jalert",
+                        "content": "产品导入失败！",
+                        "type": "error",
+                        "callback": function() {}
+                    });
+                }
+            },
+            fail: function (e, data) {
+                Modal.alert({
+                    "id": "Jalert",
+                    "content": "产品导入失败！",
+                    "type": "error",
+                    "callback": function() {}
+                });
+            },
         });
     }
 };

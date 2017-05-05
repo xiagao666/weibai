@@ -10,6 +10,7 @@
 {%block css%}
 <link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
 <link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
+<link rel="stylesheet" href="/lib/css/jquery.fileupload-ui.css" />
 <link rel="stylesheet" href="/common/css/table.css" />
 <link rel="stylesheet" href="/products/css/list.css" />
 {%endblock%}
@@ -91,7 +92,10 @@
 		        	<a class="btn blue" type="button" href="/product/action"><i class="icon-plus"></i>添加产品</a>
 		        </div>
 		        <div class="product-item">
-		        	<button class="btn purple" type="button"><i class="icon-upload"></i>导入产品</button>
+		        	<span class="btn purple fileinput-button">
+                        <span><i class="icon-upload"></i>导入产品</span>
+                        <input id="JuploadDoc" type="file" name="excel" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                    </span>
 		        </div>
 		        <div class="actions product-item">
 					<div class="btn-group">
@@ -161,6 +165,10 @@
 </div>
 {%endblock%}
 {%block js%}
+<script src="/common/js/fileupload/jquery.iframe-transport.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-process.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-validate.js"></script>
 <script type="text/javascript" src="/lib/js/select2.min.js"></script>
 <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
