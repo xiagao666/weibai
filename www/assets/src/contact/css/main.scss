@@ -2,8 +2,10 @@
 .#{$space}pContact{
 	padding-top: 20px;
 	padding-bottom: 20px;
+    overflow: hidden;
 	form{
-		width: 600px;
+		width: 580px;
+		float: right;
 		margin: 0 auto 30px;
 		p{
 			position: relative;
@@ -57,5 +59,10 @@
 				margin-left: 133px;
 			}
 		}
+	}
+
+	div{
+        width: 560px;
+		float: left;
 	}
 }
