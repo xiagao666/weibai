@@ -10,6 +10,44 @@ var News = {
     initWangEditor: function() {
         var t = this;
         t.wangEditor = new wangEditor('JeditorDes');
+        // 普通的自定义菜单
+        t.wangEditor.config.menus = [
+            'source',
+            '|',
+            'bold',
+            'underline',
+            'italic',
+            'strikethrough',
+            'eraser',
+            'forecolor',
+            'bgcolor',
+            '|',
+            'quote',
+            'fontfamily',
+            'fontsize',
+            'head',
+            'unorderlist',
+            'orderlist',
+            'alignleft',
+            'aligncenter',
+            'alignright',
+            '|',
+            'link',
+            'unlink',
+            'table',
+            'emotion',
+            '|',
+            'img',
+            'video',
+            'location',
+            'insertcode',
+            '|',
+            'undo',
+            'redo',
+            'fullscreen',
+            'lineheight',
+            'indent'
+        ];
         // 上传图片
         t.wangEditor.config.uploadImgUrl = '/upload/index?action=edimage';
         t.wangEditor.config.uploadImgFileName = 'upfile';
