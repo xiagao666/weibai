@@ -14,10 +14,12 @@
         {%endblock%}
     </head>
     <body>
-        {%block header%}
-            {% include "www/assets/src/common/_header.html" %}
-        {%endblock%}
-        {%block content%}{%endblock%}
+        <div class="v-page">
+            {%block header%}
+                {% include "www/assets/src/common/_header.html" %}
+            {%endblock%}
+            {%block content%}{%endblock%}
+        </div>
         {%block footer%}
             {% include "www/assets/src/common/_footer.html" %}
         {%endblock%}

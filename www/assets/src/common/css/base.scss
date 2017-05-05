@@ -11,6 +11,9 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
   margin: 0;
   padding: 0;
 }
+html,body{
+	height: 100%;
+}
 a {
   text-decoration: none;
 }
@@ -20,6 +23,10 @@ ul,li{
 // Variables
 @import "variable.scss";
 
+.#{$space}page{
+	height: auto;
+	min-height: 100%;
+}
 .#{$space}hide{
 	display: none;
 }
@@ -141,8 +148,6 @@ ul,li{
 	margin-left: -340px;
 	width: 680px;
 	height: 56px;
-	// opacity: .6;
-	// filter: alpha(opacity=60);
 	background-color: #{$c3};
 	.search-text{
 		font-size: 18px;
@@ -172,6 +177,7 @@ ul,li{
 	font-size: 16px;
 	.v-content{
 		position: #{$pr};
+		height: 100%;
 		ul{
 			position: #{$pa};
 		}
@@ -183,22 +189,31 @@ ul,li{
 			}
 		}
 		.footer-list{
-			right: -30px;
-			top: 50px;
+			    right: 0;
+    			bottom: 130px;
 			li{
 				float: #{$fl};
 				text-align: center;
-				margin-right: 70px;
-				h3{
-					font-size: 20px;
-					font-weight: normal;
-					padding: 0 5px 6px;
-					border-bottom: 2px solid #{$c3};
+				margin-right: 10px;
+				padding: 0 8px;
+				border-right: 1px solid #{$c3};
+				&.last{
+					border-right: none;
 				}
-				p{
-					margin-top: 10px;
+				a{
+					color: #{$c3};
 				}
 			}
+		}
+
+		.copyright{
+			position: absolute;
+    		bottom: 50px;
+    		left: 57px;
+
+    		a{
+    			color: #{$c3};
+    		}
 		}
 	}
 }

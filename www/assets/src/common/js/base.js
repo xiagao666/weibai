@@ -12,7 +12,11 @@ var Base = {
 			},
 			"mouseleave": function(){
 				var $this = $(this);
-				$this.removeClass("active").find("ul").addClass("v-hide");
+				if (window.location.href.indexOf("product") != -1){
+					$this.find("ul").addClass("v-hide");
+				} else {
+					$this.removeClass("active").find("ul").addClass("v-hide");
+				}
 			}
 		}, ".Jchild");
 	},

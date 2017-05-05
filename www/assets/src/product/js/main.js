@@ -5,7 +5,7 @@ var Product = {
 		t.bind();
 	},
 	bind: function(){
-		$(document).on("click", ".Jnav", function(){
+		$(document).on("hover", ".Jnav", function(){
 			var $this = $(this);
 			$this.siblings().removeClass("active");
 			$this.addClass("active");
