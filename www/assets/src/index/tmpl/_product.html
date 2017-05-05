@@ -9,16 +9,20 @@
 	<ul class="product-list">
 
 		<li class="first">
-			<img src="{$saleProducts[0]['img_url']}" alt="{$saleProducts[0]['product']}"/>
-			<h3>{$saleProducts[0]['product']}</h3>
-			<span class="brand">{$saleProducts[0]['brand']}</span>
-			<span class="price">{$saleProducts[0]['price']}</span>
+			<a href="/product/detail?id={$saleProducts[0]['id']}">
+				<img src="{$saleProducts[0]['img_url']}" alt="{$saleProducts[0]['product']}"/>
+				<h3>{$saleProducts[0]['product']}</h3>
+				<span class="brand">{$saleProducts[0]['brand']}</span>
+				<span class="price">{$saleProducts[0]['price']}</span>
+			</a>
 		</li>
 		<li>
-			<img src="{$saleProducts[0]['img_url']}" alt="{$saleProducts[0]['product']}"/>
-			<h3>{$saleProducts[0]['product']}</h3>
-			<span class="brand">{$saleProducts[0]['brand']}</span>
-			<span class="price">{$saleProducts[0]['price']}</span>
+			<a href="/product/detail?id={$saleProducts[1]['id']}">
+				<img src="{$saleProducts[1]['img_url']}" alt="{$saleProducts[1]['product']}"/>
+				<h3>{$saleProducts[1]['product']}</h3>
+				<span class="brand">{$saleProducts[1]['brand']}</span>
+				<span class="price">{$saleProducts[1]['price']}</span>
+			</a>
 		</li>
 	</ul>
 </div>

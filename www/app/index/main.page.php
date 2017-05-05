@@ -15,6 +15,7 @@ class index_main extends index_base
         $this->getNewest();//最新新闻
         $this->getSaleImg();//产品促销大图
         $this->getSaleProduct();//促销产品
+        $this->getNewsLeftImg();//新闻资讯左图
         return $this->render("index/index.html", $this->_params);
     }
 
