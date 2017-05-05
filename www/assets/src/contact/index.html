@@ -14,7 +14,10 @@
     	<h2>联系我们<span>Contact ours</span></h2>
     </div>
     <div class="v-content v-pContact">
-    	<form id="Jcontact" action="">
+        <div>
+            {$contact['content']}
+        </div>
+        <form id="Jcontact" action="">
             <input type="hidden" name="json" value="1" />
             <p><label for="Jname"><span>*</span>您的姓名</label><input id="Jname" name="name" type="text"/><span class="tip">用户名不能为空</span></p>
             <p><label for="Jphone"><span>*</span>您的电话</label><input id="Jphone" name="telephone" type="text" maxlength="11" /><span class="tip"></span></p>
@@ -22,10 +25,6 @@
             <button id="Jsend" class="send" type="button">发送</button>
             <button type="reset">重置</button>
         </form>
-
-        <div>
-            {$contact['content']}
-        </div>
     </div>
 {%endblock%}
 {%block js%}

@@ -18,7 +18,17 @@ var Base = {
 					$this.removeClass("active").find("ul").addClass("v-hide");
 				}
 			}
-		}, ".Jchild");
+		}, ".Jchild").on("click", "#Jgotop", function(){
+			$(window).scrollTop(0);
+		});
+		$(window).scroll(function(){
+			var $top = $("#Jgotop");
+			if ($(window).scrollTop() > 0){
+				$top.removeClass("v-hide");
+			} else {
+				$top.addClass("v-hide");
+			}
+		});
 	},
 	initSwiper: function(){
 		var mySwiper = new Swiper('.swiper-container', {

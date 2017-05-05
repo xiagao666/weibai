@@ -10,17 +10,17 @@
 }
 /*右侧悬浮icon*/
 .side-bar {
-	width: 66px;
+	width: 40px;
 	position: fixed;
-	bottom: 20px;
+	bottom: 280px;
 	right: 25px;
 	font-size: 0;
 	line-height: 0;
 	z-index: 100;
 }
 .side-bar a {
-	width: 66px;
-	height: 66px;
+	width: 40px;
+	height: 40px;
 	display: inline-block;
 	background-color: #dddddd;
 	margin-bottom: 2px;
@@ -29,23 +29,29 @@
 	background-color: #669fdd;
 }
 .side-bar .icon-qq {
-	background-position: 0 -62px;
+	background-position: -12px -75px;
 }
 .side-bar .icon-chat {
-	background-position: 0 -130px;
+	background-position: -12px -142px;
 	position: relative;
 }
 .side-bar .icon-chat:hover .chat-tips {
 	display: block;
 }
 .side-bar .icon-blog {
-	background-position: 0 -198px;
+	background-position: -12px -198px;
 }
 .side-bar .icon-mail {
-	background-position: 0 -266px;
+	background-position: -12px -279px;
 }
 .side-bar .icon-totop {
 	background-position: 0 -334px;
+}
+.side-bar .gotop{
+    background: #ddd url("/common/img/au.png") no-repeat center;
+    &.v-hide{
+        visibility: hidden;
+    }
 }
 .chat-tips {
 	padding: 20px;
