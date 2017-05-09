@@ -20,7 +20,7 @@ class index_product extends index_base
         $key = isset($_GET['key']) ? core_lib_Comm::getStr($_GET["key"]) : '';
         $parentCategoryId = isset($_GET['pid']) ? core_lib_Comm::getStr($_GET["pid"]) : 0;//父级ID
         $childCategoryId = isset($_GET['cid']) ? core_lib_Comm::getStr($_GET["cid"]) : 0;//子级ID
-        $limit = 4;
+        $limit = 12;
         //查询产品信息
         $dbProduct = new core_db_Product();
         if ($parentCategoryId && !$childCategoryId) {
@@ -28,7 +28,7 @@ class index_product extends index_base
             $categoryIds = $dbCategory->queryAllCategory(array('pid'=>$parentCategoryId), 1000, 1);
             $childCategoryIds = array_column($categoryIds['items'], 'id');
             if (is_array($childCategoryIds)) {
-                $query[] = "category_id in ".implode(",", $childCategoryIds);
+                $query[] = "category_id in (".implode(",", $childCategoryIds).") ";
             }
         }
         if ($childCategoryId) {

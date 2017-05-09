@@ -90,12 +90,21 @@ class index_product extends index_base
             $products = array_filter($data);
             unset($products[0]);
 
+            $dbCategory = new core_db_Category();
+            //表名作为一级类目名称
+            $excelName = trim($excel['name']);
+            $parent = explode(".", $excelName);
+            $parentCategory = $dbCategory->getCategoryByName($parent[0]);
+
             $categoryNames = array_column($products, 'category');
             $categoryNames = array_unique($categoryNames);
             if (!empty($categoryNames)) {
-                $dbCategory = new core_db_Category();
                 foreach ($categoryNames as $ck => $cv) {
-                    $categorys[] = $dbCategory->getCategoryByName($cv);
+                    $query = array();
+                    $query['name'] = $cv;
+                    $query['pid'] = $parentCategory['id'];
+                    $categoryList = $dbCategory->queryAllCategory($query, 1, 1);
+                    $categorys[] = $categoryList['items'][0];
                 }
             }
             $categoryIds = array_column($categorys, 'id');
@@ -119,8 +128,10 @@ class index_product extends index_base
                         $errorData[] = $pv;
                         continue;
                     }
+
                     $hasQueryProduct = array('catalog_number'=>$pv['catalog_number'], 'package'=>$pv['package']);
-                    $hasProduct = $dbProduct->queryProductList($hasQueryProduct, 1, 0);
+                    $hasProduct = $dbProduct->queryProductList($hasQueryProduct, 1, 1);
+
                     if ($hasProduct) {//已有产品 做更新处理
                         $updateProduct = array_filter($pv);
                         if (is_array($updateProduct)) {
@@ -146,6 +157,7 @@ class index_product extends index_base
                             }
                         }
                         $importProduct['category_id'] = $categoryId;
+
                         $productRS = $dbProduct->addProduct($importProduct);
                         if ($productRS) {
                             $insertCount++;
@@ -194,8 +206,6 @@ class index_product extends index_base
                         }
                     }
                 }
-                $headers = "From:".TOMAIL;
-                $subject = "产品导入错误提示";
                 mail(TOMAIL, "产品导入错误提示", $message, FROMMAIL);
                 if ($productRS == true) {
                     return $this->alert(array('status'=>'success','msg'=>"成功更新{$updateCount}条产品，成功添加{$insertCount}条产品"));

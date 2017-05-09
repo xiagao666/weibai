@@ -25,9 +25,12 @@ class core_db_Category extends core_db_DbBase
                 throw new Exception("缺少必要参数");
             }
 
-            $category = $this->getCategoryByName($data['name']);
-            if ($category !== false) {
-                throw new Exception("不能添加重复的分类");
+            //判断是否同一个分类下是否重名
+            $query['name'] = $data['name'];
+            $query['pid'] = $data['pid'];
+            $categorys = $this->queryAllCategory($query, 1, 1);
+            if (is_array($categorys['items'])) {
+                throw new Exception("不能在同一级分类下添加重复的分类");
             }
             //判断数据必选项
             $this->useConfig("common", "main");

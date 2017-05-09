@@ -70,9 +70,9 @@ class index_category extends index_base
         }
 
         if ($_POST) {
-            $categoryName = isset($_POST['name']) ? core_lib_Comm::getStr($_POST['name']) : '';//分类名称
+            $categoryName = isset($_POST['name']) ? trim(core_lib_Comm::getStr($_POST['name'])) : '';//分类名称
             $pid = isset($_POST['formParentCategoryId']) ? core_lib_Comm::getStr($_POST['formParentCategoryId'], 'int') : '';//分类父ID
-            $des = isset($_POST['des']) ? core_lib_Comm::getStr($_POST['des']) : '';//分类描述
+            $des = isset($_POST['des']) ? trim(core_lib_Comm::getStr($_POST['des'])) : '';//分类描述
             $showSort = isset($_POST['showSort']) ? core_lib_Comm::getStr($_POST['showSort'], 'int') : 0;//同分类下排序 值越大 越排到前面
 
             $checkCategory = $dbCategory->getCategoryByName($categoryName);
