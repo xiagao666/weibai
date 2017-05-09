@@ -1,0 +1,179 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+    title : "唯佰科技管理后台-产品列表",
+    keywords : "唯佰科技管理后台-产品列表",
+    description : "唯佰科技管理后台-产品列表",
+    barTitle: "产品列表",
+    firstCur: "product",
+    secondCur: "list"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
+<link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
+<link rel="stylesheet" href="/lib/css/jquery.fileupload-ui.css" />
+<link rel="stylesheet" href="/common/css/table.css" />
+<link rel="stylesheet" href="/products/css/list.css" />
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3 class="page-title">
+				唯佰科技管理后台 <small>{{ page.barTitle }}</small>
+			</h3>
+		</div>
+	</div>
+	<div id="JdataPanel" class="portlet box blue">
+		<div class="portlet-title v-product">
+			<div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
+		</div>
+		<div class="portlet-body">
+			<form class="v-product" method="get" action="/product/list">
+				<span>类目</span>
+				<div class="product-item">
+					<select id="JcategoryParent" name="parentCategoryId">
+						<option value="0">请选择一级类目</option>
+						{foreach $pCategorys as $item}
+							{if $item[id] == $parentCategoryId}
+							<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+							{else}
+							<option value='{$item[id]}'>{$item[name]}</option>
+							{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="product-item">
+					<select id="JcategoryChild" name="childCategoryId">
+						<option value="0">请选择二级类目</option>
+						{foreach $cCategorys as $item}
+						{if $item[id] == $childCategoryId}
+						<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+						{else}
+						<option value='{$item[id]}'>{$item[name]}</option>
+						{/if}
+						{/foreach}
+					</select>
+				</div>
+				<span>是否促销</span>
+				<div class="product-item">
+						<select name="isSale">
+							<option value="2">请选择</option>
+							{if "0" == $isSale}
+							<option value="0" selected="selected">否</option>
+							{else}
+							<option value="0">否</option>
+							{/if}
+							{if "1" == $isSale}
+							<option value="1" selected="selected">是</option>
+							{else}
+							<option value="1">是</option>
+							{/if}
+						</select>
+				</div>
+
+				<div class="product-item">
+					<select name="searchKey">
+						<option value="0">请选择查询条件</option>
+						{foreach $columns as $key => $item}
+						{if $key == $searchKey}
+						<option value='{$key}' selected="selected">{$item}</option>
+						{else}
+						<option value='{$key}'>{$item}</option>
+						{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="product-item">
+					<input placeholder="请输入查询内容" class="m-wrap" type="text" name="searchVal" value="{$searchVal}"/>
+		            <button type="submit" class="btn green product-btn"><i class="icon-search"></i>搜索
+		            </button>
+		        </div>
+		        <div class="product-item">
+		        	<a class="btn blue" type="button" href="/product/action"><i class="icon-plus"></i>添加产品</a>
+		        </div>
+		        <div class="product-item">
+		        	<span class="btn purple fileinput-button">
+                        <span><i class="icon-upload"></i>导入产品</span>
+                        <input id="JuploadDoc" type="file" name="excel" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                    </span>
+		        </div>
+		        <div class="actions product-item">
+					<div class="btn-group">
+						<a class="btn yellow" href="#" data-toggle="dropdown">
+						显示字段
+						<i class="icon-angle-down"></i>
+						</a>
+						<div class="Jfilter dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+							{foreach $selColumns as $key => $item}
+							<label><input type="checkbox" checked data-column='{$key}'>{$item}</label>
+							{/foreach}
+						</div>
+					</div>
+				</div>
+			</form>
+			<table class="table table-striped table-bordered table-hover table-full-width">
+				<thead>
+					<tr>
+						{foreach $columns as $key => $item}
+						<th>{$item}</th>
+						{/foreach}
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				{if $products}
+					{foreach $products as $item}
+						<tr>
+							<td>{$item['id']}</td>
+							<td>{$item['brand']}</td>
+							<td>{$item['catalog_number']}</td>
+							<td>{$item['product']}</td>
+							<td>{$item['package']}</td>
+							<td>{$item['price']}</td>
+							<td>{$item['abbreviation']}</td>
+							<td>{$item['chinese_name']}</td>
+							<td>{$item['origin']}</td>
+							<td>{$item['application_process']}</td>
+							<td>{$item['other_name']}</td>
+							<td>{$item['storage_temperature']}</td>
+							<td>{$item['type']}</td>
+							<td>{$item['raise_from']}</td>
+							<td>{$item['reacts_with']}</td>
+							<td>{$item['application']}</td>
+							<td>{$item['label']}</td>
+							<td>{$item['cas_no']}</td>
+							<td>{$item['molecular_formula']}</td>
+							<td>{$item['molecular_weight']}</td>
+							<td>{$item['grade']}</td>
+							<td>{$item['sort']}</td>
+							<td>
+								<a href="/product/action?productId={$item[id]}&isEdit=1" class="Joperate btn blue common-btn">
+									<i class="icon-edit"></i>编辑
+								</a>
+								<button data-id="{$item['id']}" id="delProduct" class="Jdelete btn red common-btn" type="button">
+									<i class="icon-trash"></i>删除
+								</button>
+							</td>
+						</tr>
+					{/foreach}
+				{/if}
+				</tbody>
+			</table>
+			{% include "boss/assets/src/common/pagebar.html" %}
+		</div>
+	</div>
+</div>
+{%endblock%}
+{%block js%}
+<script src="/common/js/fileupload/jquery.iframe-transport.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-process.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-validate.js"></script>
+<script type="text/javascript" src="/lib/js/select2.min.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
+<script type="text/javascript" src="/common/js/modal.js"></script>
+<script type="text/javascript" src="/lib/js/tableList.js"></script>
+<script type="text/javascript" src="/common/js/table.js"></script>
+<script type="text/javascript" src="/products/js/list.js"></script>
+{%endblock%}

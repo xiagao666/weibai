@@ -1,0 +1,39 @@
+@import "../../common/css/variable.scss";
+.v-pBrand{
+	overflow: hidden;
+	padding-bottom: 40px;
+	ul{
+		overflow: hidden;
+		li{
+			width: 343px;
+			padding: 20px;
+			float: left;
+			margin-right: 20px;
+			margin-bottom: 20px;
+			color: #1a1a1a;
+			background-color: #fff;
+			&.last{
+				margin-right: 0;
+			}
+			img{
+				width: 100%;
+				height: 200px;
+			}
+			h3{
+				font-size: 18px;
+				font-weight: normal;
+				text-align: center;
+				margin-top: 15px;
+				margin-bottom: 15px;
+				color: #{$c2};
+			}
+
+			p{
+				font-size: 14px;
+				line-height: 20px;
+				height: 50px;
+				color: #666;
+			}
+		}
+	}
+}

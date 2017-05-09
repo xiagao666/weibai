@@ -1,0 +1,496 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+title : "唯佰科技管理后台-产品添加",
+keywords : "唯佰科技管理后台-产品添加",
+description : "唯佰科技管理后台-产品添加",
+barTitle: "产品添加",
+firstCur: "product",
+secondCur: "list"
+} %}
+{%block css%}
+<link rel="stylesheet" href="/common/css/upload.css"/>
+<!--引入wangEditor wangEditor.css-->
+<link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
+<link rel="stylesheet" href="/lib/css/jquery.fileupload-ui.css" />
+<link rel="stylesheet" href="/products/css/action.css"/>
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h3 class="page-title">
+                唯佰科技管理后台 <small>{{ page.barTitle }}</small>
+            </h3>
+        </div>
+    </div>
+    <div id="JdataPanel" class="portlet box blue">
+        <div class="portlet-title v-product">
+            <div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
+        </div>
+        <div class="portlet-body">
+            <form action="" method="" class="form-horizontal" id="productForm">
+                <!--基本信息 BEGIN-->
+                <h3 class="form-section">基本信息</h3>
+                <div class="row-fluid">
+                    <!--品牌 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">品牌</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="brand" value="{$product['brand']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--品牌 END-->
+
+                    <!--货号 BEGIN-->
+                    <div class="span6 ">
+                        <div class="control-group">
+                            <label class="control-label">货号</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" id="catalogNumber" name="catalogNumber" value="{$product['catalog_number']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--货号 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--产品 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">产品</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="product" value="{$product['product']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--产品 END-->
+
+                    <!--包装 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">包装</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" id="package" name="package" value="{$product['package']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--包装 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--价格 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">价格</label>
+                            <div class="controls">
+                                <div class="input-prepend input-append">
+                                    <span class="add-on">&yen;</span><input class="m-wrap " type="text" name="price" value="{$product['price']}" style="width:78px;"/><span class="add-on">.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--价格 END-->
+
+                    <!--简写 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">简写</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="abbreviation" value="{$product['abbreviation']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--简写 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--中文名 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">中文名</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="chineseName" value="{$product['chinese_name']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--中文名 END-->
+
+                    <!--产地 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">产地</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="origin" value="{$product['origin']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--产地 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--应用/处理 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">应用/处理</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="applicationProcess" value="{$product['application_process']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--应用/处理 END-->
+
+                    <!--别名 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">别名</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="otherName" value="{$product['other_name']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--别名 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--储存温度 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">储存温度</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="storageTemperature" value="{$product['storage_temperature']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--储存温度 END-->
+
+                    <!--类别 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">类别</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="type" value="{$product['type']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--类别 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--来源种属 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">来源种属</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="raiseFrom" value="{$product['raise_from']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--来源种属 END-->
+
+                    <!--反应种属 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">反应种属</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="reactsWith" value="{$product['reacts_with']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--反应种属 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--应用类别 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">应用类别</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="application" value="{$product['application']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--应用类别 END-->
+
+                    <!--标记物 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">标记物</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="label" value="{$product['label']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--标记物 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--CAS号 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">CAS号</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="casNo" value="{$product['cas_no']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--CAS号 END-->
+
+                    <!--分子式 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">分子式</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="molecularFormula" value="{$product['molecular_formula']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分子式 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--分子量 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">分子量</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="molecularWeight" value="{$product['molecular_weight']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分子量 END-->
+
+                    <!--级别 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">级别</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="grade" value="{$product['grade']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--级别 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--类目 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">类目</label>
+                            <div class="controls">
+                                <select id="JcategoryParent" name="parentCategoryId" style="width:150px;">
+                                    <option value="0">请选择一级类目</option>
+                                    {foreach $pCategorys as $item}
+                                        {if $item[id] == $parentCategoryId}
+                                            <option value='{$item[id]}' selected="selected">{$item[name]}</option>
+                                        {else}
+                                            <option value='{$item[id]}'>{$item[name]}</option>
+                                        {/if}
+                                    {/foreach}
+                                </select>
+                                <select id="JcategoryChild" name="childCategoryId" style="width:150px;">
+                                    <option value="0">请选择二级类目</option>
+                                    {foreach $cCategorys as $item}
+                                    {if $item[id] == $product[category_id]}
+                                    <option value='{$item[id]}' selected="selected">{$item[name]}</option>
+                                    {else}
+                                    <option value='{$item[id]}'>{$item[name]}</option>
+                                    {/if}
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--类目 END-->
+
+                    <!--级别 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">是否促销</label>
+                            <div class="controls">
+                                <label class="radio">
+                                    {if $product['is_sale']}
+                                    <input class="radio-action" type="radio" name="isSale" value="1" checked="checked" />是
+                                    {else}
+                                    <input class="radio-action" type="radio" name="isSale" value="1" />是
+                                    {/if}
+                                </label>
+                                <label class="radio">
+                                    {if !$product['is_sale']}
+                                    <input class="radio-action" type="radio" name="isSale" value="0" checked />否
+                                    {else}
+                                    <input class="radio-action" type="radio" name="isSale" value="0" />否
+                                    {/if}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--级别 END-->
+                </div>
+
+                <div class="row-fluid">
+                    <!--排序 BEGIN-->
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">排序</label>
+                            <div class="controls">
+                                <input type="text" class="span6 m-wrap" name="sort" value="{$product['sort']}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--排序 END-->
+                </div>
+                <!--基本信息 END-->
+
+                <!--上传图片／附件 BEGIN-->
+                <h3 class="form-section">上传图片／附件</h3>
+                <div class="control-group">
+                    <div class="row-fluid">
+                        <!--产品图片 BEGIN-->
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">产品图片</label>
+                                <div class="controls">
+                                    <span id="JpicBtn" class="btn green fileinput-button{if $product[img_url]} v-hide{/if}">
+                                        <span><i class="icon-plus"></i> 添加图片</span>
+                                        <input id="JuploadPic" data-show="#JshowPic" type="file" name="upfile" accept="image/gif,image/jpeg,image/png"/>
+                                    </span>
+                                    {if $product[img_url]}
+                                    <div class="files upload-pre">
+                                        <p>
+                                            <img style="vertical-align: middle;" src="{$product[img_url]}" alt="{$product[product]}"/>
+                                            <input type="hidden" name="imgUrl[]" value="{$product[img_url]}"/>
+                                            <button id="JmodifyPic" type="button" style="margin-left: 8px;" class="btn blue"><i class="icon-edit"></i> 修改图片</button>
+                                        </p>
+                                    </div>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                        <!--产品图片 END-->
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <div id="JshowPic" class="files upload-pre"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="row-fluid">
+                        <!--文献 BEGIN-->
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">文献</label>
+                                <div class="controls">
+                                    <span class="btn green fileinput-button">
+                                        <span><i class="icon-plus"></i> 添加文献</span>
+                                        <input class="JuploadDoc" data-ptype="1" data-show="#JshowDoc" type="file" name="upfile" multiple accept="application/vnd.ms-excel,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--文献 END-->
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <div id="JshowDoc" class="files upload-pre">
+                                    {if $productRelationList[1]}
+                                        {foreach $productRelationList[1] as $item}
+                                            {if $item[download_url]}
+                                                <div>
+                                                    <p>
+                                                        <span>{$item[title]}</span>
+                                                        <input type="hidden" name="productRelationsPath[1][]" value="{$item[download_url]}"/>
+                                                        <input type="hidden" name="productRelationsTitle[1][]" value="{$item[title]}"/>
+                                                        <i class="pre-close">x</i>
+                                                    </p>
+                                                </div>
+                                            {/if}
+                                        {/foreach}
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="row-fluid">
+                        <!--说明书 BEGIN-->
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">说明书</label>
+                                <div class="controls">
+                                    <span class="btn green fileinput-button">
+                                        <span><i class="icon-plus"></i> 添加说明书</span>
+                                        <input class="JuploadDoc" data-ptype="2" data-show="#JshowDoc1" type="file" name="upfile" multiple accept="application/vnd.ms-excel,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--说明书 END-->
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <div id="JshowDoc1" class="files upload-pre">
+                                    {if $productRelationList[2]}
+                                        {foreach $productRelationList[2] as $item}
+                                            {if $item[download_url]}
+                                                <div>
+                                                    <p>
+                                                        <span>{$item[title]}</span>
+                                                        <input type="hidden" name="productRelationsPath[2][]" value="{$item[download_url]}"/>
+                                                        <input type="hidden" name="productRelationsTitle[2][]" value="{$item[title]}"/>
+                                                        <i class="pre-close">x</i>
+                                                    </p>
+                                                </div>
+                                            {/if}
+                                        {/foreach}
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--产品附件 BEGIN-->
+
+                <!--产品附件 END-->
+                <!--上传图片／附件 END-->
+
+                <h3 class="form-section">产品描述</h3>
+                <!--产品描述 BEGIN-->
+                <div class="control-group" style="height: 500px;">
+                    <textarea id="JeditorDes" name="productDes">
+                    {$productDes[description]}
+                    </textarea>
+                </div>
+                <!--产品描述 END-->
+
+                <div class="form-actions">
+                    <input type="hidden" name="isEdit" value="{$isEdit}">
+                    <input type="hidden" name="productId" value="{$productId}">
+                    <input type="hidden" name="json" value="1">
+                    <button type="button" class="btn blue" id="productSumbit"><i class="icon-ok"></i> 提交</button>
+                    <a href="/" class="btn red"><i class="icon-remove"></i> 取消</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
+{%block js%}
+<script src="/common/js/fileupload/jquery.iframe-transport.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-process.js"></script>
+<script src="/common/js/fileupload/jquery.fileupload-validate.js"></script>
+
+<script type="text/javascript" src="/common/js/modal.js"></script>
+<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
+<!--END 引入jquery和wangEditor.js-->
+<script type="text/javascript" src="/products/js/detail.js"></script>
+<script type="text/javascript" src="/products/js/action.js"></script>
+{%endblock%}

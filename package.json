@@ -1,0 +1,36 @@
+{
+  "name": "weibai",
+  "version": "1.0.0",
+  "description": "vipbio",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "www": "gulp --build www --w",
+    "boss": "gulp --build boss --w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiagao666/weibai.git"
+  },
+  "keywords": [
+    "weibai"
+  ],
+  "devDependencies": {
+    "browser-sync": "^2.18.7",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-changed": "^2.0.0",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-nunjucks-render": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev-collector": "^1.1.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.0.0",
+    "yargs": "^7.0.2"
+  },
+  "author": "huangchaowei",
+  "license": "ISC"
+}

@@ -1,0 +1,35 @@
+<div class="v-header">
+    <div class="v-content">
+        <a href="{if $logo['hyperlink']}{$logo['hyperlink']}{/if}" class="header-logo"><img
+                src="{if $logo['img_url']}{$logo['img_url']}{else}/index/img/logo.jpg{/if}"
+                alt="{if $logo['title']}{$logo['title']}{else}唯佰生物{/if}"/></a>
+        <ul class="header-nav">
+            {if $navList}
+            {foreach $navList as $nk => $nv}
+            {if $nv['title'] == '产品中心'}
+            <li class="Jchild nav-item {if $currNav == 'product'}active{/if}"><a href="/product/index">{$nv['title']}</a><i class="item-arrow"></i>
+                <ul class="v-hide">
+                    {if $categoryList}
+                        {foreach $categoryList as $clk => $clv}
+                            <li>
+                                <a class="item-child left" href="/product/index?pid={$clv['id']}"><strong>{$clv['name']}</strong></a>
+                                <div class="item-child right">
+                                {if $clv['son']}
+                                    {foreach $clv['son'] as $csk => $csv}
+                                        <a href="/product/index?pid={$csv['pid']}&cid={$csv['id']}"><span>{$csv['name']}</span></a>
+                                    {/foreach}
+                                {/if}
+                                </div>
+                            </li>
+                        {/foreach}
+                    {/if}
+                </ul>
+            </li>
+            {else}
+            <li class="nav-item {if $currNav == $nv[hyperlink]}active{/if}"><a href="{$nv['hyperlink']}">{$nv['title']}</a></li>
+            {/if}
+            {/foreach}
+            {/if}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+// Variables
+@import "variable.scss";
+// pagebar
+.#{$space}pagebar{
+	margin-top: #{$p16};
+}
+.btn i{
+	margin-right: 6px;
+}
+.v-hide{
+	display: none !important;
+}
+.modal-body{
+	overflow: hidden;
+	max-height: inherit;
+	&.#{$space}tip i{
+		margin-right: 8px;
+		font-size: 30px;
+    	vertical-align: -5px;
+	}
+	p{
+		margin-bottom: 0;
+	}
+	&.alert{
+		margin-bottom: 0;
+	}
+	input.m-wrap{
+		height: inherit !important;
+    	width: 240px !important;
+	}
+}

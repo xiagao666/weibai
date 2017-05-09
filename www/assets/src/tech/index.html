@@ -1,0 +1,45 @@
+{% extends "www/assets/src/common/_layout.html" %}
+{% set page={
+    title : "技术服务-唯佰生物科技有限公司",
+    keywords : "技术服务-唯佰生物科技有限公司",
+    description : "技术服务-唯佰生物科技有限公司"
+} %}
+{%block css%}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="/common/css/page.css"/>
+<link rel="stylesheet" type="text/css" href="/tech/css/main.css"/>
+{%endblock%}
+{%block content%}
+    {% include "www/assets/src/common/_swiper.html" %}
+    <div class="v-content v-pTitle">
+    	<h2>技术服务<span>Technical services</span></h2>
+    </div>
+    <div class="v-content v-pTech">
+    	<div class="pTech-special">
+			<img src="{if $bigTech['img_url']}{$bigTech['img_url']}{else}holder.js/660x600?text=技术服务{/if}" alt="{$bigTech['title']}"/>
+			<div>
+				<h3>{$bigTech['title']}</h3>
+				<p>{$bigTech['des']}</p>
+			</div>
+		</div>
+    	<ul>
+			{if techs}
+				{foreach $techs as $tk => $tv}
+				<li class="{if $tk%3 == 2}last{/if}">
+					<img src="{if $tv['img_url']}{$tv['img_url']}{else}holder.js/343x200?text=技术服务{/if}" alt="{$tv['title']}"/>
+					<h3>{$tv['title']}</h3>
+					<p>{$tv['des']}</p>
+				</li>
+				{/foreach}
+			{/if}
+    	</ul>
+    </div>
+	<input type="hidden" name="totalPage" value="{$totalPage}"/>
+	<input type="hidden" name="currPage" value="{$page}"/>
+	<div class="tcdPageCode"></div>
+{%endblock%}
+{%block js%}
+{{ super() }}
+<script type="text/javascript" src="/common/js/page.js"></script>
+<script type="text/javascript" src="/tech/js/index.js"></script>
+{%endblock%}

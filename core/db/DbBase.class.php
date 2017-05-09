@@ -39,8 +39,20 @@ class core_db_DbBase extends SDb
     }
 
     /**
-     * select one from select result
-     *
+     * 异常日志记录
+     */
+    public function log($e)
+    {
+        $errorMsg['message'] = $e->getMessage();
+        $errorMsg['file'] = $e->getFile();
+        $errorMsg['code'] = $e->getCode();
+        $errorMsg['line'] = $e->getLine();
+        $this->setError($e->getMessage(), $e->getCode());
+        error_log(json_encode($errorMsg));
+    }
+
+    /**
+     * 查询单个数据
      */
     public function getOne($condition = "", $item = "", $groupby = "", $orderby = "", $leftjoin = "")
     {
@@ -55,9 +67,25 @@ class core_db_DbBase extends SDb
     }
 
     /**
+     * 查询多个数据
+     */
+    public function getAllData($condition = "", $item = "", $groupby = "", $orderby = "", $leftjoin = "", $limit = 10, $page = 0)
+    {
+        $this->setLimit($limit);
+        $this->setPage($page);
+        $this->setCount(true);
+        $data = $this->select($this->_tableName, $condition, $item, $groupby, $orderby, $leftjoin);
+        if ($data->totalSize > 0) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * 插入数据
      */
-    public function insert($item = "", $isreplace = false, $isdelayed = false, $update = array())
+    public function insertData($item = "", $isreplace = false, $isdelayed = false, $update = array())
     {
         return parent::insert($this->_tableName, $item, $isreplace, $isdelayed, $update);
     }
@@ -65,8 +93,16 @@ class core_db_DbBase extends SDb
     /**
      * 更改数据
      */
-    public function update($condition, $item)
+    public function updateData($condition, $item)
     {
         return parent::update($this->_tableName, $condition, $item);
+    }
+
+    /**
+     * 删除
+     */
+    public function deleteData($condition)
+    {
+        return parent::delete($this->_tableName, $condition);
     }
 }

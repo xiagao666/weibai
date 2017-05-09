@@ -1,0 +1,68 @@
+@import "../../common/css/variable.scss";
+.#{$space}pContact{
+	padding-top: 20px;
+	padding-bottom: 20px;
+    overflow: hidden;
+	form{
+		width: 580px;
+		float: right;
+		margin: 0 auto 30px;
+		p{
+			position: relative;
+			margin-bottom: 30px;
+			&.error{
+				.tip{
+					display: block;
+				}
+				input,textarea{
+					border-color: #f22;
+				}
+			}
+		}
+		label{
+			padding-right: 20px;
+			vertical-align: middle;
+			span{
+				color: #f00;
+				padding-right: 10px;
+			}
+		}
+		input{
+			width: 400px;
+			text-indent: 10px;
+			height: 38px;
+			border: 1px solid #666;
+		}
+		textarea{
+			width: 400px;
+			text-indent: 10px;
+		    vertical-align: middle;
+		    height: 140px;
+		    resize: none;
+		    border: 1px solid #666;
+		}
+		.tip{
+			position: absolute;
+			top: 48px;
+    		left: 83px;
+    		display: none;
+			color: #f22;
+		}
+		button{
+			width: 128px;
+			height: 38px;
+			margin-left: 20px;
+			border: 1px solid #{$c2};
+			background-color: #fff;
+			cursor: pointer;
+			&.send{
+				margin-left: 133px;
+			}
+		}
+	}
+
+	div{
+        width: 560px;
+		float: left;
+	}
+}

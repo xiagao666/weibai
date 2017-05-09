@@ -1,0 +1,30 @@
+{% extends "www/assets/src/common/_layout.html" %}
+{% set page={
+    title : "产品列表-唯佰生物科技有限公司",
+    keywords : "产品列表-唯佰生物科技有限公司",
+    description : "产品列表-唯佰生物科技有限公司"
+} %}
+{%block css%}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="/common/css/page.css"/>
+<link rel="stylesheet" type="text/css" href="/product/css/main.css"/>
+{%endblock%}
+{%block content%}
+    {% include "www/assets/src/common/_swiper.html" %}
+    <div class="v-content v-pTitle">
+    	<h2>产品列表<span>Product classification</span></h2>
+    </div>
+    <div class="v-content v-pProduct">
+    	{% include "www/assets/src/product/tmpl/_nav.html" %}
+    	{% include "www/assets/src/product/tmpl/_content.html" %}
+    </div>
+<input type="hidden" name="totalPage" value="{$totalPage}"/>
+<input type="hidden" name="currPage" value="{$page}"/>
+<input type="hidden" name="url" value="{$url}"/>
+<div class="tcdPageCode"></div>
+{%endblock%}
+{%block js%}
+{{ super() }}
+<script type="text/javascript" src="/common/js/page.js"></script>
+<script type="text/javascript" src="/product/js/main.js"></script>
+{%endblock%}

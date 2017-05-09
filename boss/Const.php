@@ -12,8 +12,8 @@ define("ROOT_SLIGHTPHP_PLIGUNS", ROOT_SLIGHTPHP."/plugins");
 
 define('SLIGHT\DEBUG', true);
 define('SLIGHT\DEFAULT_ZONE', 'index');
-define('SLIGHT\DEFAULT_PAGE', 'main');
-define('SLIGHT\DEFAULT_ENTRY', 'index');
+define('SLIGHT\DEFAULT_PAGE', 'product');
+define('SLIGHT\DEFAULT_ENTRY', 'list');
 //define('SLIGHT\URL_SUFFIX', "html");
 //define('SLIGHT\URL_FORMAT', '-');
 define('SLIGHT\URL_SPLIT_FLAG', '-_.');

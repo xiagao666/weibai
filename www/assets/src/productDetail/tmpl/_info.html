@@ -1,0 +1,25 @@
+<div class="pDetail-info">
+	<a class="cloud-zoom" href="{if $product[img_url]}{$product[img_url]}{else}/common/img/holder.png{/if}" rel="adjustX: 10, adjustY:-5, softFocus:true,zoomWidth:480">
+		<img src="{if $product[img_url]}{$product[img_url]}{else}/common/img/holder.png{/if}" alt="" title="{$product[product]}"/>
+    </a>
+	<h3>{$product[product]}</h3>
+	<p class="info-brand">品牌：{$product[brand]}丨货号：{$product[catalog_number]}</p>
+	<ul class="info-left">
+		<li><strong>产地：</strong>{$product[origin]}</li>
+		<li><strong>别名：</strong>{$product[other_name]}</li>
+		<li><strong>应用/处理：</strong>{$product[application_process]}</li>
+		<li><strong>储存温度：</strong>{$product[storage_temperature]}</li>
+	</ul>
+	<ul class="info-right">
+		<li class="special">商品品牌</li>
+		<li>{$product[brand]}</li>
+		<li class="special">商品货号值</li>
+		<li>{$product[catalog_number]}</li>
+		<li class="special">商品品名</li>
+		<li>{$product[storage_temperature]}</li>
+		<li class="special">规格</li>
+		<li>{$product[package]}</li>
+		<li class="special">价格</li>
+		<li>{$product[price]}元</li>
+	</ul>
+</div>

@@ -1,0 +1,62 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+title : "唯佰科技管理后台-联系我们",
+keywords : "唯佰科技管理后台-联系我们",
+description : "唯佰科技管理后台-联系我们",
+barTitle: "联系我们",
+firstCur: "cms",
+secondCur: "contact"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css"/>
+<link rel="stylesheet" href="/lib/css/DT_bootstrap.css"/>
+<!--引入wangEditor wangEditor.css-->
+<link rel="stylesheet" type="text/css" href="/weditor/dist/css/wangEditor.css">
+<link href="/lib/css/jquery.fileupload-ui.css" rel="stylesheet"/>
+<link href="/contact/css/action.css" rel="stylesheet"/>
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3 class="page-title">
+				唯佰科技管理后台
+				<small>{{ page.barTitle }}</small>
+			</h3>
+		</div>
+	</div>
+	<div id="JdataPanel" class="portlet box blue">
+		<div class="portlet-title v-product">
+			<div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
+		</div>
+		<div class="portlet-body">
+			<form action="/cms/action" class="form-horizontal" method="POST" id="contactForm">
+				<!--内容 BEGIN-->
+				<div class="control-group" style="height: 500px;">
+                    <textarea id="JeditorDes" name="content">
+                        <p>{$contact[content]}</p>
+                    </textarea>
+				</div>
+				<!--内容 END-->
+
+				<div class="form-actions">
+					<input type="hidden" name="isEdit" value="{$isEdit}">
+					<input type="hidden" name="title" value="联系我们">
+					<input type="hidden" name="cmsId" value="{$contact[id]}">
+					<input type="hidden" name="json" value="1">
+					<input type="hidden" name="type" value="{$type}">
+					<button type="button" class="btn blue" id="contactSubmit"><i class="icon-ok"></i> 提交</button>
+					<a href="/" class="btn red"><i class="icon-remove"></i> 取消</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{%endblock%}
+{%block js%}
+<script type="text/javascript" src="/common/js/modal.js"></script>
+<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript" src="/weditor/dist/js/wangEditor.js"></script>
+<!--END 引入jquery和wangEditor.js-->
+<script type="text/javascript" src="/contact/js/action.js"></script>
+{%endblock%}

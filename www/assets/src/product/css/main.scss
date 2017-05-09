@@ -1,0 +1,105 @@
+@import "../../common/css/variable.scss";
+.v-pProduct{
+	overflow: hidden;
+	.pProduct-nav{
+		float: left;
+		width: 230px;
+		overflow: #{$oh};
+
+		li{
+			margin-bottom: 10px;
+			overflow: hidden;
+			border: 1px solid #dbd9d9;
+
+			strong{
+				position: relative;
+				display: block;
+				padding-left: 40px;
+				padding-bottom: 12px;
+				padding-top: 12px;
+				font-size: 18px;
+				color: #000;
+				font-weight: normal;
+				cursor: pointer;
+
+				i{
+					position: absolute;
+					right: 15px;
+					top: 15px;
+					display: block;
+					width: 13px;
+					height: 19px;
+					background: url("/product/img/ar.png") no-repeat left top;
+				}
+			}
+
+			p a{
+				display: block;
+				float: left;
+				width: 33%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				font-size: 14px;
+				color: #2d3546;
+			}
+
+			&.active{
+				strong{
+					background-color: #009400;
+					color: #fff;
+
+					i{
+						top: 18px;
+						right: 10px;
+						width: 17px;
+						height: 10px;
+						background: url("/product/img/ad.png") no-repeat left top;
+					}
+				}
+
+				a.active{
+					color: #009400;
+				}
+
+				p{
+					display: block;
+				}
+			}
+
+			p{
+				display: none;
+			}
+		}
+	}
+
+	.pProduct-content{
+		float: right;
+		width: 920px;
+		color: #000;
+		font-size: 18px;
+		text-align: center;
+
+		li{
+			margin-left: 14px;
+	    	margin-bottom: 18px;
+			float: left;
+			width: 216px;
+			height: 326px;
+			background-color: #fff;
+			img{
+				width: 200px;
+				height: 221px;
+				margin: 8px;
+			}
+			.desc{
+				display: block;
+				margin-bottom: 20px;
+	    		margin-top: 10px;
+	    		color: #{$c2};
+	    		overflow: hidden;
+    			height: 20px;
+			}
+		}
+	}
+}

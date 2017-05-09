@@ -33,7 +33,8 @@ class STpl extends SlightPHP\Tpl
     public function render($tpl, $parames = array())
     {
         parent::$compile_dir = SlightPHP::$appDir . DIRECTORY_SEPARATOR . "templates_c";
-        parent::$template_dir = SlightPHP::$appDir . DIRECTORY_SEPARATOR . "templates";
+//        parent::$template_dir = SlightPHP::$appDir . DIRECTORY_SEPARATOR . "templates";
+        parent::$template_dir = SlightPHP::$appDir . DIRECTORY_SEPARATOR . "../assets/dist/";
         parent::$left_delimiter = '{';
         parent::$right_delimiter = '}';
         parent::assign($parames);
@@ -97,7 +98,7 @@ class STpl extends SlightPHP\Tpl
      */
     public function json($data)
     {
-        $jsonpcallback = $_REQUEST['callback'];
+        $jsonpcallback = isset($_REQUEST['callback']) ? core_lib_Comm::getStr($_REQUEST['callback']) : '';
         if (empty($jsonpcallback)) {
             return json_encode($data);
         } else {

@@ -1,0 +1,16 @@
+<ul class="pProduct-nav">
+	{if $categoryList}
+		{foreach $categoryList as $clk => $clv}
+			<li class="Jnav{if $clv['id'] == $pid} active{/if}">
+				<strong>{$clv['name']}<i></i></strong>
+				<p>
+					{if $clv['son']}
+						{foreach $clv['son'] as $csk => $csv}
+							<a class="{if $csv['id'] == $cid}active{/if}" href="/product/index?pid={$csv['pid']}&cid={$csv['id']}">{$csv['name']}</a>
+						{/foreach}
+					{/if}
+				</p>
+			</li>
+		{/foreach}
+	{/if}
+</ul>

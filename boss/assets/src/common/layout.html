@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>{{page.title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="{{page.keywords}}"/>
+    <meta name="description" content="{{page.description}}"/>
+    <meta name="author" content="weibai" />
+    <link rel="shortcut icon" href="/lib/img/favicon.ico" />
+    {%block meta%}{%endblock%}
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link rel="stylesheet" type="text/css" href="/lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/css/style-metro.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/css/style-responsive.css"/>
+    <link id="style_color" rel="stylesheet" type="text/css" href="/lib/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/css/uniform.default.css"/>
+    <link rel="stylesheet" type="text/css" href="/common/css/base.css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    {%block css%}{%endblock%}
+</head>
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+
+    <!-- BEGIN HEADER -->
+    {%block header%}
+        {% include "boss/assets/src/common/header.html" %}
+    {%endblock%}
+    <!-- END HEADER -->
+
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+
+        <!-- BEGIN SIDEBAR -->
+        {%block leftNav%}
+            {% include "boss/assets/src/common/leftNav.html" %}
+        {%endblock%}
+        <!-- END SIDEBAR -->
+
+        <!-- BEGIN PAGE -->
+        <div class="page-content">
+            <!-- BEGIN PAGE CONTAINER-->
+            {%block content%}
+            {%endblock%}
+            <!-- END PAGE CONTAINER-->
+        </div>
+        <!-- END PAGE -->
+
+    </div>
+    <!-- END CONTAINER -->
+
+    <!-- BEGIN FOOTER -->
+    {%block footer%}
+        {% include "boss/assets/src/common/footer.html" %}
+    {%endblock%}
+    <!-- END FOOTER -->
+
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <script type="text/javascript" src="/lib/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/lib/js/jquery-migrate-1.2.1.min.js"></script>
+    <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script type="text/javascript" src="/lib/js/jquery-ui-1.10.1.custom.min.js"></script>
+    <script type="text/javascript" src="/lib/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/js/excanvas.min.js"></script>
+    <script type="text/javascript" src="/lib/js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/lib/js/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="/lib/js/jquery.blockui.min.js"></script>
+    <script type="text/javascript" src="/lib/js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="/lib/js/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="/lib/js/app.js"></script>
+    <script type="text/javascript" src="/common/js/base.js"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    {%block js%}{%endblock%}
+</body>
+<!-- END BODY -->
+</html>

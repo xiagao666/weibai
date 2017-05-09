@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set("Asia/Shanghai");
+session_start();// 启动 Session
 
 //{{{
 spl_autoload_register(function ($class) {

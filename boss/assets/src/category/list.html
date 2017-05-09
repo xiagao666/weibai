@@ -1,0 +1,167 @@
+{% extends "boss/assets/src/common/layout.html" %}
+{% set page={
+    title : "唯佰科技管理后台-类目管理",
+    keywords : "唯佰科技管理后台-类目管理",
+    description : "唯佰科技管理后台-类目管理",
+    barTitle: "类目管理",
+    firstCur: "product",
+    secondCur: "category"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/lib/css/select2_metro.css" />
+<link rel="stylesheet" href="/lib/css/DT_bootstrap.css" />
+<link rel="stylesheet" href="/common/css/table.css" />
+<link rel="stylesheet" href="/category/css/list.css" />
+{%endblock%}
+{%block content%}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3 class="page-title">
+				唯佰科技管理后台 <small>{{ page.barTitle }}</small>
+			</h3>
+		</div>
+	</div>
+	<div id="JdataPanel" class="portlet box blue">
+		<div class="portlet-title v-product">
+			<div class="caption"><i class="icon-barcode"></i>{{page.barTitle}}</div>
+		</div>
+		<div class="portlet-body">
+			<form class="v-product" method="get" action="/category/list">
+				<span>类目</span>
+				<div class="product-item">
+					<select id="JcategoryParent" name="parentCategoryId">
+						<option value="0">请选择一级类目</option>
+						{foreach $pCategorys as $item}
+						{if $item[id] == $parentCategoryId}
+						<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+						{else}
+						<option value='{$item[id]}'>{$item[name]}</option>
+						{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="product-item">
+		            <button type="submit" class="btn green product-btn"><i class="icon-search"></i>搜 索
+		            </button>
+		        </div>
+		        <div class="product-item">
+		        	<button id="addNews" class="btn blue" type="button"><i class="icon-plus"></i>添加类目</button>
+		        </div>
+			</form>
+			<table class="table table-striped table-bordered table-hover table-full-width">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>类目名称</th>
+						<th>描述</th>
+						<th>展示顺序</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				{if $categoryData}
+					{foreach $categoryData as $item}
+						<tr>
+							<td>{$item[id]}</td>
+							<td>{$item[name]}</td>
+							<td>{$item[des]}</td>
+							<td>{$item[show_sort]}</td>
+							<td>
+								<buttton class="Jedit btn purple common-btn" data-id="{$item[id]}" type="button"><i class="icon-edit"></i>编 辑</buttton>
+								<buttton class="Jdelete btn red common-btn" data-id="{$item[id]}" type="button"><i class="icon-trash"></i>删 除</buttton>
+							</td>
+						</tr>
+					{/foreach}
+				{/if}
+				</tbody>
+			</table>
+			{% include "boss/assets/src/common/pagebar.html" %}
+		</div>
+
+	</div>
+	<div id="categoryForm" class="row-fluid hide">
+		<div class="span12">
+			<!-- BEGIN SAMPLE FORM PORTLET-->
+			<div class="portlet box blue">
+				<div class="portlet-title v-product">
+					<div class="caption"><i class="icon-reorder"></i>{if $parentCategoryId}添加二级类目{else}添加一级类目{/if}</div>
+				</div>
+
+				<div class="portlet-body form">
+					<!-- BEGIN FORM-->
+					<form id="Jnewform" action="#" class="form-horizontal">
+						<input type="hidden" name="json" value="1" />
+						<input id="categoryId" name="categoryId" type="hidden" value=""/>
+						{if $parentCategoryId}
+						<div id ="JfpCategoryControl" class="control-group">
+							<label class="control-label">一级类目</label>
+							<div class="controls">
+							<select id="JFormCategoryParent" name="formParentCategoryId">
+								<option value="0">请选择一级类目</option>
+								{foreach $pCategorys as $item}
+								{if $item[id] == $parentCategoryId}
+								<option value='{$item[id]}' selected="selected">{$item[name]}</option>
+								{else}
+								<option value='{$item[id]}'>{$item[name]}</option>
+								{/if}
+								{/foreach}
+							</select>
+							</div>
+						</div>
+						{/if}
+						<div class="control-group">
+							<label class="control-label">类目名</label>
+							<div class="controls">
+								<input id="name" name="name" type="text" class="span6 m-wrap" />
+							</div>
+
+						</div>
+						<div class="control-group">
+
+							<label class="control-label">简述</label>
+
+							<div class="controls">
+
+								<textarea id="des" name="des" class="span6 m-wrap" rows="3"></textarea>
+
+							</div>
+
+						</div>
+						<div class="control-group">
+							<label class="control-label">排序</label>
+							<div class="controls">
+								<input id="showSort" type="text" name="showSort" class="span6 m-wrap" />
+							</div>
+						</div>
+
+						<div class="form-actions">
+							<button id="saveEdit" type="button" class="btn blue"><i class="icon-ok"></i> 提交</button>
+							<button id="cancelEdit" type="button" class="btn red"><i class=" icon-remove"></i> 取消</button>
+						</div>
+
+					</form>
+
+					<!-- END FORM-->
+
+				</div>
+
+			</div>
+
+			<!-- END SAMPLE FORM PORTLET-->
+
+		</div>
+
+	</div>
+</div>
+{%endblock%}
+{%block js%}
+<script type="text/javascript" src="/lib/js/select2.min.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/lib/js/DT_bootstrap.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.bootpag.min.js"></script>
+<script type="text/javascript" src="/lib/js/tableList.js"></script>
+<script type="text/javascript" src="/common/js/table.js"></script>
+<script type="text/javascript" src="/common/js/modal.js"></script>
+<script type="text/javascript" src="/category/js/list.js"></script>
+{%endblock%}

@@ -1,0 +1,40 @@
+{% extends "www/assets/src/common/_layout.html" %}
+{% set page={
+    title : "代理品牌-唯佰生物科技有限公司",
+    keywords : "代理品牌-唯佰生物科技有限公司",
+    description : "代理品牌-唯佰生物科技有限公司"
+} %}
+{%block css%}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="/common/css/page.css"/>
+<link rel="stylesheet" type="text/css" href="/brand/css/main.css"/>
+{%endblock%}
+{%block content%}
+    {% include "www/assets/src/common/_swiper.html" %}
+    <div class="v-content v-pTitle">
+    	<h2>代理品牌<span>Agent brand</span></h2>
+    </div>
+    <div class="v-content v-pBrand">
+    	<ul>
+			{if $brands}
+				{foreach $brands as $bk => $bv}
+					<li class="{if $bk%3 == 2}last{/if}">
+						<a href="{if $bv[hyperlink]}{$bv[hyperlink]}{else}javascript:void 0{/if}" target="_blank">
+							<img src="{if $bv['img_url']}{$bv['img_url']}{else}holder.js/343x200?text=代理品牌{/if}" alt="{$bv['title']}"/>
+							<h3>{$bv['title']}</h3>
+							<p>{$bv['des']}</p>
+						</a>
+					</li>
+				{/foreach}
+			{/if}
+    	</ul>
+    </div>
+	<input type="hidden" name="totalPage" value="{$totalPage}"/>
+	<input type="hidden" name="currPage" value="{$page}"/>
+	<div class="tcdPageCode"></div>
+{%endblock%}
+{%block js%}
+{{ super() }}
+<script type="text/javascript" src="/common/js/page.js"></script>
+<script type="text/javascript" src="/brand/js/main.js"></script>
+{%endblock%}
