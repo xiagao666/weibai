@@ -1,0 +1,49 @@
+// variables
+@import "variable.scss";
+.#{$space}footer{
+	height: 260px;
+	background-color: #{$c2};
+	color: #{$c3};
+	font-size: 16px;
+	.v-content{
+		position: #{$pr};
+		height: 100%;
+		ul{
+			position: #{$pa};
+		}
+		.footer-info{
+			left: 60px;
+			top: 30px;
+			li{
+				margin-bottom: 15px;
+			}
+		}
+		.footer-list{
+		    right: 0;
+			bottom: 130px;
+			li{
+				float: #{$fl};
+				text-align: center;
+				margin-right: 10px;
+				padding: 0 8px;
+				border-right: 1px solid #{$c3};
+				&.last{
+					border-right: none;
+				}
+				a{
+					color: #{$c3};
+				}
+			}
+		}
+
+		.copyright{
+			position: absolute;
+    		bottom: 50px;
+    		left: 57px;
+
+    		a{
+    			color: #{$c3};
+    		}
+		}
+	}
+}

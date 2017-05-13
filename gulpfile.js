@@ -44,20 +44,28 @@ var config = {
     entry: "./gulpfile.js",
     // html压缩选项
     options:{
-        removeComments: true,//清除HTML注释
-        collapseWhitespace: true,//压缩HTML
-        collapseBooleanAttributes: true,//省略布尔属性的值 <input checked="true"/> ==> <input />
-        removeEmptyAttributes: true,//删除所有空格作属性值 <input id="" /> ==> <input />
-        removeScriptTypeAttributes: true,//删除<script>的type="text/javascript"
-        removeStyleLinkTypeAttributes: true,//删除<style>和<link>的type="text/css"
-        minifyJS: true,//压缩页面JS
-        minifyCSS: true//压缩页面CSS
+        // 清除HTML注释
+        removeComments: true,
+        // 压缩HTML
+        collapseWhitespace: true,
+        // 省略布尔属性的值 <input checked="true"/> ==> <input />
+        collapseBooleanAttributes: true,
+        // 删除所有空格作属性值 <input id="" /> ==> <input />
+        removeEmptyAttributes: true,
+        // 删除<script>的type="text/javascript"
+        removeScriptTypeAttributes: true,
+        // 删除<style>和<link>的type="text/css"
+        removeStyleLinkTypeAttributes: true,
+        // 压缩页面JS
+        minifyJS: true,
+        // 压缩页面CSS
+        minifyCSS: true
     }
 };
 
 // 编译Sass后合并压缩css文件
 gulp.task('compileCSS', function() {
-    gulp.src(config.sassSrc)
+    gulp.src([config.sassSrc, !"./"+yargs.build+"/assets/src/**/css/_*.scss"])
         .pipe(change(config.sassSrc))
         .pipe(sass())
         .pipe(autoprefixer())

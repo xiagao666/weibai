@@ -1,0 +1,94 @@
+// variables
+@import "variable.scss";
+.#{$space}header{
+	background-color: #{$c3};
+	.header-top{
+		height: 120px;
+		position: #{$pr};
+
+		a{
+			position: #{$pa};
+			left: 0;
+			bottom: 26px;
+			display: block;
+			width: 170px;
+			height: 70px;
+			img{
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.top-search{
+			position: #{$pa};
+			top: 40px;
+		    left: 300px;
+		    width: 500px;
+		    height: 40px;
+		    border: 1px solid #{$c2};
+			background-color: #{$c3};
+			.search-text{
+				font-size: 18px;
+				width: 360px;
+				height: 100%;
+				text-indent: 20px;
+				color: #999;
+				border: none;
+			}
+			.search-button{
+				position: #{$pa};
+				right: 0;
+				top: 0;
+				width: 140px;
+				height: 100%;
+				font-size: 24px;
+				color:#{$c3};
+				background-color: #{$c2};
+				border: none;
+				transition: .5s;
+				cursor: pointer;
+				&:hover{
+					background-color: #068606;
+				}
+				.icon-search{
+					margin-right: 8px;
+				}
+			}
+		}
+	}
+	.header-wrap{
+		height: 50px;
+		background-color: #{$c2};
+
+		.wrap-nav{
+			height: 100%;
+
+			.nav-item{
+				height: 100%;
+				float: #{$fl};
+				margin-right: 3px;
+
+				&.nav-has{
+					position: #{$pr};
+				}
+
+				> a{
+					display: block;
+					height: 100%;
+					line-height: 50px;
+					padding-left: 30px;
+					padding-right: 30px;
+					font-size: #{$f14};
+					color: #{$c3};
+				}
+				&.active,&:hover{
+					> a{
+						background-color: #{$c3};
+						border-top: 2px solid #{$c2};
+						color: #{$c2};
+					}
+				}
+			}
+		}
+	}
+}
