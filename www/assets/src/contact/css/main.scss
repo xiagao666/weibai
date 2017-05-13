@@ -47,6 +47,9 @@
     		left: 83px;
     		display: none;
 			color: #f22;
+            &.last{
+                top: 151px;
+            }
 		}
 		button{
 			width: 128px;

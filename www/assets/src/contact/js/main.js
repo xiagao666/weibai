@@ -9,11 +9,9 @@ var Contact = {
 	bind: function(){
 		var t = this;
 		$(document).on("click", "#Jsend", function(){
-			var $this = $(this);
-			if(t.check() && !$this.hasClass("disabled")){
-				t.sendMail();
-				$this.addClass("disabled");
-			}
+			if(t.check()){
+                t.sendMail();
+            }
 		}).on("focus", "input,textarea", function(){
 			$(this).parent().removeClass("error");
 		});
@@ -46,24 +44,11 @@ var Contact = {
 		return true;
 	},
 	sendMail: function(){
-		var t = this;
-		$.ajax({
-			url: "/main/feedback",
-			type: "post",
-			data: $("#Jcontact").serialize(),
-			success: function(res){
-				$("#Jsend").removeClass("disabled");
-				res = JSON.parse(res);
-				if (res.status == "success"){
-					t.reset();
-					alert(res.msg);
-				}
-			},
-			error: function(){
-				$("#Jsend").removeClass("disabled");
-				alert("请稍后重试！");
-			}
-		})
+		var t = this,
+        $mail = $("#JsendMail"),
+        body = "userName：" + t.$name.val() + "  userPhone："+t.$phone.val() + "  userSuggest：" + t.$suggest.val(),
+        mail = "mailto:info@viobio.com.cn?subject=suggest&body="+body;
+        window.location.href = mail;
 	},
 	reset: function(){
 		$("#Jcontact").find("input,textarea").val("");

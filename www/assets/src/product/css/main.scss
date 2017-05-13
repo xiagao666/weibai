@@ -99,6 +99,8 @@
 	    		color: #{$c2};
 	    		overflow: hidden;
     			height: 20px;
+                padding: 0 10px;
+                text-overflow: ellipsis;
 			}
 		}
 	}
