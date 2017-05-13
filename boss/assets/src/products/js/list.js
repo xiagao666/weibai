@@ -126,7 +126,9 @@ var Product = {
                         "id": "Jalert",
                         "content": "产品导入成功！",
                         "type": "success",
-                        "callback": function() {}
+                        "callback": function() {
+                            window.location.reload();
+                        }
                     });
                 } else {
                     Modal.alert({

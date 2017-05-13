@@ -24,6 +24,7 @@ class core_db_ProductDes extends core_db_DbBase {
 
             //判断描述是否添加过
             $productDes = $this->getProductDesByProductId($productId);
+
             if ($productDes) {
                 throw new Exception("产品描述不能重复添加");
             }
@@ -60,7 +61,7 @@ class core_db_ProductDes extends core_db_DbBase {
             }
 
             $this->useConfig("common","main");
-            $rs = $this->updateData(array('id'=>$productId), $data);
+            $rs = $this->updateData(array('product_id'=>$productId), $data);
             if($rs === false) {
                 throw new Exception("更新失败");
             }

@@ -360,7 +360,7 @@ secondCur: "list"
                                     <div class="files upload-pre">
                                         <p>
                                             <img style="vertical-align: middle;" src="{$product[img_url]}" alt="{$product[product]}"/>
-                                            <input type="hidden" name="imgUrl" value="{$cms[img_url]}"/>
+                                            <input type="hidden" name="imgUrl[]" value="{$product[img_url]}"/>
                                             <button id="JmodifyPic" type="button" style="margin-left: 8px;" class="btn blue"><i class="icon-edit"></i> 修改图片</button>
                                         </p>
                                     </div>
@@ -464,7 +464,7 @@ secondCur: "list"
                 <!--产品描述 BEGIN-->
                 <div class="control-group" style="height: 500px;">
                     <textarea id="JeditorDes" name="productDes">
-                    <p>{$productDes[description]}</p>
+                    {$productDes[description]}
                     </textarea>
                 </div>
                 <!--产品描述 END-->
