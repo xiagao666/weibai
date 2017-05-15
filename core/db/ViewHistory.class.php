@@ -66,4 +66,22 @@ class core_db_ViewHistory extends core_db_DbBase
             return false;
         }
     }
+
+    /**
+     * 清空浏览记录
+     */
+    public function delViewHistorys($uuid) {
+        try {
+            if (!$uuid) {
+                throw new Exception("缺少参数");
+            }
+            //判断数据必选项
+            $this->useConfig("common", "main");
+            $history = $this->deleteData(array('uuid'=>$uuid));
+            return $history;
+        } catch (Exception $e) {
+            $this->log($e);
+            return false;
+        }
+    }
 }

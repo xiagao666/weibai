@@ -132,4 +132,17 @@ class index_product extends index_base
         $this->_params['productRelationList'] = $productRelationList;
         $this->render("productDetail/index.html", $this->_params);
     }
+
+    /**
+     * 清空产品浏览记录
+     */
+    public function pageDelProductViewHistory()
+    {
+        $dbViewHistory = new core_db_ViewHistory();
+        $historyRS = $dbViewHistory->delViewHistorys($this->_productViewLogQid);
+        if ($historyRS) {
+            return $this->alert(array("status"=>"error", "msg"=>"清空失败"));
+        }
+        return $this->alert(array("status"=>"success", "msg"=>"清空成功"));
+    }
 }
