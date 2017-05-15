@@ -1,0 +1,5 @@
+app/templates_c
+node_modules/
+.git/
+file/
+assets/dist

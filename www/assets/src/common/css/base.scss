@@ -21,8 +21,8 @@ ul,li{
   list-style: none;
 }
 // common
-@import "common.scss";
+@import "_common.scss";
 // header
-@import "header.scss";
+@import "_header.scss";
 // footer
-@import "footer.scss";
+@import "_footer.scss";

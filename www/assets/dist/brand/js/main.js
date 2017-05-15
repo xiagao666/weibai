@@ -1,0 +1,1 @@
+var Brand={init:function(){var n=this;n.initPage(),n.bind()},bind:function(){},initPage:function(){var n=$("input[name='currPage']").val(),a=$("input[name='totalPage']").val();$(".tcdPageCode").createPage({pageCount:parseInt(a),current:parseInt(n),backFn:function(n){window.location.href="/main/brand?page="+n}})}};$(function(){Brand.init()});

@@ -1,0 +1,50 @@
+.portlet.box .portlet-title.v-product {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.text-overflow{
+	text-overflow: ellipsis;
+    overflow: hidden;
+}
+.v-product span {
+	font-size: 14px;
+}
+.product-type {
+	display: inline-block;
+}
+.portlet-title .actions {
+	float: none;
+	margin-top: 0;
+}
+.portlet-title .actions > .btn-group {
+	margin-top: 0;
+}
+.portlet-title .actions > .btn-group > .btn {
+	margin-top: 0;
+	padding: 7px 22px;
+	background-color: #fff;
+}
+.dropdown-menu.pull-right{
+	width: 300px;
+    left: 0;
+}
+.dropdown-checkboxes label{
+	    float: left;
+    width: 40%;
+        margin-left: 10%;
+        text-overflow: ellipsis;
+    overflow: hidden;
+}
+.select2-search input{
+	padding: 4px 20px 4px 5px !important;
+}
+table.table th,table.table td{
+	text-overflow: ellipsis;
+    overflow: hidden;
+}
+.v-product form{
+	margin: 0;
+}
+input.product-btn{
+	width: 128px;
+}

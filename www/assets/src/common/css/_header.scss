@@ -35,23 +35,36 @@
 				color: #999;
 				border: none;
 			}
-			.search-button{
+			button{
 				position: #{$pa};
-				right: 0;
 				top: 0;
-				width: 140px;
 				height: 100%;
-				font-size: 24px;
+				transition: .8s;
 				color:#{$c3};
 				background-color: #{$c2};
+			}
+			i{
+				margin-right: 8px;
+			}
+			.search-button{
+				width: 140px;
+				right: 0;
+				font-size: 24px;
 				border: none;
-				transition: .5s;
 				cursor: pointer;
 				&:hover{
 					background-color: #068606;
 				}
-				.icon-search{
-					margin-right: 8px;
+			}
+			.phone-button{
+				right: -200px;
+				border: 1px solid #{$c2};
+				background-color: #{$c2};
+				font-size: 16px;
+				width: 150px;
+				&:hover{
+					color: #{$c2};
+					background-color: #{$c3};
 				}
 			}
 		}
@@ -80,6 +93,7 @@
 					padding-right: 30px;
 					font-size: #{$f14};
 					color: #{$c3};
+					transition: .6s;
 				}
 				&.active,&:hover{
 					> a{

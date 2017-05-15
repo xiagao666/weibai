@@ -1,0 +1,1 @@
+var Index={init:function(){this.bind()},bind:function(){}};Index.init();
