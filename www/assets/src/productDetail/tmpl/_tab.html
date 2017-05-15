@@ -1,30 +1,33 @@
 <div id="Jcontent"  class="pDetail-content">
-	<ul class="pDetail-tab">
-		<li class="Jtab active">产品介绍</li>
-		<li class="Jtab">文章/文献</li>
-		<li class="Jtab last">产品说明书</li>
-	</ul>
+	{% include "www/assets/src/product/tmpl/_history.html" %}
+	<div class="content-right">
+		<ul class="pDetail-tab">
+			<li class="Jtab active">产品介绍</li>
+			<li class="Jtab">产品说明书</li>
+			<li class="Jtab">文章/文献</li>
+		</ul>
 
-	<div class="cotent-main">
-		<h4>{$product[product]}</h4>
-		<div>
-			{$productDes[description]}
+		<div class="cotent-main">
+			<h4>{$product[product]}</h4>
+			<div>
+				{$productDes[description]}
+			</div>
 		</div>
-	</div>
-	<div class="cotent-main v-hide">
-		<h4>文章/文献列表</h4>
-		{if $productRelationList[1]}
-		{foreach $productRelationList[1] as $prlk => $prlv}
-		<a class="main-doc" href="{$prlv[download_url]}">{$prlv[title]}</a>
-		{/foreach}
-		{/if}
-	</div>
-	<div class="cotent-main v-hide">
-		<h4>产品说明书列表</h4>
-		{if $productRelationList[2]}
-		{foreach $productRelationList[2] as $prlk => $prlv}
-		<a class="main-doc" href="{$prlv[download_url]}">{$prlv[title]}</a>
-		{/foreach}
-		{/if}
+		<div class="cotent-main v-hide">
+			<h4>产品说明书列表</h4>
+			{if $productRelationList[2]}
+			{foreach $productRelationList[2] as $prlk => $prlv}
+			<a class="main-doc" href="{$prlv[download_url]}">{$prlv[title]}</a>
+			{/foreach}
+			{/if}
+		</div>
+		<div class="cotent-main v-hide">
+			<h4>文章/文献列表</h4>
+			{if $productRelationList[1]}
+			{foreach $productRelationList[1] as $prlk => $prlv}
+			<a class="main-doc" href="{$prlv[download_url]}">{$prlv[title]}</a>
+			{/foreach}
+			{/if}
+		</div>
 	</div>
 </div>

@@ -88,20 +88,34 @@
 }
 .v-news{
 	margin-bottom: 30px;
-	img{
+	overflow: hidden;
+	.swiper-container{
 		width: 610px;
 		height: 360px;
+		float: left;
 	}
 	ul{
 		float: #{$fr};
 		width: 530px;
 		color: #121212;
+		position: #{$pr};
 		li{
 			position: #{$pr};
 			padding-left: 20px;
-			border-left: 3px solid #{$c2};
 			margin-bottom: 30px;
+			&.last{
+				position: #{$pa};
+				left: 0;
+				top: 0;
+				padding-left: 0;
+				margin-bottom: 0;
+				width: 3px;
+				height: 99px;
+				background-color: #{$c2};
+				transition: all .6s ease 0s;
+			}
 		}
+
 		h3{
 			font-size: 24px;
 			font-weight: normal;

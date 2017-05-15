@@ -3,7 +3,7 @@
 	overflow: hidden;
 	.pProduct-left{
 		float: left;
-		width: 230px;
+		width: 270px;
 		overflow: #{$oh};
 
 		.left-nav{
@@ -76,7 +76,13 @@
 		.left-history{
 			margin-top: 30px;
 			margin-bottom: 30px;
+			background-color: #fff;
+			padding-bottom: 10px;
 
+			ul{
+				padding-bottom: 10px;
+	    		border-bottom: 1px solid #{$c2};
+			}
 			li{
 				margin-bottom: 6px;
 			}
@@ -85,25 +91,31 @@
 				color: #{$c2};
 				padding-bottom: 8px;
 				margin-bottom: 10px;
+				padding-left: 6px;
+    			padding-top: 8px;
 				border-bottom: 2px solid #{$c2};
 			}
 
 			a{
 				display: block;
 				color: #252525;
+				padding: 0 10px;
 				&:hover{
 					color: #{$c2};
 				}
 			}
 			img{
-				width: 40%;
+				width: 92px;
 				height: 60px;
 			    display: inline-block;
 			    vertical-align: top;
 			}
 			p{
-				width: 60%;
+				width: 62%;
 				display: inline-block;
+				&.info-none{
+					padding-left: 10px;
+				}
 
 				strong{
 					display: block;
@@ -117,6 +129,7 @@
 
 			button{
 				margin-top: 8px;
+				padding-left: 10px;
 				background-color: transparent;
 				border: none;
 				cursor: pointer;

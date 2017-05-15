@@ -5,8 +5,20 @@
 		<h2>新闻资讯</h2>
 		<span><strong>N</strong>ews</span>
 	</div>
-	<img src="{if $leftImg['img_url']}{$leftImg['img_url']}{else}holder.js/610x360?text=新闻资讯{/if}" alt="{$leftImg['title']}" />
-	<ul>
+
+	<div id="JnewsSwiper" class="swiper-container">
+	  <div class="swiper-wrapper">
+	    {if $leftImg}
+	      {foreach $leftImg as $rk => $rv}
+	        <a class="swiper-slide" href="{$rv['hyperlink']}"><img src="{if $rv['img_url']}{$rv['img_url']}{else}holder.js/610x360?text=新闻资讯{$rk}{/if}" title="{$rv['title']}"/></a>
+	      {/foreach}
+	    {/if}
+	  </div>
+	  <div class="swiper-pagination">
+	  </div>
+	</div>
+	<!-- <img src="{if $leftImg['img_url']}{$leftImg['img_url']}{else}holder.js/610x360?text=新闻资讯{/if}" alt="{$leftImg['title']}" /> -->
+	<ul id="JnewsList">
 		{if $newsList}
 			{foreach $newsList as $nek => $nev}
 				<li>
@@ -15,6 +27,7 @@
 					<a href="/news/detail?id={$nev[id]}">查看详情</a>
 				</li>
 			{/foreach}
+			<li id="JnewsNav" class="last"></li>
 		{/if}
 	</ul>
 </div>

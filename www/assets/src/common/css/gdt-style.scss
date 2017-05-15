@@ -1,9 +1,4 @@
 /* Elements----------------------------------------*/
-* {
-	margin: 0;
-	padding: 0;
-	outline: 0;
-}
 .side-bar a,.chat-tips i {
 	background-image: url("/common/img/gdt-img.png");
 	background-repeat: no-repeat;
@@ -35,7 +30,7 @@
 	background-position: -12px -142px;
 	position: relative;
 }
-.side-bar .icon-chat:hover .chat-tips {
+.has-child:hover .chat-tips {
 	display: block;
 }
 .side-bar .icon-blog {
@@ -57,7 +52,7 @@
 	padding: 20px;
 	border: 1px solid #d1d2d6;
 	position: absolute;
-	right: 78px;
+	right: 60px;
 	top: -55px;
 	background-color: #ffffff;
 	display: none;
@@ -76,4 +71,13 @@
 	height: 138px;
 }
 
-
+.tool-phone{
+	position: relative;
+	.icon-phone{
+		font-size: 35px;
+	    color: #fff;
+	    margin-left: 7px;
+	    margin-top: 3px;
+	    display: block;
+	}
+}
