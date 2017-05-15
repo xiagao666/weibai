@@ -1,0 +1,21 @@
+<div id="Jhistory" class="left-history">
+	<h3>浏览历史</h3>
+	{if $produvtViewHistory}
+	<ul>
+		{foreach $produvtViewHistory as $product}
+		<li>
+			<a href="/product/detail?id={$product['id']}">
+				<img src="{if $product['img_url']}{$product['img_url']}{else}holder.js/92x60?text=产品图片{/if}" alt=""/>
+				<p>
+					<strong>{$product['chinese_name']}</strong>
+					<span>基本售价：{$product['price']}元</span>
+				</p>
+			</a>
+		</li>
+		{/foreach}
+	</ul>
+	<button id="JclearHistroy" type="button">清空</button>
+	{else}
+	<p>暂时没有任何浏览记录</p>
+	{/if}
+</div>

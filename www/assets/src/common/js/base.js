@@ -8,14 +8,14 @@ var Base = {
 		$(document).on({
 			"mouseenter": function(){
 				var $this = $(this);
-				$this.addClass("active").find("ul").removeClass("v-hide");
+				$this.addClass("active").find("ul").removeClass("v-visible");
 			},
 			"mouseleave": function(){
 				var $this = $(this);
 				if (window.location.href.indexOf("product") != -1){
-					$this.find("ul").addClass("v-hide");
+					$this.find("ul").addClass("v-visible");
 				} else {
-					$this.removeClass("active").find("ul").addClass("v-hide");
+					$this.removeClass("active").find("ul").addClass("v-visible");
 				}
 			}
 		}, ".Jchild").on("click", "#Jgotop", function(){
@@ -31,10 +31,10 @@ var Base = {
 		});
 	},
 	initSwiper: function(){
-		var mySwiper = new Swiper('.swiper-container', {
+		new Swiper('#JcommonSwiper', {
 		    // 可选选项，自动滑动
 		    autoplay: 5000,
-		    pagination: '.swiper-pagination',
+		    pagination: '#JcommonSwiper .swiper-pagination',
 		    // 循环
 		    loop: true,
 		    // 速度

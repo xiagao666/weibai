@@ -8,12 +8,12 @@
         <meta name="keywords" content="{{page.keywords}}"/>
         <meta name="description" content="{{page.description}}"/>
         {%block meta%}{%endblock%}
-        {%block css%}
         <link href="/lib/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet"/>
         <link href="/lib/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
         <link rel="stylesheet" type="text/css" href="/common/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="/common/css/gdt-style.css"/>
         <link rel="stylesheet" type="text/css" href="/lib/swiper/2.7.6/css/idangerous.swiper.css"/>
+        {%block css%}
         {%endblock%}
     </head>
     <body>
@@ -26,11 +26,14 @@
         {%block footer%}
             {% include "www/assets/src/common/_footer.html" %}
         {%endblock%}
-        {%block js%}
-        <script type="text/javascript" src="/lib/jquery/1.8.3/js/jquery.min.js"></script>
-        <script type="text/javascript" src="/lib/swiper/2.7.6/js/idangerous.swiper.min.js"></script>
+        {%block tool%}
+            {% include "www/assets/src/common/_tool.html" %}
+        {%endblock%}
+        <script src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/Swiper/2.7.6/idangerous.swiper.min.js"></script>
         <script src="//cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
         <script type="text/javascript" src="/common/js/base.js"></script>
+        {%block js%}
         {%endblock%}
     </body>
 </html>

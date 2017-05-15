@@ -1,11 +1,11 @@
 <ul class="pProduct-content">
 	{if $productList}
 		{foreach $productList as $pk => $pv}
-			<li>
-				<a href="/product/detail?id={$pv['id']}"><img src="{if $pv['img_url']}{$pv['img_url']}{else}holder.js/200x221?text=产品图片{/if}" alt="{$pv['product']}"/></a>
-				<a href="/product/detail?id={$pv['id']}" class="desc">{$pv['product']}</a>
-				<p>价格：{if $pv['price']}{$pv['price']}{else}面议{/if}</p>
-			</li>
+		<li>
+			<a href="/product/detail?id={$pv['id']}"><img src="{if $pv['img_url']}{$pv['img_url']}{else}holder.js/200x221?text=产品图片{/if}" alt="{$pv['product']}"/></a>
+			<a href="/product/detail?id={$pv['id']}" class="desc">{$pv['product']}</a>
+			<p>价格：{if $pv['price']}{$pv['price']}{else}面议{/if}</p>
+		</li>
 		{/foreach}
 	{/if}
 </ul>

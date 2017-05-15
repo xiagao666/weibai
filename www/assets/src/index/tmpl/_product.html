@@ -5,7 +5,18 @@
 		<h2>产品促销</h2>
 		<span><strong>D</strong>eals</span>
 	</div>
-	<img src="{if $saleImg['img_url']}{$saleImg['img_url']}{else}holder.js/1190x420?text=促销大图{/if}" alt="{$saleImg['title']}" />
+	<!-- <img src="{if $saleImg['img_url']}{$saleImg['img_url']}{else}holder.js/1190x420?text=促销大图{/if}" alt="{$saleImg['title']}" /> -->
+	<div id="JproductSwiper" class="productSwiper swiper-container">
+	  <div class="swiper-wrapper">
+	    {if $rollList}
+	      {foreach $rollList as $rk => $rv}
+	        <a class="swiper-slide" href="{$rv['hyperlink']}"><img src="{if $rv['img_url']}{$rv['img_url']}{else}holder.js/1920x420?text=促销大图{$rk}{/if}" title="{$rv['title']}"/></a>
+	      {/foreach}
+	    {/if}
+	  </div>
+	  <div class="swiper-pagination">
+	  </div>
+	</div>
 	<ul class="product-list">
 
 		<li class="first">

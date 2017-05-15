@@ -28,7 +28,7 @@
 		    border: 1px solid #{$c2};
 			background-color: #{$c3};
 			.search-text{
-				font-size: 18px;
+				font-size: 14px;
 				width: 360px;
 				height: 100%;
 				text-indent: 20px;
@@ -39,7 +39,7 @@
 				position: #{$pa};
 				top: 0;
 				height: 100%;
-				transition: .8s;
+				transition: background-color .6s ease 0s;
 				color:#{$c3};
 				background-color: #{$c2};
 			}
@@ -49,7 +49,7 @@
 			.search-button{
 				width: 140px;
 				right: 0;
-				font-size: 24px;
+				font-size: 16px;
 				border: none;
 				cursor: pointer;
 				&:hover{
@@ -74,6 +74,7 @@
 		background-color: #{$c2};
 
 		.wrap-nav{
+			position: #{$pr};
 			height: 100%;
 
 			.nav-item{
@@ -81,8 +82,56 @@
 				float: #{$fl};
 				margin-right: 3px;
 
-				&.nav-has{
+				&.has-child i{
 					position: #{$pr};
+					top: -18px;
+					left: 50%;
+    				margin-left: -6px;
+    				color: #{$c3};
+    				&:before{
+    					transition: all .3s ease 0s;
+    				}
+				}
+
+				ul{
+					position: #{$pa};
+					left: 0;
+					width: 100%;
+					background: #ffffff none repeat scroll 0 0;
+				    border-bottom: 4px solid #{$c2};
+				    opacity: 0;
+				    padding-top: 20px;
+				    top: 115%;
+				    transition: all 0.3s ease 0s;
+				    z-index: -99;
+
+				    li {
+				    	float: left;
+				    	width: 20%;
+				    	margin-bottom: 30px;
+
+				    	a{
+				    		display: block;
+				    		padding-top: 3px;
+				    		padding-bottom: 3px;
+				    		margin-left: 30px;
+				    		margin-right: 30px;
+				    		font-weight: 300;
+				    		color: #454545;
+				    		transition: all 0.3s ease 0s;
+
+				    		&.item-nav{
+				    			font-weight: 500;
+				    			font-size: 15px;
+				    			color: #444;
+				    		}
+
+				    		&:hover{
+				    			color: #{$c2};
+    							padding-left: 4px;
+				    		}
+				    	}
+				    }
 				}
 
 				> a{
@@ -93,7 +142,7 @@
 					padding-right: 30px;
 					font-size: #{$f14};
 					color: #{$c3};
-					transition: .6s;
+					transition: background-color .3s ease 0s;
 				}
 				&.active,&:hover{
 					> a{
@@ -101,6 +150,22 @@
 						border-top: 2px solid #{$c2};
 						color: #{$c2};
 					}
+					i{
+						color: #{$c2};
+					}
+				}
+
+				&:hover{
+					ul{
+						opacity: 1;
+					    top: 100%;
+					    visibility: visible;
+					    z-index: 999;
+					}
+
+				    i:before{
+				    	transform: rotate(180deg);
+				    }
 				}
 			}
 		}

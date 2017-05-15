@@ -1,1 +1,0 @@
-var ProductDetail={init:function(){this.bind()},bind:function(){$(document).on("click",".Jtab",function(){var i=$(this),n=$("#Jcontent").find(".cotent-main");i.siblings().removeClass("active"),n.addClass("v-hide"),i.addClass("active"),n.eq(i.index()).removeClass("v-hide")})}};$(function(){ProductDetail.init()});

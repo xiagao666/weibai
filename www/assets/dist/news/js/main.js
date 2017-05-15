@@ -1,1 +1,0 @@
-var New={init:function(){var n=$("input[name='currPage']").val(),e=$("input[name='totalPage']").val();$(".tcdPageCode").createPage({pageCount:parseInt(e),current:parseInt(n),backFn:function(n){window.location.href="/news/index?page="+n}})}};$(function(){New.init()});

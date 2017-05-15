@@ -41,8 +41,7 @@
 }
 
 .v-product{
-	img{
-		width: 100%;
+	.productSwiper{
 		height: 420px;
 	}
 
@@ -88,6 +87,7 @@
 	}
 }
 .v-news{
+	margin-bottom: 30px;
 	img{
 		width: 610px;
 		height: 360px;

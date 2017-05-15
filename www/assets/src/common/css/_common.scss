@@ -7,13 +7,16 @@
 .#{$space}hide{
 	display: none;
 }
+.#{$space}visible{
+	visibility: hidden;
+}
 .#{$space}content{
 	width: 1190px;
 	margin: 0 auto;
 }
 .swiper-container{
+	height: 500px;
 	width: 100%;
-	height: 400px;
 	.swiper-slide{
 		height: 100%;
 		img{

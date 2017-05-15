@@ -1,5 +1,5 @@
-app/templates_c
+app/templates_c/
 node_modules/
 .git/
 file/
-assets/dist
+www/assets/dist/
