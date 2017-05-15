@@ -55,27 +55,37 @@
 			width: 580px;
 			height: 280px;
 			background-color: #{$c3};
-			color: #000;
 			font-weight: normal;
 			letter-spacing: 2px;
 			padding-top: 10px;
 			padding-bottom: 10px;
+
+			a{
+				color: #000;
+			}
 			&.first{
 				margin-right: 29px;
 			}
 
-			h3,span{
+			.list-item{
 				position: #{$pa};
-				left: 396px;
-			}
-			h3{
-				top: 40px;
-			}
-			.brand{
-				top: 80px;
-			}
-			.price{
-				top: 110px;
+				top: 0;
+				left: 360px;
+
+
+				strong,span{
+					display: block;
+				}
+				strong{
+					margin-top: 30px;
+					margin-bottom: 10px;
+					font-size: 18px;
+					color: #{$c2};
+				}
+				span{
+					margin-bottom: 6px;
+    				font-size: 14px;
+				}
 			}
 		}
 
@@ -117,7 +127,12 @@
 		}
 
 		h3{
-			font-size: 24px;
+			font-size: 18px;
+			height: 27px;
+			line-height: 27px;
+			width: 90%;
+			overflow: hidden;
+			text-overflow: ellipsis;
 			font-weight: normal;
 		}
 		p{

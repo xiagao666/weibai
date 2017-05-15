@@ -167,7 +167,12 @@
 	    		overflow: hidden;
     			height: 20px;
                 padding: 0 10px;
-                text-overflow: ellipsis;
+			}
+
+			p{
+				padding: 0 10px;
+				overflow: hidden;
+    			height: 20px;
 			}
 		}
 	}
