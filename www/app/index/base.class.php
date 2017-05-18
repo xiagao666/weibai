@@ -18,6 +18,7 @@ class index_base extends STpl
         $this->getRollImg();//轮播图片
         $this->getCategorys();//分类
         $this->getProductViewLogQid();//浏览产品记录串
+        $this->getProductHistoryView();//浏览产品记录
     }
 
     /**
@@ -82,7 +83,24 @@ class index_base extends STpl
     {
         $this->_productViewLogQid = $_SESSION['viewLog'];
         if (!$this->_productViewLogQid) {
-            $_SESSION['viewLog'] = uniqid();
+            $this->_productViewLogQid = $_SESSION['viewLog'] = uniqid();
+        }
+    }
+
+    /**
+     * 获取产品浏览记录
+     */
+    public function getProductHistoryView()
+    {
+        $query['uuid'] = $this->_productViewLogQid;
+        $dbViewHistory = new core_db_ViewHistory();
+        $historyProducts = $dbViewHistory->getViewHistorys($query, 50, 0);
+        $historyProductIds = is_array($historyProducts['data']) ? array_column($historyProducts['data'], 'product_id') : '';
+        $historyProductIds = core_lib_Comm::getStr(array_unique((array)$historyProductIds), 'int');
+        if (count($historyProductIds) > 0) {
+            $dbProduct = new core_db_Product();
+            $products = $dbProduct->queryProductList("id in (".implode(",", $historyProductIds).")","", 5);
+            $this->_params['produvtViewHistory'] = $products['list'];
         }
     }
 
