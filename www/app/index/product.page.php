@@ -140,7 +140,7 @@ class index_product extends index_base
     {
         $dbViewHistory = new core_db_ViewHistory();
         $historyRS = $dbViewHistory->delViewHistorys($this->_productViewLogQid);
-        if ($historyRS) {
+        if (!$historyRS) {
             return $this->alert(array("status"=>"error", "msg"=>"清空失败"));
         }
         return $this->alert(array("status"=>"success", "msg"=>"清空成功"));

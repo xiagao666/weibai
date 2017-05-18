@@ -133,8 +133,8 @@ class index_main extends index_base
         $query['type'] = 9;
         $query['sort'] = 2;//sort 排序
         $query['isDesc'] = 2;//倒序
-        $sales = $this->_dbCms->queryNews($query, 1, 1);
-        $this->_params['saleImg'] = $sales['data'][0];
+        $sales = $this->_dbCms->queryNews($query, 3, 1);
+        $this->_params['saleImg'] = $sales['data'];
     }
 
     /**
@@ -145,8 +145,8 @@ class index_main extends index_base
         $query['type'] = 10;
         $query['sort'] = 2;//sort 排序
         $query['isDesc'] = 2;//倒序
-        $leftImgs = $this->_dbCms->queryNews($query, 1, 1);
-        $this->_params['leftImg'] = $leftImgs['data'][0];
+        $leftImgs = $this->_dbCms->queryNews($query, 3, 1);
+        $this->_params['leftImg'] = $leftImgs['data'];
     }
 
     /**

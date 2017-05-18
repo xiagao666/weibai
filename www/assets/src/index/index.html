@@ -5,16 +5,13 @@
     description : "首页-唯佰生物科技有限公司"
 } %}
 {%block css%}
-{{ super() }}
 <link rel="stylesheet" type="text/css" href="/index/css/main.css"/>
 {%endblock%}
 {%block content%}
-    {% include "www/assets/src/common/_swiper.html" %}
+	{% include "www/assets/src/common/_swiper.html" %}
     {% include "www/assets/src/index/tmpl/_product.html" %}
     {% include "www/assets/src/index/tmpl/_news.html" %}
-    <div style="height: 20px;"></div>
 {%endblock%}
 {%block js%}
-{{ super() }}
 <script type="text/javascript" src="/index/js/main.js"></script>
 {%endblock%}

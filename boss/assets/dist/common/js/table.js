@@ -1,0 +1,1 @@
+!function(){TableList.init({object:"#JdataPanel",tableConfig:{bSort:!1,bPaginate:!1,searching:!1,bFilter:!1,bInfo:!1},filter:".Jfilter"}),$(".dataTables_wrapper").find(".row-fluid").remove()}();

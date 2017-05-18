@@ -1,8 +1,8 @@
-<ul class="pProduct-nav">
+<ul class="left-nav">
 	{if $categoryList}
 		{foreach $categoryList as $clk => $clv}
 			<li class="Jnav{if $clv['id'] == $pid} active{/if}">
-				<strong>{$clv['name']}<i></i></strong>
+				<a href="/product/index?pid={$csv['pid']}">{$clv['name']}<i></i></a>
 				<p>
 					{if $clv['son']}
 						{foreach $clv['son'] as $csk => $csv}
