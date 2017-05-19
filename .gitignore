@@ -1,5 +1,7 @@
-app/templates_c/
 node_modules/
 .git/
 file/
 www/assets/dist/
+www/app/templates_c/
+boss/assets/dist/
+boss/app/templates_c/
