@@ -22,13 +22,15 @@
 				</tr>
 			</thead>
 			<tbody>
+				{foreach $tegProductList as $tegProduct}
 				<tr>
-					<td>{$product[brand]}</td>
-					<td>{$product[catalog_number]}</td>
-					<td>{$product[storage_temperature]}</td>
-					<td>{$product[package]}</td>
-					<td>{$product[price]}元</td>
+					<td>{$tegProduct[brand]}</td>
+					<td>{$tegProduct[catalog_number]}</td>
+					<td>{$tegProduct[storage_temperature]}</td>
+					<td>{$tegProduct[package]}</td>
+					<td>{$tegProduct[price]}元</td>
 				</tr>
+				{/foreach}
 			</tbody>
 		</table>
     </div>
