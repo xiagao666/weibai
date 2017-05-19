@@ -1,1 +1,0 @@
-$(function(){$("#fileupload").fileupload({url:"/boss/product/action",dataType:"json",done:function(o,e){$.each(e.result.files,function(o,e){$("<p/>").text(e.name).appendTo("#files")})},progressall:function(o,e){var s=parseInt(e.loaded/e.total*100,10);$("#progress .progress-bar").css("width",s+"%")}})});
