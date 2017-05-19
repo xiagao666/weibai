@@ -1,12 +1,14 @@
 @import "../../common/css/variable.scss";
 .pDetail-info{
+    overflow: hidden;
 	background-color: #fff;
 	padding: 40px;
 	margin-bottom: 20px;
 	position: relative;
 
 	a{
-		display: inline-block;
+        float: left;
+		display: block;
 		height: 263px;
 		width: 263px;
 	}
@@ -16,11 +18,8 @@
 		height: 100%;
 	}
 	.info-right{
-		position: absolute;
-	    right: 20px;
-	    top: 40px;
-		width: 840px;
-		display: inline-block;
+        float: right;
+		width: 820px;
 
     	h3{
 			font-size: 28px;
