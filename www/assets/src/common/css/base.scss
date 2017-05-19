@@ -20,6 +20,12 @@ a {
 ul,li{
   list-style: none;
 }
+img{
+    border: 0;
+}
+*:focus{
+  outline: none;
+}
 // common
 @import "_common.scss";
 // header

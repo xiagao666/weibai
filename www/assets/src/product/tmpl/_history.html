@@ -1,8 +1,8 @@
 <div id="Jhistory" class="left-history">
 	<h3>浏览历史</h3>
-	{if $produvtViewHistory}
+	{if $productViewHistory}
 	<ul>
-		{foreach $produvtViewHistory as $product}
+		{foreach $productViewHistory as $product}
 		<li>
 			<a href="/product/detail?id={$product['id']}">
 				<img src="{if $product['img_url']}{$product['img_url']}{else}holder.js/92x60?text=产品图片{/if}" alt=""/>

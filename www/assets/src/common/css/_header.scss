@@ -27,13 +27,16 @@
 		    height: 40px;
 		    border: 1px solid #{$c2};
 			background-color: #{$c3};
+			border-radius: 20px;
 			.search-text{
 				font-size: 14px;
 				width: 360px;
 				height: 100%;
 				text-indent: 20px;
 				color: #999;
+				border-radius: 20px;
 				border: none;
+				background-color: #{$c3};
 			}
 			button{
 				position: #{$pa};
@@ -42,6 +45,7 @@
 				transition: background-color .6s ease 0s;
 				color:#{$c3};
 				background-color: #{$c2};
+				border-radius: 20px;
 			}
 			i{
 				margin-right: 8px;
@@ -84,7 +88,7 @@
 
 				&.has-child i{
 					position: #{$pr};
-					top: -18px;
+					top: -16px;
 					left: 50%;
     				margin-left: -6px;
     				color: #{$c3};
@@ -143,8 +147,9 @@
 					line-height: 50px;
 					padding-left: 30px;
 					padding-right: 30px;
-					font-size: #{$f14};
+					font-size: #{$f16};
 					color: #{$c3};
+					letter-spacing: 2px;
 					transition: background-color .3s ease 0s;
 				}
 				&.active,&:hover{

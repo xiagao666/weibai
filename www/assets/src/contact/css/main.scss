@@ -21,6 +21,7 @@
 		}
 		label{
 			padding-right: 20px;
+			letter-spacing: 1px;
 			vertical-align: middle;
 			span{
 				color: #f00;
@@ -31,20 +32,23 @@
 			width: 400px;
 			text-indent: 10px;
 			height: 38px;
-			border: 1px solid #666;
+			border: 1px solid #{$c2};
+			border-radius: 20px;
 		}
 		textarea{
 			width: 400px;
 			text-indent: 10px;
+			padding-top: 8px;
 		    vertical-align: middle;
 		    height: 140px;
+		    border-radius: 20px;
 		    resize: none;
-		    border: 1px solid #666;
+		    border: 1px solid #{$c2};
 		}
 		.tip{
 			position: absolute;
 			top: 48px;
-    		left: 83px;
+    		left: 100px;
     		display: none;
 			color: #f22;
             &.last{
@@ -55,11 +59,19 @@
 			width: 128px;
 			height: 38px;
 			margin-left: 20px;
+			font-size: #{$f14};
 			border: 1px solid #{$c2};
-			background-color: #fff;
+			background-color: #{$c2};
+			color: #{$c3};
 			cursor: pointer;
+			border-radius: 20px;
+			transition: background-color .5s ease 0s;
 			&.send{
 				margin-left: 133px;
+			}
+			&:hover{
+				background-color: #{$c3};
+				color: #{$c2};
 			}
 		}
 	}

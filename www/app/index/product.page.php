@@ -41,26 +41,6 @@ class index_product extends index_base
         $products = $dbProduct->queryProductList($query, array("sort"=>"desc"), $limit, $page);
         $totalPage = ceil($products['total']/$limit);
 
-        $dbViewHistory = new core_db_ViewHistory();
-        $query['uuid'] = $this->_productViewLogQid;
-        $views = $dbViewHistory->getViewHistorys($query);
-        $viewsProductIds = is_array($views['data']) ? array_column($views['data'], 'product_id') : '';
-        if (is_array($viewsProductIds)) {
-            $viewsProductIds = array_unique($viewsProductIds);
-            $viewProductQuery[] = "id in (".implode(",", $viewsProductIds).")";
-            $viewProducts = $dbProduct->queryProductList($viewProductQuery, "", count($viewsProductIds), 1);
-            if ($viewsProductIds) {
-                foreach ($viewsProductIds as $vk => $vv) {
-                    foreach ($viewProducts['list'] as $vpk => $vpv) {
-                        if ($vv == $vpv['id']) {
-                            $viewProductList[$vv] = $vpv;
-                            $viewProductList[$vv]['viewYmd'] = $views['data'][$vk]['create_time'];
-                        }
-                    }
-                }
-            }
-        }
-
         if ($key) {
             $urlData['key'] = $key;
         }
@@ -76,7 +56,6 @@ class index_product extends index_base
         $this->_params["productList"] = $products['list'];
         $this->_params["pid"] = $parentCategoryId;
         $this->_params["cid"] = $childCategoryId;
-        $this->_params["viewList"] = $views['data'];
         $this->_params["page"] = $page;
         $this->_params["totalPage"] = $totalPage;
         $this->_params["key"] = $key;
@@ -100,6 +79,16 @@ class index_product extends index_base
         $product = $dbProduct->getProductById($id);
         if ($product === false) {
             return $this->alert(array("status"=>"error", "msg"=>"打开的产品不存在"));
+        }
+
+        //根据货号查询 不同规格的产品
+        $catalogNumber = $product['catalog_number'];
+        $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber, 'id !='.$id));
+        if (is_array($tegProducts['list'])) {
+            $tegProductList = (array)$tegProducts['list'];
+            array_unshift($tegProductList, $product);
+        } else {
+            $tegProductList = $product;
         }
 
         //获取分类信息
@@ -130,6 +119,7 @@ class index_product extends index_base
         $this->_params["category"] = $category;
         $this->_params["productDes"] = $productDes;
         $this->_params['productRelationList'] = $productRelationList;
+        $this->_params['tegProductList'] = $tegProductList;
         $this->render("productDetail/index.html", $this->_params);
     }
 

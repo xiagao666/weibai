@@ -97,10 +97,20 @@ class index_base extends STpl
         $historyProducts = $dbViewHistory->getViewHistorys($query, 50, 0);
         $historyProductIds = is_array($historyProducts['data']) ? array_column($historyProducts['data'], 'product_id') : '';
         $historyProductIds = core_lib_Comm::getStr(array_unique((array)$historyProductIds), 'int');
+        $historyProductIds = array_slice($historyProductIds, 0, 5);
         if (count($historyProductIds) > 0) {
             $dbProduct = new core_db_Product();
             $products = $dbProduct->queryProductList("id in (".implode(",", $historyProductIds).")","", 5);
-            $this->_params['produvtViewHistory'] = $products['list'];
+            if (is_array($products['list'])){
+                foreach ($products['list'] as $pk => $pv) {
+                    $productList[$pv['id']] = $pv;
+                }
+                foreach ($historyProductIds as $hv){
+                    $productViewHistory[$hv] = $productList[$hv];
+                }
+            }
+
+            $this->_params['productViewHistory'] = $productViewHistory;
         }
     }
 
