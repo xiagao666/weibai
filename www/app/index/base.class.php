@@ -105,10 +105,11 @@ class index_base extends STpl
                 foreach ($products['list'] as $pk => $pv) {
                     $productList[$pv['id']] = $pv;
                 }
+                foreach ($historyProductIds as $hv){
+                    $productViewHistory[$hv] = $productList[$hv];
+                }
             }
-            foreach ($historyProductIds as $hv){
-                $productViewHistory[$hv] = $productList[$hv];
-            }
+
             $this->_params['productViewHistory'] = $productViewHistory;
         }
     }
