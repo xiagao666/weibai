@@ -14,6 +14,9 @@ var Contact = {
             }
 		}).on("focus", "input,textarea", function(){
 			$(this).parent().removeClass("error");
+		}).on("click", "#Jreset", function(){
+			var $form = $("#Jform");
+			$form.find(".error").removeClass("error");
 		});
 	},
 	check: function(){
