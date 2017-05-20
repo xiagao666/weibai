@@ -5,7 +5,7 @@
 		<h2>产品促销</h2>
 		<span><strong>D</strong>eals</span>
 	</div>
-	<div id="JproductSwiper" class="productSwiper swiper-container">
+	<!--<div id="JproductSwiper" class="productSwiper swiper-container">
 	  <div class="swiper-wrapper">
 	    {if $saleImg}
 	      {foreach $saleImg as $rk => $rv}
@@ -15,11 +15,11 @@
 	  </div>
 	  <div class="swiper-pagination">
 	  </div>
-	</div>
+	</div>-->
 	<ul class="product-list">
 		<li class="first">
 			<a href="/product/detail?id={$saleProducts[0]['id']}">
-				<img src="{if $saleProducts[0]['img_url']}{$saleProducts[0]['img_url']}{else}holder.js/313x280?text=产品图片{/if}" alt="{$saleProducts[0]['product']}"/>
+				<img src="{if $saleProducts[0]['img_url']}{$saleProducts[0]['img_url']}{else}holder.js/280x280?text=产品图片{/if}" alt="{$saleProducts[0]['product']}"/>
 				<div class="list-item">
 					<strong>{$saleProducts[0]['product']}</strong>
 					<span class="brand">品牌：{$saleProducts[0]['brand']}</span>
@@ -32,7 +32,7 @@
 		</li>
 		<li>
 			<a href="/product/detail?id={$saleProducts[1]['id']}">
-				<img src="{if $saleProducts[1]['img_url']}{$saleProducts[0]['img_url']}{else}holder.js/313x280?text=产品图片{/if}" alt="{$saleProducts[1]['product']}"/>
+				<img src="{if $saleProducts[1]['img_url']}{$saleProducts[0]['img_url']}{else}holder.js/280x280?text=产品图片{/if}" alt="{$saleProducts[1]['product']}"/>
 				<div class="list-item">
 					<strong>{$saleProducts[1]['product']}</strong>
 					<span class="brand">品牌：{$saleProducts[1]['brand']}</span>
