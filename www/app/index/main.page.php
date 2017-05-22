@@ -156,7 +156,7 @@ class index_main extends index_base
     {
         $query['is_sale'] = 1;
         $dbProduct = new core_db_Product();
-        $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 2, 1);
+        $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 6, 1);
         $this->_params['saleProducts'] = $saleProducts['list'];
     }
 
