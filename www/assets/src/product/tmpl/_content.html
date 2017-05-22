@@ -1,5 +1,5 @@
+{if $productList}
 <ul class="pProduct-content">
-	{if $productList}
 		{foreach $productList as $pk => $pv}
 		<li>
 			<a href="/product/detail?id={$pv['id']}"><img src="{if $pv['img_url']}{$pv['img_url']}{else}holder.js/200x200?text=产品图片{/if}" alt="{$pv['product']}"/></a>
@@ -7,6 +7,7 @@
 			<p>价格：{if $pv['price']}{$pv['price']}{else}面议{/if}</p>
 		</li>
 		{/foreach}
-	{/if}
 </ul>
-
+{else}
+<p style="text-align: center;font-size: 14px;padding-top: 30px;">无法搜索到您要找的商品！</p>
+{/if}

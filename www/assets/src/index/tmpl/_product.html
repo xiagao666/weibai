@@ -8,16 +8,16 @@
         <ul class="product-list swiper-wrapper">
             {foreach $saleProducts as $products}
             <li class="swiper-slide">
-                {foreach $products as $key=>product}
+                {foreach $products as $key=>$product}
                 <a class="{if $key == 0}first{/if}" href="/product/detail?id={$product['id']}">
                     <img src="{if $product['img_url']}{$product['img_url']}{else}holder.js/280x280?text=产品图片{/if}" alt="{$product['product']}"/>
                     <div class="list-item">
                         <strong>{$product['product']}</strong>
-                        <span class="brand">品牌：{$product['brand']}</span>
-                        <span class="brand">货号：{$product['catalog_number']}</span>
-                        <span class="brand">规格：{$product['package']}</span>
-                        <span class="brand">产地：{$product['origin']}</span>
-                        <span class="price">售价：{$product['price']}元</span>
+                        {foreach $productKeys as $pk => $pv}
+                            {if $product[$pk]}
+                                <span class="brand">{$pv}：{$product[$pk]}</span>
+                            {/if}
+                        {/foreach}
                     </div>
                 </a>
                 {/foreach}

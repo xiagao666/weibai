@@ -13,7 +13,7 @@ class index_main extends index_base
     public function pageIndex($inPath)
     {
         $this->getNewest();//最新新闻
-        $this->getSaleImg();//产品促销大图
+//        $this->getSaleImg();//产品促销大图
         $this->getSaleProduct();//促销产品
         $this->getNewsLeftImg();//新闻资讯左图
         return $this->render("index/index.html", $this->_params);
@@ -156,8 +156,17 @@ class index_main extends index_base
     {
         $query['is_sale'] = 1;
         $dbProduct = new core_db_Product();
-        $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 6, 1);
-        $this->_params['saleProducts'] = $saleProducts['list'];
+        $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 12, 1);
+        $saleCount = count($saleProducts['list']);
+        $saleNum = floor($saleCount / 2);
+
+        if ($saleNum > 0) {
+            for ($i = 0; $i < $saleNum; $i++) {
+                $saleProductList[$i] = array_slice($saleProducts['list'], $i*2, 2);
+            }
+        }
+        $this->_params['saleProducts'] = $saleProductList;
+        $this->_params['productKeys'] = core_lib_Comm::productKeyToName();
     }
 
     /**
