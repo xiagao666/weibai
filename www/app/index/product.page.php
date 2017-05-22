@@ -80,6 +80,16 @@ class index_product extends index_base
         if ($product === false) {
             return $this->alert(array("status"=>"error", "msg"=>"打开的产品不存在"));
         }
+        $productKeys = core_lib_Comm::productKeyToName();
+        unset($productKeys['brand']);
+        unset($productKeys['catalog_number']);
+        unset($productKeys['price']);
+        foreach ($productKeys as $pok => $pov) {
+            if ($product[$pok]) {
+                $showProduct[$pok]['name'] = $pov;
+                $showProduct[$pok]['value'] = $product[$pok];
+            }
+        }
 
         //根据货号查询 不同规格的产品
         $catalogNumber = $product['catalog_number'];
@@ -88,7 +98,7 @@ class index_product extends index_base
             $tegProductList = (array)$tegProducts['list'];
             array_unshift($tegProductList, $product);
         } else {
-            $tegProductList = $product;
+            $tegProductList[] = $product;
         }
 
         //获取分类信息
@@ -115,6 +125,7 @@ class index_product extends index_base
         $dbViewHistory->addViewHistory($viewData);
 
         $this->_params["product"] = $product;
+        $this->_params['showProduct'] = $showProduct;
         $this->_params["pCategory"] = $pCategory;
         $this->_params["category"] = $category;
         $this->_params["productDes"] = $productDes;

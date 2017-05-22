@@ -2,7 +2,7 @@
 	{if $categoryList}
 		{foreach $categoryList as $clk => $clv}
 			<li class="Jnav{if $clv['id'] == $pid} active{/if}">
-				<a href="/product/index?pid={$csv['pid']}">{$clv['name']}<i></i></a>
+				<a href="/product/index?pid={$clv['id']}">{$clv['name']}<i></i></a>
 				<p>
 					{if $clv['son']}
 						{foreach $clv['son'] as $csk => $csv}

@@ -413,4 +413,34 @@ class core_lib_Comm
         mail($toMail, $subject, $message, $headers);
         return true;
     }
+
+    /**
+     * 产品对应字段名称
+     */
+    public function productKeyToName()
+    {
+        $productKeyToName = array(
+            'brand'=>'品牌',
+            'catalog_number'=>'货号',
+            'package'=>'包装',
+            'price'=>'价格',
+            'chinese_name'=>'中文名',
+            'abbreviation'=>'简写',
+            'origin'=>'产地',
+            'application_process'=>'应用/处理',
+            'other_name'=>'别名',
+            'storage_temperature'=>'储存温度',
+            'type'=>'类别',
+            'raise_from'=>'来源种属',
+            'reacts_with'=>'反应种属',
+            'application'=>'应用类别',
+            'label'=>'标记物',
+            'cas_no'=>'CAS号',
+            'molecular_formula'=>'分子式',
+            'molecular_weight'=>'分子量',
+            'grade'=>'级别',
+            'category'=>'类目',
+        );
+        return $productKeyToName;
+    }
 }

@@ -34,35 +34,35 @@
 	}
 	h2{
 		font-size: 30px;
-		left: 37px;
-		top: 9px;
+		left: 0;
+		bottom: 16px;
 		font-weight: normal;
 	}
 }
 
 .v-product{
 	.productSwiper{
-		height: 420px;
+		position: #{$pr};
+		height: 300px;
+		margin-top: 24px;
+		overflow: hidden;
 	}
 
 	.product-list{
-		margin-top: 24px;
+		height: 100%;
 		overflow: hidden;
 
-		li{
+		a{
 			position: #{$pr};
 			float: #{$fl};
-			width: 580px;
+			width: 560px;
 			height: 280px;
 			background-color: #{$c3};
 			font-weight: normal;
 			letter-spacing: 2px;
-			padding-top: 10px;
-			padding-bottom: 10px;
+			padding: 10px;
+			color: #000;
 
-			a{
-				color: #000;
-			}
 			&.first{
 				margin-right: 29px;
 			}
@@ -70,7 +70,7 @@
 			.list-item{
 				position: #{$pa};
 				top: 0;
-				left: 360px;
+				left: 310px;
 
 
 				strong,span{
@@ -90,10 +90,29 @@
 		}
 
 		img{
-			width: 313px;
-			height: 100%;
-			margin-left: 10px;
+			width: 280px;
+			height: 280px;
 		}
+	}
+
+	.product-arrow{
+		background-image: url("/index/img/banner_arrow.png");
+		background-repeat: no-repeat;
+		position: #{$pa};
+	    top: 50%;
+	    margin-top: -35px;
+	    width: 70px;
+	    height: 70px;
+	    z-index: 999;
+
+	    &.arrow-left{
+			left: 20px;
+			background-position: left top;
+	    }
+	    &.arrow-right{
+			right: 20px;
+			background-position: left bottom;
+	    }
 	}
 }
 .v-news{
