@@ -124,7 +124,7 @@
 				{if $products}
 					{foreach $products as $item}
 						<tr>
-							<td>{$item['id']}</td>
+							<td><a href="/product/action?productId={$item[id]}&isEdit=1">{$item['id']}</a></td>
 							<td>{$item['brand']}</td>
 							<td>{$item['catalog_number']}</td>
 							<td>{$item['product']}</td>
