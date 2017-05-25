@@ -21,7 +21,7 @@ class index_product extends index_base
         $childCategoryId = isset($_GET["childCategoryId"]) ? core_lib_Comm::getStr($_GET["childCategoryId"],
             'int') : 0;//子ID
         $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
-        $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
+        $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 30;
         $isSale = isset($_GET['isSale']) ? core_lib_Comm::getStr($_GET["isSale"], 'int') : 2;
         //查询一级类目
         $dbCategory = new core_db_Category();
@@ -59,17 +59,31 @@ class index_product extends index_base
         $dbProduct = new core_db_Product();
         $products = $dbProduct->queryProductList($query, array("id" => "desc"), $limit, $page);
 
+        $categorys = $dbCategory->queryAllCategory(array("pid != 0"), 10000, 0);
+        if ($categorys['items']) {
+            foreach ($categorys['items'] as $csk => $csv) {
+                $categoryList[$csv['id']] = $csv;
+            }
+        }
+        if ($products['list']) {
+            foreach ($products['list'] as $podk => $podv) {
+                $products['list'][$podk]['category'] = $categoryList[$podv['category_id']]['name'];
+            }
+        }
+
         $this->pageBar($products['total'], $limit, $page, '/product/list');
 
         //处理字段
         $columns = core_lib_Comm::getTableColumns(PRODUCT_COLUMNS);
+        $selColumns = array_values($columns);//筛选
+        $columns['category'] = "分类";
         $this->_params['cCategorys'] = $cCategory;
         $this->_params['products'] = $products['list'];
         $this->_params['pCategorys'] = $parentCategorys['items'];
         $this->_params['parentCategoryId'] = $parentCategoryId;//一级类目ID
         $this->_params['childCategoryId'] = $childCategoryId;//二级类目ID
         $this->_params['columns'] = $columns;//显示字段
-        $this->_params['selColumns'] = array_values($columns);//筛选
+        $this->_params['selColumns'] = $selColumns;
         $this->_params['actTitle'] = "产品列表";
         $this->_params['act'] = "productList";
         $this->_params['searchKey'] = $searchKey;

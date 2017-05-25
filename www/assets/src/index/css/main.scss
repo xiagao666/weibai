@@ -131,15 +131,14 @@
 		li{
 			position: #{$pr};
 			padding-left: 20px;
-			margin-bottom: 30px;
 			&.last{
 				position: #{$pa};
 				left: 0;
-				top: 0;
+				top: 0px;
 				padding-left: 0;
 				margin-bottom: 0;
 				width: 3px;
-				height: 99px;
+				height: 70px;
 				background-color: #{$c2};
 				transition: all .6s ease 0s;
 			}
@@ -155,13 +154,13 @@
 			font-weight: normal;
 		}
 		p{
-			margin-top: 24px;
 			font-size: 16px;
-			height: 48px;
+			height: 45px;
 			line-height: 24px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			width: 100%;
+			color: #615e5e;
 		}
 		a{
 			position: #{$pa};

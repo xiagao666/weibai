@@ -88,6 +88,7 @@ class index_product extends index_base
         unset($productKeys['brand']);
         unset($productKeys['catalog_number']);
         unset($productKeys['price']);
+        unset($productKeys['package']);
         foreach ($productKeys as $pok => $pov) {
             if ($product[$pok]) {
                 $showProduct[$pok]['name'] = $pov;
@@ -97,7 +98,7 @@ class index_product extends index_base
 
         //根据货号查询 不同规格的产品
         $catalogNumber = $product['catalog_number'];
-        $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber, 'id !='.$id));
+        $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber), array("sort"=>"desc"), 20, 1);
         if (is_array($tegProducts['list'])) {
             $tegProductList = (array)$tegProducts['list'];
             array_unshift($tegProductList, $product);
