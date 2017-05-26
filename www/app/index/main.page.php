@@ -15,7 +15,7 @@ class index_main extends index_base
         $this->getNewest();//最新新闻
 //        $this->getSaleImg();//产品促销大图
         $this->getSaleProduct();//促销产品
-        $this->getNewsLeftImg();//新闻资讯左图
+//        $this->getNewsLeftImg();//新闻资讯左图
         return $this->render("index/index.html", $this->_params);
     }
 
@@ -115,13 +115,13 @@ class index_main extends index_base
         $query['type'] = 1;
         $query['sort'] = 2;//sort 排序
         $query['isDesc'] = 2;//倒序
-        $newsList = $this->_dbCms->queryNews($query, 3, 1);
+        $newsList = $this->_dbCms->queryNews($query, 5, 1);
+
         if ($newsList['data']) {
             foreach ($newsList['data'] as $nek => $nev) {
                 $newsList['data'][$nek]['createYmd'] = date("[m/d] Y", strtotime($nev['create_date']));
             }
         }
-
         $this->_params['newsList'] = $newsList['data'];
     }
 

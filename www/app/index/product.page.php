@@ -18,8 +18,9 @@ class index_product extends index_base
     {
         $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
         $key = isset($_GET['key']) ? core_lib_Comm::getStr($_GET["key"]) : '';
-        $parentCategoryId = isset($_GET['pid']) ? core_lib_Comm::getStr($_GET["pid"]) : 0;//父级ID
-        $childCategoryId = isset($_GET['cid']) ? core_lib_Comm::getStr($_GET["cid"]) : 0;//子级ID
+        $parentCategoryId = isset($_GET['pid']) ? core_lib_Comm::getStr($_GET["pid"], 'int') : 0;//父级ID
+        $childCategoryId = isset($_GET['cid']) ? core_lib_Comm::getStr($_GET["cid"], 'int') : 0;//子级ID
+        $isSale = isset($_GET['isSale']) ? core_lib_Comm::getStr($_GET["isSale"], 'int') : 0;//是否促销 1 促销 0 不促销
         $limit = 12;
         //查询产品信息
         $dbProduct = new core_db_Product();
@@ -33,6 +34,9 @@ class index_product extends index_base
         }
         if ($childCategoryId) {
             $query['category_id'] = $childCategoryId;
+        }
+        if ($isSale) {
+            $query['is_sale'] = $isSale;
         }
         if ($key) {
             $query[] = "catalog_number like '%{$key}%' OR product like '%{$key}%' OR abbreviation like '%{$key}%' OR chinese_name like '%{$key}%' OR other_name like '%{$key}%'";
@@ -84,6 +88,7 @@ class index_product extends index_base
         unset($productKeys['brand']);
         unset($productKeys['catalog_number']);
         unset($productKeys['price']);
+        unset($productKeys['package']);
         foreach ($productKeys as $pok => $pov) {
             if ($product[$pok]) {
                 $showProduct[$pok]['name'] = $pov;
@@ -93,7 +98,7 @@ class index_product extends index_base
 
         //根据货号查询 不同规格的产品
         $catalogNumber = $product['catalog_number'];
-        $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber, 'id !='.$id));
+        $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber), array("sort"=>"desc"), 20, 1);
         if (is_array($tegProducts['list'])) {
             $tegProductList = (array)$tegProducts['list'];
             array_unshift($tegProductList, $product);

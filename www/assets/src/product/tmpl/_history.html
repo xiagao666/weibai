@@ -2,13 +2,13 @@
 	<h3>浏览历史</h3>
 	{if $productViewHistory}
 	<ul>
-		{foreach $productViewHistory as $product}
+		{foreach $productViewHistory as $vhproduct}
 		<li>
-			<a href="/product/detail?id={$product['id']}">
-				<img src="{if $product['img_url']}{$product['img_url']}{else}holder.js/92x60?text=产品图片{/if}" alt=""/>
+			<a href="/product/detail?id={$vhproduct['id']}">
+				<img src="{if $vhproduct['img_url']}{$vhproduct['img_url']}{else}holder.js/92x60?text=产品图片{/if}" alt=""/>
 				<p>
-					<strong>{$product['chinese_name']}</strong>
-					<span>基本售价：{$product['price']}元</span>
+					<strong>{$vhproduct['chinese_name']}</strong>
+					<span>基本售价：{$vhproduct['price']}</span>
 				</p>
 			</a>
 		</li>
