@@ -101,7 +101,6 @@ class index_product extends index_base
         $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber), array("sort"=>"desc"), 20, 1);
         if (is_array($tegProducts['list'])) {
             $tegProductList = (array)$tegProducts['list'];
-            array_unshift($tegProductList, $product);
         } else {
             $tegProductList[] = $product;
         }
