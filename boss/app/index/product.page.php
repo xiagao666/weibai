@@ -171,6 +171,7 @@ class index_product extends index_base
                             }
                         }
                         $importProduct['category_id'] = $categoryId;
+                        $importProduct['img_url'] = WWW_URL.'/pdimage/productDefault.jpg';
 
                         $productRS = $dbProduct->addProduct($importProduct);
                         if ($productRS) {
@@ -331,7 +332,7 @@ class index_product extends index_base
             $data['molecular_formula'] = $molecularFormula;
             $data['molecular_weight'] = $molecularWeight;
             $data['grade'] = $grade;
-            $data['img_url'] = $imgUrl[0];
+            $data['img_url'] = $imgUrl[0] ? $imgUrl[0] : WWW_URL.'/pdimage/productDefault.jpg';
             $data['is_sale'] = $isSale;
             $data['category_id'] = $categoryId;
             $data['sort'] = $sort;
