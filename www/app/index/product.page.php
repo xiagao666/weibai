@@ -42,7 +42,8 @@ class index_product extends index_base
             $query[] = "catalog_number like '%{$key}%' OR product like '%{$key}%' OR abbreviation like '%{$key}%' OR chinese_name like '%{$key}%' OR other_name like '%{$key}%'";
         }
 
-        $products = $dbProduct->queryProductList($query, array("sort"=>"desc"), $limit, $page);
+        $groupby = array('catalog_number');
+        $products = $dbProduct->queryProductList($query, array("sort"=>"desc","id"=>"desc"), $limit, $page, $groupby);
         $totalPage = ceil($products['total']/$limit);
 
         if ($key) {

@@ -158,7 +158,7 @@ class core_db_Category extends core_db_DbBase
             }
             $categorys = $this->queryAllCategory(array("pid"=>$categoryId), CATEGORY_SEL_NUM, 0);
             if ($categorys['total']) {
-                throw new Exception("删除的分类存在子分类，需要把", 10001);
+                throw new Exception("删除的分类存在子分类，需要把子类都删除后才能删除父类", 10001);
             }
 
             $this->useConfig("common", "main");
