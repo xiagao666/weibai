@@ -1,0 +1,24 @@
+.v-news{
+	width: 800px;
+    margin-left: -400px;
+    .modal-body{
+    	padding-bottom: 0;
+    }
+	.control-label{
+		width: 76px;
+	}
+	.controls {
+		margin-left: 80px;
+	}
+	input.m-wrap,textarea{
+		width: 100% !important;
+		box-sizing: border-box;
+	}
+	.wangEditor-container{
+		height: 300px;
+
+		.wangEditor-txt{
+			min-height: 227px !important;
+		}
+	}
+}

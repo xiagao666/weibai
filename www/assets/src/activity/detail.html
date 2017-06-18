@@ -1,0 +1,17 @@
+{% extends "www/assets/src/common/_layout.html" %}
+{% set page={
+    title : "新闻详情-唯佰生物科技有限公司",
+    keywords : "新闻详情-唯佰生物科技有限公司",
+    description : "新闻详情-唯佰生物科技有限公司"
+} %}
+{%block css%}
+<link rel="stylesheet" type="text/css" href="/activity/css/detail.css"/>
+{%endblock%}
+{%block content%}
+    <div class="v-content v-pNews">
+    	{% include "www/assets/src/activity/tmpl/_newsdetail.html" %}
+    </div>
+{%endblock%}
+{%block js%}
+<script type="text/javascript" src="/activity/js/main.js"></script>
+{%endblock%}

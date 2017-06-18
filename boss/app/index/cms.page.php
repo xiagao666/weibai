@@ -34,6 +34,33 @@ class index_cms extends index_base
     }
 
     /**
+     * 活动管理
+     */
+    public function pageActivity($inPath)
+    {
+        $searchKey = isset($_GET['searchKey']) ? trim(core_lib_Comm::getStr($_GET['searchKey'])) : '';
+        $searchValue = isset($_GET['searchVal']) ? trim(core_lib_Comm::getStr($_GET['searchVal'])) : '';
+        $page = isset($_GET['page']) ? core_lib_Comm::getStr($_GET["page"], 'int') : 1;
+        $limit = isset($_GET['limit']) ? core_lib_Comm::getStr($_GET["limit"], 'int') : 10;
+
+        $dbCms = new core_db_Cms();
+
+        $query['type'] = 11;
+        if ($searchKey && $searchValue) {
+            $query[] = " `{$searchKey}` like '%{$searchValue}%' ";
+        }
+        $newsList = $dbCms->queryNews($query, $limit, $page);
+
+        $this->pageBar($newsList['total'], $limit, $page, '/cms/news');
+
+        $this->_params['searchKey'] = $searchKey;
+        $this->_params['searchVal'] = $searchValue;
+        $this->_params['cmsData'] = $newsList['data'];
+        $this->_params['url'] = WWW_URL."/activity/detail?id=";
+        return $this->render("activity/list.html", $this->_params);
+    }
+
+    /**
      * 品牌代理
      */
     public function pageBrand($inPath)
@@ -232,6 +259,9 @@ class index_cms extends index_base
                 break;
             case 4://关于我们
                 $tpl = "about/action.html";
+                break;
+            case 11://活动
+                $tpl = "activity/action.html";
                 break;
             default:
                 $tpl = "cms/action.html";
