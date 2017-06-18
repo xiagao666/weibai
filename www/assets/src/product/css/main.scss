@@ -107,8 +107,8 @@
 				}
 			}
 			img{
-				width: 92px;
-				height: 60px;
+				width: 70px;
+				height: 70px;
 			    display: inline-block;
 			    vertical-align: top;
 			}
@@ -123,8 +123,14 @@
 					display: block;
 					margin-left: 10px;
 					margin-bottom: 8px;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
+					width: 210px;
 				}
 				span{
+					display:block;
+					margin-top:10px;
 					padding-left: 10px;
 				}
 			}
@@ -154,7 +160,7 @@
 	    	margin-bottom: 18px;
 			float: left;
 			width: 216px;
-			height: 326px;
+			height: 280px;
 			background-color: #fff;
 			img{
 				width: 200px;
@@ -163,12 +169,15 @@
 			}
 			.desc{
 				display: block;
-				margin-bottom: 20px;
-	    		margin-top: 10px;
+				margin-bottom: 5px;
 	    		color: #{$c2};
 	    		overflow: hidden;
     			height: 20px;
                 padding: 0 10px;
+				font-size: 16px;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				width: 200px;
 			}
 
 			p{

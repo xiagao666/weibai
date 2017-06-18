@@ -24,9 +24,14 @@
 		<div class="cotent-main v-hide">
 			<h4>文章/文献列表</h4>
 			{if $productRelationList[1]}
+			<dl>
 			{foreach $productRelationList[1] as $prlk => $prlv}
-			<a class="main-doc" href="{$prlv[download_url]}">{$prlv[title]}</a>
+				<dd>
+					{$prlv[title]}
+					<a href="{$prlv[hyper_link]}" target="_blank"> 查看更多 » </a>
+				</dd>
 			{/foreach}
+			</dl>
 			{/if}
 		</div>
 	</div>

@@ -21,7 +21,7 @@ class index_product extends index_base
         $parentCategoryId = isset($_GET['pid']) ? core_lib_Comm::getStr($_GET["pid"], 'int') : 0;//父级ID
         $childCategoryId = isset($_GET['cid']) ? core_lib_Comm::getStr($_GET["cid"], 'int') : 0;//子级ID
         $isSale = isset($_GET['isSale']) ? core_lib_Comm::getStr($_GET["isSale"], 'int') : 0;//是否促销 1 促销 0 不促销
-        $limit = 12;
+        $limit = 16;
         //查询产品信息
         $dbProduct = new core_db_Product();
         if ($parentCategoryId && !$childCategoryId) {

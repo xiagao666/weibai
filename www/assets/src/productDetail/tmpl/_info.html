@@ -15,11 +15,11 @@
 		<table>
 			<thead>
 				<tr>
-					<th style="width: 17%;">品牌</th>
-					<th style="width: 17%;">货号</th>
-					<th style="width: 32%;">类型</th>
-					<th style="width: 17%;">规格</th>
-					<th style="width: 17%;">价格</th>
+					<th style="width: 15%;">品牌</th>
+					<th style="width: 15%;">货号</th>
+					<th style="width: 50%;">产品</th>
+					<th style="width: 10%;">规格</th>
+					<th style="width: 10%;">价格</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,7 +27,7 @@
 				<tr>
 					<td>{$tegProduct[brand]}</td>
 					<td>{$tegProduct[catalog_number]}</td>
-					<td>{$tegProduct[type]}</td>
+					<td><div class="productTd">{if $tegProduct['product']}{$tegProduct['product']}{else}{$tegProduct['chinese_name']}{/if}</div></td>
 					<td>{$tegProduct[package]}</td>
 					<td>{$tegProduct[price]}</td>
 				</tr>

@@ -414,11 +414,13 @@ class index_product extends index_base
                 //产品文献
                 if ($referenceDes) {
                     foreach ($referenceDes as $rk => $rv) {
-                        $referenceData['product_id'] = $productId;
-                        $referenceData['type'] = 1;
-                        $referenceData['title'] = $rv;
-                        $referenceData['hyper_link'] = $referenceUrl[$rk];
-                        $dbProductRelation->addProductRelation($referenceData);
+                        if ($rv) {
+                            $referenceData['product_id'] = $productId;
+                            $referenceData['type'] = 1;
+                            $referenceData['title'] = $rv;
+                            $referenceData['hyper_link'] = $referenceUrl[$rk];
+                            $dbProductRelation->addProductRelation($referenceData);
+                        }
                     }
                 }
                 return $this->alert(array('status'=>'success','msg'=>$msg."成功"));
@@ -452,11 +454,13 @@ class index_product extends index_base
                 //产品文献
                 if ($referenceDes) {
                     foreach ($referenceDes as $rk => $rv) {
-                        $referenceData['product_id'] = $productId;
-                        $referenceData['type'] = 1;
-                        $referenceData['title'] = $rv;
-                        $referenceData['hyper_link'] = $referenceUrl[$rk];
-                        $dbProductRelation->addProductRelation($referenceData);
+                        if ($rv) {
+                            $referenceData['product_id'] = $productId;
+                            $referenceData['type'] = 1;
+                            $referenceData['title'] = $rv;
+                            $referenceData['hyper_link'] = $referenceUrl[$rk];
+                            $dbProductRelation->addProductRelation($referenceData);
+                        }
                     }
                 }
             }
