@@ -381,39 +381,28 @@ secondCur: ""
                 <div class="control-group">
                     <div class="row-fluid">
                         <!--文献 BEGIN-->
-                        <div class="span6">
-                            <div class="control-group">
-                                <label class="control-label">文献</label>
-                                <div class="controls">
-                                    <span class="btn green fileinput-button">
-                                        <span><i class="icon-plus"></i> 添加文献</span>
-                                        <input class="JuploadDoc" data-ptype="1" data-show="#JshowDoc" type="file" name="upfile" multiple accept="application/vnd.ms-excel,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
-                                    </span>
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label">文献</label>
+                            <div class="controls">
+                                    <table>
+                                        <tr>
+                                            <td></td>
+                                            <td style="width: 300px;">描述</td>
+                                            <td style="width: 200px;">地址</td>
+                                        </tr>
+                                        {if $reference}
+                                        {foreach $reference as $rk => $rv}
+                                        <tr>
+                                            <td>{$rv['name']}：</td>
+                                            <td><input type="text" class="span10 m-wrap" name="referenceDes[{$rv['id']}]" value="{$rv['referenceDes']}"/></td>
+                                            <td><input type="text"  class="span10 m-wrap" name="referenceUrl[{$rv['id']}]" value="{$rv['referenceUrl']}"/></td>
+                                        </tr>
+                                        {/foreach}
+                                        {/if}
+                                    </table>
                             </div>
                         </div>
                         <!--文献 END-->
-
-                        <div class="span6">
-                            <div class="control-group">
-                                <div id="JshowDoc" class="files upload-pre">
-                                    {if $productRelationList[1]}
-                                        {foreach $productRelationList[1] as $item}
-                                            {if $item[download_url]}
-                                                <div>
-                                                    <p>
-                                                        <span>{$item[title]}</span>
-                                                        <input type="hidden" name="productRelationsPath[1][]" value="{$item[download_url]}"/>
-                                                        <input type="hidden" name="productRelationsTitle[1][]" value="{$item[title]}"/>
-                                                        <i class="pre-close">x</i>
-                                                    </p>
-                                                </div>
-                                            {/if}
-                                        {/foreach}
-                                    {/if}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
