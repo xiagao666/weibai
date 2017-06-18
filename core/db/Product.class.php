@@ -49,11 +49,11 @@ class core_db_Product extends core_db_DbBase
      * @param $orderBy
      * @return bool
      */
-    public function queryProductList($query, $orderBy = array("id" => "desc"), $limit = 10, $page = 1)
+    public function queryProductList($query, $orderBy = array("id" => "desc"), $limit = 10, $page = 1, $groupby = '')
     {
         try {
             $this->useConfig("common", "query");
-            $products = $this->getAllData($query, "*", "", $orderBy, "", $limit, $page);
+            $products = $this->getAllData($query, "*", $groupby, $orderBy, "", $limit, $page);
             if ($products === false) {
                 throw new Exception("查询失败");
             }

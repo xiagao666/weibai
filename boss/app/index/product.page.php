@@ -171,6 +171,7 @@ class index_product extends index_base
                             }
                         }
                         $importProduct['category_id'] = $categoryId;
+                        $importProduct['img_url'] = WWW_URL.'/pdimage/productDefault.jpg';
 
                         $productRS = $dbProduct->addProduct($importProduct);
                         if ($productRS) {
@@ -249,6 +250,39 @@ class index_product extends index_base
         $categoryConditon = array("pid" => 0);
         $pCategorys = $dbCategory->queryAllCategory($categoryConditon, CATEGORY_SEL_NUM, 1);
 
+        $reference = array(
+            array(
+                'id' => 1,
+                'name'=>'文献1',
+                'referenceDes'=>'',
+                'referenceUrl'=>''
+            ),
+            array(
+                'id' => 2,
+                'name'=>'文献2',
+                'referenceDes'=>'',
+                'referenceUrl'=>''
+            ),
+            array(
+                'id' => 3,
+                'name'=>'文献3',
+                'referenceDes'=>'',
+                'referenceUrl'=>''
+            ),
+            array(
+                'id' => 4,
+                'name'=>'文献4',
+                'referenceDes'=>'',
+                'referenceUrl'=>''
+            ),
+            array(
+                'id' => 5,
+                'name'=>'文献5',
+                'referenceDes'=>'',
+                'referenceUrl'=>''
+            )
+        );
+
         if ($isEdit) {
             if (!$productId) {
                 return $this->alert(array('status'=>'error','msg'=>"缺少管理员ID"));
@@ -268,7 +302,12 @@ class index_product extends index_base
 
             if ($productRelations['list']) {// 文献、文章type=1/产品说明书type=2
                 foreach ($productRelations['list'] as $prek => $prev) {
-                    $productRelationList[$prev['type']][] = $prev;
+                    if ($prev['type'] == 1) {
+                        $reference[$prek]['referenceDes'] = $prev['title'];
+                        $reference[$prek]['referenceUrl'] = $prev['hyper_link'];
+                    } else {
+                        $productRelationList[$prev['type']][] = $prev;
+                    }
                 }
             }
 
@@ -307,6 +346,8 @@ class index_product extends index_base
 
             $productRelationsTitle = isset($_POST['productRelationsTitle']) ? core_lib_Comm::getStr($_POST['productRelationsTitle']) : '';//产品关联文件标题
             $productRelationsPath = isset($_POST['productRelationsPath']) ? core_lib_Comm::getStr($_POST['productRelationsPath']) : '';//产品关联文件路径
+            $referenceDes = isset($_POST['referenceDes']) ? core_lib_Comm::getStr($_POST['referenceDes']) : '';//产品文献描述
+            $referenceUrl = isset($_POST['referenceUrl']) ? core_lib_Comm::getStr($_POST['referenceUrl']) : '';//产品文献Url
             if (!$catalogNumber || !$package) {
                 return $this->alert(array('status'=>'error','msg'=>"产品货号或包装不能为空"));
             }
@@ -331,7 +372,7 @@ class index_product extends index_base
             $data['molecular_formula'] = $molecularFormula;
             $data['molecular_weight'] = $molecularWeight;
             $data['grade'] = $grade;
-            $data['img_url'] = $imgUrl[0];
+            $data['img_url'] = $imgUrl[0] ? $imgUrl[0] : WWW_URL.'/pdimage/productDefault.jpg';
             $data['is_sale'] = $isSale;
             $data['category_id'] = $categoryId;
             $data['sort'] = $sort;
@@ -370,6 +411,18 @@ class index_product extends index_base
                         }
                     }
                 }
+                //产品文献
+                if ($referenceDes) {
+                    foreach ($referenceDes as $rk => $rv) {
+                        if ($rv) {
+                            $referenceData['product_id'] = $productId;
+                            $referenceData['type'] = 1;
+                            $referenceData['title'] = $rv;
+                            $referenceData['hyper_link'] = $referenceUrl[$rk];
+                            $dbProductRelation->addProductRelation($referenceData);
+                        }
+                    }
+                }
                 return $this->alert(array('status'=>'success','msg'=>$msg."成功"));
             } else {
                 //添加基础产品信息
@@ -387,7 +440,7 @@ class index_product extends index_base
                 }
 
                 //添加产品管理关联文件
-                if ($productRelations) {
+                if ($productRelationsPath) {
                     foreach ($productRelationsPath as $prk => $prv) {
                         foreach ($prv as $cprk => $cprv) {
                             $productRelationData['product_id'] = $productId;
@@ -395,6 +448,18 @@ class index_product extends index_base
                             $productRelationData['title'] = $productRelationsTitle[$prk][$cprk];
                             $productRelationData['download_url'] = $cprv;
                             $dbProductRelation->addProductRelation($productRelationData);
+                        }
+                    }
+                }
+                //产品文献
+                if ($referenceDes) {
+                    foreach ($referenceDes as $rk => $rv) {
+                        if ($rv) {
+                            $referenceData['product_id'] = $productId;
+                            $referenceData['type'] = 1;
+                            $referenceData['title'] = $rv;
+                            $referenceData['hyper_link'] = $referenceUrl[$rk];
+                            $dbProductRelation->addProductRelation($referenceData);
                         }
                     }
                 }
@@ -406,6 +471,7 @@ class index_product extends index_base
         $this->_params['actTitle'] = $msg."产品";
         $this->_params['act'] = "productList";
         $this->_params['productId'] = $productId;
+        $this->_params['reference'] = $reference;
         return $this->render("products/action.html", $this->_params);
     }
 
