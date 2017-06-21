@@ -10,7 +10,7 @@
 	  <div class="swiper-wrapper">
 	    {if $newsList}
 	      {foreach $newsList as $rk => $rv}
-	        <a class="swiper-slide" href="/news/detail?id={$nev[id]}"><img src="{if $rv['img_url']}{$rv['img_url']}{else}holder.js/610x360?text=新闻资讯{$rk}{/if}" title="{$rv['title']}"/></a>
+	        <a class="swiper-slide" href="/news/detail?id={$rv[id]}"><img src="{if $rv['img_url']}{$rv['img_url']}{else}holder.js/610x360?text=新闻资讯{$rk}{/if}" title="{$rv['title']}"/></a>
 	      {/foreach}
 	    {/if}
 	  </div>

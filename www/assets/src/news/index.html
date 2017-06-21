@@ -6,17 +6,24 @@
 } %}
 {%block css%}
 <link rel="stylesheet" type="text/css" href="/news/css/main.css"/>
+<link href="//cdn.bootcss.com/sweetalert/1.0.1/sweetalert.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/common/css/page.css"/>
 {%endblock%}
 {%block content%}
     <div class="v-content v-pTitle">
     	<h2>新闻资讯<span>新闻列表</span></h2>
     </div>
+
     <div class="v-content v-pNews">
+        <div class="pNews-left">
+            {% include "www/assets/src/product/tmpl/_nav.html" %}
+            {% include "www/assets/src/product/tmpl/_history.html" %}
+        </div>
     	{% include "www/assets/src/news/tmpl/_newslist.html" %}
     </div>
 {%endblock%}
 {%block js%}
+<script src="//cdn.bootcss.com/sweetalert/1.0.1/sweetalert.min.js"></script>
 <script type="text/javascript" src="/common/js/page.js"></script>
 <script type="text/javascript" src="/news/js/main.js"></script>
 {%endblock%}
