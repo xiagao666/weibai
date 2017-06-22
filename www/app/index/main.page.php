@@ -52,19 +52,10 @@ class index_main extends index_base
         $query['sort'] = 2;//sort 排序
         $query['isDesc'] = 2;//倒序
         $dbCms = new core_db_Cms();
-        $topTech = $dbCms->queryNews($query, 1, 1);
-        $bigTech = $topTech['data'][0];
-
-        $query["type"] = 3;
-        $query['sort'] = 2;//sort 排序
-        $query['isDesc'] = 2;//倒序
-        $query[] = " id != ".$bigTech['id'];
-        $dbCms = new core_db_Cms();
         $techs = $dbCms->queryNews($query, $limit, $page);
         $totalPage = ceil($techs['total'] /  $limit);
 
         $this->_params['techs'] = $techs['data'];
-        $this->_params['bigTech'] = $bigTech;
         $this->_params['totalPage'] = $totalPage;
         $this->_params['page'] = $page;
         $this->_params['currNav'] = "/main/tech";
@@ -156,7 +147,8 @@ class index_main extends index_base
     {
         $query['is_sale'] = 1;
         $dbProduct = new core_db_Product();
-        $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc"), 12, 1);
+        $groupby = array('catalog_number');
+        $saleProducts = $dbProduct->queryProductList($query, array("sort"=>"desc","id"=>"desc"), 12, 1, $groupby);
         $saleCount = count($saleProducts['list']);
         $saleNum = floor($saleCount / 2);
 

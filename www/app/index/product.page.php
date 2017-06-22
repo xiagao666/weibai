@@ -99,7 +99,7 @@ class index_product extends index_base
 
         //根据货号查询 不同规格的产品
         $catalogNumber = $product['catalog_number'];
-        $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber), array("sort"=>"desc"), 20, 1);
+        $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber), array("sort"=>"desc","id"=>"desc"), 20, 1);
         if (is_array($tegProducts['list'])) {
             $tegProductList = (array)$tegProducts['list'];
         } else {
