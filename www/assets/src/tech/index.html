@@ -13,15 +13,9 @@
     	<h2>技术服务<span>Technical services</span></h2>
     </div>
     <div class="v-content v-pTech">
-    	<div class="pTech-special">
-			<img src="{if $bigTech['img_url']}{$bigTech['img_url']}{else}holder.js/660x600?text=技术服务{/if}" alt="{$bigTech['title']}"/>
-			<div>
-				<h3>{$bigTech['title']}</h3>
-				<p>{$bigTech['des']}</p>
-			</div>
-		</div>
-    	<ul>
-			{if techs}
+		<div class="v-content v-pBrand">
+			<ul>
+				{if techs}
 				{foreach $techs as $tk => $tv}
 				<li class="{if $tk%3 == 2}last{/if}">
 					<img src="{if $tv['img_url']}{$tv['img_url']}{else}holder.js/343x200?text=技术服务{/if}" alt="{$tv['title']}"/>
@@ -29,8 +23,9 @@
 					<p>{$tv['des']}</p>
 				</li>
 				{/foreach}
-			{/if}
-    	</ul>
+				{/if}
+			</ul>
+		</div>
     </div>
 	<input type="hidden" name="totalPage" value="{$totalPage}"/>
 	<input type="hidden" name="currPage" value="{$page}"/>
