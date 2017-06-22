@@ -377,6 +377,19 @@ class index_product extends index_base
             $data['category_id'] = $categoryId;
             $data['sort'] = $sort;
 
+            //根据货号查询 不同规格的产品
+            $tegQueryData['catalog_number'] = $catalogNumber;
+            $tegProducts = $dbProduct->queryProductList(array('catalog_number'=>$catalogNumber), array("sort"=>"desc","id"=>"desc"), 1000, 1);
+            if (is_array($tegProducts['list'])) {
+                foreach ($tegProducts['list'] as $tk => $tv) {
+                    if ($tv['id'] != $productId) {
+                        $tegUpdateData['product_id'] = $tv['id'];
+                        $tegUpdateData['img_url'] = $data['img_url'];
+                        $dbProduct->updateProductById($tegUpdateData);
+                    }
+                }
+            }
+
             if ($isEdit) {
                 $data['product_id'] = $productId;
                 //编辑基础产品信息
