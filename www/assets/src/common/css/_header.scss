@@ -126,11 +126,11 @@
 				    		font-weight: 300;
 				    		color: #454545;
 				    		transition: all 0.3s ease 0s;
-							font-size: #{$f16};
+							font-size: #{$f14};
 
 				    		&.item-nav{
 				    			font-weight: 900;
-				    			font-size: 15px;
+				    			font-size: #{$f16};
 				    			color: #444;
 				    		}
 
