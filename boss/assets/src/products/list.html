@@ -114,16 +114,24 @@
 			<table class="table table-striped table-bordered table-hover table-full-width">
 				<thead>
 					<tr>
+						<th>操作</th>
 						{foreach $columns as $key => $item}
 						<th>{$item}</th>
 						{/foreach}
-						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 				{if $products}
 					{foreach $products as $item}
 						<tr>
+							<td>
+								<a href="/product/action?productId={$item[id]}&isEdit=1" class="Joperate btn blue common-btn">
+									<i class="icon-edit"></i>编辑
+								</a>
+								<button data-id="{$item['id']}" id="delProduct" class="Jdelete btn red common-btn" type="button">
+									<i class="icon-trash"></i>删除
+								</button>
+							</td>
 							<td><a href="/product/action?productId={$item[id]}&isEdit=1">{$item['id']}</a></td>
 							<td>{$item['brand']}</td>
 							<td>{$item['catalog_number']}</td>
@@ -147,14 +155,6 @@
 							<td>{$item['grade']}</td>
 							<td>{$item['sort']}</td>
 							<td>{$item['category']}</td>
-							<td>
-								<a href="/product/action?productId={$item[id]}&isEdit=1" class="Joperate btn blue common-btn">
-									<i class="icon-edit"></i>编辑
-								</a>
-								<button data-id="{$item['id']}" id="delProduct" class="Jdelete btn red common-btn" type="button">
-									<i class="icon-trash"></i>删除
-								</button>
-							</td>
 						</tr>
 					{/foreach}
 				{/if}
