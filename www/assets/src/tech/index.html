@@ -17,9 +17,11 @@
 			{if techs}
 			{foreach $techs as $tk => $tv}
 			<li class="{if $tk%3 == 2}last{/if}">
-				<img src="{if $tv['img_url']}{$tv['img_url']}{else}holder.js/343x200?text=技术服务{/if}" alt="{$tv['title']}"/>
-				<h3>{$tv['title']}</h3>
-				<p>{$tv['des']}</p>
+				<a href="{if $tv[hyperlink]}{$tv[hyperlink]}{else}javascript:void 0{/if}" target="_blank">
+					<img src="{if $tv['img_url']}{$tv['img_url']}{else}holder.js/343x200?text=技术服务{/if}" alt="{$tv['title']}"/>
+					<h3>{$tv['title']}</h3>
+					<p>{$tv['des']}</p>
+				</a>
 			</li>
 			{/foreach}
 			{/if}
