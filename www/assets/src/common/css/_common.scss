@@ -24,6 +24,27 @@
 			height: 100%;
 		}
 	}
+
+	.icon-left,.icon-right{
+		position: absolute;
+		background-image: url(/index/img/banner_arrow.png);
+	    background-repeat: no-repeat;
+	    position: absolute;
+	    top: 50%;
+	    margin-top: -35px;
+	    width: 70px;
+	    height: 70px;
+	    z-index: 999;
+	}
+
+	.icon-left{
+		left: 20px;
+    	background-position: left top;
+	}
+	.icon-right{
+		right: 20px;
+    	background-position: left bottom;
+	}
 }
 .v-pTitle{
 	margin-bottom: 15px;

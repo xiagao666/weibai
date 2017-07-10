@@ -31,7 +31,7 @@ var Base = {
 		});
 	},
 	initSwiper: function(){
-		new Swiper('#JcommonSwiper', {
+		var bannerSwiper = new Swiper('#JcommonSwiper', {
 		    // 可选选项，自动滑动
 		    autoplay: 5000,
 		    pagination: '#JcommonSwiper .swiper-pagination',
@@ -42,6 +42,15 @@ var Base = {
 		    // 底部分页可点击
 		    paginationClickable: true
 		});
+
+		$('.icon-left').on('click', function(e) {
+            e.preventDefault()
+            bannerSwiper.swipePrev()
+        })
+        $('.icon-right').on('click', function(e) {
+            e.preventDefault()
+            bannerSwiper.swipeNext()
+        })
 	}
 };
 
