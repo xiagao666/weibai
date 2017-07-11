@@ -122,6 +122,14 @@
 		width: 610px;
 		height: 360px;
 		float: left;
+		.icon-left{
+			left: 20px;
+			background-position: left top;
+		}
+		.icon-right{
+			right: 20px;
+			background-position: left bottom;
+		}
 	}
 	ul{
 		float: #{$fr};
