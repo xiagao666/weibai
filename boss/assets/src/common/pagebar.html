@@ -1,6 +1,6 @@
 <div class="row-fluid v-pagebar">
-    <div class="span6" style="width: 77%;">
-        <div class="dataTables_paginate paging_bootstrap pagination">
+    <div class="span6">
+        <div class="dataTables_paginate paging_bootstrap pagination" style="float: left;">
             <ul>
                 <li class="prev {if $prePage < 1}disabled{/if}">
                     <a href="{if $prePage < 1}javascript:;{else}{$prePageUrl}{/if}">
@@ -18,7 +18,7 @@
             </ul>
         </div>
     </div>
-    <div class="span6" style="width: 20%;">
+    <div class="span6">
         <div class="dataTables_info" id="sample_editable_1_info">
             每页 {$limit} 条,总共 {$totalSize} 条
         </div>
