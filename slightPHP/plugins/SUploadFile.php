@@ -7,7 +7,7 @@ class SUploadFile
 {
     public $filepath = '../../file/pdimage/'; //上传文件存放路径
 
-    public $filesize = 2048000; //允许上传的大小
+    public $filesize = 10485760; //允许上传的大小
 
     public $india = false; //是否打水印 true打 false不打
 
