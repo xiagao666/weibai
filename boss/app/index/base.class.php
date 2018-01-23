@@ -45,7 +45,7 @@ class index_base extends STpl
 
         $this->assign('_ymd', $this->_ymd);
         $this->assign('_time', $this->_time);
-        $this->_params['headerTitle'] = "唯佰生物";
+        $this->_params['headerTitle'] = "韵飞生物";
     }
 
     /**
