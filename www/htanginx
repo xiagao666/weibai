@@ -1,5 +1,5 @@
 
-#关于唯佰
+#关于韵飞
 rewrite ^/about$ / last;
 
 #联系我们

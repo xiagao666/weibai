@@ -113,13 +113,13 @@ class index_cms extends index_base
     }
 
     /**
-     * 关于唯佰
+     * 关于韵飞
      */
     public function pageAbout($inPath)
     {
         $dbCms = new core_db_Cms();
 
-        $query['type'] = 4;//关于唯佰
+        $query['type'] = 4;//关于韵飞
         $about = $dbCms->queryNews($query, 1, 1);
         if (is_array($about['data'][0])) {
             $isEdit = 1;

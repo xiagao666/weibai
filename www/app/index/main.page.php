@@ -63,7 +63,7 @@ class index_main extends index_base
     }
 
     /**
-     * 关于唯佰
+     * 关于韵飞
      */
     public function pageAbout($inPath)
     {
